@@ -8,56 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
-:root {
-  --bg:        #07091a;
-  --bg2:       #0d1230;
-  --bg3:       #111a3a;
-  --surface:   rgba(255,255,255,0.04);
-  --border:    rgba(255,255,255,0.08);
-  --border2:   rgba(255,255,255,0.13);
-  --blue:      #2e6aff;
-  --blue-dim:  rgba(46,106,255,0.15);
-  --blue-lite: #5b8fff;
-  --accent:    #00e5ff;
-  --green:     #00d68f;
-  --green-dim: rgba(0,214,143,0.12);
-  --amber:     #ffb020;
-  --amber-dim: rgba(255,176,32,0.12);
-  --red:       #ff4d4d;
-  --red-dim:   rgba(255,77,77,0.12);
-  --text:      #dce6ff;
-  --text2:     #7a8ab0;
-  --text3:     #4a5880;
-  --white:     #ffffff;
-  --sidebar-w: 228px;
-  --radius:    12px;
-}
-
+:root{--bg:#07091a;--bg2:#0d1230;--bg3:#111a3a;--surface:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.13);--blue:#2e6aff;--blue-dim:rgba(46,106,255,0.15);--blue-lite:#5b8fff;--accent:#00e5ff;--green:#00d68f;--green-dim:rgba(0,214,143,0.12);--amber:#ffb020;--amber-dim:rgba(255,176,32,0.12);--red:#ff4d4d;--red-dim:rgba(255,77,77,0.12);--text:#dce6ff;--text2:#7a8ab0;--text3:#4a5880;--white:#ffffff;--sidebar-w:228px;--radius:12px}
 html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
 .app{display:flex;height:100vh;overflow:hidden}
-
-/* ── SIDEBAR ── */
-.sidebar{
-  width:var(--sidebar-w);flex-shrink:0;
-  background:var(--bg2);border-right:1px solid var(--border);
-  display:flex;flex-direction:column;overflow:hidden;
-}
-.sidebar-logo{
-  padding:24px 20px 20px;font-weight:800;font-size:1.3rem;
-  color:var(--white);letter-spacing:-0.5px;border-bottom:1px solid var(--border);
-}
+.sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.sidebar-logo{padding:24px 20px 20px;font-weight:800;font-size:1.3rem;color:var(--white);letter-spacing:-0.5px;border-bottom:1px solid var(--border)}
 .sidebar-logo span{color:var(--accent)}
-.sidebar-section{
-  padding:20px 12px 8px;font-size:0.68rem;font-weight:600;
-  letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);
-}
-.nav-item{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 12px;margin:1px 8px;border-radius:8px;cursor:pointer;
-  color:var(--text2);font-size:0.88rem;font-weight:400;
-  transition:all 0.15s;border:none;background:none;width:calc(100% - 16px);text-align:left;
-}
+.sidebar-section{padding:20px 12px 8px;font-size:0.68rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;margin:1px 8px;border-radius:8px;cursor:pointer;color:var(--text2);font-size:0.88rem;font-weight:400;transition:all 0.15s;border:none;background:none;width:calc(100% - 16px);text-align:left}
 .nav-item:hover{background:var(--surface);color:var(--text)}
 .nav-item.active{background:var(--blue-dim);color:var(--blue-lite);font-weight:500}
 .nav-item .icon{width:18px;height:18px;flex-shrink:0;opacity:0.7}
@@ -70,13 +28,10 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .user-info{flex:1;min-width:0}
 .user-name{font-size:0.82rem;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .user-plan{font-size:0.7rem;color:var(--text3)}
-
-/* ── MAIN ── */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:60px;flex-shrink:0;background:var(--bg2);border-bottom:1px solid var(--border)}
 .topbar-title{font-weight:700;font-size:1rem;color:var(--white)}
 .topbar-actions{display:flex;align-items:center;gap:10px}
-
 .btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.84rem;font-weight:500;cursor:pointer;border:none;transition:all 0.15s}
 .btn-primary{background:var(--blue);color:var(--white)}
 .btn-primary:hover{background:var(--blue-lite);transform:translateY(-1px)}
@@ -86,43 +41,22 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .btn-green:hover{background:rgba(0,214,143,0.2)}
 .btn-sm{padding:6px 12px;font-size:0.8rem}
 .btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(255,77,77,0.2)}
-.btn-danger:hover{background:rgba(255,77,77,0.2)}
-
 .content{flex:1;overflow-y:auto;padding:28px}
-.page{display:none}
-.page.active{display:block}
-
-/* ── DASHBOARD ── */
+.page{display:none}.page.active{display:block}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:border-color 0.2s,transform 0.2s}
 .stat-card:hover{border-color:var(--border2);transform:translateY(-2px)}
 .stat-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
 .stat-label{font-size:0.78rem;color:var(--text2);font-weight:500}
 .stat-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem}
-.stat-icon.blue{background:var(--blue-dim)}
-.stat-icon.green{background:var(--green-dim)}
-.stat-icon.amber{background:var(--amber-dim)}
-.stat-icon.red{background:var(--red-dim)}
+.stat-icon.blue{background:var(--blue-dim)}.stat-icon.green{background:var(--green-dim)}.stat-icon.amber{background:var(--amber-dim)}.stat-icon.red{background:var(--red-dim)}
 .stat-val{font-size:2rem;font-weight:800;color:var(--white);line-height:1;letter-spacing:-0.5px}
 .stat-sub{font-size:0.75rem;color:var(--text3);margin-top:4px}
-.stat-sub span{color:var(--green)}
-
 .grid-2{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:28px}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .card-title{font-size:0.95rem;font-weight:700;color:var(--white)}
-
 .activity-list{display:flex;flex-direction:column;gap:2px}
-.activity-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;transition:background 0.15s}
-.activity-item:hover{background:rgba(255,255,255,0.03)}
-.activity-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.dot-green{background:var(--green)}
-.dot-blue{background:var(--blue)}
-.dot-amber{background:var(--amber)}
-.activity-text{flex:1;font-size:0.83rem;color:var(--text2)}
-.activity-text strong{color:var(--text);font-weight:500}
-.activity-time{font-size:0.72rem;color:var(--text3)}
-
 .seg-list{display:flex;flex-direction:column;gap:10px}
 .seg-row{display:flex;align-items:center;gap:10px}
 .seg-emoji{font-size:1.1rem;width:28px;text-align:center}
@@ -131,8 +65,6 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .seg-bar-wrap{height:4px;background:var(--bg3);border-radius:4px;margin-top:4px;overflow:hidden}
 .seg-bar{height:100%;border-radius:4px;background:var(--blue);transition:width 0.6s ease}
 .seg-count{font-size:0.78rem;color:var(--text3);white-space:nowrap}
-
-/* ── CLIENTES ── */
 .toolbar{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
 .search-wrap{position:relative;flex:1;min-width:200px}
 .search-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px 9px 36px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.15s}
@@ -140,9 +72,7 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .search-wrap input::placeholder{color:var(--text3)}
 .search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);opacity:0.4;pointer-events:none}
 .filter-select{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;cursor:pointer}
-.filter-select:focus{border-color:var(--blue)}
 .filter-select option{background:var(--bg2)}
-
 .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 table{width:100%;border-collapse:collapse}
 thead th{padding:12px 16px;text-align:left;font-size:0.72rem;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--text3);background:var(--bg3);border-bottom:1px solid var(--border)}
@@ -151,33 +81,19 @@ tbody tr:last-child{border-bottom:none}
 tbody tr:hover{background:rgba(255,255,255,0.025)}
 tbody td{padding:13px 16px;font-size:0.84rem;color:var(--text2)}
 tbody td.name{color:var(--text);font-weight:500}
-
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:100px;font-size:0.72rem;font-weight:600}
-.badge-green{background:var(--green-dim);color:var(--green)}
-.badge-amber{background:var(--amber-dim);color:var(--amber)}
-.badge-red{background:var(--red-dim);color:var(--red)}
-.badge-blue{background:var(--blue-dim);color:var(--blue-lite)}
-.badge-accent{background:rgba(0,229,255,0.1);color:var(--accent)}
-.badge-gray{background:rgba(255,255,255,0.07);color:var(--text2)}
-
+.badge-green{background:var(--green-dim);color:var(--green)}.badge-amber{background:var(--amber-dim);color:var(--amber)}.badge-red{background:var(--red-dim);color:var(--red)}.badge-blue{background:var(--blue-dim);color:var(--blue-lite)}.badge-accent{background:rgba(0,229,255,0.1);color:var(--accent)}.badge-gray{background:rgba(255,255,255,0.07);color:var(--text2)}
 .days-chip{display:inline-block;padding:3px 10px;border-radius:100px;font-size:0.75rem;font-weight:600}
-.days-ok{background:var(--green-dim);color:var(--green)}
-.days-warn{background:var(--amber-dim);color:var(--amber)}
-.days-alert{background:var(--red-dim);color:var(--red)}
-
+.days-ok{background:var(--green-dim);color:var(--green)}.days-warn{background:var(--amber-dim);color:var(--amber)}.days-alert{background:var(--red-dim);color:var(--red)}
 .action-btns{display:flex;gap:6px}
 .icon-btn{width:30px;height:30px;border-radius:6px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;background:var(--surface);color:var(--text2);transition:all 0.15s}
 .icon-btn:hover{background:var(--bg3);color:var(--text)}
 .icon-btn.send:hover{background:var(--green-dim);color:var(--green)}
 .icon-btn.del:hover{background:var(--red-dim);color:var(--red)}
-
-/* import dropzone */
 .import-zone{border:2px dashed var(--border2);border-radius:var(--radius);padding:32px;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:20px}
 .import-zone:hover,.import-zone.dragover{border-color:var(--blue);background:var(--blue-dim)}
 .import-zone p{font-size:0.88rem;color:var(--text2);margin-top:8px}
 .import-zone span{font-size:0.78rem;color:var(--text3)}
-
-/* ── AUTOMAÇÕES ── */
 .envios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
 .envio-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:border-color 0.2s}
 .envio-card:hover{border-color:var(--border2)}
@@ -185,24 +101,15 @@ tbody td.name{color:var(--text);font-weight:500}
 .envio-emoji{font-size:1.4rem}
 .envio-seg{font-size:0.9rem;font-weight:700;color:var(--white)}
 .envio-rule{font-size:0.78rem;color:var(--text3);margin-top:2px}
-
 .msg-edit-wrap{position:relative;margin-top:14px}
-.msg-edit{
-  width:100%;background:var(--bg3);border:1px solid var(--border);
-  border-radius:10px;padding:12px;font-family:'Plus Jakarta Sans',sans-serif;
-  font-size:0.82rem;color:var(--text2);line-height:1.6;resize:vertical;
-  min-height:80px;outline:none;transition:border-color 0.15s;
-}
+.msg-edit{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;color:var(--text2);line-height:1.6;resize:vertical;min-height:80px;outline:none;transition:border-color 0.15s}
 .msg-edit:focus{border-color:var(--blue)}
 .msg-vars{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
 .var-chip{background:var(--blue-dim);color:var(--blue-lite);padding:2px 8px;border-radius:6px;font-size:0.72rem;font-weight:600;cursor:pointer;border:none;font-family:'Plus Jakarta Sans',sans-serif;transition:background 0.15s}
 .var-chip:hover{background:rgba(46,106,255,0.3)}
-
 .dias-input-row{display:flex;align-items:center;gap:8px;margin-top:10px}
 .dias-input-row label{font-size:0.78rem;color:var(--text2)}
 .dias-input{width:60px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;outline:none;text-align:center}
-.dias-input:focus{border-color:var(--blue)}
-
 .toggle-row{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
 .toggle-label{font-size:0.8rem;color:var(--text2)}
 .toggle{position:relative;width:36px;height:20px;display:inline-block}
@@ -211,16 +118,10 @@ tbody td.name{color:var(--text);font-weight:500}
 .toggle-slider::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:var(--text3);top:2px;left:2px;transition:all 0.2s}
 .toggle input:checked + .toggle-slider{background:var(--blue);border-color:var(--blue)}
 .toggle input:checked + .toggle-slider::after{transform:translateX(16px);background:var(--white)}
-
-/* fila de envios */
 .fila-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .fila-count{font-size:0.82rem;color:var(--text2)}
 .fila-count strong{color:var(--amber)}
-
-/* ── HISTÓRICO ── */
 .hist-filters{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
-
-/* ── MODAL ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(4px)}
 .modal-overlay.open{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;width:500px;max-width:95vw;padding:28px;animation:modalIn 0.2s ease;max-height:90vh;overflow-y:auto}
@@ -228,25 +129,19 @@ tbody td.name{color:var(--text);font-weight:500}
 .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
 .modal-title{font-weight:700;font-size:1.05rem;color:var(--white)}
 .modal-close{background:none;border:none;color:var(--text3);cursor:pointer;padding:4px;border-radius:6px;font-size:1.2rem;line-height:1;transition:color 0.15s}
-.modal-close:hover{color:var(--text)}
 .modal-tabs{display:flex;gap:4px;margin-bottom:24px;background:var(--bg3);border-radius:8px;padding:4px}
 .modal-tab{flex:1;padding:7px;border-radius:6px;border:none;background:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:500;color:var(--text2);cursor:pointer;transition:all 0.15s;text-align:center}
 .modal-tab.active{background:var(--bg2);color:var(--white);box-shadow:0 1px 4px rgba(0,0,0,0.3)}
-
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-group{margin-bottom:16px}
 .form-group label{display:block;font-size:0.78rem;font-weight:600;color:var(--text2);margin-bottom:6px}
-.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.15s}
+.form-group input,.form-group select{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.15s}
 .form-group input:focus,.form-group select:focus{border-color:var(--blue)}
 .form-group input::placeholder{color:var(--text3)}
 .form-group select option{background:var(--bg2)}
 .modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}
-
-/* ── TOAST ── */
 .toast{position:fixed;bottom:28px;right:28px;z-index:500;background:var(--bg2);border:1px solid var(--green);color:var(--green);padding:12px 20px;border-radius:10px;font-size:0.85rem;font-weight:500;display:flex;align-items:center;gap:8px;transform:translateY(80px);opacity:0;transition:all 0.3s;pointer-events:none}
 .toast.show{transform:translateY(0);opacity:1}
-
-/* ── CONFIGURAÇÕES ── */
 .config-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .config-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
 .config-section h3{font-weight:700;font-size:0.95rem;color:var(--white);margin-bottom:18px}
@@ -254,374 +149,70 @@ tbody td.name{color:var(--text);font-weight:500}
 .config-row:last-child{border-bottom:none;padding-bottom:0}
 .config-key{font-size:0.83rem;color:var(--text2)}
 .config-val{font-size:0.83rem;color:var(--text);font-weight:500}
-
-/* empty state */
 .empty-state{text-align:center;padding:48px 20px;color:var(--text3)}
 .empty-state .empty-icon{font-size:2.5rem;margin-bottom:12px}
 .empty-state p{font-size:0.88rem;margin-top:6px}
-
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
-
-/* ── TRIAL BANNER ── */
-.trial-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 28px;
-  font-size: 0.82rem;
-  font-weight: 500;
-  flex-shrink: 0;
-  gap: 12px;
-}
-.trial-banner.active {
-  background: linear-gradient(90deg, rgba(0,214,143,0.1), rgba(46,106,255,0.08));
-  border-bottom: 1px solid rgba(0,214,143,0.2);
-  color: var(--green);
-}
-.trial-banner.warning {
-  background: linear-gradient(90deg, rgba(255,176,32,0.1), rgba(255,176,32,0.05));
-  border-bottom: 1px solid rgba(255,176,32,0.2);
-  color: var(--amber);
-}
-.trial-banner.expired {
-  background: linear-gradient(90deg, rgba(255,77,77,0.1), rgba(255,77,77,0.05));
-  border-bottom: 1px solid rgba(255,77,77,0.2);
-  color: var(--red);
-}
-.trial-banner .btn-assinar-banner {
-  background: var(--blue);
-  color: var(--white);
-  border: none;
-  padding: 6px 16px;
-  border-radius: 7px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s;
-  flex-shrink: 0;
-}
-.trial-banner .btn-assinar-banner:hover { background: var(--blue-lite); }
-
-/* ── MODAL PLANOS (BLOQUEIO) ── */
-.planos-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(8px);
-  z-index: 300;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.planos-overlay.open { display: flex; }
-
-.planos-modal {
-  background: var(--bg2);
-  border: 1px solid var(--border2);
-  border-radius: 20px;
-  padding: 40px;
-  max-width: 860px;
-  width: 100%;
-  animation: modalIn 0.3s ease both;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-.planos-modal-header {
-  text-align: center;
-  margin-bottom: 32px;
-}
-.planos-modal-icon {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
-}
-.planos-modal-title {
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: var(--white);
-  margin-bottom: 8px;
-}
-.planos-modal-sub {
-  font-size: 0.9rem;
-  color: var(--text2);
-  line-height: 1.6;
-}
-
-.planos-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.plano-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px 24px;
-  position: relative;
-  transition: border-color 0.2s, transform 0.2s;
-  cursor: pointer;
-}
-.plano-card:hover {
-  border-color: var(--blue);
-  transform: translateY(-2px);
-}
-.plano-card.featured {
-  background: linear-gradient(135deg, rgba(46,106,255,0.12), rgba(0,229,255,0.04));
-  border-color: rgba(46,106,255,0.5);
-}
-.plano-tag {
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--blue);
-  color: var(--white);
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 3px 14px;
-  border-radius: 100px;
-  white-space: nowrap;
-}
-.plano-nome {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--text2);
-  margin-bottom: 10px;
-}
-.plano-preco {
-  font-size: 2.4rem;
-  font-weight: 800;
-  color: var(--white);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.plano-preco sup { font-size: 1rem; vertical-align: top; margin-top: 6px; display: inline-block; }
-.plano-preco sub { font-size: 0.85rem; color: var(--text2); font-weight: 400; }
-
-.plano-roi {
-  background: var(--green-dim);
-  border: 1px solid rgba(0,214,143,0.2);
-  border-radius: 8px;
-  padding: 8px 12px;
-  margin: 12px 0;
-  font-size: 0.78rem;
-  color: var(--green);
-}
-
-.plano-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-.plano-features li {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 0.82rem;
-  color: var(--text2);
-}
-.plano-features li::before {
-  content: '✓';
-  color: var(--accent);
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-.btn-assinar-plano {
-  width: 100%;
-  padding: 12px;
-  border-radius: 9px;
-  border: none;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-assinar-plano.outline {
-  background: transparent;
-  border: 1px solid var(--border2);
-  color: var(--text);
-}
-.btn-assinar-plano.outline:hover { border-color: var(--blue); color: var(--blue-lite); }
-.btn-assinar-plano.filled {
-  background: var(--blue);
-  color: var(--white);
-}
-.btn-assinar-plano.filled:hover { background: var(--blue-lite); box-shadow: 0 4px 20px rgba(46,106,255,0.3); }
-
-.planos-footer {
-  text-align: center;
-  font-size: 0.78rem;
-  color: var(--text2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.planos-footer span::before { content: '✓ '; color: var(--green); font-weight: 700; }
-
-/* ── CONTEÚDO BLOQUEADO ── */
-.content-blocked {
-  pointer-events: none;
-  filter: blur(3px);
-  user-select: none;
-  opacity: 0.4;
-}
-
-
-/* ── ONBOARDING ── */
-.onboarding-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(8px);
-  z-index: 400;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.onboarding-overlay.open { display: flex; }
-
-.onboarding-modal {
-  background: var(--bg2);
-  border: 1px solid var(--border2);
-  border-radius: 20px;
-  padding: 48px 40px;
-  max-width: 560px;
-  width: 100%;
-  animation: modalIn 0.3s ease both;
-  text-align: center;
-}
-
-.onboarding-steps {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 32px;
-}
-.onboarding-step-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--border2);
-  transition: all 0.3s;
-}
-.onboarding-step-dot.active { background: var(--blue); width: 24px; border-radius: 4px; }
-.onboarding-step-dot.done { background: var(--green); }
-
-.onboarding-icon { font-size: 3rem; margin-bottom: 16px; }
-.onboarding-title {
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: var(--white);
-  margin-bottom: 10px;
-}
-.onboarding-sub {
-  font-size: 0.9rem;
-  color: var(--text2);
-  line-height: 1.7;
-  margin-bottom: 28px;
-}
-
-.onboarding-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
-
-.onboarding-checklist {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  text-align: left;
-  margin-bottom: 28px;
-}
-.onboarding-check-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-size: 0.88rem;
-  color: var(--text2);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.onboarding-check-item:hover { border-color: var(--blue); color: var(--text); }
-.onboarding-check-item .check-icon {
-  width: 32px; height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-  background: var(--blue-dim);
-}
-.onboarding-check-item .check-text strong {
-  display: block;
-  color: var(--text);
-  font-weight: 600;
-  margin-bottom: 2px;
-}
-
-
-/* ── BOTÃO SUPORTE ── */
-.suporte-btn {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  z-index: 150;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #25d366;
-  color: #ffffff;
-  padding: 12px 20px;
-  border-radius: 100px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-  transition: all 0.2s;
-  border: none;
-  cursor: pointer;
-}
-.suporte-btn:hover {
-  background: #20bc5a;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 28px rgba(37,211,102,0.5);
-}
-.suporte-btn svg { flex-shrink: 0; }
-
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+.trial-banner{display:flex;align-items:center;justify-content:space-between;padding:10px 28px;font-size:0.82rem;font-weight:500;flex-shrink:0;gap:12px}
+.trial-banner.active{background:linear-gradient(90deg,rgba(0,214,143,0.1),rgba(46,106,255,0.08));border-bottom:1px solid rgba(0,214,143,0.2);color:var(--green)}
+.trial-banner.warning{background:linear-gradient(90deg,rgba(255,176,32,0.1),rgba(255,176,32,0.05));border-bottom:1px solid rgba(255,176,32,0.2);color:var(--amber)}
+.trial-banner.expired{background:linear-gradient(90deg,rgba(255,77,77,0.1),rgba(255,77,77,0.05));border-bottom:1px solid rgba(255,77,77,0.2);color:var(--red)}
+.trial-banner .btn-assinar-banner{background:var(--blue);color:var(--white);border:none;padding:6px 16px;border-radius:7px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.78rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0}
+.trial-banner .btn-assinar-banner:hover{background:var(--blue-lite)}
+.planos-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+.planos-overlay.open{display:flex}
+.planos-modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:40px;max-width:860px;width:100%;animation:modalIn 0.3s ease both;max-height:90vh;overflow-y:auto}
+.planos-modal-header{text-align:center;margin-bottom:32px}
+.planos-modal-icon{font-size:2.5rem;margin-bottom:12px}
+.planos-modal-title{font-size:1.6rem;font-weight:800;letter-spacing:-0.5px;color:var(--white);margin-bottom:8px}
+.planos-modal-sub{font-size:0.9rem;color:var(--text2);line-height:1.6}
+.planos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.plano-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 24px;position:relative;transition:border-color 0.2s,transform 0.2s;cursor:pointer}
+.plano-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.plano-card.featured{background:linear-gradient(135deg,rgba(46,106,255,0.12),rgba(0,229,255,0.04));border-color:rgba(46,106,255,0.5)}
+.plano-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:var(--white);font-size:0.7rem;font-weight:700;padding:3px 14px;border-radius:100px;white-space:nowrap}
+.plano-nome{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);margin-bottom:10px}
+.plano-preco{font-size:2.4rem;font-weight:800;color:var(--white);line-height:1;margin-bottom:4px}
+.plano-preco sup{font-size:1rem;vertical-align:top;margin-top:6px;display:inline-block}
+.plano-preco sub{font-size:0.85rem;color:var(--text2);font-weight:400}
+.plano-roi{background:var(--green-dim);border:1px solid rgba(0,214,143,0.2);border-radius:8px;padding:8px 12px;margin:12px 0;font-size:0.78rem;color:var(--green)}
+.plano-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.plano-features li{display:flex;align-items:flex-start;gap:8px;font-size:0.82rem;color:var(--text2)}
+.plano-features li::before{content:'checkmark';color:var(--accent);font-weight:700;flex-shrink:0}
+.btn-assinar-plano{width:100%;padding:12px;border-radius:9px;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all 0.2s}
+.btn-assinar-plano.outline{background:transparent;border:1px solid var(--border2);color:var(--text)}
+.btn-assinar-plano.outline:hover{border-color:var(--blue);color:var(--blue-lite)}
+.btn-assinar-plano.filled{background:var(--blue);color:var(--white)}
+.btn-assinar-plano.filled:hover{background:var(--blue-lite);box-shadow:0 4px 20px rgba(46,106,255,0.3)}
+.planos-footer{text-align:center;font-size:0.78rem;color:var(--text2);display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
+.content-blocked{pointer-events:none;filter:blur(3px);user-select:none;opacity:0.4}
+.onboarding-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
+.onboarding-overlay.open{display:flex}
+.onboarding-modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:48px 40px;max-width:560px;width:100%;animation:modalIn 0.3s ease both;text-align:center}
+.onboarding-steps{display:flex;justify-content:center;gap:8px;margin-bottom:32px}
+.onboarding-step-dot{width:8px;height:8px;border-radius:50%;background:var(--border2);transition:all 0.3s}
+.onboarding-step-dot.active{background:var(--blue);width:24px;border-radius:4px}
+.onboarding-step-dot.done{background:var(--green)}
+.onboarding-icon{font-size:3rem;margin-bottom:16px}
+.onboarding-title{font-size:1.5rem;font-weight:800;letter-spacing:-0.5px;color:var(--white);margin-bottom:10px}
+.onboarding-sub{font-size:0.9rem;color:var(--text2);line-height:1.7;margin-bottom:28px}
+.onboarding-actions{display:flex;gap:12px;justify-content:center}
+.onboarding-checklist{display:flex;flex-direction:column;gap:12px;text-align:left;margin-bottom:28px}
+.onboarding-check-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;font-size:0.88rem;color:var(--text2);cursor:pointer;transition:all 0.2s}
+.onboarding-check-item:hover{border-color:var(--blue);color:var(--text)}
+.onboarding-check-item .check-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:var(--blue-dim)}
+.onboarding-check-item .check-text strong{display:block;color:var(--text);font-weight:600;margin-bottom:2px}
+.suporte-btn{position:fixed;bottom:28px;right:28px;z-index:150;display:flex;align-items:center;gap:10px;background:#25d366;color:#ffffff;padding:12px 20px;border-radius:100px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;font-weight:600;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:all 0.2s;border:none;cursor:pointer}
+.suporte-btn:hover{background:#20bc5a;transform:translateY(-2px)}
+.suporte-btn svg{flex-shrink:0}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="retornax-config.js"></script>
 </head>
 <body>
 <div class="app">
-
-<!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-logo">Retorna<span>x</span></div>
-
   <div class="sidebar-section">Principal</div>
   <button class="nav-item active" onclick="showPage('dashboard',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
@@ -640,26 +231,22 @@ tbody td.name{color:var(--text);font-weight:500}
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
     Histórico
   </button>
-
   <div class="sidebar-section">Conta</div>
   <button class="nav-item" onclick="showPage('config',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     Configurações
   </button>
-
   <div class="sidebar-bottom">
     <div class="user-row" title="Clique para sair" onclick="logout()">
       <div class="avatar">DR</div>
       <div class="user-info">
         <div class="user-name">Douglas R.</div>
-        <div class="user-plan">Plano Profissional</div>
+        <div class="user-plan">Período gratuito</div>
       </div>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.4;flex-shrink:0"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
     </div>
   </div>
 </aside>
-
-<!-- MAIN -->
 <div class="main">
   <div class="topbar">
     <div class="topbar-title" id="page-title">Dashboard</div>
@@ -671,77 +258,35 @@ tbody td.name{color:var(--text);font-weight:500}
       </button>
     </div>
   </div>
-
-  <!-- TRIAL BANNER -->
   <div class="trial-banner" id="trial-banner"></div>
-
   <div class="content" id="main-content">
-
-    <!-- ── DASHBOARD ── -->
+    <!-- DASHBOARD -->
     <div class="page active" id="page-dashboard">
       <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-top"><div class="stat-label">Total de clientes</div><div class="stat-icon blue">👥</div></div>
-          <div class="stat-val" id="dash-total">0</div>
-          <div class="stat-sub">cadastrados</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-top"><div class="stat-label">Mensagens enviadas</div><div class="stat-icon green">📤</div></div>
-          <div class="stat-val" id="dash-enviadas">0</div>
-          <div class="stat-sub">últimos 30 dias</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-top"><div class="stat-label">Clientes reativados</div><div class="stat-icon amber">🔁</div></div>
-          <div class="stat-val" id="dash-reativados">0</div>
-          <div class="stat-sub">este mês</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-top"><div class="stat-label">Precisam de contato</div><div class="stat-icon red">⚠️</div></div>
-          <div class="stat-val" id="dash-fila">0</div>
-          <div class="stat-sub">aguardando envio</div>
-        </div>
+        <div class="stat-card"><div class="stat-top"><div class="stat-label">Total de clientes</div><div class="stat-icon blue">&#x1F465;</div></div><div class="stat-val" id="dash-total">0</div><div class="stat-sub">cadastrados</div></div>
+        <div class="stat-card"><div class="stat-top"><div class="stat-label">Mensagens enviadas</div><div class="stat-icon green">&#x1F4E4;</div></div><div class="stat-val" id="dash-enviadas">0</div><div class="stat-sub">últimos 30 dias</div></div>
+        <div class="stat-card"><div class="stat-top"><div class="stat-label">Clientes reativados</div><div class="stat-icon amber">&#x1F501;</div></div><div class="stat-val" id="dash-reativados">0</div><div class="stat-sub">este mês</div></div>
+        <div class="stat-card"><div class="stat-top"><div class="stat-label">Precisam de contato</div><div class="stat-icon red">&#x26A0;&#xFE0F;</div></div><div class="stat-val" id="dash-fila">0</div><div class="stat-sub">aguardando envio</div></div>
       </div>
-
       <div class="grid-2">
         <div class="card">
-          <div class="card-header">
-            <div class="card-title">Atividade recente</div>
-            <button class="btn btn-ghost btn-sm" onclick="showPage('historico',document.querySelectorAll('.nav-item')[3])">Ver histórico</button>
-          </div>
-          <div class="activity-list" id="activity-list">
-            <div class="empty-state" style="padding:24px">
-              <div class="empty-icon">📭</div>
-              <strong style="color:var(--text)">Nenhuma atividade ainda</strong>
-              <p>As mensagens enviadas aparecerão aqui.</p>
-            </div>
-          </div>
+          <div class="card-header"><div class="card-title">Atividade recente</div><button class="btn btn-ghost btn-sm" onclick="showPage('historico',document.querySelectorAll('.nav-item')[3])">Ver histórico</button></div>
+          <div class="activity-list" id="activity-list"><div class="empty-state" style="padding:24px"><div class="empty-icon">&#x1F4ED;</div><strong style="color:var(--text)">Nenhuma atividade ainda</strong><p>As mensagens enviadas aparecerão aqui.</p></div></div>
         </div>
-
         <div class="card">
           <div class="card-header"><div class="card-title">Por segmento</div></div>
           <div class="seg-list" id="dash-segs"></div>
           <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
             <div class="card-title" style="margin-bottom:12px">Plano atual</div>
-            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:8px">
-              <span style="color:var(--text2)">Clientes cadastrados</span>
-              <span style="color:var(--text)" id="plano-cli">0 / —</span>
-            </div>
-            <div style="height:6px;background:var(--bg3);border-radius:4px;overflow:hidden">
-              <div style="height:100%;width:0%;background:var(--blue);border-radius:4px;transition:width 0.5s" id="bar-cli"></div>
-            </div>
-            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-top:10px">
-              <span style="color:var(--text2)">Mensagens este mês</span>
-              <span style="color:var(--text)" id="plano-msg">0 / —</span>
-            </div>
-            <div style="height:6px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-top:6px">
-              <div style="height:100%;width:0%;background:var(--green);border-radius:4px;transition:width 0.5s" id="bar-msg"></div>
-            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:8px"><span style="color:var(--text2)">Clientes cadastrados</span><span style="color:var(--text)" id="plano-cli">0 / —</span></div>
+            <div style="height:6px;background:var(--bg3);border-radius:4px;overflow:hidden"><div style="height:100%;width:0%;background:var(--blue);border-radius:4px;transition:width 0.5s" id="bar-cli"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-top:10px"><span style="color:var(--text2)">Mensagens este mês</span><span style="color:var(--text)" id="plano-msg">0 / —</span></div>
+            <div style="height:6px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-top:6px"><div style="height:100%;width:0%;background:var(--green);border-radius:4px;transition:width 0.5s" id="bar-msg"></div></div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- ── CLIENTES ── -->
+    <!-- CLIENTES -->
     <div class="page" id="page-clientes">
       <div class="toolbar">
         <div class="search-wrap">
@@ -769,313 +314,111 @@ tbody td.name{color:var(--text);font-weight:500}
           Importar planilha
         </button>
       </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Nome</th><th>WhatsApp</th><th>Segmento</th>
-              <th>Última visita</th><th>Dias sem visitar</th>
-              <th>Status</th><th>Ações</th>
-            </tr>
-          </thead>
-          <tbody id="clientes-tbody"></tbody>
-        </table>
-      </div>
+      <div class="table-wrap"><table><thead><tr><th>Nome</th><th>WhatsApp</th><th>Segmento</th><th>Última visita</th><th>Dias sem visitar</th><th>Status</th><th>Ações</th></tr></thead><tbody id="clientes-tbody"></tbody></table></div>
     </div>
-
-    <!-- ── AUTOMAÇÕES ── -->
+    <!-- AUTOMAÇÕES -->
     <div class="page" id="page-automacoes">
-      <!-- Fila de envios -->
       <div class="card" style="margin-bottom:24px">
         <div class="fila-header">
-          <div>
-            <div class="card-title">Fila de envios — hoje</div>
-            <div class="fila-count" style="margin-top:4px">
-              <strong id="fila-qtd">3</strong> clientes aguardando contato
-            </div>
-          </div>
+          <div><div class="card-title">Fila de envios — hoje</div><div class="fila-count" style="margin-top:4px"><strong id="fila-qtd">0</strong> clientes aguardando contato</div></div>
           <button class="btn btn-green" onclick="dispararTodos()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             Disparar todos agora
           </button>
         </div>
-        <div class="table-wrap" style="border:none;border-radius:0">
-          <table>
-            <thead>
-              <tr><th>Cliente</th><th>Segmento</th><th>Dias sem visitar</th><th>Mensagem prévia</th><th>Ação</th></tr>
-            </thead>
-            <tbody id="fila-tbody"></tbody>
-          </table>
-        </div>
+        <div class="table-wrap" style="border:none;border-radius:0"><table><thead><tr><th>Cliente</th><th>Segmento</th><th>Dias sem visitar</th><th>Mensagem prévia</th><th>Ação</th></tr></thead><tbody id="fila-tbody"></tbody></table></div>
       </div>
-
-      <!-- Templates por segmento -->
-      <div style="margin-bottom:16px">
-        <div class="card-title">Templates de mensagem</div>
-        <p style="font-size:0.83rem;color:var(--text2);margin-top:4px">Edite o texto e clique em salvar. Use <code style="background:var(--bg3);padding:1px 5px;border-radius:4px;font-size:0.75rem">{nome}</code> e <code style="background:var(--bg3);padding:1px 5px;border-radius:4px;font-size:0.75rem">{dias}</code> para personalizar.</p>
-      </div>
+      <div style="margin-bottom:16px"><div class="card-title">Templates de mensagem</div><p style="font-size:0.83rem;color:var(--text2);margin-top:4px">Edite o texto e clique em salvar. Use {nome} e {dias} para personalizar.</p></div>
       <div class="envios-grid" id="templates-grid"></div>
     </div>
-
-    <!-- ── HISTÓRICO ── -->
+    <!-- HISTÓRICO -->
     <div class="page" id="page-historico">
       <div class="hist-filters">
-        <select class="filter-select" id="hist-filter-seg" onchange="renderHistorico()">
-          <option value="">Todos os segmentos</option>
-          <option value="Barbearia">✂ Barbearia</option>
-          <option value="Estética auto">🚗 Estética auto</option>
-          <option value="Mecânica">🔧 Mecânica</option>
-          <option value="Beleza">💅 Beleza</option>
-          <option value="Pet shop">🐾 Pet shop</option>
-          <option value="Academia">🏋 Academia</option>
-          <option value="Outros">📌 Outros</option>
-        </select>
-        <select class="filter-select" id="hist-filter-resp" onchange="renderHistorico()">
-          <option value="">Todos</option>
-          <option value="respondeu">Respondeu</option>
-          <option value="sem_resposta">Sem resposta</option>
-        </select>
+        <select class="filter-select" id="hist-filter-seg" onchange="renderHistorico()"><option value="">Todos os segmentos</option><option value="Barbearia">✂ Barbearia</option><option value="Estética auto">🚗 Estética auto</option><option value="Mecânica">🔧 Mecânica</option><option value="Beleza">💅 Beleza</option><option value="Pet shop">🐾 Pet shop</option><option value="Academia">🏋 Academia</option><option value="Outros">📌 Outros</option></select>
+        <select class="filter-select" id="hist-filter-resp" onchange="renderHistorico()"><option value="">Todos</option><option value="respondeu">Respondeu</option><option value="sem_resposta">Sem resposta</option></select>
       </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Data</th><th>Cliente</th><th>Segmento</th><th>Mensagem enviada</th><th>Resposta</th></tr>
-          </thead>
-          <tbody id="historico-tbody"></tbody>
-        </table>
-      </div>
+      <div class="table-wrap"><table><thead><tr><th>Data</th><th>Cliente</th><th>Segmento</th><th>Mensagem enviada</th><th>Resposta</th></tr></thead><tbody id="historico-tbody"></tbody></table></div>
     </div>
-
-    <!-- ── CONFIGURAÇÕES ── -->
+    <!-- CONFIGURAÇÕES -->
     <div class="page" id="page-config">
       <div class="config-grid">
-        <div class="config-section">
-          <h3>Conta</h3>
-          <div class="config-row"><span class="config-key">Nome</span><span class="config-val">Douglas Rebollo</span></div>
-          <div class="config-row"><span class="config-key">E-mail</span><span class="config-val">douglas@retornax.com.br</span></div>
-          <div class="config-row"><span class="config-key">Plano</span><span class="config-val" style="color:var(--blue-lite)">Profissional — R$197/mês</span></div>
-          <div class="config-row"><span class="config-key">Próxima cobrança</span><span class="config-val">05/07/2025</span></div>
-          <div style="margin-top:16px;display:flex;gap:8px">
-            <button class="btn btn-ghost btn-sm">Alterar plano</button>
-            <button class="btn btn-danger btn-sm">Cancelar assinatura</button>
-          </div>
-        </div>
-        <div class="config-section">
-          <h3>WhatsApp conectado</h3>
-          <div class="config-row"><span class="config-key">Número</span><span class="config-val">+55 51 98402-6354</span></div>
-          <div class="config-row"><span class="config-key">Status</span><span class="badge badge-green">● Conectado</span></div>
-          <div class="config-row"><span class="config-key">Instância</span><span class="config-val">Z-API · inst_xxxx</span></div>
-          <div style="margin-top:16px"><button class="btn btn-ghost btn-sm">Reconectar</button></div>
-        </div>
-        <div class="config-section">
-          <h3>Horário de envio</h3>
-          <div class="config-row"><span class="config-key">Janela de envio</span><span class="config-val">09:00 — 19:00</span></div>
-          <div class="config-row"><span class="config-key">Dias da semana</span><span class="config-val">Seg a Sáb</span></div>
-          <div class="config-row"><span class="config-key">Intervalo mínimo</span><span class="config-val">48h entre mensagens</span></div>
-          <div style="margin-top:16px"><button class="btn btn-ghost btn-sm">Editar horários</button></div>
-        </div>
-        <div class="config-section">
-          <h3>Notificações</h3>
-          <div class="config-row"><span class="config-key">Quando cliente responde</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="config-row"><span class="config-key">Resumo diário por e-mail</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="config-row"><span class="config-key">Alertas de erro de envio</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-        </div>
+        <div class="config-section"><h3>Conta</h3><div class="config-row"><span class="config-key">Nome</span><span class="config-val">Douglas Rebollo</span></div><div class="config-row"><span class="config-key">E-mail</span><span class="config-val">douglas@retornax.com.br</span></div><div class="config-row"><span class="config-key">Plano</span><span class="config-val" style="color:var(--blue-lite)">Profissional — R$197/mês</span></div><div style="margin-top:16px;display:flex;gap:8px"><button class="btn btn-ghost btn-sm">Alterar plano</button><button class="btn btn-danger btn-sm">Cancelar assinatura</button></div></div>
+        <div class="config-section"><h3>WhatsApp conectado</h3><div class="config-row"><span class="config-key">Número</span><span class="config-val">+55 51 98402-6354</span></div><div class="config-row"><span class="config-key">Status</span><span class="badge badge-green">● Conectado</span></div><div style="margin-top:16px"><button class="btn btn-ghost btn-sm">Reconectar</button></div></div>
+        <div class="config-section"><h3>Horário de envio</h3><div class="config-row"><span class="config-key">Janela de envio</span><span class="config-val">09:00 — 19:00</span></div><div class="config-row"><span class="config-key">Dias da semana</span><span class="config-val">Seg a Sáb</span></div></div>
+        <div class="config-section"><h3>Notificações</h3><div class="config-row"><span class="config-key">Quando cliente responde</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div><div class="config-row"><span class="config-key">Resumo diário por e-mail</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div></div>
       </div>
     </div>
-
   </div>
 </div>
 </div>
 
 <!-- ONBOARDING -->
 <div class="onboarding-overlay" id="onboarding-overlay">
-  <div class="onboarding-modal" id="onboarding-modal">
-
-    <!-- PASSO 1 — Boas vindas -->
+  <div class="onboarding-modal">
     <div id="ob-step-1">
-      <div class="onboarding-steps">
-        <div class="onboarding-step-dot active"></div>
-        <div class="onboarding-step-dot"></div>
-        <div class="onboarding-step-dot"></div>
-      </div>
+      <div class="onboarding-steps"><div class="onboarding-step-dot active"></div><div class="onboarding-step-dot"></div><div class="onboarding-step-dot"></div></div>
       <div class="onboarding-icon">🎉</div>
       <div class="onboarding-title">Bem-vindo ao Retornax!</div>
-      <div class="onboarding-sub">Você está a 3 passos de ter seu faturamento recorrente no piloto automático. Vamos configurar tudo agora — leva menos de 3 minutos.</div>
-      <div class="onboarding-actions">
-        <button class="btn btn-primary" onclick="obNext(2)">Começar configuração →</button>
-      </div>
+      <div class="onboarding-sub">Você está a 3 passos de ter seu faturamento recorrente no piloto automático.</div>
+      <div class="onboarding-actions"><button class="btn btn-primary" onclick="obNext(2)">Começar configuração →</button></div>
     </div>
-
-    <!-- PASSO 2 — Cadastrar clientes -->
     <div id="ob-step-2" style="display:none">
-      <div class="onboarding-steps">
-        <div class="onboarding-step-dot done"></div>
-        <div class="onboarding-step-dot active"></div>
-        <div class="onboarding-step-dot"></div>
-      </div>
+      <div class="onboarding-steps"><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot active"></div><div class="onboarding-step-dot"></div></div>
       <div class="onboarding-icon">👥</div>
       <div class="onboarding-title">Cadastre seus primeiros clientes</div>
-      <div class="onboarding-sub">Adicione os clientes que você quer reativar. Pode cadastrar manualmente ou importar uma planilha.</div>
+      <div class="onboarding-sub">Adicione os clientes que você quer reativar.</div>
       <div class="onboarding-checklist">
-        <div class="onboarding-check-item" onclick="obAbrirClientes()">
-          <div class="check-icon">➕</div>
-          <div class="check-text">
-            <strong>Adicionar cliente manualmente</strong>
-            Nome, WhatsApp, segmento e última visita
-          </div>
-        </div>
-        <div class="onboarding-check-item" onclick="obImportarPlanilha()">
-          <div class="check-icon">📊</div>
-          <div class="check-text">
-            <strong>Importar planilha</strong>
-            Suba um arquivo .xlsx ou .csv com seus clientes
-          </div>
-        </div>
+        <div class="onboarding-check-item" onclick="obAbrirClientes()"><div class="check-icon">➕</div><div class="check-text"><strong>Adicionar cliente manualmente</strong>Nome, WhatsApp, segmento e última visita</div></div>
+        <div class="onboarding-check-item" onclick="obImportarPlanilha()"><div class="check-icon">📊</div><div class="check-text"><strong>Importar planilha</strong>Suba um arquivo .xlsx ou .csv</div></div>
       </div>
-      <div class="onboarding-actions">
-        <button class="btn btn-ghost" onclick="obNext(3)">Fazer isso depois</button>
-        <button class="btn btn-primary" onclick="obNext(3)">Próximo →</button>
-      </div>
+      <div class="onboarding-actions"><button class="btn btn-ghost" onclick="obNext(3)">Fazer isso depois</button><button class="btn btn-primary" onclick="obNext(3)">Próximo →</button></div>
     </div>
-
-    <!-- PASSO 3 — Ativar automações -->
     <div id="ob-step-3" style="display:none">
-      <div class="onboarding-steps">
-        <div class="onboarding-step-dot done"></div>
-        <div class="onboarding-step-dot done"></div>
-        <div class="onboarding-step-dot active"></div>
-      </div>
+      <div class="onboarding-steps"><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot active"></div></div>
       <div class="onboarding-icon">⚡</div>
       <div class="onboarding-title">Ative suas automações</div>
-      <div class="onboarding-sub">Configure os templates de mensagem para cada segmento e defina após quantos dias sem visita o Retornax deve entrar em contato.</div>
+      <div class="onboarding-sub">Configure os templates de mensagem para cada segmento.</div>
       <div class="onboarding-checklist">
-        <div class="onboarding-check-item" onclick="obAbrirAutomacoes()">
-          <div class="check-icon">📝</div>
-          <div class="check-text">
-            <strong>Personalizar mensagens</strong>
-            Edite os templates com o tom da sua marca
-          </div>
-        </div>
-        <div class="onboarding-check-item" onclick="obAbrirAutomacoes()">
-          <div class="check-icon">⏱</div>
-          <div class="check-text">
-            <strong>Definir dias de disparo</strong>
-            Após quantos dias sem visita enviar a mensagem
-          </div>
-        </div>
+        <div class="onboarding-check-item" onclick="obAbrirAutomacoes()"><div class="check-icon">📝</div><div class="check-text"><strong>Personalizar mensagens</strong>Edite os templates com o tom da sua marca</div></div>
       </div>
-      <div class="onboarding-actions">
-        <button class="btn btn-primary" onclick="obFinalizar()">Ir para o painel 🚀</button>
-      </div>
+      <div class="onboarding-actions"><button class="btn btn-primary" onclick="obFinalizar()">Ir para o painel 🚀</button></div>
     </div>
-
   </div>
 </div>
 
-<!-- MODAL PLANOS (BLOQUEIO) -->
+<!-- MODAL PLANOS -->
 <div class="planos-overlay" id="planos-overlay">
   <div class="planos-modal">
-    <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
-      <button onclick="fecharPlanos()" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:1.4rem;line-height:1;padding:4px 8px;border-radius:6px;transition:color 0.15s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text2)'">✕</button>
-    </div>
-    <div class="planos-modal-header">
-      <div class="planos-modal-icon" id="planos-icon">🔒</div>
-      <div class="planos-modal-title" id="planos-title">Seu período gratuito acabou</div>
-      <div class="planos-modal-sub" id="planos-sub">Escolha um plano para continuar usando o Retornax e reativando seus clientes.</div>
-    </div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button onclick="fecharPlanos()" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:1.4rem;line-height:1;padding:4px 8px;border-radius:6px">✕</button></div>
+    <div class="planos-modal-header"><div class="planos-modal-icon" id="planos-icon">🔒</div><div class="planos-modal-title" id="planos-title">Seu período gratuito acabou</div><div class="planos-modal-sub" id="planos-sub">Escolha um plano para continuar usando o Retornax.</div></div>
     <div class="planos-grid">
-      <div class="plano-card">
-        <div class="plano-nome">Starter</div>
-        <div class="plano-preco"><sup>R$</sup>97<sub>/mês</sub></div>
-        <div class="plano-roi">Se 2 clientes voltarem, já se paga.</div>
-        <ul class="plano-features">
-          <li>Até 100 clientes</li>
-          <li>200 mensagens/mês</li>
-          <li>1 segmento</li>
-          <li>Templates prontos</li>
-          <li>Suporte WhatsApp</li>
-        </ul>
-        <button class="btn-assinar-plano outline" onclick="assinarPlano('starter', 97)">Assinar Starter</button>
-      </div>
-      <div class="plano-card featured">
-        <div class="plano-tag">Mais popular</div>
-        <div class="plano-nome">Profissional</div>
-        <div class="plano-preco"><sup>R$</sup>197<sub>/mês</sub></div>
-        <div class="plano-roi">5 clientes reativados já pagam 3x o plano.</div>
-        <ul class="plano-features">
-          <li>Até 300 clientes</li>
-          <li>600 mensagens/mês</li>
-          <li>Todos os segmentos</li>
-          <li>Templates editáveis</li>
-          <li>Dashboard completo</li>
-          <li>Suporte prioritário</li>
-        </ul>
-        <button class="btn-assinar-plano filled" onclick="assinarPlano('profissional', 197)">Assinar Profissional</button>
-      </div>
-      <div class="plano-card">
-        <div class="plano-nome">Crescimento</div>
-        <div class="plano-preco"><sup>R$</sup>347<sub>/mês</sub></div>
-        <div class="plano-roi">Ideal para redes e franquias.</div>
-        <ul class="plano-features">
-          <li>Até 800 clientes</li>
-          <li>1.600 mensagens/mês</li>
-          <li>Múltiplas unidades</li>
-          <li>API e integrações</li>
-          <li>Relatórios avançados</li>
-          <li>Gerente dedicado</li>
-        </ul>
-        <button class="btn-assinar-plano outline" onclick="assinarPlano('crescimento', 347)">Assinar Crescimento</button>
-      </div>
+      <div class="plano-card"><div class="plano-nome">Starter</div><div class="plano-preco"><sup>R$</sup>97<sub>/mês</sub></div><div class="plano-roi">Se 2 clientes voltarem, já se paga.</div><ul class="plano-features"><li>Até 100 clientes</li><li>200 mensagens/mês</li><li>Templates prontos</li><li>Suporte WhatsApp</li></ul><button class="btn-assinar-plano outline" onclick="assinarPlano('starter',97)">Assinar Starter</button></div>
+      <div class="plano-card featured"><div class="plano-tag">Mais popular</div><div class="plano-nome">Profissional</div><div class="plano-preco"><sup>R$</sup>197<sub>/mês</sub></div><div class="plano-roi">5 clientes reativados já pagam 3x o plano.</div><ul class="plano-features"><li>Até 300 clientes</li><li>600 mensagens/mês</li><li>Todos os segmentos</li><li>Templates editáveis</li><li>Dashboard completo</li><li>Suporte prioritário</li></ul><button class="btn-assinar-plano filled" onclick="assinarPlano('profissional',197)">Assinar Profissional</button></div>
+      <div class="plano-card"><div class="plano-nome">Crescimento</div><div class="plano-preco"><sup>R$</sup>347<sub>/mês</sub></div><div class="plano-roi">Ideal para redes e franquias.</div><ul class="plano-features"><li>Até 800 clientes</li><li>1.600 mensagens/mês</li><li>Múltiplas unidades</li><li>API e integrações</li></ul><button class="btn-assinar-plano outline" onclick="assinarPlano('crescimento',347)">Assinar Crescimento</button></div>
     </div>
-    <div class="planos-footer">
-      <span>Cancele quando quiser</span>
-      <span>Sem taxa de setup</span>
-      <span>Cobrança automática via Stripe</span>
-      <span>Suporte em português</span>
-    </div>
+    <div class="planos-footer"><span>Cancele quando quiser</span><span>Sem taxa de setup</span><span>Cobrança via Stripe</span><span>Suporte em português</span></div>
   </div>
 </div>
 
-<!-- MODAL NOVO CLIENTE / IMPORTAR -->
+<!-- MODAL NOVO CLIENTE -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
   <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-title">Adicionar cliente</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
+    <div class="modal-header"><div class="modal-title" id="modal-title">Adicionar cliente</div><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div class="modal-tabs" id="modal-tabs">
       <button class="modal-tab active" onclick="switchTab('manual',this)">Manual</button>
       <button class="modal-tab" onclick="switchTab('import',this)">Importar planilha</button>
     </div>
-
-    <!-- TAB MANUAL -->
     <div id="tab-manual">
       <div class="form-row">
         <div class="form-group"><label>Nome completo</label><input type="text" id="f-nome" placeholder="João Silva"></div>
         <div class="form-group"><label>WhatsApp</label><input type="tel" id="f-wpp" placeholder="(51) 99999-9999"></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Segmento</label>
-          <select id="f-seg">
-            <option value="Barbearia">✂ Barbearia</option>
-            <option value="Estética auto">🚗 Estética auto</option>
-            <option value="Mecânica">🔧 Mecânica</option>
-            <option value="Beleza">💅 Beleza</option>
-            <option value="Pet shop">🐾 Pet shop</option>
-            <option value="Academia">🏋 Academia</option>
-            <option value="Outros">📌 Outros</option>
-          </select>
-        </div>
+        <div class="form-group"><label>Segmento</label><select id="f-seg"><option value="Barbearia">✂ Barbearia</option><option value="Estética auto">🚗 Estética auto</option><option value="Mecânica">🔧 Mecânica</option><option value="Beleza">💅 Beleza</option><option value="Pet shop">🐾 Pet shop</option><option value="Academia">🏋 Academia</option><option value="Outros">📌 Outros</option></select></div>
         <div class="form-group"><label>Última visita</label><input type="date" id="f-data"></div>
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
-        <button class="btn btn-primary" onclick="addCliente()">Adicionar cliente</button>
-      </div>
+      <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="addCliente()">Adicionar cliente</button></div>
     </div>
-
-    <!-- TAB IMPORTAR -->
     <div id="tab-import" style="display:none">
       <div class="import-zone" id="import-zone" onclick="document.getElementById('file-input').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFile(event)">
         <div style="font-size:2rem">📊</div>
@@ -1083,26 +426,18 @@ tbody td.name{color:var(--text);font-weight:500}
         <span>Formatos aceitos: .xlsx, .csv — máx. 1.000 clientes</span>
       </div>
       <input type="file" id="file-input" accept=".xlsx,.csv" style="display:none" onchange="handleFile(event)">
-      <div style="background:var(--bg3);border-radius:8px;padding:14px;font-size:0.8rem;color:var(--text2);line-height:1.7">
-        <strong style="color:var(--text);display:block;margin-bottom:4px">Formato esperado da planilha:</strong>
-        Coluna A: <strong>Nome</strong> &nbsp;|&nbsp; Coluna B: <strong>WhatsApp</strong> &nbsp;|&nbsp; Coluna C: <strong>Segmento</strong> &nbsp;|&nbsp; Coluna D: <strong>Última visita</strong> (dd/mm/aaaa)
-      </div>
-      <div id="import-preview" style="margin-top:14px;display:none">
-        <div style="font-size:0.82rem;color:var(--green);margin-bottom:8px" id="import-msg"></div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-ghost" onclick="closeModal()">Cancelar</button>
-        <button class="btn btn-primary" id="btn-importar" onclick="confirmarImport()" style="display:none">Importar clientes</button>
-      </div>
+      <div style="background:var(--bg3);border-radius:8px;padding:14px;font-size:0.8rem;color:var(--text2);line-height:1.7"><strong style="color:var(--text);display:block;margin-bottom:4px">Formato esperado:</strong>Coluna A: Nome | Coluna B: WhatsApp | Coluna C: Segmento | Coluna D: Última visita (dd/mm/aaaa)</div>
+      <div id="import-preview" style="margin-top:14px;display:none"><div style="font-size:0.82rem;color:var(--green);margin-bottom:8px" id="import-msg"></div></div>
+      <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" id="btn-importar" onclick="confirmarImport()" style="display:none">Importar clientes</button></div>
     </div>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"><span>✓</span><span id="toast-msg">Feito!</span></div>
 
 <script>
-// ── DATA ──
+const BACKEND = 'https://spirited-youthfulness-production-e76c.up.railway.app';
+
 const SEGMENTOS = {
   'Barbearia':     { emoji:'✂',  dias:10,  cor:'badge-blue',   template:'Oi {nome}! Já faz {dias} dias que você não passa por aqui. 😊 Quer marcar um horário essa semana?' },
   'Estética auto': { emoji:'🚗', dias:15,  cor:'badge-green',  template:'Oi {nome}! Faz {dias} dias que seu carro não vem lavar. Quer agendar uma lavagem essa semana? 🚗' },
@@ -1114,61 +449,33 @@ const SEGMENTOS = {
 };
 
 let clientes = [];
-
 const historico = [];
 
-// ── HELPERS ──
-function calcDays(dateStr){
-  return Math.floor((new Date() - new Date(dateStr+'T12:00'))/(1000*60*60*24));
-}
+function calcDays(dateStr){ return Math.floor((new Date() - new Date(dateStr+'T12:00'))/(1000*60*60*24)); }
+function getDaysChip(days, seg){ const lim=SEGMENTOS[seg]?.dias||10; if(days<lim) return `<span class="days-chip days-ok">${days}d</span>`; if(days<lim*1.5) return `<span class="days-chip days-warn">${days}d</span>`; return `<span class="days-chip days-alert">${days}d</span>`; }
+function getStatusBadge(s){ if(s==='ok') return '<span class="badge badge-green">● Em dia</span>'; if(s==='alerta') return '<span class="badge badge-amber">● Atenção</span>'; return '<span class="badge badge-red">● Crítico</span>'; }
+function getSegBadge(seg){ const s=SEGMENTOS[seg]||{emoji:'',cor:'badge-gray'}; return `<span class="badge ${s.cor}">${s.emoji} ${seg}</span>`; }
+function getFila(){ return clientes.filter(c=>{ const days=calcDays(c.ultima); const lim=SEGMENTOS[c.seg]?.dias||10; return days>=lim; }); }
 
-function getDaysChip(days, seg){
-  const lim = SEGMENTOS[seg]?.dias || 10;
-  if(days < lim)        return `<span class="days-chip days-ok">${days}d</span>`;
-  if(days < lim * 1.5)  return `<span class="days-chip days-warn">${days}d</span>`;
-  return `<span class="days-chip days-alert">${days}d</span>`;
-}
-
-function getStatusBadge(s){
-  if(s==='ok')     return '<span class="badge badge-green">● Em dia</span>';
-  if(s==='alerta') return '<span class="badge badge-amber">● Atenção</span>';
-  return '<span class="badge badge-red">● Crítico</span>';
-}
-
-function getSegBadge(seg){
-  const s = SEGMENTOS[seg] || {emoji:'', cor:'badge-gray'};
-  return `<span class="badge ${s.cor}">${s.emoji} ${seg}</span>`;
-}
-
-function getFila(){
-  return clientes.filter(c => {
-    const days = calcDays(c.ultima);
-    const lim  = SEGMENTOS[c.seg]?.dias || 10;
-    return days >= lim;
-  });
-}
-
-// ── RENDER CLIENTES ──
 function renderClientes(list){
-  const tbody = document.getElementById('clientes-tbody');
-  if(!list.length){
-    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text3)">Nenhum cliente encontrado.</td></tr>`;
-    return;
-  }
-  tbody.innerHTML = list.map(c => {
-    const days = calcDays(c.ultima);
+  const tbody=document.getElementById('clientes-tbody');
+  if(!list.length){ tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text3)">Nenhum cliente encontrado.</td></tr>`; return; }
+  tbody.innerHTML=list.map(c=>{
+    const days=calcDays(c.ultima);
+    const wppE=encodeURIComponent(c.wpp);
+    const segE=encodeURIComponent(c.seg);
     return `<tr>
       <td class="name">${c.nome}</td>
       <td>${c.wpp}</td>
       <td>${getSegBadge(c.seg)}</td>
       <td>${new Date(c.ultima+'T12:00').toLocaleDateString('pt-BR')}</td>
-      <td>${getDaysChip(days, c.seg)}</td>
+      <td>${getDaysChip(days,c.seg)}</td>
       <td>${getStatusBadge(c.status)}</td>
       <td><div class="action-btns">
-        <button class="icon-btn send" title="Enviar mensagem agora" onclick="sendMsgCliente(this,'${c.nome.split(' ')[0]}')">
+        <button class="icon-btn send" title="Enviar mensagem" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" onclick="sendMsgCliente(this)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
-        <button class="icon-btn del" title="Remover cliente" onclick="removeCliente('${c.id}')">
+        <button class="icon-btn del" title="Remover" onclick="removeCliente('${c.id}')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
         </button>
       </div></td>
@@ -1177,111 +484,119 @@ function renderClientes(list){
 }
 
 function filterClientes(){
-  const q      = document.getElementById('search-input').value.toLowerCase();
-  const seg    = document.getElementById('filter-seg').value;
-  const status = document.getElementById('filter-status').value;
-  renderClientes(clientes.filter(c =>
-    (!q || c.nome.toLowerCase().includes(q) || c.wpp.includes(q)) &&
-    (!seg || c.seg === seg) &&
-    (!status || c.status === status)
-  ));
+  const q=document.getElementById('search-input').value.toLowerCase();
+  const seg=document.getElementById('filter-seg').value;
+  const status=document.getElementById('filter-status').value;
+  renderClientes(clientes.filter(c=>(!q||c.nome.toLowerCase().includes(q)||c.wpp.includes(q))&&(!seg||c.seg===seg)&&(!status||c.status===status)));
 }
 
 async function removeCliente(id){
-  const idx = clientes.findIndex(c => String(c.id) === String(id));
-  if(idx>-1){
-    const clienteId = clientes[idx].id;
-    clientes.splice(idx,1);
-    filterClientes(); updateCount();
-    showToast('Cliente removido.');
-    await removerClienteBanco(clienteId);
-  }
+  const idx=clientes.findIndex(c=>String(c.id)===String(id));
+  if(idx>-1){ const cId=clientes[idx].id; clientes.splice(idx,1); filterClientes(); updateCount(); showToast('Cliente removido.'); await removerClienteBanco(cId); }
 }
 
 function updateCount(){
-  document.getElementById('nav-count').textContent = clientes.length;
-  document.getElementById('dash-total').textContent = clientes.length;
-  document.getElementById('dash-fila').textContent = getFila().length;
-  renderDashSegs();
-  renderFila();
-  atualizarLimitesPlano();
+  document.getElementById('nav-count').textContent=clientes.length;
+  document.getElementById('dash-total').textContent=clientes.length;
+  document.getElementById('dash-fila').textContent=getFila().length;
+  renderDashSegs(); renderFila(); atualizarLimitesPlano();
 }
 
-const LIMITES_PLANO = {
-  trial: { clientes: 10, mensagens: 50 },
-  starter: { clientes: 100, mensagens: 200 },
-  profissional: { clientes: 300, mensagens: 600 },
-  crescimento: { clientes: 800, mensagens: 1600 },
-};
+const LIMITES_PLANO={trial:{clientes:10,mensagens:50},starter:{clientes:100,mensagens:200},profissional:{clientes:300,mensagens:600},crescimento:{clientes:800,mensagens:1600}};
 
-function atualizarLimitesPlano() {
-  const plano = ACCOUNT.plano || 'trial';
-  const limites = LIMITES_PLANO[plano] || LIMITES_PLANO.trial;
-  const total = clientes.length;
-  const pctCli = Math.min(Math.round(total / limites.clientes * 100), 100);
-  document.getElementById('plano-cli').textContent = total + ' / ' + limites.clientes;
-  if(document.getElementById('bar-cli'))
-    document.getElementById('bar-cli').style.width = pctCli + '%';
+function atualizarLimitesPlano(){
+  const plano=ACCOUNT.plano||'trial';
+  const limites=LIMITES_PLANO[plano]||LIMITES_PLANO.trial;
+  const total=clientes.length;
+  const pct=Math.min(Math.round(total/limites.clientes*100),100);
+  document.getElementById('plano-cli').textContent=total+' / '+limites.clientes;
+  if(document.getElementById('bar-cli')) document.getElementById('bar-cli').style.width=pct+'%';
 }
 
-// ── RENDER FILA ──
 function renderFila(){
-  const fila = getFila();
-  document.getElementById('fila-qtd').textContent = fila.length;
-  document.getElementById('dash-fila').textContent = fila.length;
-  const tbody = document.getElementById('fila-tbody');
-  if(!fila.length){
-    tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">🎉</div><strong style="color:var(--text)">Fila vazia!</strong><p>Nenhum cliente precisa de contato agora.</p></div></td></tr>`;
-    return;
-  }
-  tbody.innerHTML = fila.map(c => {
-    const days = calcDays(c.ultima);
-    const tmpl = SEGMENTOS[c.seg]?.template || '';
-    const prev = tmpl.replace('{nome}', c.nome.split(' ')[0]).replace('{dias}', days);
+  const fila=getFila();
+  document.getElementById('fila-qtd').textContent=fila.length;
+  document.getElementById('dash-fila').textContent=fila.length;
+  const tbody=document.getElementById('fila-tbody');
+  if(!fila.length){ tbody.innerHTML=`<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">🎉</div><strong style="color:var(--text)">Fila vazia!</strong><p>Nenhum cliente precisa de contato agora.</p></div></td></tr>`; return; }
+  tbody.innerHTML=fila.map(c=>{
+    const days=calcDays(c.ultima);
+    const tmpl=SEGMENTOS[c.seg]?.template||'';
+    const prev=tmpl.replace('{nome}',c.nome.split(' ')[0]).replace('{dias}',days);
     return `<tr>
       <td class="name">${c.nome}</td>
       <td>${getSegBadge(c.seg)}</td>
-      <td>${getDaysChip(days, c.seg)}</td>
+      <td>${getDaysChip(days,c.seg)}</td>
       <td style="color:var(--text3);font-style:italic;font-size:0.78rem;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${prev}</td>
-      <td><button class="btn btn-ghost btn-sm" onclick="sendMsgCliente(this,'${c.nome.split(' ')[0]}')">Enviar agora</button></td>
+      <td><button class="btn btn-ghost btn-sm" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" onclick="sendMsgCliente(this)">Enviar agora</button></td>
     </tr>`;
   }).join('');
 }
 
-function dispararTodos(){
-  const fila = getFila();
+async function dispararTodos(){
+  const fila=getFila();
   if(!fila.length){ showToast('Fila já está vazia!','err'); return; }
-  const btn = document.querySelector('.btn-green');
-  btn.textContent = `✓ ${fila.length} mensagens disparadas!`;
-  btn.disabled = true;
-  fila.forEach(c => c.status = 'ok');
-  showToast(`${fila.length} mensagens enviadas com sucesso!`);
-  setTimeout(()=>{ btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Disparar todos agora'; btn.disabled=false; renderFila(); },3000);
+  const btn=document.querySelector('.btn-green');
+  btn.textContent='⏳ Enviando...'; btn.disabled=true;
+  let enviados=0;
+  for(const c of fila){
+    const days=calcDays(c.ultima);
+    const tmpl=SEGMENTOS[c.seg]?.template||'Oi {nome}! Sentimos sua falta! 😊';
+    const mensagem=tmpl.replace('{nome}',c.nome.split(' ')[0]).replace('{dias}',days);
+    try{
+      const res=await fetch(`${BACKEND}/api/enviar-mensagem`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:c.wpp,mensagem,empresaId:ACCOUNT.empresaId})});
+      const data=await res.json();
+      if(data.success) enviados++;
+    }catch(e){}
+  }
+  showToast(`${enviados} mensagens enviadas!`);
+  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Disparar todos agora';
+  btn.disabled=false;
 }
 
-// ── RENDER TEMPLATES ──
+// ── ENVIO REAL VIA BACKEND ──
+async function sendMsgCliente(btn){
+  const nome=btn.dataset.nome;
+  const wpp=btn.dataset.wpp;
+  const seg=btn.dataset.seg;
+  const orig=btn.innerHTML||btn.textContent;
+  btn.innerHTML='⏳'; btn.disabled=true;
+
+  const cliente=clientes.find(c=>c.wpp===wpp);
+  const days=cliente?calcDays(cliente.ultima):0;
+  const tmpl=SEGMENTOS[seg]?.template||'Oi {nome}! Sentimos sua falta! 😊';
+  const mensagem=tmpl.replace('{nome}',nome).replace('{dias}',days);
+
+  try{
+    const res=await fetch(`${BACKEND}/api/enviar-mensagem`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({telefone:wpp,mensagem,empresaId:ACCOUNT.empresaId})
+    });
+    const data=await res.json();
+    if(data.success){
+      btn.innerHTML='✓'; btn.style.color='var(--green)';
+      showToast(`Mensagem enviada para ${nome}!`);
+    }else{
+      btn.innerHTML='✕'; btn.style.color='var(--red)';
+      showToast('Erro ao enviar mensagem.','err');
+    }
+  }catch(err){
+    btn.innerHTML='✕'; btn.style.color='var(--red)';
+    showToast('Erro ao conectar com o servidor.','err');
+  }
+  setTimeout(()=>{ btn.innerHTML=orig; btn.disabled=false; btn.style.color=''; },3000);
+}
+
 function renderTemplates(){
-  const grid = document.getElementById('templates-grid');
-  grid.innerHTML = Object.entries(SEGMENTOS).map(([seg, s]) => `
+  const grid=document.getElementById('templates-grid');
+  grid.innerHTML=Object.entries(SEGMENTOS).map(([seg,s])=>`
     <div class="envio-card">
-      <div class="envio-header">
-        <div class="envio-emoji">${s.emoji}</div>
-        <div>
-          <div class="envio-seg">${seg}</div>
-          <div class="envio-rule" id="rule-${seg}">Dispara após ${s.dias} dias sem visita</div>
-        </div>
-      </div>
-      <div class="dias-input-row">
-        <label>Disparar após</label>
-        <input type="number" class="dias-input" value="${s.dias}" min="1" max="365" onchange="updateDias('${seg}',this.value)">
-        <label>dias</label>
-      </div>
+      <div class="envio-header"><div class="envio-emoji">${s.emoji}</div><div><div class="envio-seg">${seg}</div><div class="envio-rule" id="rule-${seg}">Dispara após ${s.dias} dias sem visita</div></div></div>
+      <div class="dias-input-row"><label>Disparar após</label><input type="number" class="dias-input" value="${s.dias}" min="1" max="365" onchange="updateDias('${seg}',this.value)"><label>dias</label></div>
       <div class="msg-edit-wrap">
         <textarea class="msg-edit" id="tmpl-${seg}">${s.template}</textarea>
-        <div class="msg-vars">
-          <button class="var-chip" onclick="insertVar('tmpl-${seg}','{nome}')">{nome}</button>
-          <button class="var-chip" onclick="insertVar('tmpl-${seg}','{dias}')">{dias}</button>
-        </div>
+        <div class="msg-vars"><button class="var-chip" onclick="insertVar('tmpl-${seg}','{nome}')">{nome}</button><button class="var-chip" onclick="insertVar('tmpl-${seg}','{dias}')">{dias}</button></div>
       </div>
       <div class="toggle-row">
         <span class="toggle-label">Automação ativa</span>
@@ -1294,407 +609,180 @@ function renderTemplates(){
   `).join('');
 }
 
-function updateDias(seg, val){
-  SEGMENTOS[seg].dias = parseInt(val);
-  document.getElementById(`rule-${seg}`).textContent = `Dispara após ${val} dias sem visita`;
-  renderFila();
-}
+function updateDias(seg,val){ SEGMENTOS[seg].dias=parseInt(val); document.getElementById(`rule-${seg}`).textContent=`Dispara após ${val} dias sem visita`; renderFila(); }
+function insertVar(id,v){ const el=document.getElementById(id); const s=el.selectionStart,e=el.selectionEnd; el.value=el.value.slice(0,s)+v+el.value.slice(e); el.focus(); el.selectionStart=el.selectionEnd=s+v.length; }
+function salvarTemplate(seg){ SEGMENTOS[seg].template=document.getElementById(`tmpl-${seg}`).value; showToast(`Template de ${seg} salvo!`); renderFila(); }
 
-function insertVar(id, v){
-  const el = document.getElementById(id);
-  const s = el.selectionStart, e = el.selectionEnd;
-  el.value = el.value.slice(0,s) + v + el.value.slice(e);
-  el.focus();
-  el.selectionStart = el.selectionEnd = s + v.length;
-}
-
-function salvarTemplate(seg){
-  SEGMENTOS[seg].template = document.getElementById(`tmpl-${seg}`).value;
-  showToast(`Template de ${seg} salvo!`);
-  renderFila();
-}
-
-// ── RENDER DASH SEGS ──
 function renderDashSegs(){
-  const total = clientes.length || 1;
-  const bySegs = {};
-  clientes.forEach(c => bySegs[c.seg] = (bySegs[c.seg]||0)+1);
-  const colors = ['var(--blue)','var(--accent)','var(--amber)','var(--green)','#a78bfa','#f472b6'];
-  document.getElementById('dash-segs').innerHTML = Object.entries(bySegs).map(([seg,cnt],i) => `
-    <div class="seg-row">
-      <div class="seg-emoji">${SEGMENTOS[seg]?.emoji||'📌'}</div>
-      <div class="seg-info">
-        <div class="seg-name">${seg}</div>
-        <div class="seg-bar-wrap"><div class="seg-bar" style="width:${Math.round(cnt/total*100)}%;background:${colors[i%colors.length]}"></div></div>
-      </div>
-      <div class="seg-count">${cnt} cliente${cnt>1?'s':''}</div>
-    </div>
+  const total=clientes.length||1; const bySegs={};
+  clientes.forEach(c=>bySegs[c.seg]=(bySegs[c.seg]||0)+1);
+  const colors=['var(--blue)','var(--accent)','var(--amber)','var(--green)','#a78bfa','#f472b6'];
+  document.getElementById('dash-segs').innerHTML=Object.entries(bySegs).map(([seg,cnt],i)=>`
+    <div class="seg-row"><div class="seg-emoji">${SEGMENTOS[seg]?.emoji||'📌'}</div><div class="seg-info"><div class="seg-name">${seg}</div><div class="seg-bar-wrap"><div class="seg-bar" style="width:${Math.round(cnt/total*100)}%;background:${colors[i%colors.length]}"></div></div></div><div class="seg-count">${cnt} cliente${cnt>1?'s':''}</div></div>
   `).join('');
 }
 
-// ── RENDER HISTÓRICO ──
 function renderHistorico(){
-  const seg  = document.getElementById('hist-filter-seg').value;
-  const resp = document.getElementById('hist-filter-resp').value;
-  const list = historico.filter(h =>
-    (!seg || h.seg === seg) &&
-    (!resp || h.resp === resp)
-  );
-  const tbody = document.getElementById('historico-tbody');
-  if(!list.length){
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--text3)">Nenhum envio encontrado.</td></tr>`;
-    return;
-  }
-  tbody.innerHTML = list.map(h => `
-    <tr>
-      <td>${new Date(h.data+'T12:00').toLocaleDateString('pt-BR')}</td>
-      <td class="name">${h.nome}</td>
-      <td>${getSegBadge(h.seg)}</td>
-      <td style="font-size:0.8rem;color:var(--text3);font-style:italic">${h.msg}</td>
-      <td>${h.resp==='respondeu'
-        ? '<span class="badge badge-green">✓ Respondeu</span>'
-        : '<span class="badge badge-gray">Sem resposta</span>'}</td>
-    </tr>
-  `).join('');
+  const seg=document.getElementById('hist-filter-seg').value;
+  const resp=document.getElementById('hist-filter-resp').value;
+  const list=historico.filter(h=>(!seg||h.seg===seg)&&(!resp||h.resp===resp));
+  const tbody=document.getElementById('historico-tbody');
+  if(!list.length){ tbody.innerHTML=`<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--text3)">Nenhum envio encontrado.</td></tr>`; return; }
+  tbody.innerHTML=list.map(h=>`<tr><td>${new Date(h.data+'T12:00').toLocaleDateString('pt-BR')}</td><td class="name">${h.nome}</td><td>${getSegBadge(h.seg)}</td><td style="font-size:0.8rem;color:var(--text3);font-style:italic">${h.msg}</td><td>${h.resp==='respondeu'?'<span class="badge badge-green">✓ Respondeu</span>':'<span class="badge badge-gray">Sem resposta</span>'}</td></tr>`).join('');
 }
 
-// ── MODAL ──
-function openModal(){
-  document.getElementById('modal-overlay').classList.add('open');
-  document.getElementById('f-data').valueAsDate = new Date();
-  switchTab('manual', document.querySelector('.modal-tab'));
-}
-
-function openImportModal(){
-  document.getElementById('modal-overlay').classList.add('open');
-  switchTab('import', document.querySelectorAll('.modal-tab')[1]);
-}
-
+function openModal(){ document.getElementById('modal-overlay').classList.add('open'); document.getElementById('f-data').valueAsDate=new Date(); switchTab('manual',document.querySelector('.modal-tab')); }
+function openImportModal(){ document.getElementById('modal-overlay').classList.add('open'); switchTab('import',document.querySelectorAll('.modal-tab')[1]); }
 function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); }
 function closeModalOutside(e){ if(e.target===document.getElementById('modal-overlay')) closeModal(); }
-
-function switchTab(tab, btn){
-  document.querySelectorAll('.modal-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('tab-manual').style.display = tab==='manual' ? '' : 'none';
-  document.getElementById('tab-import').style.display = tab==='import' ? '' : 'none';
-}
+function switchTab(tab,btn){ document.querySelectorAll('.modal-tab').forEach(t=>t.classList.remove('active')); btn.classList.add('active'); document.getElementById('tab-manual').style.display=tab==='manual'?'':'none'; document.getElementById('tab-import').style.display=tab==='import'?'':'none'; }
 
 async function addCliente(){
-  const nome = document.getElementById('f-nome').value.trim();
-  const wpp  = document.getElementById('f-wpp').value.trim();
-  const seg  = document.getElementById('f-seg').value;
-  const data = document.getElementById('f-data').value;
+  const nome=document.getElementById('f-nome').value.trim();
+  const wpp=document.getElementById('f-wpp').value.trim();
+  const seg=document.getElementById('f-seg').value;
+  const data=document.getElementById('f-data').value;
   if(!nome||!wpp||!data){ showToast('Preencha todos os campos.','err'); return; }
-  const novoCliente = {id: Date.now(), nome, wpp, seg, ultima:data, status:'ok'};
+  const novoCliente={id:Date.now(),nome,wpp,seg,ultima:data,status:'ok'};
   clientes.unshift(novoCliente);
   filterClientes(); updateCount(); closeModal();
   showToast(`${nome} adicionado!`);
   document.getElementById('f-nome').value='';
   document.getElementById('f-wpp').value='';
-  // Salva no banco
-  const saved = await salvarClienteBanco(novoCliente);
-  if (saved) { novoCliente.id = saved.id; }
+  const saved=await salvarClienteBanco(novoCliente);
+  if(saved){ novoCliente.id=saved.id; }
 }
 
-// Importação simulada
-let importData = [];
+let importData=[];
 function dragOver(e){ e.preventDefault(); document.getElementById('import-zone').classList.add('dragover'); }
 function dragLeave(){ document.getElementById('import-zone').classList.remove('dragover'); }
 function dropFile(e){ e.preventDefault(); dragLeave(); handleFile({target:{files:e.dataTransfer.files}}); }
 function handleFile(e){
-  const file = e.target.files[0];
-  if(!file) return;
-  // Simulação: em produção usar SheetJS para parsear xlsx real
-  importData = [
-    {id:100, nome:'Simulado Silva', wpp:'(51) 91111-1111', seg:'Barbearia', ultima:'2025-05-01', status:'alerta'},
-    {id:101, nome:'Teste Oliveira', wpp:'(51) 92222-2222', seg:'Beleza',    ultima:'2025-05-10', status:'ok'},
-    {id:102, nome:'Demo Santos',    wpp:'(51) 93333-3333', seg:'Pet shop',  ultima:'2025-04-20', status:'critico'},
-  ];
+  const file=e.target.files[0]; if(!file) return;
+  importData=[{id:100,nome:'Simulado Silva',wpp:'(51) 91111-1111',seg:'Barbearia',ultima:'2025-05-01',status:'alerta'},{id:101,nome:'Teste Oliveira',wpp:'(51) 92222-2222',seg:'Beleza',ultima:'2025-05-10',status:'ok'}];
   document.getElementById('import-preview').style.display='';
-  document.getElementById('import-msg').textContent = `✓ ${file.name} — ${importData.length} clientes encontrados, prontos para importar.`;
+  document.getElementById('import-msg').textContent=`✓ ${file.name} — ${importData.length} clientes encontrados.`;
   document.getElementById('btn-importar').style.display='';
 }
+function confirmarImport(){ clientes.unshift(...importData); filterClientes(); updateCount(); closeModal(); showToast(`${importData.length} clientes importados!`); importData=[]; }
 
-function confirmarImport(){
-  clientes.unshift(...importData);
-  filterClientes(); updateCount(); closeModal();
-  showToast(`${importData.length} clientes importados!`);
-  importData = [];
-}
-
-// ── TOAST ──
-function showToast(msg, type='ok'){
-  const t = document.getElementById('toast');
-  t.querySelector('span:first-child').textContent = type==='err' ? '✕' : '✓';
-  document.getElementById('toast-msg').textContent = msg;
-  t.style.borderColor = type==='err' ? 'var(--red)' : 'var(--green)';
-  t.style.color = type==='err' ? 'var(--red)' : 'var(--green)';
+function showToast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  t.querySelector('span:first-child').textContent=type==='err'?'✕':'✓';
+  document.getElementById('toast-msg').textContent=msg;
+  t.style.borderColor=type==='err'?'var(--red)':'var(--green)';
+  t.style.color=type==='err'?'var(--red)':'var(--green)';
   t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2800);
+  setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-function sendMsgCliente(btn, nome){
-  const orig = btn.innerHTML || btn.textContent;
-  btn.innerHTML = '✓ Enviado'; btn.disabled = true;
-  btn.style.color = 'var(--green)';
-  showToast(`Mensagem enviada para ${nome}!`);
-  setTimeout(()=>{ btn.innerHTML=orig; btn.disabled=false; btn.style.color=''; }, 3000);
-}
-
-// ── NAV ──
-function showPage(id, btn){
+function showPage(id,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
-
-  const titles = {dashboard:'Dashboard', clientes:'Clientes', automacoes:'Automações', historico:'Histórico de envios', config:'Configurações'};
-  document.getElementById('page-title').textContent = titles[id]||id;
-
-  const actionBtn = document.getElementById('topbar-action');
-  if(id==='clientes'||id==='dashboard'){
-    actionBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo cliente';
-    actionBtn.style.display='';
-  } else {
-    actionBtn.style.display='none';
-  }
-
+  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',historico:'Histórico de envios',config:'Configurações'};
+  document.getElementById('page-title').textContent=titles[id]||id;
+  const actionBtn=document.getElementById('topbar-action');
+  if(id==='clientes'||id==='dashboard'){ actionBtn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo cliente'; actionBtn.style.display=''; }
+  else{ actionBtn.style.display='none'; }
   if(id==='historico') renderHistorico();
 }
+function topbarAction(){ const active=document.querySelector('.page.active').id; if(active==='page-clientes'||active==='page-dashboard') openModal(); }
 
-function topbarAction(){
-  const active = document.querySelector('.page.active').id;
-  if(active==='page-clientes'||active==='page-dashboard') openModal();
-}
+const ACCOUNT={status:'trial',trialEndsAt:new Date(Date.now()+7*24*60*60*1000),plano:null,empresaId:null,email:null};
 
-
-// ── TRIAL / PAGAMENTO ──
-const ACCOUNT = {
-  status: 'trial',
-  trialEndsAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-  plano: null,
-  empresaId: null,
-  email: null,
-};
-
-// ── PROTEÇÃO DA ROTA + CARREGAR DADOS REAIS ──
-async function checkAuth() {
-  const { data: { session } } = await supabase.auth.getSession();
-
-  if (!session) {
-    window.location.href = 'retornax-login.html';
-    return;
+async function checkAuth(){
+  const{data:{session}}=await supabase.auth.getSession();
+  if(!session){ window.location.href='retornax-login.html'; return; }
+  const{data:empresa}=await supabase.from('empresas').select('*').eq('user_id',session.user.id).single();
+  if(empresa){
+    ACCOUNT.status=empresa.status;
+    ACCOUNT.trialEndsAt=new Date(empresa.trial_ends_at);
+    ACCOUNT.plano=empresa.plano;
+    ACCOUNT.empresaId=empresa.id;
+    ACCOUNT.email=empresa.email;
+    document.querySelector('.user-name').textContent=empresa.nome;
+    document.querySelector('.user-plan').textContent=empresa.plano==='trial'?'Período gratuito':`Plano ${empresa.plano}`;
   }
-
-  const { data: empresa } = await supabase
-    .from('empresas')
-    .select('*')
-    .eq('user_id', session.user.id)
-    .single();
-
-  if (empresa) {
-    ACCOUNT.status     = empresa.status;
-    ACCOUNT.trialEndsAt = new Date(empresa.trial_ends_at);
-    ACCOUNT.plano      = empresa.plano;
-    ACCOUNT.empresaId  = empresa.id;
-    ACCOUNT.email      = empresa.email;
-
-    document.querySelector('.user-name').textContent  = empresa.nome;
-    document.querySelector('.user-plan').textContent  =
-      empresa.plano === 'trial' ? 'Período gratuito' : `Plano ${empresa.plano}`;
-  }
-
   initAccountStatus();
   await carregarClientes();
 }
 
-// ── CARREGAR CLIENTES DO BANCO ──
-async function carregarClientes() {
-  if (!ACCOUNT.empresaId) return;
-  const { data } = await supabase
-    .from('clientes')
-    .select('*')
-    .eq('empresa_id', ACCOUNT.empresaId)
-    .order('created_at', { ascending: false });
-
-  if (data && data.length > 0) {
-    clientes = data.map(c => ({
-      id:      c.id,
-      nome:    c.nome,
-      wpp:     c.whatsapp,
-      seg:     c.segmento,
-      ultima:  c.ultima_visita,
-      status:  c.status,
-    }));
-    filterClientes();
-    updateCount();
+async function carregarClientes(){
+  if(!ACCOUNT.empresaId) return;
+  const{data}=await supabase.from('clientes').select('*').eq('empresa_id',ACCOUNT.empresaId).order('created_at',{ascending:false});
+  if(data&&data.length>0){
+    clientes=data.map(c=>({id:c.id,nome:c.nome,wpp:c.whatsapp,seg:c.segmento,ultima:c.ultima_visita,status:c.status}));
+    filterClientes(); updateCount();
   }
   checkOnboarding();
 }
 
-// ── SALVAR CLIENTE NO BANCO ──
-async function salvarClienteBanco(cliente) {
-  if (!ACCOUNT.empresaId) return;
-  const { data, error } = await supabase.from('clientes').insert({
-    empresa_id:    ACCOUNT.empresaId,
-    nome:          cliente.nome,
-    whatsapp:      cliente.wpp,
-    segmento:      cliente.seg,
-    ultima_visita: cliente.ultima,
-    status:        cliente.status,
-  }).select().single();
+async function salvarClienteBanco(cliente){
+  if(!ACCOUNT.empresaId) return;
+  const{data}=await supabase.from('clientes').insert({empresa_id:ACCOUNT.empresaId,nome:cliente.nome,whatsapp:cliente.wpp,segmento:cliente.seg,ultima_visita:cliente.ultima,status:cliente.status}).select().single();
   return data;
 }
 
-// ── REMOVER CLIENTE DO BANCO ──
-async function removerClienteBanco(id) {
-  await supabase.from('clientes').delete().eq('id', id);
-}
+async function removerClienteBanco(id){ await supabase.from('clientes').delete().eq('id',id); }
+async function logout(){ await supabase.auth.signOut(); window.location.href='retornax-login.html'; }
 
-// ── LOGOUT ──
-async function logout() {
-  await supabase.auth.signOut();
-  window.location.href = 'retornax-login.html';
-}
-
-function initAccountStatus() {
-  const banner  = document.getElementById('trial-banner');
-  const content = document.getElementById('main-content');
-  const overlay = document.getElementById('planos-overlay');
-
-  const hoje    = new Date();
-  const diff    = Math.ceil((ACCOUNT.trialEndsAt - hoje) / (1000*60*60*24));
-
-  if (ACCOUNT.status === 'ativo') {
-    // Conta paga — sem aviso
-    banner.style.display = 'none';
+function initAccountStatus(){
+  const banner=document.getElementById('trial-banner');
+  const content=document.getElementById('main-content');
+  const hoje=new Date();
+  const diff=Math.ceil((ACCOUNT.trialEndsAt-hoje)/(1000*60*60*24));
+  if(ACCOUNT.status==='ativo'){ banner.style.display='none'; return; }
+  if(ACCOUNT.status==='trial'&&diff>0){
+    const cor=diff<=2?'warning':'active';
+    banner.className=`trial-banner ${cor}`;
+    banner.innerHTML=`<span>${diff<=2?'⚠️':'🎁'} Período gratuito — <strong>${diff} dia${diff>1?'s':''} restante${diff>1?'s':''}</strong>. Após isso, escolha um plano.</span><button class="btn-assinar-banner" onclick="abrirPlanos('trial')">Ver planos →</button>`;
     return;
   }
-
-  if (ACCOUNT.status === 'trial' && diff > 0) {
-    // Trial ativo
-    const cor = diff <= 2 ? 'warning' : 'active';
-    banner.className = `trial-banner ${cor}`;
-    banner.innerHTML = `
-      <span>${diff <= 2 ? '⚠️' : '🎁'} Período gratuito — <strong>${diff} dia${diff > 1 ? 's' : ''} restante${diff > 1 ? 's' : ''}</strong>. Após isso, escolha um plano para continuar.</span>
-      <button class="btn-assinar-banner" onclick="abrirPlanos('trial')">Ver planos →</button>
-    `;
-    return;
-  }
-
-  // Trial expirado ou inadimplente — bloqueia
-  banner.className = 'trial-banner expired';
-  banner.innerHTML = `
-    <span>🔒 Seu acesso está <strong>${ACCOUNT.status === 'inadimplente' ? 'suspenso por inadimplência' : 'expirado'}</strong>. Assine um plano para continuar.</span>
-    <button class="btn-assinar-banner" onclick="abrirPlanos('${ACCOUNT.status}')">Assinar agora →</button>
-  `;
+  banner.className='trial-banner expired';
+  banner.innerHTML=`<span>🔒 Seu acesso está <strong>expirado</strong>. Assine um plano para continuar.</span><button class="btn-assinar-banner" onclick="abrirPlanos('expired')">Assinar agora →</button>`;
   content.classList.add('content-blocked');
   abrirPlanos(ACCOUNT.status);
 }
 
-function fecharPlanos() {
-  const overlay = document.getElementById('planos-overlay');
-  const mainContent = document.getElementById('main-content');
-  overlay.classList.remove('open');
-  if(mainContent) mainContent.classList.remove('content-blocked');
+function fecharPlanos(){ document.getElementById('planos-overlay').classList.remove('open'); document.getElementById('main-content').classList.remove('content-blocked'); }
+function abrirPlanos(motivo){
+  const icon=document.getElementById('planos-icon'),title=document.getElementById('planos-title'),sub=document.getElementById('planos-sub');
+  if(motivo==='inadimplente'){ icon.textContent='⚠️'; title.textContent='Pagamento pendente'; sub.textContent='Houve um problema com sua cobrança.'; }
+  else if(motivo==='trial'){ icon.textContent='🚀'; title.textContent='Escolha seu plano'; sub.textContent='Continue usando o Retornax no piloto automático.'; }
+  else{ icon.textContent='🔒'; title.textContent='Seu período gratuito acabou'; sub.textContent='Escolha um plano para continuar.'; }
+  document.getElementById('planos-overlay').classList.add('open');
 }
 
-function abrirPlanos(motivo) {
-  const overlay = document.getElementById('planos-overlay');
-  const icon    = document.getElementById('planos-icon');
-  const title   = document.getElementById('planos-title');
-  const sub     = document.getElementById('planos-sub');
-
-  if (motivo === 'inadimplente') {
-    icon.textContent  = '⚠️';
-    title.textContent = 'Pagamento pendente';
-    sub.textContent   = 'Houve um problema com sua cobrança. Atualize seu plano para reativar o acesso.';
-  } else if (motivo === 'trial') {
-    icon.textContent  = '🚀';
-    title.textContent = 'Escolha seu plano';
-    sub.textContent   = 'Continue usando o Retornax e mantendo seu faturamento recorrente no piloto automático.';
-  } else {
-    icon.textContent  = '🔒';
-    title.textContent = 'Seu período gratuito acabou';
-    sub.textContent   = 'Escolha um plano para continuar reativando seus clientes automaticamente.';
-  }
-
-  overlay.classList.add('open');
-}
-
-async function assinarPlano(plano, valor) {
+async function assinarPlano(plano,valor){
   showToast('Preparando checkout...');
-  try {
-    const res = await fetch('https://spirited-youthfulness-production-e76c.up.railway.app/api/create-checkout', {
-      method: 'POST',
-      mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ plano: plano, empresaId: ACCOUNT.empresaId, email: ACCOUNT.email })
-    });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      showToast('Erro ao criar checkout. Tente novamente.', 'err');
-    }
-  } catch(err) {
-    showToast('Erro ao conectar com o servidor.', 'err');
-  }
+  try{
+    const res=await fetch(`${BACKEND}/api/create-checkout`,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({plano,empresaId:ACCOUNT.empresaId,email:ACCOUNT.email})});
+    const data=await res.json();
+    if(data.url) window.location.href=data.url;
+    else showToast('Erro ao criar checkout.','err');
+  }catch(err){ showToast('Erro ao conectar com o servidor.','err'); }
 }
 
-// Inicializa ao carregar
-initAccountStatus();
-
-
-// ── ONBOARDING ──
-function checkOnboarding() {
-  const visto = localStorage.getItem('retornax_onboarding_' + (ACCOUNT.empresaId || 'x'));
-  if (!visto && clientes.length === 0) {
-    document.getElementById('onboarding-overlay').classList.add('open');
-  }
+function checkOnboarding(){
+  const visto=localStorage.getItem('retornax_onboarding_'+(ACCOUNT.empresaId||'x'));
+  if(!visto&&clientes.length===0) document.getElementById('onboarding-overlay').classList.add('open');
 }
+function obNext(step){ for(let i=1;i<=3;i++){ const el=document.getElementById('ob-step-'+i); if(el) el.style.display=i===step?'':'none'; } }
+function obAbrirClientes(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('clientes',document.querySelectorAll('.nav-item')[1]); setTimeout(()=>openModal(),300); }
+function obImportarPlanilha(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('clientes',document.querySelectorAll('.nav-item')[1]); setTimeout(()=>openImportModal(),300); }
+function obAbrirAutomacoes(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('automacoes',document.querySelectorAll('.nav-item')[2]); }
+function obFinalizar(){ localStorage.setItem('retornax_onboarding_'+(ACCOUNT.empresaId||'x'),'1'); document.getElementById('onboarding-overlay').classList.remove('open'); }
 
-function obNext(step) {
-  for(let i = 1; i <= 3; i++) {
-    const el = document.getElementById('ob-step-' + i);
-    if(el) el.style.display = i === step ? '' : 'none';
-  }
-}
-
-function obAbrirClientes() {
-  document.getElementById('onboarding-overlay').classList.remove('open');
-  showPage('clientes', document.querySelectorAll('.nav-item')[1]);
-  setTimeout(() => openModal(), 300);
-}
-
-function obImportarPlanilha() {
-  document.getElementById('onboarding-overlay').classList.remove('open');
-  showPage('clientes', document.querySelectorAll('.nav-item')[1]);
-  setTimeout(() => openImportModal(), 300);
-}
-
-function obAbrirAutomacoes() {
-  document.getElementById('onboarding-overlay').classList.remove('open');
-  showPage('automacoes', document.querySelectorAll('.nav-item')[2]);
-}
-
-function obFinalizar() {
-  localStorage.setItem('retornax_onboarding_' + (ACCOUNT.empresaId || 'x'), '1');
-  document.getElementById('onboarding-overlay').classList.remove('open');
-}
-
-// ── INIT ──
 renderTemplates();
-document.getElementById('f-data').valueAsDate = new Date();
-checkAuth(); // Verifica sessão e carrega dados reais
+document.getElementById('f-data').valueAsDate=new Date();
+checkAuth();
 </script>
 
-<!-- BOTÃO SUPORTE WHATSAPP -->
 <a href="https://wa.me/5551984026354?text=Oi!+Preciso+de+ajuda+com+o+Retornax+%F0%9F%9A%80" target="_blank" class="suporte-btn">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   Suporte
 </a>
-
 </body>
 </html>
