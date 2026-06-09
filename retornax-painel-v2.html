@@ -975,6 +975,9 @@ tbody td.name{color:var(--text);font-weight:500}
 <!-- MODAL PLANOS (BLOQUEIO) -->
 <div class="planos-overlay" id="planos-overlay">
   <div class="planos-modal">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+      <button onclick="fecharPlanos()" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:1.4rem;line-height:1;padding:4px 8px;border-radius:6px;transition:color 0.15s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text2)'">✕</button>
+    </div>
     <div class="planos-modal-header">
       <div class="planos-modal-icon" id="planos-icon">🔒</div>
       <div class="planos-modal-title" id="planos-title">Seu período gratuito acabou</div>
@@ -1590,6 +1593,13 @@ function initAccountStatus() {
   abrirPlanos(ACCOUNT.status);
 }
 
+function fecharPlanos() {
+  const overlay = document.getElementById('planos-overlay');
+  const mainContent = document.getElementById('main-content');
+  overlay.classList.remove('open');
+  if(mainContent) mainContent.classList.remove('content-blocked');
+}
+
 function abrirPlanos(motivo) {
   const overlay = document.getElementById('planos-overlay');
   const icon    = document.getElementById('planos-icon');
@@ -1618,6 +1628,7 @@ async function assinarPlano(plano, valor) {
   try {
     const res = await fetch('https://spirited-youthfulness-production-e76c.up.railway.app/api/create-checkout', {
       method: 'POST',
+      mode: 'cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ plano: plano, empresaId: ACCOUNT.empresaId, email: ACCOUNT.email })
     });
