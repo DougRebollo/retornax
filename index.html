@@ -66,7 +66,6 @@
     z-index: 0;
   }
 
-  /* ─── NAV ─── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -80,800 +79,166 @@
     border-bottom: 1px solid var(--card-border);
   }
 
-  .logo {
-    font-weight: 800;
-    font-size: 1.5rem;
-    letter-spacing: -0.5px;
-    color: var(--white);
-  }
+  .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; color: var(--white); }
   .logo span { color: var(--accent); }
 
-  nav ul {
-    display: flex;
-    gap: 36px;
-    list-style: none;
-  }
-  nav ul a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
+  nav ul { display: flex; gap: 36px; list-style: none; }
+  nav ul a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
   nav ul a:hover { color: var(--white); }
 
-  .nav-cta {
-    background: var(--blue-400);
-    color: var(--white) !important;
-    padding: 10px 22px;
-    border-radius: 8px;
-    font-weight: 600 !important;
-    transition: background 0.2s !important;
-  }
+  .nav-cta { background: var(--blue-400); color: var(--white) !important; padding: 10px 22px; border-radius: 8px; font-weight: 600 !important; transition: background 0.2s !important; }
   .nav-cta:hover { background: var(--blue-300) !important; }
 
-  .nav-login {
-    background: transparent !important;
-    color: var(--text-muted) !important;
-    border: 1px solid var(--card-border) !important;
-    padding: 9px 20px !important;
-    border-radius: 8px !important;
-    font-weight: 500 !important;
-    transition: all 0.2s !important;
-  }
-  .nav-login:hover {
-    border-color: var(--blue-300) !important;
-    color: var(--white) !important;
-  }
+  .nav-login { background: transparent !important; color: var(--text-muted) !important; border: 1px solid var(--card-border) !important; padding: 9px 20px !important; border-radius: 8px !important; font-weight: 500 !important; transition: all 0.2s !important; }
+  .nav-login:hover { border-color: var(--blue-300) !important; color: var(--white) !important; }
 
-  /* ─── HAMBURGER ─── */
-  .nav-hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 4px;
-  }
-  .nav-hamburger span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--text);
-    border-radius: 2px;
-    transition: all 0.3s;
-  }
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
 
-  /* ─── HERO ─── */
   .hero {
-    position: relative;
-    z-index: 1;
+    position: relative; z-index: 1;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
     text-align: center;
     padding: 120px 6% 80px;
   }
 
   .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--green-dim);
-    border: 1px solid rgba(0,208,132,0.3);
-    color: var(--green);
-    padding: 6px 16px;
-    border-radius: 100px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    margin-bottom: 32px;
-    animation: fadeUp 0.6s ease both;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green-dim); border: 1px solid rgba(0,208,132,0.3);
+    color: var(--green); padding: 6px 16px; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px;
+    margin-bottom: 32px; animation: fadeUp 0.6s ease both;
   }
-  .badge::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
+  .badge::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(1.5); }
-  }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.5); } }
 
-  h1 {
-    font-weight: 800;
-    font-size: clamp(2.6rem, 5.5vw, 4.8rem);
-    line-height: 1.05;
-    letter-spacing: -2px;
-    max-width: 860px;
-    animation: fadeUp 0.6s ease 0.1s both;
-  }
+  h1 { font-weight: 800; font-size: clamp(2.6rem, 5.5vw, 4.8rem); line-height: 1.05; letter-spacing: -2px; max-width: 860px; animation: fadeUp 0.6s ease 0.1s both; }
   h1 .accent { color: var(--accent); }
   h1 .green { color: var(--green); }
 
-  .hero-sub {
-    margin-top: 24px;
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    color: var(--text-muted);
-    max-width: 580px;
-    font-weight: 400;
-    line-height: 1.7;
-    animation: fadeUp 0.6s ease 0.2s both;
-  }
+  .hero-sub { margin-top: 24px; font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-muted); max-width: 580px; font-weight: 400; line-height: 1.7; animation: fadeUp 0.6s ease 0.2s both; }
 
-  /* Pill de prova social inline */
-  .hero-social-proof {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-    animation: fadeUp 0.6s ease 0.25s both;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-  }
-  .avatars {
-    display: flex;
-  }
-  .avatars span {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 2px solid var(--blue-900);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.65rem;
-    font-weight: 700;
-    margin-left: -8px;
-  }
+  .hero-social-proof { display: flex; align-items: center; gap: 10px; margin-top: 20px; animation: fadeUp 0.6s ease 0.25s both; font-size: 0.85rem; color: var(--text-muted); }
+  .avatars { display: flex; }
+  .avatars span { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--blue-900); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-left: -8px; }
   .avatars span:first-child { margin-left: 0; }
 
-  .hero-actions {
-    display: flex;
-    gap: 16px;
-    margin-top: 44px;
-    flex-wrap: wrap;
-    justify-content: center;
-    animation: fadeUp 0.6s ease 0.3s both;
-  }
+  .hero-actions { display: flex; gap: 16px; margin-top: 44px; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.6s ease 0.3s both; }
 
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--blue-400);
-    color: var(--white);
-    padding: 16px 32px;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 1rem;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-  }
-  .btn-primary:hover {
-    background: var(--blue-300);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(46,106,255,0.4);
-  }
+  .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--blue-400); color: var(--white); padding: 16px 32px; border-radius: 10px; font-weight: 600; font-size: 1rem; text-decoration: none; border: none; cursor: pointer; transition: all 0.2s; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .btn-primary:hover { background: var(--blue-300); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(46,106,255,0.4); }
 
-  .btn-wpp {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: transparent;
-    color: var(--white);
-    padding: 16px 32px;
-    border-radius: 10px;
-    font-weight: 500;
-    font-size: 1rem;
-    text-decoration: none;
-    border: 1px solid var(--card-border);
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-  }
-  .btn-wpp:hover {
-    border-color: #25d366;
-    color: #25d366;
-    background: rgba(37,211,102,0.06);
-  }
+  .btn-wpp { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--white); padding: 16px 32px; border-radius: 10px; font-weight: 500; font-size: 1rem; text-decoration: none; border: 1px solid var(--card-border); cursor: pointer; transition: all 0.2s; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .btn-wpp:hover { border-color: #25d366; color: #25d366; background: rgba(37,211,102,0.06); }
 
-  /* Mockup mensagens */
-  .hero-mockup {
-    position: relative;
-    margin-top: 72px;
-    animation: fadeUp 0.6s ease 0.4s both;
-  }
+  .hero-mockup { position: relative; margin-top: 72px; animation: fadeUp 0.6s ease 0.4s both; }
 
-  .phone-wrap {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
+  .phone-wrap { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
 
-  .msg-card {
-    background: rgba(10,26,74,0.7);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 20px 24px;
-    max-width: 280px;
-    text-align: left;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s, border-color 0.3s;
-  }
-  .msg-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(46,106,255,0.3);
-  }
+  .msg-card { background: rgba(10,26,74,0.7); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px 24px; max-width: 280px; text-align: left; backdrop-filter: blur(10px); transition: transform 0.3s, border-color 0.3s; }
+  .msg-card:hover { transform: translateY(-4px); border-color: rgba(46,106,255,0.3); }
 
-  .msg-segment {
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
-
-  .msg-bubble {
-    background: #1f2b47;
-    border-radius: 12px 12px 12px 4px;
-    padding: 12px 14px;
-    font-size: 0.85rem;
-    color: var(--text);
-    line-height: 1.55;
-  }
+  .msg-segment { font-size: 0.68rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .msg-bubble { background: #1f2b47; border-radius: 12px 12px 12px 4px; padding: 12px 14px; font-size: 0.85rem; color: var(--text); line-height: 1.55; }
   .msg-bubble strong { color: var(--accent); }
+  .msg-result { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 0.72rem; color: var(--green); font-weight: 600; }
+  .msg-result::before { content: '↩'; font-size: 0.8rem; }
+  .msg-time { font-size: 0.68rem; color: var(--text-muted); margin-top: 4px; text-align: right; }
 
-  .msg-result {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 10px;
-    font-size: 0.72rem;
-    color: var(--green);
-    font-weight: 600;
-  }
-  .msg-result::before {
-    content: '↩';
-    font-size: 0.8rem;
-  }
-
-  .msg-time {
-    font-size: 0.68rem;
-    color: var(--text-muted);
-    margin-top: 4px;
-    text-align: right;
-  }
-
-  /* ─── STATS ─── */
-  .stats {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    padding: 60px 6%;
-    border-top: 1px solid var(--card-border);
-    border-bottom: 1px solid var(--card-border);
-    flex-wrap: wrap;
-  }
-
-  .stat {
-    flex: 1;
-    min-width: 180px;
-    text-align: center;
-    padding: 20px 32px;
-    border-right: 1px solid var(--card-border);
-  }
+  .stats { position: relative; z-index: 1; display: flex; justify-content: center; gap: 0; padding: 60px 6%; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); flex-wrap: wrap; }
+  .stat { flex: 1; min-width: 180px; text-align: center; padding: 20px 32px; border-right: 1px solid var(--card-border); }
   .stat:last-child { border-right: none; }
-
-  .stat-num {
-    font-size: 2.6rem;
-    font-weight: 800;
-    color: var(--white);
-    line-height: 1;
-  }
+  .stat-num { font-size: 2.6rem; font-weight: 800; color: var(--white); line-height: 1; }
   .stat-num span { color: var(--accent); }
+  .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; line-height: 1.4; }
 
-  .stat-label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-top: 6px;
-    line-height: 1.4;
-  }
+  section { position: relative; z-index: 1; padding: 100px 6%; }
 
-  /* ─── SECTIONS ─── */
-  section {
-    position: relative;
-    z-index: 1;
-    padding: 100px 6%;
-  }
+  .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
 
-  .section-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
-  }
+  h2 { font-size: clamp(1.9rem, 3.5vw, 2.9rem); font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; max-width: 580px; }
 
-  h2 {
-    font-size: clamp(1.9rem, 3.5vw, 2.9rem);
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    line-height: 1.1;
-    max-width: 580px;
-  }
-
-  /* ─── FATURAMENTO RECORRENTE (nova seção no hero) ─── */
-  .recurrence-strip {
-    position: relative;
-    z-index: 1;
-    background: linear-gradient(135deg, rgba(0,208,132,0.07) 0%, rgba(46,106,255,0.07) 100%);
-    border-top: 1px solid rgba(0,208,132,0.15);
-    border-bottom: 1px solid rgba(0,208,132,0.15);
-    padding: 48px 6%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    flex-wrap: wrap;
-  }
-
+  .recurrence-strip { position: relative; z-index: 1; background: linear-gradient(135deg, rgba(0,208,132,0.07) 0%, rgba(46,106,255,0.07) 100%); border-top: 1px solid rgba(0,208,132,0.15); border-bottom: 1px solid rgba(0,208,132,0.15); padding: 48px 6%; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
   .recurrence-strip .strip-text { max-width: 560px; }
-
-  .recurrence-strip h3 {
-    font-size: clamp(1.4rem, 2.5vw, 2rem);
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 12px;
-    line-height: 1.2;
-  }
+  .recurrence-strip h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; line-height: 1.2; }
   .recurrence-strip h3 .green { color: var(--green); }
-
-  .recurrence-strip p {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-
-  .recurrence-metrics {
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
-  }
-
-  .rec-metric {
-    text-align: center;
-    min-width: 120px;
-  }
-  .rec-metric .num {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: var(--green);
-    line-height: 1;
-  }
+  .recurrence-strip p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+  .recurrence-metrics { display: flex; gap: 32px; flex-wrap: wrap; }
+  .rec-metric { text-align: center; min-width: 120px; }
+  .rec-metric .num { font-size: 2.2rem; font-weight: 800; color: var(--green); line-height: 1; }
   .rec-metric .num span { font-size: 1rem; }
-  .rec-metric .label {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    margin-top: 4px;
-    line-height: 1.4;
-  }
+  .rec-metric .label { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
 
-  /* ─── COMO FUNCIONA ─── */
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 24px;
-    margin-top: 56px;
-  }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 56px; }
+  .step { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px 28px; transition: border-color 0.3s, transform 0.3s; }
+  .step:hover { border-color: rgba(46,106,255,0.35); transform: translateY(-4px); }
+  .step-num { font-size: 2.5rem; font-weight: 800; color: rgba(46,106,255,0.2); line-height: 1; margin-bottom: 16px; }
+  .step h3 { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+  .step p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
 
-  .step {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 32px 28px;
-    transition: border-color 0.3s, transform 0.3s;
-  }
-  .step:hover {
-    border-color: rgba(46,106,255,0.35);
-    transform: translateY(-4px);
-  }
-
-  .step-num {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: rgba(46,106,255,0.2);
-    line-height: 1;
-    margin-bottom: 16px;
-  }
-
-  .step h3 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 10px;
-  }
-
-  .step p {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    line-height: 1.65;
-  }
-
-  /* ─── SEGMENTOS ─── */
-  .segments {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
-    margin-top: 56px;
-  }
-
-  .seg-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 28px;
-    transition: all 0.3s;
-  }
-  .seg-card:hover {
-    background: rgba(46,106,255,0.07);
-    border-color: rgba(46,106,255,0.3);
-  }
-
+  .segments { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 56px; }
+  .seg-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 28px; transition: all 0.3s; }
+  .seg-card:hover { background: rgba(46,106,255,0.07); border-color: rgba(46,106,255,0.3); }
   .seg-icon { font-size: 2rem; margin-bottom: 16px; }
+  .seg-card h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+  .seg-msg { background: rgba(0,229,255,0.06); border-left: 2px solid var(--accent); padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 0.82rem; color: var(--text-muted); font-style: italic; line-height: 1.5; margin-bottom: 12px; }
+  .seg-roi { display: inline-flex; align-items: center; gap: 6px; background: var(--green-dim); border: 1px solid rgba(0,208,132,0.2); color: var(--green); padding: 4px 10px; border-radius: 100px; font-size: 0.73rem; font-weight: 600; }
 
-  .seg-card h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 10px;
-  }
-
-  .seg-msg {
-    background: rgba(0,229,255,0.06);
-    border-left: 2px solid var(--accent);
-    padding: 10px 14px;
-    border-radius: 0 8px 8px 0;
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    font-style: italic;
-    line-height: 1.5;
-    margin-bottom: 12px;
-  }
-
-  .seg-roi {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--green-dim);
-    border: 1px solid rgba(0,208,132,0.2);
-    color: var(--green);
-    padding: 4px 10px;
-    border-radius: 100px;
-    font-size: 0.73rem;
-    font-weight: 600;
-  }
-
-  /* ─── PLANOS ─── */
-  .plans {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px;
-    margin-top: 56px;
-    align-items: start;
-  }
-
-  .plan {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 20px;
-    padding: 36px 32px;
-    transition: all 0.3s;
-    position: relative;
-  }
+  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 56px; align-items: start; }
+  .plan { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 36px 32px; transition: all 0.3s; position: relative; }
   .plan:hover { transform: translateY(-4px); }
-
-  .plan.featured {
-    background: linear-gradient(135deg, rgba(46,106,255,0.12), rgba(0,229,255,0.04));
-    border-color: rgba(46,106,255,0.45);
-  }
-
-  .plan-tag {
-    position: absolute;
-    top: -13px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--blue-400);
-    color: var(--white);
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 4px 16px;
-    border-radius: 100px;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-  }
-
-  .plan-name {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 12px;
-  }
-
-  .plan-price {
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--white);
-    line-height: 1;
-  }
+  .plan.featured { background: linear-gradient(135deg, rgba(46,106,255,0.12), rgba(0,229,255,0.04)); border-color: rgba(46,106,255,0.45); }
+  .plan-tag { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--blue-400); color: var(--white); font-size: 0.72rem; font-weight: 700; padding: 4px 16px; border-radius: 100px; letter-spacing: 0.5px; white-space: nowrap; }
+  .plan-name { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+  .plan-price { font-size: 3rem; font-weight: 800; color: var(--white); line-height: 1; }
   .plan-price sup { font-size: 1.2rem; vertical-align: top; margin-top: 8px; display: inline-block; }
   .plan-price sub { font-size: 0.9rem; color: var(--text-muted); font-weight: 400; }
-
-  /* ROI box nos planos */
-  .plan-roi {
-    background: var(--green-dim);
-    border: 1px solid rgba(0,208,132,0.2);
-    border-radius: 10px;
-    padding: 12px 16px;
-    margin: 16px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .plan-roi .roi-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--green);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-  }
-  .plan-roi .roi-value {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.4;
-  }
+  .plan-roi { background: var(--green-dim); border: 1px solid rgba(0,208,132,0.2); border-radius: 10px; padding: 12px 16px; margin: 16px 0; display: flex; flex-direction: column; gap: 2px; }
+  .plan-roi .roi-label { font-size: 0.7rem; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: 0.8px; }
+  .plan-roi .roi-value { font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; }
   .plan-roi .roi-value strong { color: var(--green); }
+  .plan-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 28px; }
+  .plan-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.87rem; color: var(--text-muted); }
+  .plan-features li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .plan-btn { display: block; text-align: center; padding: 14px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; border: none; width: 100%; }
+  .plan-btn-outline { background: transparent; border: 1px solid var(--card-border); color: var(--text); }
+  .plan-btn-outline:hover { border-color: var(--blue-300); color: var(--blue-300); }
+  .plan-btn-filled { background: var(--blue-400); color: var(--white); }
+  .plan-btn-filled:hover { background: var(--blue-300); box-shadow: 0 6px 24px rgba(46,106,255,0.35); }
 
-  .plan-desc {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-  }
+  .form-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; margin-top: 56px; }
+  .form-info h3 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.2; }
+  .form-info p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 28px; }
+  .form-info .wpp-link { display: inline-flex; align-items: center; gap: 10px; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.3); color: #25d366; padding: 14px 24px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: all 0.2s; }
+  .form-info .wpp-link:hover { background: rgba(37,211,102,0.18); transform: translateY(-2px); }
+  .form-trust { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
+  .form-trust-item { display: flex; align-items: center; gap: 8px; font-size: 0.83rem; color: var(--text-muted); }
+  .form-trust-item::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 0.9rem; }
 
-  .plan-features {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 11px;
-    margin-bottom: 28px;
-  }
-  .plan-features li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 0.87rem;
-    color: var(--text-muted);
-  }
-  .plan-features li::before {
-    content: '✓';
-    color: var(--accent);
-    font-weight: 700;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .plan-btn {
-    display: block;
-    text-align: center;
-    padding: 14px;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: pointer;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    border: none;
-    width: 100%;
-  }
-  .plan-btn-outline {
-    background: transparent;
-    border: 1px solid var(--card-border);
-    color: var(--text);
-  }
-  .plan-btn-outline:hover {
-    border-color: var(--blue-300);
-    color: var(--blue-300);
-  }
-  .plan-btn-filled {
-    background: var(--blue-400);
-    color: var(--white);
-  }
-  .plan-btn-filled:hover {
-    background: var(--blue-300);
-    box-shadow: 0 6px 24px rgba(46,106,255,0.35);
-  }
-
-  /* ─── FORM ─── */
-  .form-wrap {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: start;
-    margin-top: 56px;
-  }
-
-  .form-info h3 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 16px;
-    line-height: 1.2;
-  }
-
-  .form-info p {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-    margin-bottom: 28px;
-  }
-
-  .form-info .wpp-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(37,211,102,0.1);
-    border: 1px solid rgba(37,211,102,0.3);
-    color: #25d366;
-    padding: 14px 24px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.2s;
-  }
-  .form-info .wpp-link:hover {
-    background: rgba(37,211,102,0.18);
-    transform: translateY(-2px);
-  }
-
-  .form-trust {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 28px;
-  }
-  .form-trust-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.83rem;
-    color: var(--text-muted);
-  }
-  .form-trust-item::before {
-    content: '✓';
-    color: var(--green);
-    font-weight: 700;
-    font-size: 0.9rem;
-  }
-
-  form {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 20px;
-    padding: 36px 32px;
-  }
-
+  form { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 36px 32px; }
   .form-group { margin-bottom: 18px; }
-
-  label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-bottom: 7px;
-    letter-spacing: 0.3px;
-  }
-
-  input, select, textarea {
-    width: 100%;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    padding: 12px 16px;
-    color: var(--white);
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.92rem;
-    transition: border-color 0.2s;
-    outline: none;
-    -webkit-appearance: none;
-  }
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--blue-400);
-    background: rgba(46,106,255,0.06);
-  }
+  label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 7px; letter-spacing: 0.3px; }
+  input, select, textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px 16px; color: var(--white); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.92rem; transition: border-color 0.2s; outline: none; -webkit-appearance: none; }
+  input:focus, select:focus, textarea:focus { border-color: var(--blue-400); background: rgba(46,106,255,0.06); }
   select option { background: var(--blue-800); }
   textarea { resize: vertical; min-height: 90px; }
+  .form-submit { width: 100%; background: var(--blue-400); color: var(--white); border: none; padding: 15px; border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .form-submit:hover { background: var(--blue-300); box-shadow: 0 6px 24px rgba(46,106,255,0.35); transform: translateY(-1px); }
+  .form-submit:disabled { background: #0f9e6a; cursor: default; transform: none; box-shadow: none; }
 
-  .form-submit {
-    width: 100%;
-    background: var(--blue-400);
-    color: var(--white);
-    border: none;
-    padding: 15px;
-    border-radius: 10px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-top: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-  .form-submit:hover {
-    background: var(--blue-300);
-    box-shadow: 0 6px 24px rgba(46,106,255,0.35);
-    transform: translateY(-1px);
-  }
-  .form-submit:disabled {
-    background: #0f9e6a;
-    cursor: default;
-    transform: none;
-    box-shadow: none;
-  }
-
-  /* ─── FOOTER ─── */
-  footer {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 40px 6%;
-    border-top: 1px solid var(--card-border);
-    color: var(--text-muted);
-    font-size: 0.85rem;
-  }
+  footer { position: relative; z-index: 1; text-align: center; padding: 40px 6%; border-top: 1px solid var(--card-border); color: var(--text-muted); font-size: 0.85rem; }
   footer .logo { font-size: 1.2rem; margin-bottom: 8px; display: block; }
 
-  /* ─── ANIMATIONS ─── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
     nav ul { display: none; }
-    nav ul.open {
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      top: 65px; left: 0; right: 0;
-      background: rgba(5,15,46,0.97);
-      padding: 24px 6%;
-      gap: 20px;
-      border-bottom: 1px solid var(--card-border);
-      backdrop-filter: blur(16px);
-    }
+    nav ul.open { display: flex; flex-direction: column; position: fixed; top: 65px; left: 0; right: 0; background: rgba(5,15,46,0.97); padding: 24px 6%; gap: 20px; border-bottom: 1px solid var(--card-border); backdrop-filter: blur(16px); }
     nav ul.open a { font-size: 1.1rem; color: var(--text); }
     .nav-hamburger { display: flex; }
-
     .form-wrap { grid-template-columns: 1fr; gap: 40px; }
     .stat { border-right: none; border-bottom: 1px solid var(--card-border); }
     .stat:last-child { border-bottom: none; }
@@ -888,7 +253,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="logo">Retorna<span>x</span></div>
   <ul id="nav-menu">
@@ -903,16 +267,10 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="badge">💰 O amigo do seu faturamento recorrente</div>
-
   <h1>Seu cliente não voltou?<br>O <span class="accent">Retornax</span> lembra<br>por <span class="green">você.</span></h1>
-
-  <p class="hero-sub">
-    Faturamento recorrente é o que sustenta um negócio saudável — mas clientes somem. O Retornax manda a mensagem certa, na hora certa, pelo WhatsApp, e faz eles voltarem sem você precisar fazer nada.
-  </p>
-
+  <p class="hero-sub">Faturamento recorrente é o que sustenta um negócio saudável — mas clientes somem. O Retornax manda a mensagem certa, na hora certa, pelo WhatsApp, e faz eles voltarem sem você precisar fazer nada.</p>
   <div class="hero-social-proof">
     <div class="avatars">
       <span style="background:#1a4fd6;">JC</span>
@@ -922,7 +280,6 @@
     </div>
     <span>+120 negócios já usam o Retornax</span>
   </div>
-
   <div class="hero-actions">
     <a href="#contato" class="btn-primary">
       Quero testar 7 dias grátis
@@ -933,30 +290,23 @@
       Ver demonstração
     </a>
   </div>
-
   <div class="hero-mockup">
     <div class="phone-wrap">
       <div class="msg-card">
         <div class="msg-segment">✂ Barbearia</div>
-        <div class="msg-bubble">
-          Oi <strong>João</strong>! Já faz 12 dias que você não passa por aqui. 😊 Que tal marcar um horário essa semana?
-        </div>
+        <div class="msg-bubble">Oi <strong>João</strong>! Já faz 12 dias que você não passa por aqui. 😊 Que tal marcar um horário essa semana?</div>
         <div class="msg-result">Agendou para sexta-feira</div>
         <div class="msg-time">Retornax · automático</div>
       </div>
       <div class="msg-card">
         <div class="msg-segment">🚗 Estética automotiva</div>
-        <div class="msg-bubble">
-          Oi <strong>Ana</strong>! Faz 15 dias que seu carro não vem lavar. Quer agendar uma lavagem essa semana?
-        </div>
+        <div class="msg-bubble">Oi <strong>Ana</strong>! Faz 15 dias que seu carro não vem lavar. Quer agendar uma lavagem essa semana?</div>
         <div class="msg-result">Confirmou para amanhã</div>
         <div class="msg-time">Retornax · automático</div>
       </div>
       <div class="msg-card">
         <div class="msg-segment">🔧 Mecânica</div>
-        <div class="msg-bubble">
-          Oi <strong>Carlos</strong>! Fim de ano chegando. Que tal uma revisão antes das viagens? Freios, óleo, filtros.
-        </div>
+        <div class="msg-bubble">Oi <strong>Carlos</strong>! Fim de ano chegando. Que tal uma revisão antes das viagens? Freios, óleo, filtros.</div>
         <div class="msg-result">Marcou revisão completa</div>
         <div class="msg-time">Retornax · automático</div>
       </div>
@@ -964,27 +314,13 @@
   </div>
 </section>
 
-<!-- STATS -->
 <div class="stats">
-  <div class="stat">
-    <div class="stat-num">68<span>%</span></div>
-    <div class="stat-label">dos clientes somem por falta de contato</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">5<span>x</span></div>
-    <div class="stat-label">mais barato reativar do que conquistar novo</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">3<span>min</span></div>
-    <div class="stat-label">para configurar e ativar o Retornax</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">24<span>/7</span></div>
-    <div class="stat-label">mensagens enviadas no momento certo</div>
-  </div>
+  <div class="stat"><div class="stat-num">68<span>%</span></div><div class="stat-label">dos clientes somem por falta de contato</div></div>
+  <div class="stat"><div class="stat-num">5<span>x</span></div><div class="stat-label">mais barato reativar do que conquistar novo</div></div>
+  <div class="stat"><div class="stat-num">3<span>min</span></div><div class="stat-label">para configurar e ativar o Retornax</div></div>
+  <div class="stat"><div class="stat-num">24<span>/7</span></div><div class="stat-label">mensagens enviadas no momento certo</div></div>
 </div>
 
-<!-- FATURAMENTO RECORRENTE STRIP -->
 <div class="recurrence-strip">
   <div class="strip-text">
     <div class="section-label">Por que isso importa</div>
@@ -992,94 +328,37 @@
     <p>Conquistar um cliente novo custa caro. Mas o cliente que já comprou de você, já confia em você — só precisa ser lembrado. O Retornax é o amigo que faz esse trabalho todos os dias, sem falta, sem esquecimento.</p>
   </div>
   <div class="recurrence-metrics">
-    <div class="rec-metric">
-      <div class="num">+40<span>%</span></div>
-      <div class="label">de retorno médio em clientes inativos</div>
-    </div>
-    <div class="rec-metric">
-      <div class="num">R$0</div>
-      <div class="label">de custo extra por mensagem enviada</div>
-    </div>
-    <div class="rec-metric">
-      <div class="num">1<span>sem</span></div>
-      <div class="label">para sentir o impacto no caixa</div>
-    </div>
+    <div class="rec-metric"><div class="num">+40<span>%</span></div><div class="label">de retorno médio em clientes inativos</div></div>
+    <div class="rec-metric"><div class="num">R$0</div><div class="label">de custo extra por mensagem enviada</div></div>
+    <div class="rec-metric"><div class="num">1<span>sem</span></div><div class="label">para sentir o impacto no caixa</div></div>
   </div>
 </div>
 
-<!-- COMO FUNCIONA -->
 <section id="como-funciona">
   <div class="section-label">Como funciona</div>
   <h2>Simples de configurar, poderoso no resultado.</h2>
   <div class="steps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h3>Cadastre seus clientes</h3>
-      <p>Adicione nome, WhatsApp e a data da última visita. Pode importar de uma planilha ou cadastrar manualmente.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h3>Defina as regras</h3>
-      <p>Escolha após quantos dias sem visita o Retornax envia a mensagem. Cada segmento tem templates prontos.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h3>Ative e esqueça</h3>
-      <p>O sistema monitora automaticamente e dispara as mensagens no momento certo, direto no WhatsApp do cliente.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <h3>Veja o dinheiro voltar</h3>
-      <p>Acompanhe no dashboard quantos clientes voltaram, quantos agendamentos foram gerados e o impacto no seu faturamento.</p>
-    </div>
+    <div class="step"><div class="step-num">01</div><h3>Cadastre seus clientes</h3><p>Adicione nome, WhatsApp e a data da última visita. Pode importar de uma planilha ou cadastrar manualmente.</p></div>
+    <div class="step"><div class="step-num">02</div><h3>Defina as regras</h3><p>Escolha após quantos dias sem visita o Retornax envia a mensagem. Cada segmento tem templates prontos.</p></div>
+    <div class="step"><div class="step-num">03</div><h3>Ative e esqueça</h3><p>O sistema monitora automaticamente e dispara as mensagens no momento certo, direto no WhatsApp do cliente.</p></div>
+    <div class="step"><div class="step-num">04</div><h3>Veja o dinheiro voltar</h3><p>Acompanhe no dashboard quantos clientes voltaram, quantos agendamentos foram gerados e o impacto no seu faturamento.</p></div>
   </div>
 </section>
 
-<!-- SEGMENTOS -->
 <section id="segmentos" style="padding-top:0">
   <div class="section-label">Segmentos</div>
   <h2>Feito para quem vive de cliente recorrente.</h2>
   <div class="segments">
-    <div class="seg-card">
-      <div class="seg-icon">✂</div>
-      <h3>Barbearia & Salão</h3>
-      <div class="seg-msg">"Oi João! Já faz 10 dias que você não corta o cabelo. Quer marcar um horário essa semana?"</div>
-      <div class="seg-roi">💰 Clientes voltam em média 2x mais por mês</div>
-    </div>
-    <div class="seg-card">
-      <div class="seg-icon">🚗</div>
-      <h3>Estética automotiva</h3>
-      <div class="seg-msg">"Oi Ana! Faz 15 dias que seu carro não vem lavar. Quer agendar uma lavagem?"</div>
-      <div class="seg-roi">💰 Reativa clientes esquecidos toda semana</div>
-    </div>
-    <div class="seg-card">
-      <div class="seg-icon">🔧</div>
-      <h3>Mecânica</h3>
-      <div class="seg-msg">"Oi Carlos! Fim de ano chegando. Que tal uma revisão antes das viagens? Freios, óleo, filtros."</div>
-      <div class="seg-roi">💰 Ticket médio sobe com mensagens sazonais</div>
-    </div>
-    <div class="seg-card">
-      <div class="seg-icon">💅</div>
-      <h3>Estética & Beleza</h3>
-      <div class="seg-msg">"Oi Mari! Já faz 3 semanas desde sua última visita. Quer agendar manicure ou sobrancelha?"</div>
-      <div class="seg-roi">💰 Agenda sempre cheia, sem esforço</div>
-    </div>
-    <div class="seg-card">
-      <div class="seg-icon">🐾</div>
-      <h3>Pet shop & Banho</h3>
-      <div class="seg-msg">"Oi! O Thor já tá precisando de um banho, faz 20 dias. Quer agendar essa semana?"</div>
-      <div class="seg-roi">💰 Intervalos curtos = receita previsível</div>
-    </div>
-    <div class="seg-card">
-      <div class="seg-icon">🏋</div>
-      <h3>Academia & Personal</h3>
-      <div class="seg-msg">"Oi Lucas! Notei que você não treina há 7 dias. Que tal retomar amanhã?"</div>
-      <div class="seg-roi">💰 Reduz churn e aumenta retenção</div>
-    </div>
+    <div class="seg-card"><div class="seg-icon">✂</div><h3>Barbearia & Salão</h3><div class="seg-msg">"Oi João! Já faz 10 dias que você não corta o cabelo. Quer marcar um horário essa semana?"</div><div class="seg-roi">💰 Clientes voltam em média 2x mais por mês</div></div>
+    <div class="seg-card"><div class="seg-icon">🚗</div><h3>Estética automotiva</h3><div class="seg-msg">"Oi Ana! Faz 15 dias que seu carro não vem lavar. Quer agendar uma lavagem?"</div><div class="seg-roi">💰 Reativa clientes esquecidos toda semana</div></div>
+    <div class="seg-card"><div class="seg-icon">🔧</div><h3>Mecânica</h3><div class="seg-msg">"Oi Carlos! Fim de ano chegando. Que tal uma revisão antes das viagens? Freios, óleo, filtros."</div><div class="seg-roi">💰 Ticket médio sobe com mensagens sazonais</div></div>
+    <div class="seg-card"><div class="seg-icon">💅</div><h3>Estética & Beleza</h3><div class="seg-msg">"Oi Mari! Já faz 3 semanas desde sua última visita. Quer agendar manicure ou sobrancelha?"</div><div class="seg-roi">💰 Agenda sempre cheia, sem esforço</div></div>
+    <div class="seg-card"><div class="seg-icon">🐾</div><h3>Pet shop & Banho</h3><div class="seg-msg">"Oi! O Thor já tá precisando de um banho, faz 20 dias. Quer agendar essa semana?"</div><div class="seg-roi">💰 Intervalos curtos = receita previsível</div></div>
+    <div class="seg-card"><div class="seg-icon">🏋</div><h3>Academia & Personal</h3><div class="seg-msg">"Oi Lucas! Notei que você não treina há 7 dias. Que tal retomar amanhã?"</div><div class="seg-roi">💰 Reduz churn e aumenta retenção</div></div>
   </div>
 </section>
 
-<!-- PLANOS -->
+<!-- PLANOS — preços atualizados -->
 <section id="planos">
   <div class="section-label">Planos</div>
   <h2>Sem taxa de setup. Cancele quando quiser.</h2>
@@ -1087,7 +366,7 @@
 
     <div class="plan">
       <div class="plan-name">Starter</div>
-      <div class="plan-price"><sup>R$</sup>97<sub>/mês</sub></div>
+      <div class="plan-price"><sup>R$</sup>147<sub>/mês</sub></div>
       <div class="plan-roi">
         <div class="roi-label">Retorno estimado</div>
         <div class="roi-value">Se apenas <strong>2 clientes/mês</strong> voltarem, o plano se paga.</div>
@@ -1098,6 +377,7 @@
         <li>200 mensagens por mês</li>
         <li>1 segmento</li>
         <li>Templates prontos</li>
+        <li>WhatsApp conectado incluso</li>
         <li>Suporte por WhatsApp</li>
       </ul>
       <a href="https://wa.me/5551984026354?text=Oi!+Quero+testar+o+plano+Starter+do+Retornax" target="_blank" class="plan-btn plan-btn-outline">Começar grátis por 7 dias</a>
@@ -1106,7 +386,7 @@
     <div class="plan featured">
       <div class="plan-tag">Mais popular</div>
       <div class="plan-name">Profissional</div>
-      <div class="plan-price"><sup>R$</sup>197<sub>/mês</sub></div>
+      <div class="plan-price"><sup>R$</sup>247<sub>/mês</sub></div>
       <div class="plan-roi">
         <div class="roi-label">Retorno estimado</div>
         <div class="roi-value">Com 300 clientes, <strong>recuperar 5 por mês</strong> já paga 3x o plano.</div>
@@ -1117,6 +397,7 @@
         <li>600 mensagens por mês</li>
         <li>Todos os segmentos</li>
         <li>Templates personalizáveis</li>
+        <li>WhatsApp conectado incluso</li>
         <li>Dashboard de faturamento</li>
         <li>Suporte prioritário</li>
       </ul>
@@ -1125,7 +406,7 @@
 
     <div class="plan">
       <div class="plan-name">Crescimento</div>
-      <div class="plan-price"><sup>R$</sup>347<sub>/mês</sub></div>
+      <div class="plan-price"><sup>R$</sup>447<sub>/mês</sub></div>
       <div class="plan-roi">
         <div class="roi-label">Retorno estimado</div>
         <div class="roi-value">Para redes, <strong>1 cliente reativado por unidade/semana</strong> paga o plano.</div>
@@ -1135,6 +416,7 @@
         <li>Até 800 clientes cadastrados</li>
         <li>1.600 mensagens por mês</li>
         <li>Múltiplas unidades</li>
+        <li>WhatsApp conectado incluso</li>
         <li>API e integrações</li>
         <li>Relatórios avançados de receita</li>
         <li>Gerente de conta dedicado</li>
@@ -1145,7 +427,6 @@
   </div>
 </section>
 
-<!-- CONTATO -->
 <section id="contato">
   <div class="section-label">Contato</div>
   <h2>Comece hoje, veja resultado essa semana.</h2>
@@ -1164,16 +445,9 @@
         <div class="form-trust-item">Suporte em português via WhatsApp</div>
       </div>
     </div>
-
     <form id="lead-form" onsubmit="handleSubmit(event)">
-      <div class="form-group">
-        <label>Seu nome</label>
-        <input type="text" id="f-nome" placeholder="João Silva" required>
-      </div>
-      <div class="form-group">
-        <label>WhatsApp</label>
-        <input type="tel" id="f-wpp" placeholder="(51) 99999-9999" required>
-      </div>
+      <div class="form-group"><label>Seu nome</label><input type="text" id="f-nome" placeholder="João Silva" required></div>
+      <div class="form-group"><label>WhatsApp</label><input type="tel" id="f-wpp" placeholder="(51) 99999-9999" required></div>
       <div class="form-group">
         <label>Segmento do seu negócio</label>
         <select id="f-segmento" required>
@@ -1197,71 +471,37 @@
           <option value="Mais de 300">Mais de 300</option>
         </select>
       </div>
-      <button type="submit" class="form-submit" id="submit-btn">
-        Quero meu teste grátis de 7 dias →
-      </button>
+      <button type="submit" class="form-submit" id="submit-btn">Quero meu teste grátis de 7 dias →</button>
     </form>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <span class="logo">Retorna<span style="color:var(--accent)">x</span></span>
   <p>© 2025 Retornax · Porto Alegre, RS · contato@retornax.com.br</p>
 </footer>
 
 <script>
-  // Hamburguer
-  function toggleMenu() {
-    const menu = document.getElementById('nav-menu');
-    menu.classList.toggle('open');
-  }
-  // Fecha menu ao clicar em link
-  document.querySelectorAll('#nav-menu a').forEach(a => {
-    a.addEventListener('click', () => {
-      document.getElementById('nav-menu').classList.remove('open');
-    });
-  });
+  function toggleMenu() { const menu = document.getElementById('nav-menu'); menu.classList.toggle('open'); }
+  document.querySelectorAll('#nav-menu a').forEach(a => { a.addEventListener('click', () => { document.getElementById('nav-menu').classList.remove('open'); }); });
 
-  // Formulário → redireciona pro WhatsApp com dados preenchidos
   function handleSubmit(e) {
     e.preventDefault();
-
     const nome     = document.getElementById('f-nome').value.trim();
     const wpp      = document.getElementById('f-wpp').value.trim();
     const segmento = document.getElementById('f-segmento').value;
     const clientes = document.getElementById('f-clientes').value;
-
-    const msg = [
-      `Oi! Vim pelo site do Retornax e quero testar grátis. 🚀`,
-      ``,
-      `*Nome:* ${nome}`,
-      `*WhatsApp:* ${wpp}`,
-      `*Segmento:* ${segmento}`,
-      clientes ? `*Base de clientes:* ${clientes}` : null,
-    ].filter(Boolean).join('\n');
-
+    const msg = [`Oi! Vim pelo site do Retornax e quero testar grátis. 🚀`, ``, `*Nome:* ${nome}`, `*WhatsApp:* ${wpp}`, `*Segmento:* ${segmento}`, clientes ? `*Base de clientes:* ${clientes}` : null].filter(Boolean).join('\n');
     const encoded = encodeURIComponent(msg);
-    const wppNumber = '5551984026354'; // ← troque pelo número real
-
     const btn = document.getElementById('submit-btn');
     btn.textContent = '✓ Abrindo WhatsApp...';
     btn.disabled = true;
     btn.style.background = '#0f9e6a';
-
-    setTimeout(() => {
-      window.open(`https://wa.me/${wppNumber}?text=${encoded}`, '_blank');
-    }, 400);
+    setTimeout(() => { window.open(`https://wa.me/5551984026354?text=${encoded}`, '_blank'); }, 400);
   }
 
-  // Scroll suave para animação de entrada nas seções
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; } });
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.step, .seg-card, .plan, .stat').forEach(el => {
