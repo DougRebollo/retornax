@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retornax — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="retornax-config.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root {
+  --bg: #07091a; --bg2: #0d1230; --bg3: #111a3a;
+  --surface: rgba(255,255,255,0.04); --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.13); --blue: #2e6aff; --blue-dim: rgba(46,106,255,0.15);
+  --blue-lite: #5b8fff; --accent: #00e5ff; --green: #00d68f;
+  --green-dim: rgba(0,214,143,0.12); --amber: #ffb020; --amber-dim: rgba(255,176,32,0.12);
+  --red: #ff4d4d; --red-dim: rgba(255,77,77,0.12); --text: #dce6ff;
+  --text2: #7a8ab0; --text3: #4a5880; --white: #ffffff;
+}
+html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px}
+
+/* LOGIN */
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-box {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  padding: 40px;
+  width: 360px;
+}
+.login-box h1 { font-size: 1.4rem; font-weight: 800; color: var(--white); margin-bottom: 6px; }
+.login-box p { font-size: 0.85rem; color: var(--text2); margin-bottom: 24px; }
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
+.form-group input {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 12px; color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; outline: none;
+}
+.form-group input:focus { border-color: var(--blue); }
+.btn-login {
+  width: 100%; background: var(--blue); color: var(--white); border: none;
+  padding: 12px; border-radius: 8px; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-top: 6px;
+  transition: background 0.2s;
+}
+.btn-login:hover { background: var(--blue-lite); }
+.login-error { color: var(--red); font-size: 0.8rem; margin-top: 8px; display: none; }
+
+/* ADMIN LAYOUT */
+.admin { display: none; }
+.admin.visible { display: block; }
+
+.admin-nav {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.admin-logo { font-weight: 800; font-size: 1.2rem; color: var(--white); }
+.admin-logo span { color: var(--accent); }
+.admin-badge {
+  background: var(--red-dim);
+  color: var(--red);
+  border: 1px solid rgba(255,77,77,0.25);
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.btn-logout {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-logout:hover { color: var(--text); border-color: var(--border2); }
+
+.admin-content { padding: 32px; max-width: 1200px; margin: 0 auto; }
+
+.admin-title { font-size: 1.5rem; font-weight: 800; color: var(--white); margin-bottom: 6px; }
+.admin-sub { font-size: 0.85rem; color: var(--text2); margin-bottom: 28px; }
+
+/* STATS */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.stat-label { font-size: 0.78rem; color: var(--text2); font-weight: 500; margin-bottom: 10px; }
+.stat-val { font-size: 2.2rem; font-weight: 800; color: var(--white); line-height: 1; }
+.stat-val.green { color: var(--green); }
+.stat-val.amber { color: var(--amber); }
+.stat-val.blue { color: var(--blue-lite); }
+.stat-sub { font-size: 0.75rem; color: var(--text3); margin-top: 6px; }
+
+/* TABLE */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.card-title { font-weight: 700; font-size: 0.95rem; color: var(--white); }
+
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text3);
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+tbody td { padding: 12px 16px; font-size: 0.83rem; color: var(--text2); }
+tbody td.name { color: var(--text); font-weight: 500; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.badge-green { background: var(--green-dim); color: var(--green); }
+.badge-amber { background: var(--amber-dim); color: var(--amber); }
+.badge-blue  { background: var(--blue-dim);  color: var(--blue-lite); }
+.badge-red   { background: var(--red-dim);   color: var(--red); }
+.badge-gray  { background: rgba(255,255,255,0.07); color: var(--text2); }
+
+.loading { text-align: center; padding: 40px; color: var(--text3); }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <h1>Retorna<span style="color:var(--accent)">x</span> Admin</h1>
+    <p>Área restrita — apenas para administradores.</p>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" id="admin-email" placeholder="admin@retornax.com.br">
+    </div>
+    <div class="form-group">
+      <label>Senha</label>
+      <input type="password" id="admin-senha" placeholder="••••••••">
+    </div>
+    <button class="btn-login" onclick="adminLogin()">Entrar</button>
+    <div class="login-error" id="login-error">E-mail ou senha incorretos.</div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="admin" id="admin-panel">
+  <nav class="admin-nav">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="admin-logo">Retorna<span>x</span></div>
+      <span class="admin-badge">ADMIN</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:0.8rem;color:var(--text2)" id="admin-user-email"></span>
+      <button class="btn-logout" onclick="adminLogout()">Sair</button>
+    </div>
+  </nav>
+
+  <div class="admin-content">
+    <div class="admin-title">Dashboard</div>
+    <div class="admin-sub" id="last-updated">Carregando dados...</div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">MRR (Receita Mensal)</div>
+        <div class="stat-val green" id="stat-mrr">R$ —</div>
+        <div class="stat-sub" id="stat-mrr-sub">calculando...</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Empresas ativas</div>
+        <div class="stat-val blue" id="stat-ativas">—</div>
+        <div class="stat-sub" id="stat-ativas-sub">assinantes pagantes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Em trial</div>
+        <div class="stat-val amber" id="stat-trial">—</div>
+        <div class="stat-sub">período gratuito</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Inadimplentes</div>
+        <div class="stat-val" id="stat-inadim">—</div>
+        <div class="stat-sub">pagamento pendente</div>
+      </div>
+    </div>
+
+    <!-- TABELA EMPRESAS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Todas as empresas</div>
+        <span style="font-size:0.8rem;color:var(--text2)" id="total-empresas">carregando...</span>
+      </div>
+      <div id="tabela-wrap">
+        <div class="loading">Carregando...</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Admin autorizado — troque pelo seu e-mail real
+const ADMIN_EMAILS = ['douglas.rebollo.mh@gmail.com', 'h.especialistainvest@gmail.com'];
+
+async function adminLogin() {
+  const email = document.getElementById('admin-email').value.trim();
+  const senha = document.getElementById('admin-senha').value;
+  const errEl = document.getElementById('login-error');
+  errEl.style.display = 'none';
+
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password: senha });
+
+  if (error || !ADMIN_EMAILS.includes(data.user.email)) {
+    await supabase.auth.signOut();
+    errEl.style.display = 'block';
+    return;
+  }
+
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('admin-panel').classList.add('visible');
+  document.getElementById('admin-user-email').textContent = email;
+  carregarDados();
+}
+
+async function adminLogout() {
+  await supabase.auth.signOut();
+  location.reload();
+}
+
+const MRR_PLANO = { starter: 97, profissional: 197, crescimento: 347 };
+
+async function carregarDados() {
+  // Buscar todas as empresas via service role não funciona no cliente
+  // Aqui usamos a anon key com RLS — para admin funcionar precisaria de uma função server
+  // Por isso vamos buscar via supabase com a session do admin
+
+  const { data: empresas, error } = await supabase
+    .from('empresas')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error || !empresas) {
+    document.getElementById('last-updated').textContent = 'Erro ao carregar dados. Verifique as permissões.';
+    return;
+  }
+
+  // Calcular métricas
+  const ativas     = empresas.filter(e => e.status === 'ativo');
+  const trial      = empresas.filter(e => e.status === 'trial');
+  const inadim     = empresas.filter(e => e.status === 'inadimplente');
+  const expiradas  = empresas.filter(e => e.status === 'expirado');
+
+  const mrr = ativas.reduce((sum, e) => sum + (MRR_PLANO[e.plano] || 0), 0);
+
+  document.getElementById('stat-mrr').textContent = 'R$ ' + mrr.toLocaleString('pt-BR');
+  document.getElementById('stat-mrr-sub').textContent = ativas.length + ' assinantes × planos';
+  document.getElementById('stat-ativas').textContent = ativas.length;
+  document.getElementById('stat-trial').textContent = trial.length;
+  document.getElementById('stat-inadim').textContent = inadim.length;
+  document.getElementById('total-empresas').textContent = empresas.length + ' empresas no total';
+  document.getElementById('last-updated').textContent = 'Atualizado em ' + new Date().toLocaleString('pt-BR');
+
+  // Renderizar tabela
+  const tbody = empresas.map(e => {
+    const diasTrial = e.trial_ends_at
+      ? Math.ceil((new Date(e.trial_ends_at) - new Date()) / (1000*60*60*24))
+      : null;
+
+    const statusBadge = {
+      ativo:        '<span class="badge badge-green">● Ativo</span>',
+      trial:        `<span class="badge badge-amber">⏳ Trial (${diasTrial > 0 ? diasTrial + 'd' : 'expirado'})</span>`,
+      inadimplente: '<span class="badge badge-red">⚠ Inadimplente</span>',
+      expirado:     '<span class="badge badge-gray">✕ Expirado</span>',
+    }[e.status] || e.status;
+
+    const planoBadge = e.plano && e.plano !== 'trial'
+      ? `<span class="badge badge-blue">${e.plano}</span>`
+      : '<span class="badge badge-gray">—</span>';
+
+    return `<tr>
+      <td class="name">${e.nome || '—'}</td>
+      <td>${e.email}</td>
+      <td>${e.whatsapp || '—'}</td>
+      <td>${statusBadge}</td>
+      <td>${planoBadge}</td>
+      <td>R$ ${MRR_PLANO[e.plano] || 0}/mês</td>
+      <td>${new Date(e.created_at).toLocaleDateString('pt-BR')}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('tabela-wrap').innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th><th>E-mail</th><th>WhatsApp</th>
+          <th>Status</th><th>Plano</th><th>MRR</th><th>Cadastro</th>
+        </tr>
+      </thead>
+      <tbody>${tbody}</tbody>
+    </table>
+  `;
+}
+
+// Verificar se já está logado
+(async () => {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session && ADMIN_EMAILS.includes(session.user.email)) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-panel').classList.add('visible');
+    document.getElementById('admin-user-email').textContent = session.user.email;
+    carregarDados();
+  }
+})();
+</script>
+</body>
+</html>
