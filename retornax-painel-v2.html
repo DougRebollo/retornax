@@ -992,33 +992,34 @@ async function dispararCampanha(){
   const lista = publico === 'todos' ? clientes : clientes.filter(c => c.seg === publico);
   if(!lista.length){ showToast('Nenhum cliente neste segmento.', 'err'); return; }
 
-  if(!confirm(`Confirma o disparo para ${lista.length} cliente${lista.length > 1 ? 's' : ''}?`)) return;
+  if(!confirm(`Confirma o disparo para ${lista.length} cliente${lista.length > 1 ? 's' : ''}? As mensagens serão enviadas com intervalo para evitar bloqueio.`)) return;
 
   const btn = document.querySelector('#form-campanha .btn-green');
   btn.textContent = '⏳ Disparando...'; btn.disabled = true;
 
-  let enviados = 0;
-  for(const c of lista){
-    const mensagem = mensagemTemplate.replace('{nome}', c.nome.split(' ')[0]);
-    try{
-      const res = await fetch(`${BACKEND}/api/enviar-mensagem`,{
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({telefone:c.wpp, mensagem, empresaId:ACCOUNT.empresaId})
-      });
-      const data = await res.json();
-      if(data.success) enviados++;
-    }catch(e){}
-  }
+  try {
+    const res = await fetch(`${BACKEND}/api/disparar-campanha`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ empresaId: ACCOUNT.empresaId, mensagemTemplate, publico })
+    });
+    const data = await res.json();
 
-  // Registrar no histórico de campanhas
-  campanhasHistorico.unshift({
-    nome, publico, enviados, total: lista.length,
-    data: new Date().toLocaleDateString('pt-BR'),
-    hora: new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})
-  });
-  renderCampanhasHistorico();
-  fecharFormCampanha();
-  showToast(`Campanha "${nome}" enviada para ${enviados} clientes!`);
+    if(data.success){
+      campanhasHistorico.unshift({
+        nome, publico, enviados: data.enviados, total: data.total,
+        data: new Date().toLocaleDateString('pt-BR'),
+        hora: new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})
+      });
+      renderCampanhasHistorico();
+      fecharFormCampanha();
+      showToast(`Campanha "${nome}" enviada para ${data.enviados} clientes!`);
+    } else {
+      showToast(data.error || 'Erro ao disparar campanha.', 'err');
+    }
+  } catch(err){
+    showToast('Erro ao conectar com o servidor.', 'err');
+  }
 
   btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Disparar campanha';
   btn.disabled = false;
