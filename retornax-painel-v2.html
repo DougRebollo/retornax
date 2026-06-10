@@ -206,6 +206,19 @@ tbody td.name{color:var(--text);font-weight:500}
 .suporte-btn{position:fixed;bottom:28px;right:28px;z-index:150;display:flex;align-items:center;gap:10px;background:#25d366;color:#ffffff;padding:12px 20px;border-radius:100px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;font-weight:600;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:all 0.2s;border:none;cursor:pointer}
 .suporte-btn:hover{background:#20bc5a;transform:translateY(-2px)}
 .suporte-btn svg{flex-shrink:0}
+
+/* ANIMAÇÕES */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.4)}}
+.animate-in{animation:fadeInUp 0.4s ease both}
+.animate-in:nth-child(1){animation-delay:0.05s}
+.animate-in:nth-child(2){animation-delay:0.1s}
+.animate-in:nth-child(3){animation-delay:0.15s}
+.animate-in:nth-child(4){animation-delay:0.2s}
+.pulse-dot{display:inline-block;animation:pulse-dot 1.5s infinite}
+.saudacao-wrap{display:flex;flex-direction:column;gap:1px}
+.saudacao-texto{font-size:0.72rem;color:var(--text2);font-weight:400}
+.saudacao-nome{font-weight:700;font-size:1rem;color:var(--white)}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="retornax-config.js"></script>
@@ -255,7 +268,10 @@ tbody td.name{color:var(--text);font-weight:500}
 </aside>
 <div class="main">
   <div class="topbar">
-    <div class="topbar-title" id="page-title">Dashboard</div>
+    <div id="topbar-saudacao" class="saudacao-wrap">
+      <div class="saudacao-texto" id="saudacao-texto">Bom dia,</div>
+      <div class="saudacao-nome" id="page-title">Dashboard</div>
+    </div>
     <div class="topbar-actions">
       <button class="btn btn-ghost btn-sm" id="topbar-secondary" style="display:none"></button>
       <button class="btn btn-ghost btn-sm" onclick="toggleTema()" id="btn-tema" title="Alternar tema" style="padding:6px 10px">
@@ -627,10 +643,22 @@ async function removeCliente(id){
 }
 
 function updateCount(){
-  document.getElementById('nav-count').textContent=clientes.length;
-  document.getElementById('dash-total').textContent=clientes.length;
-  document.getElementById('dash-fila').textContent=getFila().length;
+  const total = clientes.length;
+  const fila = getFila().length;
+  document.getElementById('nav-count').textContent = total;
+  animarNumero(document.getElementById('dash-total'), total);
+  animarNumero(document.getElementById('dash-fila'), fila);
+  // Pulsar ícone da fila se tiver clientes esperando
+  const filaIcon = document.querySelector('.stat-icon.red');
+  if(filaIcon) filaIcon.style.animation = fila > 0 ? 'pulse-dot 1.5s infinite' : '';
   renderDashSegs(); renderFila(); atualizarLimitesPlano();
+  // Animar cards
+  document.querySelectorAll('.stat-card').forEach((c,i) => {
+    c.classList.remove('animate-in');
+    void c.offsetWidth;
+    c.classList.add('animate-in');
+    c.style.animationDelay = (i * 0.07) + 's';
+  });
 }
 
 const LIMITES_PLANO={trial:{clientes:10,mensagens:50},starter:{clientes:100,mensagens:200},profissional:{clientes:300,mensagens:600},crescimento:{clientes:800,mensagens:1600}};
@@ -813,7 +841,17 @@ function showPage(id,btn){
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
   const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',config:'Configurações'};
-  document.getElementById('page-title').textContent=titles[id]||id;
+  const saudacaoEl = document.getElementById('saudacao-texto');
+  const tituloEl = document.getElementById('page-title');
+  if(id === 'dashboard'){
+    const primeiroNome = (document.querySelector('.user-name')?.textContent || '').split(' ')[0];
+    tituloEl.textContent = primeiroNome || 'Dashboard';
+    atualizarSaudacao();
+    if(saudacaoEl) saudacaoEl.style.display = '';
+  } else {
+    tituloEl.textContent = titles[id] || id;
+    if(saudacaoEl) saudacaoEl.style.display = 'none';
+  }
   const actionBtn=document.getElementById('topbar-action');
   if(id==='clientes'||id==='dashboard'){ actionBtn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo cliente'; actionBtn.style.display=''; }
   else{ actionBtn.style.display='none'; }
@@ -864,6 +902,10 @@ async function checkAuth(){
     ACCOUNT.email=empresa.email;
     document.querySelector('.user-name').textContent=empresa.nome;
     document.querySelector('.user-plan').textContent=empresa.plano==='trial'?'Período gratuito':`Plano ${empresa.plano}`;
+    // Saudação com nome
+    const primeiroNome = (empresa.nome || '').split(' ')[0];
+    document.getElementById('page-title').textContent = primeiroNome || 'Dashboard';
+    atualizarSaudacao(primeiroNome);
 
     // Atualizar configurações
     if(document.getElementById('config-nome')) document.getElementById('config-nome').textContent = empresa.nome || '—';
@@ -1051,6 +1093,30 @@ function obAbrirClientes(){ document.getElementById('onboarding-overlay').classL
 function obImportarPlanilha(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('clientes',document.querySelectorAll('.nav-item')[1]); setTimeout(()=>openImportModal(),300); }
 function obAbrirAutomacoes(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('automacoes',document.querySelectorAll('.nav-item')[2]); }
 function obFinalizar(){ localStorage.setItem('retornax_onboarding_'+(ACCOUNT.empresaId||'x'),'1'); document.getElementById('onboarding-overlay').classList.remove('open'); }
+
+// ── SAUDAÇÃO ──
+function atualizarSaudacao(nome) {
+  const hora = new Date().getHours();
+  let saudacao = 'Boa noite,';
+  if (hora >= 5 && hora < 12) saudacao = 'Bom dia,';
+  else if (hora >= 12 && hora < 18) saudacao = 'Boa tarde,';
+  const el = document.getElementById('saudacao-texto');
+  if (el) el.textContent = saudacao;
+}
+
+// ── CONTADOR ANIMADO ──
+function animarNumero(el, target, duracao = 800) {
+  const start = 0;
+  const startTime = performance.now();
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duracao, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(start + (target - start) * ease);
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
 
 // ── TEMA ──
 function toggleTema(){
