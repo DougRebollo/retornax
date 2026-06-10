@@ -8,399 +8,74 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --blue-900: #050f2e;
-  --blue-800: #0a1a4a;
-  --blue-700: #0d2266;
-  --blue-400: #2e6aff;
-  --blue-300: #5b8fff;
-  --accent:   #00e5ff;
-  --green:    #00d084;
-  --white:    #ffffff;
-  --text:     #e8eeff;
-  --text-muted: #8a9bbf;
-  --card-bg:  rgba(255,255,255,0.04);
-  --card-border: rgba(255,255,255,0.08);
-  --card-border2: rgba(255,255,255,0.13);
-  --red: #ff4d4d;
+  --blue-900: #050f2e;--blue-800: #0a1a4a;--blue-700: #0d2266;
+  --blue-400: #2e6aff;--blue-300: #5b8fff;--accent: #00e5ff;
+  --green: #00d084;--white: #ffffff;--text: #e8eeff;--text-muted: #8a9bbf;
+  --card-bg: rgba(255,255,255,0.04);--card-border: rgba(255,255,255,0.08);
+  --card-border2: rgba(255,255,255,0.13);--red: #ff4d4d;--amber: #ffb020;
 }
-
 html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: var(--blue-900);
-  color: var(--text);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-/* Grid background */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(46,106,255,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(46,106,255,0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Glow central */
-body::after {
-  content: '';
-  position: fixed;
-  top: -100px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 700px;
-  height: 500px;
-  background: radial-gradient(ellipse at center, rgba(46,106,255,0.14) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ── LAYOUT ── */
-.login-wrap {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  width: 100%;
-  min-height: 100vh;
-}
-
-/* Lado esquerdo — branding */
-.login-brand {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 60px 6%;
-  border-right: 1px solid var(--card-border);
-  background: rgba(10,26,74,0.3);
-  backdrop-filter: blur(8px);
-}
-
-.brand-logo {
-  font-weight: 800;
-  font-size: 1.8rem;
-  letter-spacing: -0.5px;
-  color: var(--white);
-  margin-bottom: 48px;
-}
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--blue-900); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(46,106,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(46,106,255,0.05) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; z-index: 0; }
+body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: translateX(-50%); width: 700px; height: 500px; background: radial-gradient(ellipse at center, rgba(46,106,255,0.14) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+.login-wrap { position: relative; z-index: 1; display: flex; width: 100%; min-height: 100vh; }
+.login-brand { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 6%; border-right: 1px solid var(--card-border); background: rgba(10,26,74,0.3); backdrop-filter: blur(8px); }
+.brand-logo { font-weight: 800; font-size: 1.8rem; letter-spacing: -0.5px; color: var(--white); margin-bottom: 48px; }
 .brand-logo span { color: var(--accent); }
-
-.brand-headline {
-  font-size: clamp(1.6rem, 3vw, 2.6rem);
-  font-weight: 800;
-  letter-spacing: -1px;
-  line-height: 1.1;
-  margin-bottom: 20px;
-}
-.brand-headline .accent { color: var(--accent); }
-.brand-headline .green  { color: var(--green); }
-
-.brand-sub {
-  font-size: 1rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-  max-width: 400px;
-  margin-bottom: 48px;
-}
-
-.brand-metrics {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.metric-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.metric-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-.metric-text strong {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--white);
-}
-.metric-text span {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
-
-/* Lado direito — formulário */
-.login-form-side {
-  width: 480px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 48px;
-}
-
-.form-card {
-  width: 100%;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border2);
-  border-radius: 20px;
-  padding: 40px 36px;
-  backdrop-filter: blur(16px);
-  animation: fadeUp 0.5s ease both;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Tabs login / cadastro */
-.form-tabs {
-  display: flex;
-  gap: 4px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  padding: 4px;
-  margin-bottom: 32px;
-}
-.form-tab {
-  flex: 1;
-  padding: 9px;
-  border-radius: 7px;
-  border: none;
-  background: none;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.2s;
-  text-align: center;
-}
-.form-tab.active {
-  background: var(--blue-800);
-  color: var(--white);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-
-.form-title {
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: var(--white);
-  margin-bottom: 6px;
-}
-.form-subtitle {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-bottom: 28px;
-  line-height: 1.5;
-}
-
-.form-group {
-  margin-bottom: 16px;
-}
-.form-group label {
-  display: block;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  margin-bottom: 7px;
-  letter-spacing: 0.3px;
-}
-.form-group input {
-  width: 100%;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid var(--card-border);
-  border-radius: 9px;
-  padding: 12px 16px;
-  color: var(--white);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.92rem;
-  outline: none;
-  transition: all 0.2s;
-  -webkit-appearance: none;
-}
-.form-group input:focus {
-  border-color: var(--blue-400);
-  background: rgba(46,106,255,0.06);
-}
+.brand-headline { font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -1px; line-height: 1.1; margin-bottom: 20px; }
+.brand-headline .green { color: var(--green); }
+.brand-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 400px; margin-bottom: 48px; }
+.brand-metrics { display: flex; flex-direction: column; gap: 16px; }
+.metric-row { display: flex; align-items: center; gap: 14px; }
+.metric-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--card-bg); border: 1px solid var(--card-border); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.metric-text strong { display: block; font-size: 0.9rem; font-weight: 600; color: var(--white); }
+.metric-text span { font-size: 0.78rem; color: var(--text-muted); }
+.login-form-side { width: 480px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 48px; }
+.form-card { width: 100%; background: var(--card-bg); border: 1px solid var(--card-border2); border-radius: 20px; padding: 40px 36px; backdrop-filter: blur(16px); animation: fadeUp 0.5s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.form-tabs { display: flex; gap: 4px; background: rgba(255,255,255,0.04); border: 1px solid var(--card-border); border-radius: 10px; padding: 4px; margin-bottom: 32px; }
+.form-tab { flex: 1; padding: 9px; border-radius: 7px; border: none; background: none; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.88rem; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all 0.2s; text-align: center; }
+.form-tab.active { background: var(--blue-800); color: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.form-title { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; color: var(--white); margin-bottom: 6px; }
+.form-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 28px; line-height: 1.5; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-muted); margin-bottom: 7px; letter-spacing: 0.3px; }
+.form-group input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 9px; padding: 12px 16px; color: var(--white); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.92rem; outline: none; transition: all 0.2s; -webkit-appearance: none; }
+.form-group input:focus { border-color: var(--blue-400); background: rgba(46,106,255,0.06); }
 .form-group input::placeholder { color: var(--text-muted); opacity: 0.6; }
-.form-group input.error { border-color: var(--red); }
-
-.input-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.forgot {
-  display: block;
-  text-align: right;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  text-decoration: none;
-  margin-top: -8px;
-  margin-bottom: 16px;
-  transition: color 0.2s;
-}
+.input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.forgot { display: block; text-align: right; font-size: 0.78rem; color: var(--text-muted); text-decoration: none; margin-top: -8px; margin-bottom: 16px; transition: color 0.2s; }
 .forgot:hover { color: var(--blue-300); }
-
-.btn-submit {
-  width: 100%;
-  background: var(--blue-400);
-  color: var(--white);
-  border: none;
-  padding: 14px;
-  border-radius: 10px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 8px;
-}
-.btn-submit:hover {
-  background: var(--blue-300);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(46,106,255,0.35);
-}
-.btn-submit:disabled {
-  opacity: 0.7;
-  cursor: default;
-  transform: none;
-  box-shadow: none;
-}
-
-/* Spinner */
-.spinner {
-  width: 16px; height: 16px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  display: none;
-}
+.btn-submit { width: 100%; background: var(--blue-400); color: var(--white); border: none; padding: 14px; border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; }
+.btn-submit:hover { background: var(--blue-300); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(46,106,255,0.35); }
+.btn-submit:disabled { opacity: 0.7; cursor: default; transform: none; box-shadow: none; }
+.spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
 @keyframes spin { to { transform: rotate(360deg); } }
-
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 20px 0;
-  color: var(--text-muted);
-  font-size: 0.75rem;
-}
-.divider::before, .divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--card-border);
-}
-
-/* Botão Google */
-.btn-google {
-  width: 100%;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border2);
-  color: var(--text);
-  padding: 12px;
-  border-radius: 10px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-.btn-google:hover {
-  border-color: var(--card-border2);
-  background: rgba(255,255,255,0.07);
-}
-
-/* Termos */
-.terms {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  text-align: center;
-  margin-top: 20px;
-  line-height: 1.6;
-}
+.divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: var(--text-muted); font-size: 0.75rem; }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--card-border); }
+.btn-google { width: 100%; background: var(--card-bg); border: 1px solid var(--card-border2); color: var(--text); padding: 12px; border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.88rem; font-weight: 500; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.btn-google:hover { background: rgba(255,255,255,0.07); }
+.terms { font-size: 0.72rem; color: var(--text-muted); text-align: center; margin-top: 20px; line-height: 1.6; }
 .terms a { color: var(--blue-300); text-decoration: none; }
-.terms a:hover { text-decoration: underline; }
-
-/* Error message */
-.error-msg {
-  background: rgba(255,77,77,0.1);
-  border: 1px solid rgba(255,77,77,0.25);
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-size: 0.82rem;
-  color: var(--red);
-  margin-bottom: 16px;
-  display: none;
-}
+.error-msg { background: rgba(255,77,77,0.1); border: 1px solid rgba(255,77,77,0.25); border-radius: 8px; padding: 10px 14px; font-size: 0.82rem; color: var(--red); margin-bottom: 16px; display: none; }
 .error-msg.show { display: block; }
-
-/* Sucesso */
-.success-msg {
-  background: rgba(0,208,132,0.1);
-  border: 1px solid rgba(0,208,132,0.25);
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-size: 0.82rem;
-  color: var(--green);
-  margin-bottom: 16px;
-  display: none;
-}
+.success-msg { background: rgba(0,208,132,0.1); border: 1px solid rgba(0,208,132,0.25); border-radius: 8px; padding: 10px 14px; font-size: 0.82rem; color: var(--green); margin-bottom: 16px; display: none; }
 .success-msg.show { display: block; }
-
-/* Voltar para land */
-.back-link {
-  margin-top: 24px;
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-.back-link a {
-  color: var(--text-muted);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: color 0.2s;
-}
+.warning-msg { background: rgba(255,176,32,0.1); border: 1px solid rgba(255,176,32,0.25); border-radius: 8px; padding: 10px 14px; font-size: 0.82rem; color: var(--amber); margin-bottom: 16px; display: none; line-height: 1.6; }
+.warning-msg.show { display: block; }
+.back-link { margin-top: 24px; text-align: center; font-size: 0.8rem; color: var(--text-muted); }
+.back-link a { color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; }
 .back-link a:hover { color: var(--white); }
 
-/* ── RESPONSIVE ── */
+/* Tela de email não confirmado */
+.verify-screen { text-align: center; }
+.verify-icon { font-size: 3rem; margin-bottom: 16px; }
+.verify-title { font-size: 1.3rem; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+.verify-sub { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
+.btn-reenviar { background: var(--card-bg); border: 1px solid var(--card-border2); color: var(--text); padding: 10px 20px; border-radius: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
+.btn-reenviar:hover { border-color: var(--blue-300); color: var(--blue-300); }
+
 @media (max-width: 900px) {
   .login-brand { display: none; }
   .login-form-side { width: 100%; padding: 40px 24px; }
@@ -410,69 +85,37 @@ body::after {
 <script src="retornax-config.js"></script>
 </head>
 <body>
-
 <div class="login-wrap">
 
-  <!-- LADO ESQUERDO — branding -->
+  <!-- LADO ESQUERDO -->
   <div class="login-brand">
     <div class="brand-logo">Retorna<span>x</span></div>
-
-    <div class="brand-headline">
-      Faturamento<br>recorrente no<br><span class="green">piloto automático.</span>
-    </div>
-    <p class="brand-sub">
-      O Retornax lembra seus clientes de voltar via WhatsApp — sem você precisar fazer nada.
-    </p>
-
+    <div class="brand-headline">Faturamento<br>recorrente no<br><span class="green">piloto automático.</span></div>
+    <p class="brand-sub">O Retornax lembra seus clientes de voltar via WhatsApp — sem você precisar fazer nada.</p>
     <div class="brand-metrics">
-      <div class="metric-row">
-        <div class="metric-icon">💰</div>
-        <div class="metric-text">
-          <strong>Clientes reativados automaticamente</strong>
-          <span>Mensagens personalizadas no momento certo</span>
-        </div>
-      </div>
-      <div class="metric-row">
-        <div class="metric-icon">📊</div>
-        <div class="metric-text">
-          <strong>Dashboard de faturamento recorrente</strong>
-          <span>Acompanhe retornos, respostas e resultados</span>
-        </div>
-      </div>
-      <div class="metric-row">
-        <div class="metric-icon">⚡</div>
-        <div class="metric-text">
-          <strong>Configure em menos de 3 minutos</strong>
-          <span>Sem técnico, sem complicação</span>
-        </div>
-      </div>
-      <div class="metric-row">
-        <div class="metric-icon">🔒</div>
-        <div class="metric-text">
-          <strong>Seus dados protegidos</strong>
-          <span>Ambiente seguro, LGPD compliant</span>
-        </div>
-      </div>
+      <div class="metric-row"><div class="metric-icon">💰</div><div class="metric-text"><strong>Clientes reativados automaticamente</strong><span>Mensagens personalizadas no momento certo</span></div></div>
+      <div class="metric-row"><div class="metric-icon">📊</div><div class="metric-text"><strong>Dashboard de faturamento recorrente</strong><span>Acompanhe retornos, respostas e resultados</span></div></div>
+      <div class="metric-row"><div class="metric-icon">⚡</div><div class="metric-text"><strong>Configure em menos de 3 minutos</strong><span>Sem técnico, sem complicação</span></div></div>
+      <div class="metric-row"><div class="metric-icon">🔒</div><div class="metric-text"><strong>Seus dados protegidos</strong><span>Ambiente seguro, LGPD compliant</span></div></div>
     </div>
   </div>
 
-  <!-- LADO DIREITO — formulário -->
+  <!-- LADO DIREITO -->
   <div class="login-form-side">
     <div class="form-card">
 
-      <!-- Tabs -->
-      <div class="form-tabs">
+      <!-- TABS -->
+      <div class="form-tabs" id="form-tabs">
         <button class="form-tab active" id="tab-login" onclick="switchTab('login')">Entrar</button>
         <button class="form-tab" id="tab-cadastro" onclick="switchTab('cadastro')">Criar conta</button>
       </div>
 
-      <!-- ── FORM LOGIN ── -->
+      <!-- ── LOGIN ── -->
       <div id="form-login">
         <div class="form-title">Bem-vindo de volta</div>
         <div class="form-subtitle">Entre na sua conta para acessar o painel.</div>
-
-        <div class="error-msg" id="login-error">E-mail ou senha incorretos. Tente novamente.</div>
-
+        <div class="error-msg" id="login-error"></div>
+        <div class="warning-msg" id="login-warning"></div>
         <div class="form-group">
           <label>E-mail</label>
           <input type="email" id="login-email" placeholder="voce@email.com" autocomplete="email">
@@ -481,96 +124,68 @@ body::after {
           <label>Senha</label>
           <input type="password" id="login-senha" placeholder="••••••••" autocomplete="current-password">
         </div>
-
         <a href="#" class="forgot" onclick="showForgot(event)">Esqueci minha senha</a>
-
         <button class="btn-submit" id="btn-login" onclick="handleLogin()">
           <span class="spinner" id="login-spinner"></span>
           <span id="login-btn-text">Entrar no painel</span>
         </button>
-
         <div class="divider">ou continue com</div>
-
         <button class="btn-google" onclick="handleGoogle()">
           <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
           Entrar com Google
         </button>
       </div>
 
-      <!-- ── FORM CADASTRO ── -->
+      <!-- ── VERIFICAR EMAIL (aparece após cadastro ou login sem confirmar) ── -->
+      <div id="form-verify" style="display:none">
+        <div class="verify-screen">
+          <div class="verify-icon">📧</div>
+          <div class="verify-title">Confirme seu e-mail</div>
+          <div class="verify-sub" id="verify-msg">Enviamos um link de confirmação para <strong id="verify-email"></strong>. Clique no link para ativar sua conta e acessar o painel.</div>
+          <button class="btn-reenviar" onclick="reenviarConfirmacao()">Reenviar e-mail de confirmação</button>
+          <div style="margin-top:16px">
+            <a href="#" style="font-size:0.8rem;color:var(--text-muted);text-decoration:none" onclick="backToLogin(event)">← Voltar para o login</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CADASTRO ── -->
       <div id="form-cadastro" style="display:none">
         <div class="form-title">Criar sua conta</div>
         <div class="form-subtitle">7 dias grátis. Sem cartão de crédito.</div>
-
         <div class="error-msg" id="cadastro-error"></div>
-        <div class="success-msg" id="cadastro-success">✓ Conta criada! Verifique seu e-mail para confirmar.</div>
-
         <div class="input-row">
-          <div class="form-group">
-            <label>Nome</label>
-            <input type="text" id="cad-nome" placeholder="João" autocomplete="given-name">
-          </div>
-          <div class="form-group">
-            <label>Sobrenome</label>
-            <input type="text" id="cad-sobrenome" placeholder="Silva" autocomplete="family-name">
-          </div>
+          <div class="form-group"><label>Nome</label><input type="text" id="cad-nome" placeholder="João" autocomplete="given-name"></div>
+          <div class="form-group"><label>Sobrenome</label><input type="text" id="cad-sobrenome" placeholder="Silva" autocomplete="family-name"></div>
         </div>
-        <div class="form-group">
-          <label>E-mail</label>
-          <input type="email" id="cad-email" placeholder="voce@email.com" autocomplete="email">
-        </div>
-        <div class="form-group">
-          <label>WhatsApp</label>
-          <input type="tel" id="cad-wpp" placeholder="(51) 99999-9999">
-        </div>
-        <div class="form-group">
-          <label>Senha</label>
-          <input type="password" id="cad-senha" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
-        </div>
-
+        <div class="form-group"><label>E-mail</label><input type="email" id="cad-email" placeholder="voce@email.com" autocomplete="email"></div>
+        <div class="form-group"><label>WhatsApp</label><input type="tel" id="cad-wpp" placeholder="(51) 99999-9999"></div>
+        <div class="form-group"><label>Senha</label><input type="password" id="cad-senha" placeholder="Mínimo 8 caracteres" autocomplete="new-password"></div>
         <button class="btn-submit" id="btn-cadastro" onclick="handleCadastro()">
           <span class="spinner" id="cadastro-spinner"></span>
           <span id="cadastro-btn-text">Criar conta grátis</span>
         </button>
-
         <div class="divider">ou continue com</div>
-
         <button class="btn-google" onclick="handleGoogle()">
           <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
           Cadastrar com Google
         </button>
-
-        <div class="terms">
-          Ao criar uma conta você concorda com os<br>
-          <a href="#">Termos de uso</a> e a <a href="#">Política de privacidade</a>
-        </div>
+        <div class="terms">Ao criar uma conta você concorda com os<br><a href="#">Termos de uso</a> e a <a href="#">Política de privacidade</a></div>
       </div>
 
-      <!-- ── FORM ESQUECI SENHA ── -->
+      <!-- ── ESQUECI SENHA ── -->
       <div id="form-forgot" style="display:none">
         <div class="form-title">Recuperar senha</div>
         <div class="form-subtitle">Digite seu e-mail e enviaremos um link para redefinir sua senha.</div>
-
         <div class="success-msg" id="forgot-success">✓ Link enviado! Verifique sua caixa de entrada.</div>
-
-        <div class="form-group">
-          <label>E-mail</label>
-          <input type="email" id="forgot-email" placeholder="voce@email.com">
-        </div>
-
-        <button class="btn-submit" onclick="handleForgot()">
-          <span id="forgot-btn-text">Enviar link de recuperação</span>
-        </button>
-
+        <div class="form-group"><label>E-mail</label><input type="email" id="forgot-email" placeholder="voce@email.com"></div>
+        <button class="btn-submit" onclick="handleForgot()"><span id="forgot-btn-text">Enviar link de recuperação</span></button>
         <div style="text-align:center;margin-top:16px">
-          <a href="#" style="font-size:0.82rem;color:var(--text-muted);text-decoration:none" onclick="backToLogin(event)">
-            ← Voltar para o login
-          </a>
+          <a href="#" style="font-size:0.82rem;color:var(--text-muted);text-decoration:none" onclick="backToLogin(event)">← Voltar para o login</a>
         </div>
       </div>
 
     </div>
-
     <div class="back-link">
       <a href="index.html">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -578,17 +193,18 @@ body::after {
       </a>
     </div>
   </div>
-
 </div>
 
 <script>
-// ── TABS ──
+let emailParaVerificar = '';
+
 function switchTab(tab) {
   document.getElementById('tab-login').classList.toggle('active', tab === 'login');
   document.getElementById('tab-cadastro').classList.toggle('active', tab === 'cadastro');
   document.getElementById('form-login').style.display    = tab === 'login'    ? '' : 'none';
   document.getElementById('form-cadastro').style.display = tab === 'cadastro' ? '' : 'none';
   document.getElementById('form-forgot').style.display   = 'none';
+  document.getElementById('form-verify').style.display   = 'none';
 }
 
 function showForgot(e) {
@@ -600,18 +216,36 @@ function showForgot(e) {
 function backToLogin(e) {
   e.preventDefault();
   document.getElementById('form-forgot').style.display = 'none';
+  document.getElementById('form-verify').style.display = 'none';
   document.getElementById('form-login').style.display  = '';
 }
 
+function mostrarVerificacao(email) {
+  emailParaVerificar = email;
+  document.getElementById('form-tabs').style.display   = 'none';
+  document.getElementById('form-login').style.display  = 'none';
+  document.getElementById('form-cadastro').style.display = 'none';
+  document.getElementById('form-verify').style.display = '';
+  document.getElementById('verify-email').textContent  = email;
+}
+
+async function reenviarConfirmacao() {
+  if (!emailParaVerificar) return;
+  await supabase.auth.resend({ type: 'signup', email: emailParaVerificar });
+  const btn = document.querySelector('.btn-reenviar');
+  btn.textContent = '✓ E-mail reenviado!';
+  btn.disabled = true;
+  setTimeout(() => { btn.textContent = 'Reenviar e-mail de confirmação'; btn.disabled = false; }, 5000);
+}
+
 // ── LOGIN ──
-// Quando integrar Supabase, substituir este bloco por:
-// const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-// if (error) mostrar erro; else redirecionar para o painel
 async function handleLogin() {
   const email = document.getElementById('login-email').value.trim();
   const senha = document.getElementById('login-senha').value;
-  const errEl = document.getElementById('login-error');
+  const errEl  = document.getElementById('login-error');
+  const warnEl = document.getElementById('login-warning');
   errEl.classList.remove('show');
+  warnEl.classList.remove('show');
 
   if (!email || !senha) {
     errEl.textContent = 'Preencha e-mail e senha.';
@@ -620,31 +254,64 @@ async function handleLogin() {
   }
 
   setLoading('login', true);
-
   const { data, error } = await supabase.auth.signInWithPassword({ email, password: senha });
-
   setLoading('login', false);
 
   if (error) {
+    // Email não confirmado
+    if (error.message.includes('Email not confirmed') || error.message.includes('email_not_confirmed')) {
+      mostrarVerificacao(email);
+      return;
+    }
     errEl.textContent = 'E-mail ou senha incorretos.';
     errEl.classList.add('show');
     return;
+  }
+
+  // Verificar se email foi confirmado
+  if (!data.user.email_confirmed_at) {
+    await supabase.auth.signOut();
+    mostrarVerificacao(email);
+    return;
+  }
+
+  // Verificar status da empresa
+  const { data: empresa } = await supabase
+    .from('empresas')
+    .select('status, trial_ends_at, plano')
+    .eq('user_id', data.user.id)
+    .single();
+
+  if (empresa) {
+    const hoje = new Date();
+    const trialFim = new Date(empresa.trial_ends_at);
+
+    // Trial expirado — redireciona para painel mas vai mostrar bloqueio lá
+    if (empresa.status === 'trial' && hoje > trialFim) {
+      await supabase.from('empresas').update({ status: 'expirado' }).eq('user_id', data.user.id);
+    }
+
+    // Inadimplente — aviso no login
+    if (empresa.status === 'inadimplente') {
+      warnEl.innerHTML = '⚠️ Seu pagamento está pendente. Acesse o painel para regularizar sua assinatura.';
+      warnEl.classList.add('show');
+      setTimeout(() => { window.location.href = 'retornax-painel-v2.html'; }, 2500);
+      return;
+    }
   }
 
   window.location.href = 'retornax-painel-v2.html';
 }
 
 // ── CADASTRO ──
-// Quando integrar Supabase, substituir por:
-// const { data, error } = await supabase.auth.signUp({ email, password, options: { data: { nome, wpp } } })
 async function handleCadastro() {
   const nome  = document.getElementById('cad-nome').value.trim();
+  const sob   = document.getElementById('cad-sobrenome').value.trim();
   const email = document.getElementById('cad-email').value.trim();
   const wpp   = document.getElementById('cad-wpp').value.trim();
   const senha = document.getElementById('cad-senha').value;
   const errEl = document.getElementById('cadastro-error');
   errEl.classList.remove('show');
-  document.getElementById('cadastro-success').classList.remove('show');
 
   if (!nome || !email || !wpp || !senha) {
     errEl.textContent = 'Preencha todos os campos obrigatórios.';
@@ -657,30 +324,52 @@ async function handleCadastro() {
     return;
   }
 
-  setLoading('cadastro', true);
-
-  const { data, error } = await supabase.auth.signUp({ email, password: senha });
-
-  if (error) {
-    setLoading('cadastro', false);
-    errEl.textContent = error.message;
+  // Validação básica de email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    errEl.textContent = 'Digite um e-mail válido.';
     errEl.classList.add('show');
     return;
   }
 
-  // Cria o registro da empresa no banco
-  await supabase.from('empresas').insert({
-    user_id:       data.user.id,
-    nome,
+  setLoading('cadastro', true);
+
+  const { data, error } = await supabase.auth.signUp({
     email,
-    whatsapp:      wpp,
-    status:        'trial',
-    trial_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+    password: senha,
+    options: {
+      emailRedirectTo: window.location.origin + '/retornax-login.html',
+      data: { nome: `${nome} ${sob}`.trim() }
+    }
   });
 
+  if (error) {
+    setLoading('cadastro', false);
+    if (error.message.includes('already registered') || error.message.includes('already been registered')) {
+      errEl.textContent = 'Este e-mail já está cadastrado. Tente fazer login.';
+    } else {
+      errEl.textContent = error.message;
+    }
+    errEl.classList.add('show');
+    return;
+  }
+
+  // Criar empresa no banco
+  if (data.user) {
+    await supabase.from('empresas').insert({
+      user_id:       data.user.id,
+      nome:          `${nome} ${sob}`.trim(),
+      email,
+      whatsapp:      wpp,
+      status:        'trial',
+      trial_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+    });
+  }
+
   setLoading('cadastro', false);
-  document.getElementById('cadastro-success').classList.add('show');
-  setTimeout(() => { window.location.href = 'retornax-painel-v2.html'; }, 2000);
+
+  // Mostrar tela de verificação de email
+  mostrarVerificacao(email);
 }
 
 // ── ESQUECI SENHA ──
@@ -702,24 +391,33 @@ async function handleGoogle() {
   });
 }
 
-// ── LOADING STATE ──
+// ── LOADING ──
 function setLoading(form, on) {
   const btn     = document.getElementById(`btn-${form}`);
   const spinner = document.getElementById(`${form}-spinner`);
   const text    = document.getElementById(`${form}-btn-text`);
-  btn.disabled        = on;
+  btn.disabled          = on;
   spinner.style.display = on ? 'block' : 'none';
-  text.style.opacity  = on ? '0.5' : '1';
+  text.style.opacity    = on ? '0.5' : '1';
 }
 
 // Enter para submeter
 document.addEventListener('keydown', e => {
   if (e.key !== 'Enter') return;
-  const loginVisible = document.getElementById('form-login').style.display !== 'none';
-  const cadVisible   = document.getElementById('form-cadastro').style.display !== 'none';
-  if (loginVisible)   handleLogin();
-  else if (cadVisible) handleCadastro();
+  if (document.getElementById('form-login').style.display !== 'none') handleLogin();
+  else if (document.getElementById('form-cadastro').style.display !== 'none') handleCadastro();
 });
+
+// Verificar se veio de confirmação de email
+(async () => {
+  const hash = window.location.hash;
+  if (hash.includes('access_token') || hash.includes('type=signup')) {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      window.location.href = 'retornax-painel-v2.html';
+    }
+  }
+})();
 </script>
 </body>
 </html>
