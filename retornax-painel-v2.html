@@ -9,6 +9,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#07091a;--bg2:#0d1230;--bg3:#111a3a;--surface:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.13);--blue:#2e6aff;--blue-dim:rgba(46,106,255,0.15);--blue-lite:#5b8fff;--accent:#00e5ff;--green:#00d68f;--green-dim:rgba(0,214,143,0.12);--amber:#ffb020;--amber-dim:rgba(255,176,32,0.12);--red:#ff4d4d;--red-dim:rgba(255,77,77,0.12);--text:#dce6ff;--text2:#7a8ab0;--text3:#4a5880;--white:#ffffff;--sidebar-w:228px;--radius:12px}
+body.light-mode{--bg:#f0f4ff;--bg2:#ffffff;--bg3:#e8eeff;--surface:rgba(0,0,0,0.03);--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.13);--text:#1a2340;--text2:#4a5880;--text3:#8a9bbf;--white:#1a2340}
 html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
 .app{display:flex;height:100vh;overflow:hidden}
 .sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
@@ -257,6 +258,10 @@ tbody td.name{color:var(--text);font-weight:500}
     <div class="topbar-title" id="page-title">Dashboard</div>
     <div class="topbar-actions">
       <button class="btn btn-ghost btn-sm" id="topbar-secondary" style="display:none"></button>
+      <button class="btn btn-ghost btn-sm" onclick="toggleTema()" id="btn-tema" title="Alternar tema" style="padding:6px 10px">
+        <svg id="icon-tema-escuro" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="icon-tema-claro" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
       <button class="btn btn-primary btn-sm" id="topbar-action" onclick="topbarAction()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Novo cliente
@@ -426,8 +431,50 @@ tbody td.name{color:var(--text);font-weight:500}
     <!-- CONFIGURAÇÕES -->
     <div class="page" id="page-config">
       <div class="config-grid">
-        <div class="config-section"><h3>Conta</h3><div class="config-row"><span class="config-key">Nome</span><span class="config-val">Douglas Rebollo</span></div><div class="config-row"><span class="config-key">E-mail</span><span class="config-val">douglas@retornax.com.br</span></div><div class="config-row"><span class="config-key">Plano</span><span class="config-val" style="color:var(--blue-lite)">Profissional — R$247/mês</span></div><div style="margin-top:16px;display:flex;gap:8px"><button class="btn btn-ghost btn-sm">Alterar plano</button><button class="btn btn-danger btn-sm">Cancelar assinatura</button></div></div>
-        <div class="config-section"><h3>WhatsApp conectado</h3><div class="config-row"><span class="config-key">Número</span><span class="config-val">+55 51 98402-6354</span></div><div class="config-row"><span class="config-key">Status</span><span class="badge badge-green">● Conectado</span></div><div style="margin-top:16px"><button class="btn btn-ghost btn-sm">Reconectar</button></div></div>
+        <div class="config-section"><h3>Conta</h3><div class="config-row"><span class="config-key">Nome</span><span class="config-val" id="config-nome">—</span></div><div class="config-row"><span class="config-key">E-mail</span><span class="config-val" id="config-email">—</span></div><div class="config-row"><span class="config-key">Plano</span><span class="config-val" style="color:var(--blue-lite)" id="config-plano">—</span></div><div style="margin-top:16px;display:flex;gap:8px"><button class="btn btn-ghost btn-sm" onclick="abrirPlanos('trial')">Alterar plano</button></div></div>
+
+        <!-- WHATSAPP CONFIG -->
+        <div class="config-section">
+          <h3>WhatsApp</h3>
+          <div id="wpp-status-wrap">
+            <div class="config-row">
+              <span class="config-key">Status</span>
+              <span id="wpp-status-badge"><span class="badge badge-gray">● Não configurado</span></span>
+            </div>
+            <div class="config-row">
+              <span class="config-key">Número conectado</span>
+              <span class="config-val" id="wpp-numero">—</span>
+            </div>
+          </div>
+          <div style="margin-top:16px">
+            <button class="btn btn-ghost btn-sm" onclick="toggleFormWhatsapp()">⚙️ Configurar WhatsApp</button>
+          </div>
+          <div id="form-whatsapp" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px">
+            <div style="background:var(--bg3);border-radius:8px;padding:12px 14px;font-size:0.8rem;color:var(--text2);line-height:1.7;margin-bottom:14px">
+              <strong style="color:var(--text);display:block;margin-bottom:4px">Como conectar seu WhatsApp:</strong>
+              1. Acesse <a href="https://app.z-api.io" target="_blank" style="color:var(--accent)">app.z-api.io</a> e crie uma conta<br>
+              2. Crie uma nova instância e escaneie o QR code com seu WhatsApp<br>
+              3. Copie o <strong style="color:var(--text)">ID da instância</strong> e o <strong style="color:var(--text)">Token</strong> e cole abaixo
+            </div>
+            <div class="form-group">
+              <label>ID da Instância</label>
+              <input type="text" id="wpp-instance-id" placeholder="Ex: 3F464BD2E42572708A987269EBE9199A" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none">
+            </div>
+            <div class="form-group">
+              <label>Token da Instância</label>
+              <input type="text" id="wpp-token" placeholder="Ex: 35E96D6B3CEF03E4FA0AF50E" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;margin-top:8px">
+            </div>
+            <div class="form-group">
+              <label>Client Token (token de segurança da conta Z-API)</label>
+              <input type="text" id="wpp-client-token" placeholder="Ex: F7ae82eee3f36448690bdbab90782cb3cS" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;margin-top:8px">
+            </div>
+            <div style="display:flex;gap:8px;margin-top:4px">
+              <button class="btn btn-primary btn-sm" onclick="salvarWhatsapp()">Salvar e conectar</button>
+              <button class="btn btn-ghost btn-sm" onclick="toggleFormWhatsapp()">Cancelar</button>
+            </div>
+          </div>
+        </div>
+
         <div class="config-section"><h3>Horário de envio</h3><div class="config-row"><span class="config-key">Janela de envio</span><span class="config-val">09:00 — 19:00</span></div><div class="config-row"><span class="config-key">Dias da semana</span><span class="config-val">Seg a Sáb</span></div></div>
         <div class="config-section"><h3>Notificações</h3><div class="config-row"><span class="config-key">Quando cliente responde</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div><div class="config-row"><span class="config-key">Resumo diário por e-mail</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div></div>
       </div>
@@ -777,6 +824,34 @@ function topbarAction(){ const active=document.querySelector('.page.active').id;
 
 const ACCOUNT={status:'trial',trialEndsAt:new Date(Date.now()+7*24*60*60*1000),plano:null,empresaId:null,email:null};
 
+// ── WHATSAPP CONFIG ──
+function toggleFormWhatsapp(){
+  const form = document.getElementById('form-whatsapp');
+  form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
+async function salvarWhatsapp(){
+  const instanceId  = document.getElementById('wpp-instance-id').value.trim();
+  const token       = document.getElementById('wpp-token').value.trim();
+  const clientToken = document.getElementById('wpp-client-token').value.trim();
+
+  if(!instanceId || !token){ showToast('Preencha o ID e o Token da instância.', 'err'); return; }
+
+  const zapiApiUrl = `https://api.z-api.io/instances/${instanceId}/token/${token}`;
+
+  const updateData = { zapi_api_url: zapiApiUrl, zapi_token: token };
+  if(clientToken) updateData.zapi_client_token = clientToken;
+
+  const { error } = await supabase.from('empresas').update(updateData).eq('id', ACCOUNT.empresaId);
+
+  if(error){ showToast('Erro ao salvar. Tente novamente.', 'err'); return; }
+
+  showToast('WhatsApp conectado com sucesso! 🎉');
+  document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>';
+  document.getElementById('wpp-numero').textContent = 'Instância configurada';
+  document.getElementById('form-whatsapp').style.display = 'none';
+}
+
 async function checkAuth(){
   const{data:{session}}=await supabase.auth.getSession();
   if(!session){ window.location.href='retornax-login.html'; return; }
@@ -789,6 +864,24 @@ async function checkAuth(){
     ACCOUNT.email=empresa.email;
     document.querySelector('.user-name').textContent=empresa.nome;
     document.querySelector('.user-plan').textContent=empresa.plano==='trial'?'Período gratuito':`Plano ${empresa.plano}`;
+
+    // Atualizar configurações
+    if(document.getElementById('config-nome')) document.getElementById('config-nome').textContent = empresa.nome || '—';
+    if(document.getElementById('config-email')) document.getElementById('config-email').textContent = empresa.email || '—';
+    if(document.getElementById('config-plano')){
+      const planos = {trial:'Trial gratuito', starter:'Starter — R$147/mês', profissional:'Profissional — R$247/mês', crescimento:'Crescimento — R$447/mês'};
+      document.getElementById('config-plano').textContent = planos[empresa.plano] || empresa.plano;
+    }
+
+    // Status WhatsApp
+    if(empresa.zapi_api_url){
+      document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>';
+      document.getElementById('wpp-numero').textContent = 'Instância configurada';
+      const instanceId = empresa.zapi_api_url.split('/instances/')[1]?.split('/token/')[0] || '';
+      const token = empresa.zapi_api_url.split('/token/')[1] || '';
+      document.getElementById('wpp-instance-id').value = instanceId;
+      document.getElementById('wpp-token').value = token;
+    }
   }
   initAccountStatus();
   await carregarClientes();
@@ -957,6 +1050,24 @@ function obAbrirClientes(){ document.getElementById('onboarding-overlay').classL
 function obImportarPlanilha(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('clientes',document.querySelectorAll('.nav-item')[1]); setTimeout(()=>openImportModal(),300); }
 function obAbrirAutomacoes(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('automacoes',document.querySelectorAll('.nav-item')[2]); }
 function obFinalizar(){ localStorage.setItem('retornax_onboarding_'+(ACCOUNT.empresaId||'x'),'1'); document.getElementById('onboarding-overlay').classList.remove('open'); }
+
+// ── TEMA ──
+function toggleTema(){
+  const isLight = document.body.classList.toggle('light-mode');
+  document.getElementById('icon-tema-escuro').style.display = isLight ? 'none' : '';
+  document.getElementById('icon-tema-claro').style.display = isLight ? '' : 'none';
+  localStorage.setItem('retornax_tema', isLight ? 'light' : 'dark');
+}
+
+// Carregar tema salvo
+(function(){
+  const tema = localStorage.getItem('retornax_tema');
+  if(tema === 'light'){
+    document.body.classList.add('light-mode');
+    document.getElementById('icon-tema-escuro').style.display = 'none';
+    document.getElementById('icon-tema-claro').style.display = '';
+  }
+})();
 
 renderTemplates();
 document.getElementById('f-data').valueAsDate=new Date();
