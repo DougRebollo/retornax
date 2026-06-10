@@ -227,6 +227,11 @@ tbody td.name{color:var(--text);font-weight:500}
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
     Automações
   </button>
+  <button class="nav-item" onclick="showPage('campanhas',this)">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+    Campanhas
+    <span style="margin-left:auto;background:rgba(0,229,255,0.15);color:var(--accent);font-size:0.65rem;padding:1px 6px;border-radius:4px;font-weight:700">PRO</span>
+  </button>
   <button class="nav-item" onclick="showPage('historico',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
     Histórico
@@ -330,6 +335,85 @@ tbody td.name{color:var(--text);font-weight:500}
       </div>
       <div style="margin-bottom:16px"><div class="card-title">Templates de mensagem</div><p style="font-size:0.83rem;color:var(--text2);margin-top:4px">Edite o texto e clique em salvar. Use {nome} e {dias} para personalizar.</p></div>
       <div class="envios-grid" id="templates-grid"></div>
+    </div>
+    <!-- CAMPANHAS -->
+    <div class="page" id="page-campanhas">
+      <div id="campanhas-bloqueado" style="display:none">
+        <div style="text-align:center;padding:80px 20px;max-width:480px;margin:0 auto">
+          <div style="font-size:3rem;margin-bottom:16px">🔒</div>
+          <div style="font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:10px">Campanhas é exclusivo do plano Profissional</div>
+          <div style="font-size:0.9rem;color:var(--text2);line-height:1.7;margin-bottom:28px">Dispare mensagens para toda a sua base de clientes com promoções, novidades e datas especiais. Disponível a partir do plano Profissional.</div>
+          <button class="btn btn-primary" onclick="abrirPlanos('trial')" style="font-size:0.95rem;padding:12px 28px">Ver planos →</button>
+        </div>
+      </div>
+      <div id="campanhas-conteudo">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+          <div>
+            <div style="font-size:1.1rem;font-weight:700;color:var(--white)">Campanhas</div>
+            <div style="font-size:0.82rem;color:var(--text2);margin-top:4px">Dispare mensagens para toda sua base — promoções, novidades e datas especiais.</div>
+          </div>
+          <button class="btn btn-primary" onclick="abrirModalCampanha()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nova campanha
+          </button>
+        </div>
+
+        <!-- FORM NOVA CAMPANHA -->
+        <div class="card" style="margin-bottom:24px" id="form-campanha" style="display:none">
+          <div class="card-header">
+            <div class="card-title">✏️ Configurar campanha</div>
+            <button class="btn btn-ghost btn-sm" onclick="fecharFormCampanha()">Cancelar</button>
+          </div>
+          <div style="padding:4px 0">
+            <div class="form-group">
+              <label>Nome da campanha</label>
+              <input type="text" id="camp-nome" placeholder="Ex: Promoção de Junho" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none">
+            </div>
+            <div class="form-group">
+              <label>Público-alvo</label>
+              <select id="camp-publico" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none">
+                <option value="todos">Todos os clientes</option>
+                <option value="Barbearia">✂ Barbearia</option>
+                <option value="Estética auto">🚗 Estética auto</option>
+                <option value="Mecânica">🔧 Mecânica</option>
+                <option value="Beleza">💅 Beleza</option>
+                <option value="Pet shop">🐾 Pet shop</option>
+                <option value="Academia">🏋 Academia</option>
+                <option value="Outros">📌 Outros</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Mensagem da campanha</label>
+              <textarea id="camp-mensagem" placeholder="Ex: Oi {nome}! Este mês temos 10% de desconto em todos os serviços. Que tal agendar hoje? 😊" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none;resize:vertical;min-height:100px;line-height:1.6"></textarea>
+              <div style="display:flex;gap:6px;margin-top:6px">
+                <button class="var-chip" onclick="insertVarCampanha('{nome}')">{nome}</button>
+              </div>
+            </div>
+            <div style="background:var(--amber-dim);border:1px solid rgba(255,176,32,0.2);border-radius:8px;padding:10px 14px;font-size:0.8rem;color:var(--amber);margin-bottom:16px">
+              ⚠️ A campanha será enviada para <strong id="camp-preview-count">0</strong> clientes. Confirme antes de disparar.
+            </div>
+            <div style="display:flex;justify-content:flex-end;gap:10px">
+              <button class="btn btn-ghost" onclick="fecharFormCampanha()">Cancelar</button>
+              <button class="btn btn-green" onclick="dispararCampanha()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Disparar campanha
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- HISTÓRICO DE CAMPANHAS -->
+        <div class="card">
+          <div class="card-header"><div class="card-title">Histórico de campanhas</div></div>
+          <div id="campanhas-lista">
+            <div class="empty-state">
+              <div class="empty-icon">📣</div>
+              <strong style="color:var(--text)">Nenhuma campanha ainda</strong>
+              <p>Crie sua primeira campanha e dispare para toda sua base!</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- HISTÓRICO -->
     <div class="page" id="page-historico">
@@ -681,12 +765,13 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
-  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',historico:'Histórico de envios',config:'Configurações'};
+  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',config:'Configurações'};
   document.getElementById('page-title').textContent=titles[id]||id;
   const actionBtn=document.getElementById('topbar-action');
   if(id==='clientes'||id==='dashboard'){ actionBtn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo cliente'; actionBtn.style.display=''; }
   else{ actionBtn.style.display='none'; }
   if(id==='historico') renderHistorico();
+  if(id==='campanhas') initCampanhas();
 }
 function topbarAction(){ const active=document.querySelector('.page.active').id; if(active==='page-clientes'||active==='page-dashboard') openModal(); }
 
@@ -763,6 +848,104 @@ async function assinarPlano(plano,valor){
     if(data.url) window.location.href=data.url;
     else showToast('Erro ao criar checkout.','err');
   }catch(err){ showToast('Erro ao conectar com o servidor.','err'); }
+}
+
+// ── CAMPANHAS ──
+let campanhasHistorico = [];
+
+function initCampanhas(){
+  const plano = ACCOUNT.plano || 'trial';
+  const temAcesso = plano === 'profissional' || plano === 'crescimento';
+  document.getElementById('campanhas-bloqueado').style.display = temAcesso ? 'none' : 'block';
+  document.getElementById('campanhas-conteudo').style.display = temAcesso ? 'block' : 'none';
+  if(temAcesso) atualizarContadorCampanha();
+}
+
+function abrirModalCampanha(){
+  document.getElementById('form-campanha').style.display = 'block';
+  atualizarContadorCampanha();
+}
+
+function fecharFormCampanha(){
+  document.getElementById('form-campanha').style.display = 'none';
+  document.getElementById('camp-nome').value = '';
+  document.getElementById('camp-mensagem').value = '';
+  document.getElementById('camp-publico').value = 'todos';
+}
+
+function atualizarContadorCampanha(){
+  const publico = document.getElementById('camp-publico')?.value || 'todos';
+  const count = publico === 'todos' ? clientes.length : clientes.filter(c => c.seg === publico).length;
+  const el = document.getElementById('camp-preview-count');
+  if(el) el.textContent = count;
+}
+
+document.addEventListener('change', e => { if(e.target.id === 'camp-publico') atualizarContadorCampanha(); });
+
+function insertVarCampanha(v){
+  const el = document.getElementById('camp-mensagem');
+  const s = el.selectionStart, e = el.selectionEnd;
+  el.value = el.value.slice(0,s) + v + el.value.slice(e);
+  el.focus(); el.selectionStart = el.selectionEnd = s + v.length;
+}
+
+async function dispararCampanha(){
+  const nome = document.getElementById('camp-nome').value.trim();
+  const publico = document.getElementById('camp-publico').value;
+  const mensagemTemplate = document.getElementById('camp-mensagem').value.trim();
+
+  if(!nome || !mensagemTemplate){ showToast('Preencha o nome e a mensagem.', 'err'); return; }
+
+  const lista = publico === 'todos' ? clientes : clientes.filter(c => c.seg === publico);
+  if(!lista.length){ showToast('Nenhum cliente neste segmento.', 'err'); return; }
+
+  if(!confirm(`Confirma o disparo para ${lista.length} cliente${lista.length > 1 ? 's' : ''}?`)) return;
+
+  const btn = document.querySelector('#form-campanha .btn-green');
+  btn.textContent = '⏳ Disparando...'; btn.disabled = true;
+
+  let enviados = 0;
+  for(const c of lista){
+    const mensagem = mensagemTemplate.replace('{nome}', c.nome.split(' ')[0]);
+    try{
+      const res = await fetch(`${BACKEND}/api/enviar-mensagem`,{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({telefone:c.wpp, mensagem, empresaId:ACCOUNT.empresaId})
+      });
+      const data = await res.json();
+      if(data.success) enviados++;
+    }catch(e){}
+  }
+
+  // Registrar no histórico de campanhas
+  campanhasHistorico.unshift({
+    nome, publico, enviados, total: lista.length,
+    data: new Date().toLocaleDateString('pt-BR'),
+    hora: new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})
+  });
+  renderCampanhasHistorico();
+  fecharFormCampanha();
+  showToast(`Campanha "${nome}" enviada para ${enviados} clientes!`);
+
+  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Disparar campanha';
+  btn.disabled = false;
+}
+
+function renderCampanhasHistorico(){
+  const el = document.getElementById('campanhas-lista');
+  if(!campanhasHistorico.length){
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">📣</div><strong style="color:var(--text)">Nenhuma campanha ainda</strong><p>Crie sua primeira campanha e dispare para toda sua base!</p></div>`;
+    return;
+  }
+  el.innerHTML = `<table><thead><tr><th>Campanha</th><th>Público</th><th>Enviados</th><th>Data</th><th>Status</th></tr></thead><tbody>
+    ${campanhasHistorico.map(c=>`<tr>
+      <td class="name">${c.nome}</td>
+      <td>${c.publico === 'todos' ? 'Todos os clientes' : c.publico}</td>
+      <td>${c.enviados} / ${c.total}</td>
+      <td>${c.data} ${c.hora}</td>
+      <td><span class="badge badge-green">✓ Concluída</span></td>
+    </tr>`).join('')}
+  </tbody></table>`;
 }
 
 function checkOnboarding(){
