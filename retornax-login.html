@@ -20,13 +20,19 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--blue-900)
 body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(46,106,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(46,106,255,0.05) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; z-index: 0; }
 body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: translateX(-50%); width: 700px; height: 500px; background: radial-gradient(ellipse at center, rgba(46,106,255,0.14) 0%, transparent 70%); pointer-events: none; z-index: 0; }
 .login-wrap { position: relative; z-index: 1; display: flex; width: 100%; min-height: 100vh; }
-.login-brand { flex: 1; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 40px; padding: 60px 5%; border-right: 1px solid var(--card-border); background: rgba(10,26,74,0.3); backdrop-filter: blur(8px); overflow: hidden; }
-.brand-text { display: flex; flex-direction: column; flex: 0 0 auto; max-width: 260px; }
-.brand-logo { font-weight: 800; font-size: 1.8rem; letter-spacing: -0.5px; color: var(--white); margin-bottom: 36px; }
+.login-brand { flex: 1; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 44px; padding: 60px 5%; border-right: 1px solid var(--card-border); background: rgba(10,26,74,0.3); backdrop-filter: blur(8px); overflow: hidden; }
+.brand-text { display: flex; flex-direction: column; flex: 0 0 auto; max-width: 280px; }
+.brand-logo { font-weight: 800; font-size: 2rem; letter-spacing: -0.5px; color: var(--white); margin-bottom: 32px; }
 .brand-logo span { color: var(--accent); }
-.brand-headline { font-size: clamp(1.3rem, 2.2vw, 2rem); font-weight: 800; letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px; }
-.brand-headline .green { color: var(--green); }
-.brand-sub { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+.brand-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(0,208,132,0.1); border: 1px solid rgba(0,208,132,0.25); color: var(--green); padding: 5px 13px; border-radius: 100px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.4px; margin-bottom: 20px; width: fit-content; }
+.brand-badge::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; flex-shrink: 0; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
+.brand-headline { font-size: clamp(1.6rem, 2.5vw, 2.4rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 18px; }
+.brand-headline .green { background: linear-gradient(135deg, var(--green), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.brand-sub { font-size: 0.88rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 28px; }
+.brand-stats { display: flex; flex-direction: column; gap: 8px; }
+.brand-stat { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--text-muted); }
+.brand-stat::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 0.8rem; flex-shrink: 0; }
 
 /* Cards de mensagem */
 .msg-cards { display: flex; flex-direction: column; gap: 12px; flex: 1; max-width: 300px; }
@@ -101,8 +107,14 @@ body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: t
   <div class="login-brand">
     <div class="brand-text">
       <div class="brand-logo">Retorna<span>x</span></div>
-      <div class="brand-headline">Faturamento<br>recorrente no<br><span class="green">piloto automático.</span></div>
-      <p class="brand-sub">O Retornax lembra seus clientes de voltar via WhatsApp — sem você precisar fazer nada.</p>
+      <div class="brand-badge">Faturamento recorrente no automático</div>
+      <div class="brand-headline">Seu cliente<br>não voltou?<br><span class="green">A gente lembra.</span></div>
+      <p class="brand-sub">Mensagens automáticas no WhatsApp que trazem clientes de volta — sem você precisar fazer nada.</p>
+      <div class="brand-stats">
+        <div class="brand-stat">7 dias grátis, sem cartão</div>
+        <div class="brand-stat">Configura em menos de 3 minutos</div>
+        <div class="brand-stat">Cancele quando quiser</div>
+      </div>
     </div>
     <div class="msg-cards">
       <div class="msg-card">
