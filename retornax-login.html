@@ -20,17 +20,29 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--blue-900)
 body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(46,106,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(46,106,255,0.05) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; z-index: 0; }
 body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: translateX(-50%); width: 700px; height: 500px; background: radial-gradient(ellipse at center, rgba(46,106,255,0.14) 0%, transparent 70%); pointer-events: none; z-index: 0; }
 .login-wrap { position: relative; z-index: 1; display: flex; width: 100%; min-height: 100vh; }
-.login-brand { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 6%; border-right: 1px solid var(--card-border); background: rgba(10,26,74,0.3); backdrop-filter: blur(8px); }
-.brand-logo { font-weight: 800; font-size: 1.8rem; letter-spacing: -0.5px; color: var(--white); margin-bottom: 48px; }
+.login-brand { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 6%; border-right: 1px solid var(--card-border); background: rgba(10,26,74,0.3); backdrop-filter: blur(8px); overflow: hidden; }
+.brand-logo { font-weight: 800; font-size: 1.8rem; letter-spacing: -0.5px; color: var(--white); margin-bottom: 40px; }
 .brand-logo span { color: var(--accent); }
-.brand-headline { font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 800; letter-spacing: -1px; line-height: 1.1; margin-bottom: 20px; }
+.brand-headline { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px; }
 .brand-headline .green { color: var(--green); }
-.brand-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 400px; margin-bottom: 48px; }
-.brand-metrics { display: flex; flex-direction: column; gap: 16px; }
-.metric-row { display: flex; align-items: center; gap: 14px; }
-.metric-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--card-bg); border: 1px solid var(--card-border); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
-.metric-text strong { display: block; font-size: 0.9rem; font-weight: 600; color: var(--white); }
-.metric-text span { font-size: 0.78rem; color: var(--text-muted); }
+.brand-sub { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; max-width: 380px; margin-bottom: 40px; }
+
+/* Cards de mensagem */
+.msg-cards { display: flex; flex-direction: column; gap: 14px; max-width: 360px; }
+.msg-card { background: rgba(10,26,74,0.75); border: 1px solid var(--card-border); border-radius: 14px; padding: 16px 20px; backdrop-filter: blur(10px); transition: transform 0.3s, border-color 0.3s; animation: floatIn 0.6s ease both; }
+.msg-card:nth-child(1){ animation-delay: 0.1s; }
+.msg-card:nth-child(2){ animation-delay: 0.25s; }
+.msg-card:nth-child(3){ animation-delay: 0.4s; }
+.msg-card:hover { transform: translateY(-3px); border-color: rgba(46,106,255,0.3); }
+.msg-segment { font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.msg-bubble { background: #1a2d50; border-radius: 10px 10px 10px 3px; padding: 10px 13px; font-size: 0.82rem; color: var(--text); line-height: 1.55; }
+.msg-bubble strong { color: var(--accent); }
+.msg-result { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 0.7rem; color: var(--green); font-weight: 600; }
+.msg-result::before { content: '↩'; font-size: 0.75rem; }
+.msg-time { font-size: 0.65rem; color: var(--text-muted); margin-top: 3px; text-align: right; }
+
+@keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
 .login-form-side { width: 480px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 48px; }
 .form-card { width: 100%; background: var(--card-bg); border: 1px solid var(--card-border2); border-radius: 20px; padding: 40px 36px; backdrop-filter: blur(16px); animation: fadeUp 0.5s ease both; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -67,15 +79,12 @@ body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: t
 .back-link { margin-top: 24px; text-align: center; font-size: 0.8rem; color: var(--text-muted); }
 .back-link a { color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s; }
 .back-link a:hover { color: var(--white); }
-
-/* Tela de email não confirmado */
 .verify-screen { text-align: center; }
 .verify-icon { font-size: 3rem; margin-bottom: 16px; }
 .verify-title { font-size: 1.3rem; font-weight: 800; color: var(--white); margin-bottom: 8px; }
 .verify-sub { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
 .btn-reenviar { background: var(--card-bg); border: 1px solid var(--card-border2); color: var(--text); padding: 10px 20px; border-radius: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
 .btn-reenviar:hover { border-color: var(--blue-300); color: var(--blue-300); }
-
 @media (max-width: 900px) {
   .login-brand { display: none; }
   .login-form-side { width: 100%; padding: 40px 24px; }
@@ -92,25 +101,38 @@ body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: t
     <div class="brand-logo">Retorna<span>x</span></div>
     <div class="brand-headline">Faturamento<br>recorrente no<br><span class="green">piloto automático.</span></div>
     <p class="brand-sub">O Retornax lembra seus clientes de voltar via WhatsApp — sem você precisar fazer nada.</p>
-    <div class="brand-metrics">
-      <div class="metric-row"><div class="metric-icon">💰</div><div class="metric-text"><strong>Clientes reativados automaticamente</strong><span>Mensagens personalizadas no momento certo</span></div></div>
-      <div class="metric-row"><div class="metric-icon">📊</div><div class="metric-text"><strong>Dashboard de faturamento recorrente</strong><span>Acompanhe retornos, respostas e resultados</span></div></div>
-      <div class="metric-row"><div class="metric-icon">⚡</div><div class="metric-text"><strong>Configure em menos de 3 minutos</strong><span>Sem técnico, sem complicação</span></div></div>
-      <div class="metric-row"><div class="metric-icon">🔒</div><div class="metric-text"><strong>Seus dados protegidos</strong><span>Ambiente seguro, LGPD compliant</span></div></div>
+
+    <div class="msg-cards">
+      <div class="msg-card">
+        <div class="msg-segment">✂ Barbearia</div>
+        <div class="msg-bubble">Oi <strong>João</strong>! Já faz 12 dias que você não passa por aqui. 😊 Quer marcar um horário essa semana?</div>
+        <div class="msg-result">Agendou para sexta-feira</div>
+        <div class="msg-time">Retornax · automático</div>
+      </div>
+      <div class="msg-card">
+        <div class="msg-segment">🚗 Estética automotiva</div>
+        <div class="msg-bubble">Oi <strong>Ana</strong>! Faz 15 dias que seu carro não vem lavar. Quer agendar uma lavagem essa semana? 🚗</div>
+        <div class="msg-result">Confirmou para amanhã</div>
+        <div class="msg-time">Retornax · automático</div>
+      </div>
+      <div class="msg-card">
+        <div class="msg-segment">💅 Beleza</div>
+        <div class="msg-bubble">Oi <strong>Mari</strong>! Já faz 3 semanas desde sua última visita. Quer agendar manicure ou sobrancelha? 💅</div>
+        <div class="msg-result">Marcou para hoje às 15h</div>
+        <div class="msg-time">Retornax · automático</div>
+      </div>
     </div>
   </div>
 
   <!-- LADO DIREITO -->
   <div class="login-form-side">
     <div class="form-card">
-
-      <!-- TABS -->
       <div class="form-tabs" id="form-tabs">
         <button class="form-tab active" id="tab-login" onclick="switchTab('login')">Entrar</button>
         <button class="form-tab" id="tab-cadastro" onclick="switchTab('cadastro')">Criar conta</button>
       </div>
 
-      <!-- ── LOGIN ── -->
+      <!-- LOGIN -->
       <div id="form-login">
         <div class="form-title">Bem-vindo de volta</div>
         <div class="form-subtitle">Entre na sua conta para acessar o painel.</div>
@@ -136,12 +158,12 @@ body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: t
         </button>
       </div>
 
-      <!-- ── VERIFICAR EMAIL (aparece após cadastro ou login sem confirmar) ── -->
+      <!-- VERIFICAR EMAIL -->
       <div id="form-verify" style="display:none">
         <div class="verify-screen">
           <div class="verify-icon">📧</div>
           <div class="verify-title">Confirme seu e-mail</div>
-          <div class="verify-sub" id="verify-msg">Enviamos um link de confirmação para <strong id="verify-email"></strong>. Clique no link para ativar sua conta e acessar o painel.</div>
+          <div class="verify-sub" id="verify-msg">Enviamos um link de confirmação para <strong id="verify-email"></strong>. Clique no link para ativar sua conta.</div>
           <button class="btn-reenviar" onclick="reenviarConfirmacao()">Reenviar e-mail de confirmação</button>
           <div style="margin-top:16px">
             <a href="#" style="font-size:0.8rem;color:var(--text-muted);text-decoration:none" onclick="backToLogin(event)">← Voltar para o login</a>
@@ -149,7 +171,7 @@ body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: t
         </div>
       </div>
 
-      <!-- ── CADASTRO ── -->
+      <!-- CADASTRO -->
       <div id="form-cadastro" style="display:none">
         <div class="form-title">Criar sua conta</div>
         <div class="form-subtitle">7 dias grátis. Sem cartão de crédito.</div>
@@ -173,7 +195,7 @@ body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: t
         <div class="terms">Ao criar uma conta você concorda com os<br><a href="#">Termos de uso</a> e a <a href="#">Política de privacidade</a></div>
       </div>
 
-      <!-- ── ESQUECI SENHA ── -->
+      <!-- ESQUECI SENHA -->
       <div id="form-forgot" style="display:none">
         <div class="form-title">Recuperar senha</div>
         <div class="form-subtitle">Digite seu e-mail e enviaremos um link para redefinir sua senha.</div>
@@ -184,7 +206,6 @@ body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: t
           <a href="#" style="font-size:0.82rem;color:var(--text-muted);text-decoration:none" onclick="backToLogin(event)">← Voltar para o login</a>
         </div>
       </div>
-
     </div>
     <div class="back-link">
       <a href="./index.html">
@@ -222,11 +243,11 @@ function backToLogin(e) {
 
 function mostrarVerificacao(email) {
   emailParaVerificar = email;
-  document.getElementById('form-tabs').style.display   = 'none';
-  document.getElementById('form-login').style.display  = 'none';
+  document.getElementById('form-tabs').style.display     = 'none';
+  document.getElementById('form-login').style.display    = 'none';
   document.getElementById('form-cadastro').style.display = 'none';
-  document.getElementById('form-verify').style.display = '';
-  document.getElementById('verify-email').textContent  = email;
+  document.getElementById('form-verify').style.display   = '';
+  document.getElementById('verify-email').textContent    = email;
 }
 
 async function reenviarConfirmacao() {
@@ -238,60 +259,29 @@ async function reenviarConfirmacao() {
   setTimeout(() => { btn.textContent = 'Reenviar e-mail de confirmação'; btn.disabled = false; }, 5000);
 }
 
-// ── LOGIN ──
 async function handleLogin() {
-  const email = document.getElementById('login-email').value.trim();
-  const senha = document.getElementById('login-senha').value;
+  const email  = document.getElementById('login-email').value.trim();
+  const senha  = document.getElementById('login-senha').value;
   const errEl  = document.getElementById('login-error');
   const warnEl = document.getElementById('login-warning');
   errEl.classList.remove('show');
   warnEl.classList.remove('show');
-
-  if (!email || !senha) {
-    errEl.textContent = 'Preencha e-mail e senha.';
-    errEl.classList.add('show');
-    return;
-  }
-
+  if (!email || !senha) { errEl.textContent = 'Preencha e-mail e senha.'; errEl.classList.add('show'); return; }
   setLoading('login', true);
   const { data, error } = await supabase.auth.signInWithPassword({ email, password: senha });
   setLoading('login', false);
-
   if (error) {
-    // Email não confirmado
-    if (error.message.includes('Email not confirmed') || error.message.includes('email_not_confirmed')) {
-      mostrarVerificacao(email);
-      return;
-    }
+    if (error.message.includes('Email not confirmed') || error.message.includes('email_not_confirmed')) { mostrarVerificacao(email); return; }
     errEl.textContent = 'E-mail ou senha incorretos.';
     errEl.classList.add('show');
     return;
   }
-
-  // Verificar se email foi confirmado
-  if (!data.user.email_confirmed_at) {
-    await supabase.auth.signOut();
-    mostrarVerificacao(email);
-    return;
-  }
-
-  // Verificar status da empresa
-  const { data: empresa } = await supabase
-    .from('empresas')
-    .select('status, trial_ends_at, plano')
-    .eq('user_id', data.user.id)
-    .single();
-
+  if (!data.user.email_confirmed_at) { await supabase.auth.signOut(); mostrarVerificacao(email); return; }
+  const { data: empresa } = await supabase.from('empresas').select('status, trial_ends_at, plano').eq('user_id', data.user.id).single();
   if (empresa) {
     const hoje = new Date();
     const trialFim = new Date(empresa.trial_ends_at);
-
-    // Trial expirado — redireciona para painel mas vai mostrar bloqueio lá
-    if (empresa.status === 'trial' && hoje > trialFim) {
-      await supabase.from('empresas').update({ status: 'expirado' }).eq('user_id', data.user.id);
-    }
-
-    // Inadimplente — aviso no login
+    if (empresa.status === 'trial' && hoje > trialFim) { await supabase.from('empresas').update({ status: 'expirado' }).eq('user_id', data.user.id); }
     if (empresa.status === 'inadimplente') {
       warnEl.innerHTML = '⚠️ Seu pagamento está pendente. Acesse o painel para regularizar sua assinatura.';
       warnEl.classList.add('show');
@@ -299,11 +289,9 @@ async function handleLogin() {
       return;
     }
   }
-
   window.location.href = 'retornax-painel-v2.html';
 }
 
-// ── CADASTRO ──
 async function handleCadastro() {
   const nome  = document.getElementById('cad-nome').value.trim();
   const sob   = document.getElementById('cad-sobrenome').value.trim();
@@ -312,110 +300,63 @@ async function handleCadastro() {
   const senha = document.getElementById('cad-senha').value;
   const errEl = document.getElementById('cadastro-error');
   errEl.classList.remove('show');
-
-  if (!nome || !email || !wpp || !senha) {
-    errEl.textContent = 'Preencha todos os campos obrigatórios.';
-    errEl.classList.add('show');
-    return;
-  }
-  if (senha.length < 8) {
-    errEl.textContent = 'A senha precisa ter pelo menos 8 caracteres.';
-    errEl.classList.add('show');
-    return;
-  }
-
-  // Validação básica de email
+  if (!nome || !email || !wpp || !senha) { errEl.textContent = 'Preencha todos os campos obrigatórios.'; errEl.classList.add('show'); return; }
+  if (senha.length < 8) { errEl.textContent = 'A senha precisa ter pelo menos 8 caracteres.'; errEl.classList.add('show'); return; }
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    errEl.textContent = 'Digite um e-mail válido.';
-    errEl.classList.add('show');
-    return;
-  }
-
+  if (!emailRegex.test(email)) { errEl.textContent = 'Digite um e-mail válido.'; errEl.classList.add('show'); return; }
   setLoading('cadastro', true);
-
   const { data, error } = await supabase.auth.signUp({
-    email,
-    password: senha,
-    options: {
-      emailRedirectTo: window.location.origin + '/retornax-login.html',
-      data: { nome: `${nome} ${sob}`.trim() }
-    }
+    email, password: senha,
+    options: { emailRedirectTo: window.location.origin + '/retornax-login.html', data: { nome: `${nome} ${sob}`.trim() } }
   });
-
   if (error) {
     setLoading('cadastro', false);
-    if (error.message.includes('already registered') || error.message.includes('already been registered')) {
-      errEl.textContent = 'Este e-mail já está cadastrado. Tente fazer login.';
-    } else {
-      errEl.textContent = error.message;
-    }
+    errEl.textContent = (error.message.includes('already registered') || error.message.includes('already been registered')) ? 'Este e-mail já está cadastrado. Tente fazer login.' : error.message;
     errEl.classList.add('show');
     return;
   }
-
-  // Criar empresa no banco
   if (data.user) {
     await supabase.from('empresas').insert({
-      user_id:       data.user.id,
-      nome:          `${nome} ${sob}`.trim(),
-      email,
-      whatsapp:      wpp,
-      status:        'trial',
-      trial_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+      user_id: data.user.id, nome: `${nome} ${sob}`.trim(), email, whatsapp: wpp,
+      status: 'trial', trial_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
     });
   }
-
   setLoading('cadastro', false);
-
-  // Mostrar tela de verificação de email
   mostrarVerificacao(email);
 }
 
-// ── ESQUECI SENHA ──
 async function handleForgot() {
   const email = document.getElementById('forgot-email').value.trim();
   if (!email) return;
-  await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: window.location.origin + '/retornax-login.html'
-  });
+  await supabase.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/retornax-login.html' });
   document.getElementById('forgot-success').classList.add('show');
   document.getElementById('forgot-btn-text').textContent = '✓ Link enviado!';
 }
 
-// ── GOOGLE ──
 async function handleGoogle() {
-  await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: window.location.origin + '/retornax-painel-v2.html' }
-  });
+  await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + '/retornax-painel-v2.html' } });
 }
 
-// ── LOADING ──
 function setLoading(form, on) {
   const btn     = document.getElementById(`btn-${form}`);
   const spinner = document.getElementById(`${form}-spinner`);
   const text    = document.getElementById(`${form}-btn-text`);
-  btn.disabled          = on;
+  btn.disabled = on;
   spinner.style.display = on ? 'block' : 'none';
-  text.style.opacity    = on ? '0.5' : '1';
+  text.style.opacity = on ? '0.5' : '1';
 }
 
-// Enter para submeter
 document.addEventListener('keydown', e => {
   if (e.key !== 'Enter') return;
   if (document.getElementById('form-login').style.display !== 'none') handleLogin();
   else if (document.getElementById('form-cadastro').style.display !== 'none') handleCadastro();
 });
 
-// Verificar se veio de confirmação de email
 (async () => {
   const hash = window.location.hash;
   if (hash.includes('access_token') || hash.includes('type=signup')) {
     const { data: { session } } = await supabase.auth.getSession();
-    if (session) {
-      window.location.href = 'retornax-painel-v2.html';
-    }
+    if (session) { window.location.href = 'retornax-painel-v2.html'; }
   }
 })();
 </script>
