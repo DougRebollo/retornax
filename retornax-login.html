@@ -20,27 +20,33 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--blue-900)
 body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(46,106,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(46,106,255,0.05) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; z-index: 0; }
 body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: translateX(-50%); width: 700px; height: 500px; background: radial-gradient(ellipse at center, rgba(46,106,255,0.14) 0%, transparent 70%); pointer-events: none; z-index: 0; }
 .login-wrap { position: relative; z-index: 1; display: flex; width: 100%; min-height: 100vh; }
-.login-brand { flex: 1; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 44px; padding: 60px 5%; border-right: 1px solid var(--card-border); background: rgba(10,26,74,0.3); backdrop-filter: blur(8px); overflow: hidden; }
-.brand-text { display: flex; flex-direction: column; flex: 0 0 auto; max-width: 280px; }
-.brand-logo { font-weight: 800; font-size: 2rem; letter-spacing: -0.5px; color: var(--white); margin-bottom: 32px; }
-.brand-logo span { color: var(--accent); }
+.login-brand { flex: 1; display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 44px; padding: 40px 4% 40px 5%; border-right: 1px solid var(--card-border); background: rgba(10,26,74,0.3); backdrop-filter: blur(8px); overflow: hidden; }
+.brand-text { display: flex; flex-direction: column; flex: 0 0 auto; max-width: 340px; min-width: 280px; }
+.brand-logo { font-weight: 800; font-size: 3.2rem; letter-spacing: -1.5px; color: var(--white); margin-bottom: 24px; }
+.brand-logo span { color: var(--accent); text-shadow: 0 0 20px rgba(0,229,255,0.6), 0 0 40px rgba(0,229,255,0.3); }
 .brand-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(0,208,132,0.1); border: 1px solid rgba(0,208,132,0.25); color: var(--green); padding: 5px 13px; border-radius: 100px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.4px; margin-bottom: 20px; width: fit-content; }
 .brand-badge::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; flex-shrink: 0; }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
-.brand-headline { font-size: clamp(1.6rem, 2.5vw, 2.4rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 18px; }
+.brand-headline { font-size: clamp(2.2rem, 3.2vw, 3.4rem); font-weight: 800; letter-spacing: -2px; line-height: 1.05; margin-bottom: 18px; }
 .brand-headline .green { background: linear-gradient(135deg, var(--green), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.brand-sub { font-size: 0.88rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 28px; }
-.brand-stats { display: flex; flex-direction: column; gap: 8px; }
-.brand-stat { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--text-muted); }
-.brand-stat::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 0.8rem; flex-shrink: 0; }
+.brand-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 28px; }
+.brand-stats { display: flex; flex-direction: column; gap: 10px; }
+.brand-stat { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }
+.brand-stat::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
 
 /* Cards de mensagem */
-.msg-cards { display: flex; flex-direction: column; gap: 12px; flex: 1; max-width: 300px; }
-.msg-card { background: rgba(10,26,74,0.75); border: 1px solid var(--card-border); border-radius: 14px; padding: 16px 20px; backdrop-filter: blur(10px); transition: transform 0.3s, border-color 0.3s; animation: floatIn 0.6s ease both; }
-.msg-card:nth-child(1){ animation-delay: 0.1s; }
-.msg-card:nth-child(2){ animation-delay: 0.25s; }
-.msg-card:nth-child(3){ animation-delay: 0.4s; }
-.msg-card:hover { transform: translateY(-3px); border-color: rgba(46,106,255,0.3); }
+.msg-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; flex: 1; max-width: 620px; }
+.msg-card { background: rgba(10,26,74,0.75); border: 1px solid rgba(46,106,255,0.2); border-radius: 14px; padding: 16px 20px; backdrop-filter: blur(10px); transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 24px rgba(46,106,255,0.12), 0 0 0 1px rgba(46,106,255,0.08); }
+.msg-card:nth-child(1){ animation: float1 4s ease-in-out infinite; }
+.msg-card:nth-child(2){ animation: float2 4.5s ease-in-out infinite 0.3s; }
+.msg-card:nth-child(3){ animation: float3 5s ease-in-out infinite 0.6s; }
+.msg-card:nth-child(4){ animation: float1 4.2s ease-in-out infinite 0.9s; }
+.msg-card:nth-child(5){ animation: float2 4.8s ease-in-out infinite 1.2s; }
+.msg-card:nth-child(6){ animation: float3 4.4s ease-in-out infinite 0.4s; }
+.msg-card:hover { box-shadow: 0 8px 32px rgba(46,106,255,0.25), 0 0 20px rgba(0,229,255,0.15), 0 0 0 1px rgba(0,229,255,0.3); border-color: rgba(0,229,255,0.4); }
+@keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+@keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes float3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
 .msg-segment { font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
 .msg-bubble { background: #1a2d50; border-radius: 10px 10px 10px 3px; padding: 10px 13px; font-size: 0.82rem; color: var(--text); line-height: 1.55; }
 .msg-bubble strong { color: var(--accent); }
@@ -49,6 +55,8 @@ body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: t
 .msg-time { font-size: 0.65rem; color: var(--text-muted); margin-top: 3px; text-align: right; }
 
 @keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInCards { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.msg-cards { animation: fadeInCards 0.6s ease both; }
 
 .login-form-side { width: 480px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 48px; }
 .form-card { width: 100%; background: var(--card-bg); border: 1px solid var(--card-border2); border-radius: 20px; padding: 40px 36px; backdrop-filter: blur(16px); animation: fadeUp 0.5s ease both; }
@@ -120,20 +128,38 @@ body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: t
       <div class="msg-card">
         <div class="msg-segment">✂ Barbearia</div>
         <div class="msg-bubble">Oi <strong>João</strong>! Já faz 12 dias que você não passa por aqui. 😊 Quer marcar um horário essa semana?</div>
-        <div class="msg-result">Agendou para sexta-feira</div>
+        <div class="msg-result">Agendou para sexta</div>
         <div class="msg-time">Retornax · automático</div>
       </div>
       <div class="msg-card">
-        <div class="msg-segment">🚗 Estética automotiva</div>
-        <div class="msg-bubble">Oi <strong>Ana</strong>! Faz 15 dias que seu carro não vem lavar. Quer agendar uma lavagem essa semana? 🚗</div>
+        <div class="msg-segment">🚗 Estética auto</div>
+        <div class="msg-bubble">Oi <strong>Ana</strong>! Faz 15 dias que seu carro não vem lavar. Quer agendar essa semana? 🚗</div>
         <div class="msg-result">Confirmou para amanhã</div>
         <div class="msg-time">Retornax · automático</div>
       </div>
       <div class="msg-card">
         <div class="msg-segment">💅 Beleza</div>
-        <div class="msg-bubble">Oi <strong>Mari</strong>! Já faz 3 semanas desde sua última visita. Quer agendar manicure ou sobrancelha? 💅</div>
+        <div class="msg-bubble">Oi <strong>Mari</strong>! Já faz 3 semanas desde sua última visita. Quer agendar manicure? 💅</div>
         <div class="msg-result">Marcou para hoje às 15h</div>
         <div class="msg-time">Retornax · automático</div>
+      </div>
+      <div class="msg-card">
+        <div class="msg-segment">🔧 Mecânica</div>
+        <div class="msg-bubble">Oi <strong>Carlos</strong>! Fim de ano chegando. Que tal uma revisão? Freios, óleo, filtros. 🔧</div>
+        <div class="msg-result">Marcou revisão completa</div>
+        <div class="msg-time">Retornax · automático</div>
+      </div>
+      <div class="msg-card">
+        <div class="msg-segment">🐾 Pet shop</div>
+        <div class="msg-bubble">Oi! O <strong>Thor</strong> já tá precisando de um banho, faz 20 dias. Quer agendar essa semana? 🐾</div>
+        <div class="msg-result">Agendou para sábado</div>
+        <div class="msg-time">Retornax · automático</div>
+      </div>
+      <div class="msg-card" style="border-color:rgba(0,214,143,0.3);box-shadow:0 4px 24px rgba(0,214,143,0.12),0 0 0 1px rgba(0,214,143,0.1);">
+        <div class="msg-segment" style="color:var(--green)">📣 Campanha automática</div>
+        <div class="msg-bubble">Oi <strong>Galera</strong>! Essa semana temos 15% OFF em todos os serviços. Aproveite! 🎉 Válido até domingo.</div>
+        <div class="msg-result" style="color:var(--green)">47 clientes responderam</div>
+        <div class="msg-time">Retornax · campanha</div>
       </div>
     </div>
   </div>
