@@ -6,6 +6,9 @@
 <title>Retornax — Painel</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="retornax-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#07091a;--bg2:#0d1230;--bg3:#111a3a;--surface:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.13);--blue:#2e6aff;--blue-dim:rgba(46,106,255,0.15);--blue-lite:#5b8fff;--accent:#00e5ff;--green:#00d68f;--green-dim:rgba(0,214,143,0.12);--amber:#ffb020;--amber-dim:rgba(255,176,32,0.12);--red:#ff4d4d;--red-dim:rgba(255,77,77,0.12);--text:#dce6ff;--text2:#7a8ab0;--text3:#4a5880;--white:#ffffff;--sidebar-w:228px;--radius:12px}
@@ -67,11 +70,15 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .seg-bar{height:100%;border-radius:4px;background:var(--blue);transition:width 0.6s ease}
 .seg-count{font-size:0.78rem;color:var(--text3);white-space:nowrap}
 .toolbar{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
-.search-wrap{position:relative;flex:1;min-width:200px}
+.search-wrap{position:relative;flex:1;min-width:220px}
 .search-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px 9px 36px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.15s}
-.search-wrap input:focus{border-color:var(--blue)}
+.search-wrap input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(46,106,255,0.12)}
 .search-wrap input::placeholder{color:var(--text3)}
 .search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);opacity:0.4;pointer-events:none}
+/* Indicador de busca ativa */
+.search-wrap input:not(:placeholder-shown){border-color:var(--blue-lite);background:rgba(46,106,255,0.07)}
+.search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;font-size:1rem;line-height:1;padding:2px;border-radius:4px;display:none}
+.search-wrap input:not(:placeholder-shown) ~ .search-clear{display:block}
 .filter-select{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;cursor:pointer}
 .filter-select option{background:var(--bg2)}
 .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
@@ -206,8 +213,9 @@ tbody td.name{color:var(--text);font-weight:500}
 .suporte-btn{position:fixed;bottom:28px;right:28px;z-index:150;display:flex;align-items:center;gap:10px;background:#25d366;color:#ffffff;padding:12px 20px;border-radius:100px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;font-weight:600;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:all 0.2s;border:none;cursor:pointer}
 .suporte-btn:hover{background:#20bc5a;transform:translateY(-2px)}
 .suporte-btn svg{flex-shrink:0}
-
-/* ANIMAÇÕES */
+/* Contador de resultados da busca */
+.search-results-count{font-size:0.78rem;color:var(--text3);margin-bottom:10px;min-height:18px}
+.search-results-count strong{color:var(--blue-lite)}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.4)}}
 .animate-in{animation:fadeInUp 0.4s ease both}
@@ -220,8 +228,6 @@ tbody td.name{color:var(--text);font-weight:500}
 .saudacao-texto{font-size:0.72rem;color:var(--text2);font-weight:400}
 .saudacao-nome{font-weight:700;font-size:1rem;color:var(--white)}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="retornax-config.js"></script>
 </head>
 <body>
 <div class="app">
@@ -318,6 +324,7 @@ tbody td.name{color:var(--text);font-weight:500}
         <div class="search-wrap">
           <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input type="text" id="search-input" placeholder="Buscar por nome ou número..." oninput="filterClientes()">
+          <button class="search-clear" onclick="limparBusca()" title="Limpar busca">✕</button>
         </div>
         <select class="filter-select" id="filter-seg" onchange="filterClientes()">
           <option value="">Todos os segmentos</option>
@@ -340,6 +347,7 @@ tbody td.name{color:var(--text);font-weight:500}
           Importar planilha
         </button>
       </div>
+      <div class="search-results-count" id="search-results-count"></div>
       <div class="table-wrap"><table><thead><tr><th>Nome</th><th>WhatsApp</th><th>Segmento</th><th>Última visita</th><th>Dias sem visitar</th><th>Status</th><th>Ações</th></tr></thead><tbody id="clientes-tbody"></tbody></table></div>
     </div>
     <!-- AUTOMAÇÕES -->
@@ -378,8 +386,6 @@ tbody td.name{color:var(--text);font-weight:500}
             Nova campanha
           </button>
         </div>
-
-        <!-- FORM NOVA CAMPANHA -->
         <div class="card" style="margin-bottom:24px" id="form-campanha" style="display:none">
           <div class="card-header">
             <div class="card-title">✏️ Configurar campanha</div>
@@ -422,8 +428,6 @@ tbody td.name{color:var(--text);font-weight:500}
             </div>
           </div>
         </div>
-
-        <!-- HISTÓRICO DE CAMPANHAS -->
         <div class="card">
           <div class="card-header"><div class="card-title">Histórico de campanhas</div></div>
           <div id="campanhas-lista">
@@ -448,8 +452,6 @@ tbody td.name{color:var(--text);font-weight:500}
     <div class="page" id="page-config">
       <div class="config-grid">
         <div class="config-section"><h3>Conta</h3><div class="config-row"><span class="config-key">Nome</span><span class="config-val" id="config-nome">—</span></div><div class="config-row"><span class="config-key">E-mail</span><span class="config-val" id="config-email">—</span></div><div class="config-row"><span class="config-key">Plano</span><span class="config-val" style="color:var(--blue-lite)" id="config-plano">—</span></div><div style="margin-top:16px;display:flex;gap:8px"><button class="btn btn-ghost btn-sm" onclick="abrirPlanos('trial')">Alterar plano</button></div></div>
-
-        <!-- WHATSAPP CONFIG -->
         <div class="config-section">
           <h3>WhatsApp</h3>
           <div id="wpp-status-wrap">
@@ -490,7 +492,6 @@ tbody td.name{color:var(--text);font-weight:500}
             </div>
           </div>
         </div>
-
         <div class="config-section"><h3>Horário de envio</h3><div class="config-row"><span class="config-key">Janela de envio</span><span class="config-val">09:00 — 19:00</span></div><div class="config-row"><span class="config-key">Dias da semana</span><span class="config-val">Seg a Sáb</span></div></div>
         <div class="config-section"><h3>Notificações</h3><div class="config-row"><span class="config-key">Quando cliente responde</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div><div class="config-row"><span class="config-key">Resumo diário por e-mail</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div></div>
       </div>
@@ -574,7 +575,7 @@ tbody td.name{color:var(--text);font-weight:500}
       </div>
       <input type="file" id="file-input" accept=".xlsx,.csv" style="display:none" onchange="handleFile(event)">
       <div style="background:var(--bg3);border-radius:8px;padding:14px;font-size:0.8rem;color:var(--text2);line-height:1.7"><strong style="color:var(--text);display:block;margin-bottom:4px">Formato esperado:</strong>Coluna A: Nome | Coluna B: WhatsApp | Coluna C: Segmento | Coluna D: Última visita (dd/mm/aaaa)</div>
-      <div id="import-preview" style="margin-top:14px;display:none"><div style="font-size:0.82rem;color:var(--green);margin-bottom:8px" id="import-msg"></div></div>
+      <div id="import-preview" style="margin-top:14px;display:none"><div style="font-size:0.82rem;margin-bottom:8px" id="import-msg"></div></div>
       <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" id="btn-importar" onclick="confirmarImport()" style="display:none">Importar clientes</button></div>
     </div>
   </div>
@@ -636,8 +637,6 @@ function renderClientes(list){
   if(!list.length){ tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text3)">Nenhum cliente encontrado.</td></tr>`; return; }
   tbody.innerHTML=list.map(c=>{
     const days=calcDays(c.ultima);
-    const wppE=encodeURIComponent(c.wpp);
-    const segE=encodeURIComponent(c.seg);
     return `<tr>
       <td class="name">${c.nome}</td>
       <td>${c.wpp}</td>
@@ -660,11 +659,28 @@ function renderClientes(list){
   }).join('');
 }
 
+function limparBusca(){
+  document.getElementById('search-input').value = '';
+  filterClientes();
+  document.getElementById('search-input').focus();
+}
+
 function filterClientes(){
-  const q=document.getElementById('search-input').value.toLowerCase();
+  const q=document.getElementById('search-input').value.toLowerCase().trim();
   const seg=document.getElementById('filter-seg').value;
   const status=document.getElementById('filter-status').value;
-  renderClientes(clientes.filter(c=>(!q||c.nome.toLowerCase().includes(q)||c.wpp.includes(q))&&(!seg||c.seg===seg)&&(!status||c.status===status)));
+  const filtered=clientes.filter(c=>(!q||c.nome.toLowerCase().includes(q)||c.wpp.replace(/\D/g,'').includes(q.replace(/\D/g,''))||c.wpp.toLowerCase().includes(q))&&(!seg||c.seg===seg)&&(!status||c.status===status));
+  renderClientes(filtered);
+  // Contador de resultados
+  const countEl = document.getElementById('search-results-count');
+  if(q || seg || status){
+    const total = clientes.length;
+    countEl.innerHTML = filtered.length === total
+      ? `<strong>${total}</strong> cliente${total !== 1 ? 's' : ''}`
+      : `<strong>${filtered.length}</strong> de ${total} cliente${total !== 1 ? 's' : ''}`;
+  } else {
+    countEl.innerHTML = clientes.length ? `<strong>${clientes.length}</strong> cliente${clientes.length !== 1 ? 's' : ''} cadastrado${clientes.length !== 1 ? 's' : ''}` : '';
+  }
 }
 
 async function removeCliente(id){
@@ -678,11 +694,10 @@ function updateCount(){
   document.getElementById('nav-count').textContent = total;
   animarNumero(document.getElementById('dash-total'), total);
   animarNumero(document.getElementById('dash-fila'), fila);
-  // Pulsar ícone da fila se tiver clientes esperando
   const filaIcon = document.querySelector('.stat-icon.red');
   if(filaIcon) filaIcon.style.animation = fila > 0 ? 'pulse-dot 1.5s infinite' : '';
   renderDashSegs(); renderFila(); atualizarLimitesPlano();
-  // Animar cards
+  filterClientes();
   document.querySelectorAll('.stat-card').forEach((c,i) => {
     c.classList.remove('animate-in');
     void c.offsetWidth;
@@ -743,37 +758,22 @@ async function dispararTodos(){
   btn.disabled=false;
 }
 
-// ── ENVIO REAL VIA BACKEND ──
 async function sendMsgCliente(btn){
   const nome=btn.dataset.nome;
   const wpp=btn.dataset.wpp;
   const seg=btn.dataset.seg;
   const orig=btn.innerHTML||btn.textContent;
   btn.innerHTML='⏳'; btn.disabled=true;
-
   const cliente=clientes.find(c=>c.wpp===wpp);
   const days=cliente?calcDays(cliente.ultima):0;
   const tmpl=SEGMENTOS[seg]?.template||'Oi {nome}! Sentimos sua falta! 😊';
   const mensagem=tmpl.replace('{nome}',nome).replace('{dias}',days);
-
   try{
-    const res=await fetch(`${BACKEND}/api/enviar-mensagem`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({telefone:wpp,mensagem,empresaId:ACCOUNT.empresaId})
-    });
+    const res=await fetch(`${BACKEND}/api/enviar-mensagem`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:wpp,mensagem,empresaId:ACCOUNT.empresaId})});
     const data=await res.json();
-    if(data.success){
-      btn.innerHTML='✓'; btn.style.color='var(--green)';
-      showToast(`Mensagem enviada para ${nome}!`);
-    }else{
-      btn.innerHTML='✕'; btn.style.color='var(--red)';
-      showToast('Erro ao enviar mensagem.','err');
-    }
-  }catch(err){
-    btn.innerHTML='✕'; btn.style.color='var(--red)';
-    showToast('Erro ao conectar com o servidor.','err');
-  }
+    if(data.success){ btn.innerHTML='✓'; btn.style.color='var(--green)'; showToast(`Mensagem enviada para ${nome}!`); }
+    else{ btn.innerHTML='✕'; btn.style.color='var(--red)'; showToast('Erro ao enviar mensagem.','err'); }
+  }catch(err){ btn.innerHTML='✕'; btn.style.color='var(--red)'; showToast('Erro ao conectar com o servidor.','err'); }
   setTimeout(()=>{ btn.innerHTML=orig; btn.disabled=false; btn.style.color=''; },3000);
 }
 
@@ -822,7 +822,14 @@ function renderHistorico(){
 
 function openModal(){ document.getElementById('modal-overlay').classList.add('open'); document.getElementById('f-data').valueAsDate=new Date(); switchTab('manual',document.querySelector('.modal-tab')); }
 function openImportModal(){ document.getElementById('modal-overlay').classList.add('open'); switchTab('import',document.querySelectorAll('.modal-tab')[1]); }
-function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); }
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  // Reset import state
+  importData=[];
+  document.getElementById('import-preview').style.display='none';
+  document.getElementById('btn-importar').style.display='none';
+  document.getElementById('file-input').value='';
+}
 function closeModalOutside(e){ if(e.target===document.getElementById('modal-overlay')) closeModal(); }
 function switchTab(tab,btn){ document.querySelectorAll('.modal-tab').forEach(t=>t.classList.remove('active')); btn.classList.add('active'); document.getElementById('tab-manual').style.display=tab==='manual'?'':'none'; document.getElementById('tab-import').style.display=tab==='import'?'':'none'; }
 
@@ -846,14 +853,97 @@ let importData=[];
 function dragOver(e){ e.preventDefault(); document.getElementById('import-zone').classList.add('dragover'); }
 function dragLeave(){ document.getElementById('import-zone').classList.remove('dragover'); }
 function dropFile(e){ e.preventDefault(); dragLeave(); handleFile({target:{files:e.dataTransfer.files}}); }
-function handleFile(e){
-  const file=e.target.files[0]; if(!file) return;
-  importData=[{id:100,nome:'Simulado Silva',wpp:'(51) 91111-1111',seg:'Barbearia',ultima:'2025-05-01',status:'alerta'},{id:101,nome:'Teste Oliveira',wpp:'(51) 92222-2222',seg:'Beleza',ultima:'2025-05-10',status:'ok'}];
-  document.getElementById('import-preview').style.display='';
-  document.getElementById('import-msg').textContent=`✓ ${file.name} — ${importData.length} clientes encontrados.`;
-  document.getElementById('btn-importar').style.display='';
+
+function handleFile(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    try {
+      const data = new Uint8Array(evt.target.result);
+      const workbook = XLSX.read(data, { type: 'array', cellDates: true });
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+      const primeiraLinha = rows[0] || [];
+      const temCabecalho = typeof primeiraLinha[0] === 'string' && primeiraLinha[0].toLowerCase().includes('nome');
+      const dadosLinha = temCabecalho ? rows.slice(1) : rows;
+      const SEGMENTOS_VALIDOS = Object.keys(SEGMENTOS);
+      const erros = [];
+      importData = [];
+      dadosLinha.forEach((row, i) => {
+        if (!row[0] && !row[1]) return;
+        const nome = String(row[0] || '').trim();
+        const wppRaw = String(row[1] || '').trim();
+        const seg = String(row[2] || 'Outros').trim();
+        const dataRaw = row[3];
+        if (!nome) { erros.push(`Linha ${i + 2}: nome vazio`); return; }
+        const wppNum = wppRaw.replace(/\D/g, '');
+        if (wppNum.length < 10) { erros.push(`Linha ${i + 2}: WhatsApp inválido (${wppRaw})`); return; }
+        const segFormatado = SEGMENTOS_VALIDOS.find(s => s.toLowerCase() === seg.toLowerCase()) || 'Outros';
+        let ultima = '';
+        if (dataRaw instanceof Date) {
+          ultima = dataRaw.toISOString().split('T')[0];
+        } else {
+          const dataStr = String(dataRaw || '').trim();
+          if (/^\d{2}\/\d{2}\/\d{4}$/.test(dataStr)) {
+            const [d, m, a] = dataStr.split('/');
+            ultima = `${a}-${m}-${d}`;
+          } else if (/^\d{4}-\d{2}-\d{2}$/.test(dataStr)) {
+            ultima = dataStr;
+          } else {
+            ultima = new Date().toISOString().split('T')[0];
+          }
+        }
+        const dias = Math.floor((new Date() - new Date(ultima + 'T12:00')) / (1000 * 60 * 60 * 24));
+        const limDias = SEGMENTOS[segFormatado]?.dias || 10;
+        const status = dias < limDias ? 'ok' : dias < limDias * 1.5 ? 'alerta' : 'critico';
+        importData.push({ id: Date.now() + i, nome, wpp: wppRaw || wppNum, seg: segFormatado, ultima, status });
+      });
+      if (!importData.length) {
+        document.getElementById('import-preview').style.display = '';
+        document.getElementById('import-msg').textContent = '❌ Nenhum cliente válido encontrado na planilha.';
+        document.getElementById('import-msg').style.color = 'var(--red)';
+        document.getElementById('btn-importar').style.display = 'none';
+        return;
+      }
+      document.getElementById('import-preview').style.display = '';
+      document.getElementById('import-msg').style.color = 'var(--green)';
+      let msg = `✓ ${file.name} — ${importData.length} cliente${importData.length > 1 ? 's' : ''} encontrado${importData.length > 1 ? 's' : ''}.`;
+      if (erros.length) msg += ` (${erros.length} linha${erros.length > 1 ? 's' : ''} ignorada${erros.length > 1 ? 's' : ''} por erro)`;
+      document.getElementById('import-msg').textContent = msg;
+      document.getElementById('btn-importar').style.display = '';
+    } catch (err) {
+      document.getElementById('import-preview').style.display = '';
+      document.getElementById('import-msg').textContent = '❌ Erro ao ler o arquivo. Verifique se é um .xlsx ou .csv válido.';
+      document.getElementById('import-msg').style.color = 'var(--red)';
+      document.getElementById('btn-importar').style.display = 'none';
+      console.error('Erro import:', err);
+    }
+  };
+  reader.readAsArrayBuffer(file);
 }
-function confirmarImport(){ clientes.unshift(...importData); filterClientes(); updateCount(); closeModal(); showToast(`${importData.length} clientes importados!`); importData=[]; }
+
+async function confirmarImport() {
+  if (!importData.length) return;
+  const btn = document.getElementById('btn-importar');
+  btn.textContent = '⏳ Importando...';
+  btn.disabled = true;
+  let salvos = 0;
+  const novos = [];
+  for (const cliente of importData) {
+    const saved = await salvarClienteBanco(cliente);
+    if (saved) { cliente.id = saved.id; novos.push(cliente); salvos++; }
+    else { novos.push(cliente); }
+  }
+  clientes.unshift(...novos);
+  filterClientes();
+  updateCount();
+  closeModal();
+  showToast(`${salvos || novos.length} clientes importados com sucesso!`);
+  importData = [];
+  btn.textContent = 'Importar clientes';
+  btn.disabled = false;
+}
 
 function showToast(msg,type='ok'){
   const t=document.getElementById('toast');
@@ -892,7 +982,6 @@ function topbarAction(){ const active=document.querySelector('.page.active').id;
 
 const ACCOUNT={status:'trial',trialEndsAt:new Date(Date.now()+7*24*60*60*1000),plano:null,empresaId:null,email:null};
 
-// ── WHATSAPP CONFIG ──
 function toggleFormWhatsapp(){
   const form = document.getElementById('form-whatsapp');
   form.style.display = form.style.display === 'none' ? 'block' : 'none';
@@ -902,18 +991,12 @@ async function salvarWhatsapp(){
   const instanceId  = document.getElementById('wpp-instance-id').value.trim();
   const token       = document.getElementById('wpp-token').value.trim();
   const clientToken = document.getElementById('wpp-client-token').value.trim();
-
   if(!instanceId || !token){ showToast('Preencha o ID e o Token da instância.', 'err'); return; }
-
   const zapiApiUrl = `https://api.z-api.io/instances/${instanceId}/token/${token}`;
-
   const updateData = { zapi_api_url: zapiApiUrl, zapi_token: token };
   if(clientToken) updateData.zapi_client_token = clientToken;
-
   const { error } = await supabase.from('empresas').update(updateData).eq('id', ACCOUNT.empresaId);
-
   if(error){ showToast('Erro ao salvar. Tente novamente.', 'err'); return; }
-
   showToast('WhatsApp conectado com sucesso! 🎉');
   document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>';
   document.getElementById('wpp-numero').textContent = 'Instância configurada';
@@ -932,20 +1015,15 @@ async function checkAuth(){
     ACCOUNT.email=empresa.email;
     document.querySelector('.user-name').textContent=empresa.nome;
     document.querySelector('.user-plan').textContent=empresa.plano==='trial'?'Período gratuito':`Plano ${empresa.plano}`;
-    // Saudação com nome
     const primeiroNome = (empresa.nome || '').split(' ')[0];
     document.getElementById('page-title').textContent = primeiroNome || 'Dashboard';
     atualizarSaudacao(primeiroNome);
-
-    // Atualizar configurações
     if(document.getElementById('config-nome')) document.getElementById('config-nome').textContent = empresa.nome || '—';
     if(document.getElementById('config-email')) document.getElementById('config-email').textContent = empresa.email || '—';
     if(document.getElementById('config-plano')){
       const planos = {trial:'Trial gratuito', starter:'Starter — R$147/mês', profissional:'Profissional — R$247/mês', crescimento:'Crescimento — R$447/mês'};
       document.getElementById('config-plano').textContent = planos[empresa.plano] || empresa.plano;
     }
-
-    // Status WhatsApp
     if(empresa.zapi_api_url){
       document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>';
       document.getElementById('wpp-numero').textContent = 'Instância configurada';
@@ -1058,17 +1136,12 @@ async function dispararCampanha(){
   const nome = document.getElementById('camp-nome').value.trim();
   const publico = document.getElementById('camp-publico').value;
   const mensagemTemplate = document.getElementById('camp-mensagem').value.trim();
-
   if(!nome || !mensagemTemplate){ showToast('Preencha o nome e a mensagem.', 'err'); return; }
-
   const lista = publico === 'todos' ? clientes : clientes.filter(c => c.seg === publico);
   if(!lista.length){ showToast('Nenhum cliente neste segmento.', 'err'); return; }
-
   if(!confirm(`Confirma o disparo para ${lista.length} cliente${lista.length > 1 ? 's' : ''}? As mensagens serão enviadas com intervalo para evitar bloqueio.`)) return;
-
   const btn = document.querySelector('#form-campanha .btn-green');
   btn.textContent = '⏳ Disparando...'; btn.disabled = true;
-
   try {
     const res = await fetch(`${BACKEND}/api/disparar-campanha`, {
       method: 'POST',
@@ -1076,7 +1149,6 @@ async function dispararCampanha(){
       body: JSON.stringify({ empresaId: ACCOUNT.empresaId, mensagemTemplate, publico })
     });
     const data = await res.json();
-
     if(data.success){
       campanhasHistorico.unshift({
         nome, publico, enviados: data.enviados, total: data.total,
@@ -1092,7 +1164,6 @@ async function dispararCampanha(){
   } catch(err){
     showToast('Erro ao conectar com o servidor.', 'err');
   }
-
   btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Disparar campanha';
   btn.disabled = false;
 }
@@ -1133,7 +1204,6 @@ function abrirEditarMsg(btn) {
   const days  = calcDays(ultima);
   const tmpl  = SEGMENTOS[seg]?.template || 'Oi {nome}! Sentimos sua falta! 😊';
   const msg   = tmpl.replace('{nome}', nome).replace('{dias}', days);
-
   document.getElementById('edit-msg-nome').textContent = nome;
   document.getElementById('edit-msg-texto').value = msg;
   document.getElementById('edit-msg-wpp').value = wpp;
@@ -1153,12 +1223,9 @@ async function enviarMsgEditada() {
   const wpp      = document.getElementById('edit-msg-wpp').value;
   const mensagem = document.getElementById('edit-msg-texto').value.trim();
   const nome     = document.getElementById('edit-msg-nome').textContent;
-
   if (!mensagem) { showToast('Mensagem não pode estar vazia.', 'err'); return; }
-
   const btn = document.querySelector('#modal-editar-msg .btn-green');
   btn.textContent = '⏳ Enviando...'; btn.disabled = true;
-
   try {
     const res = await fetch(`${BACKEND}/api/enviar-mensagem`, {
       method: 'POST',
@@ -1175,12 +1242,10 @@ async function enviarMsgEditada() {
   } catch(err) {
     showToast('Erro ao conectar com o servidor.', 'err');
   }
-
   btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Enviar mensagem';
   btn.disabled = false;
 }
 
-// ── SAUDAÇÃO ──
 function atualizarSaudacao(nome) {
   const hora = new Date().getHours();
   let saudacao = 'Boa noite,';
@@ -1190,7 +1255,6 @@ function atualizarSaudacao(nome) {
   if (el) el.textContent = saudacao;
 }
 
-// ── CONTADOR ANIMADO ──
 function animarNumero(el, target, duracao = 800) {
   const start = 0;
   const startTime = performance.now();
@@ -1204,7 +1268,6 @@ function animarNumero(el, target, duracao = 800) {
   requestAnimationFrame(update);
 }
 
-// ── TEMA ──
 function toggleTema(){
   const isLight = document.body.classList.toggle('light-mode');
   document.getElementById('icon-tema-escuro').style.display = isLight ? 'none' : '';
@@ -1212,7 +1275,6 @@ function toggleTema(){
   localStorage.setItem('retornax_tema', isLight ? 'light' : 'dark');
 }
 
-// Carregar tema salvo
 (function(){
   const tema = localStorage.getItem('retornax_tema');
   if(tema === 'light'){
