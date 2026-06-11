@@ -263,6 +263,15 @@ tbody td.name{color:var(--text);font-weight:500}
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     Configurações
   </button>
+  <button class="nav-item" onclick="abrirAssinatura()">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+    Minha assinatura
+  </button>
+  <button class="nav-item" onclick="showPage('novidades',this)">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    Novidades
+    <span style="margin-left:auto;background:rgba(0,214,143,0.15);color:var(--green);font-size:0.6rem;padding:1px 6px;border-radius:4px;font-weight:700">NOVO</span>
+  </button>
   <div class="sidebar-bottom">
     <div class="user-row" title="Clique para sair" onclick="logout()">
       <div class="avatar">DR</div>
@@ -450,6 +459,42 @@ tbody td.name{color:var(--text);font-weight:500}
       </div>
       <div class="table-wrap"><table><thead><tr><th>Data</th><th>Cliente</th><th>Segmento</th><th>Mensagem enviada</th><th>Resposta</th></tr></thead><tbody id="historico-tbody"></tbody></table></div>
     </div>
+    <!-- NOVIDADES -->
+    <div class="page" id="page-novidades">
+      <div style="max-width:640px">
+        <div style="margin-bottom:28px">
+          <div style="font-size:1.1rem;font-weight:700;color:var(--white)">Novidades do Retornax</div>
+          <div style="font-size:0.82rem;color:var(--text2);margin-top:4px">Acompanhe as últimas melhorias e funcionalidades.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="card">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+              <span style="background:var(--green-dim);color:var(--green);font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:100px">NOVO</span>
+              <span style="font-size:0.78rem;color:var(--text3)">Junho 2025</span>
+            </div>
+            <div style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px">Marcar visita e editar cliente</div>
+            <div style="font-size:0.84rem;color:var(--text2);line-height:1.7">Agora você pode marcar a visita de um cliente com um clique direto na tabela, atualizando a data automaticamente. Também é possível editar nome, WhatsApp, segmento e data de qualquer cliente sem precisar removê-lo.</div>
+          </div>
+          <div class="card">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+              <span style="background:var(--green-dim);color:var(--green);font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:100px">NOVO</span>
+              <span style="font-size:0.78rem;color:var(--text3)">Junho 2025</span>
+            </div>
+            <div style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px">Importação de planilha</div>
+            <div style="font-size:0.84rem;color:var(--text2);line-height:1.7">Importe sua base de clientes via arquivo .xlsx ou .csv de forma simples e rápida. O sistema detecta automaticamente o formato da data e o segmento de cada cliente.</div>
+          </div>
+          <div class="card">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+              <span style="background:var(--blue-dim);color:var(--blue-lite);font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:100px">MELHORIA</span>
+              <span style="font-size:0.78rem;color:var(--text3)">Junho 2025</span>
+            </div>
+            <div style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px">Busca de clientes aprimorada</div>
+            <div style="font-size:0.84rem;color:var(--text2);line-height:1.7">A busca agora encontra clientes por nome ou número de WhatsApp, com contador de resultados em tempo real e botão para limpar a busca rapidamente.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- CONFIGURAÇÕES -->
     <div class="page" id="page-config">
       <div class="config-grid">
@@ -1001,7 +1046,7 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
-  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',config:'Configurações'};
+  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',config:'Configurações',novidades:'Novidades'};
   const saudacaoEl = document.getElementById('saudacao-texto');
   const tituloEl = document.getElementById('page-title');
   if(id === 'dashboard'){
@@ -1022,6 +1067,16 @@ function showPage(id,btn){
 function topbarAction(){ const active=document.querySelector('.page.active').id; if(active==='page-clientes'||active==='page-dashboard') openModal(); }
 
 const ACCOUNT={status:'trial',trialEndsAt:new Date(Date.now()+7*24*60*60*1000),plano:null,empresaId:null,email:null};
+
+async function abrirAssinatura(){
+  showToast('Abrindo portal da assinatura...');
+  try{
+    const res=await fetch(`${BACKEND}/api/portal`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({empresaId:ACCOUNT.empresaId})});
+    const data=await res.json();
+    if(data.url) window.location.href=data.url;
+    else showToast('Erro ao abrir portal.','err');
+  }catch(err){ showToast('Erro ao conectar com o servidor.','err'); }
+}
 
 function toggleFormWhatsapp(){
   const form = document.getElementById('form-whatsapp');
