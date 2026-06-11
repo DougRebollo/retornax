@@ -20,15 +20,16 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--blue-900)
 body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(46,106,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(46,106,255,0.05) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; z-index: 0; }
 body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: translateX(-50%); width: 700px; height: 500px; background: radial-gradient(ellipse at center, rgba(46,106,255,0.14) 0%, transparent 70%); pointer-events: none; z-index: 0; }
 .login-wrap { position: relative; z-index: 1; display: flex; width: 100%; min-height: 100vh; }
-.login-brand { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 6%; border-right: 1px solid var(--card-border); background: rgba(10,26,74,0.3); backdrop-filter: blur(8px); overflow: hidden; }
-.brand-logo { font-weight: 800; font-size: 1.8rem; letter-spacing: -0.5px; color: var(--white); margin-bottom: 40px; }
+.login-brand { flex: 1; display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 40px; padding: 60px 5%; border-right: 1px solid var(--card-border); background: rgba(10,26,74,0.3); backdrop-filter: blur(8px); overflow: hidden; }
+.brand-text { display: flex; flex-direction: column; flex: 0 0 auto; max-width: 260px; }
+.brand-logo { font-weight: 800; font-size: 1.8rem; letter-spacing: -0.5px; color: var(--white); margin-bottom: 36px; }
 .brand-logo span { color: var(--accent); }
-.brand-headline { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px; }
+.brand-headline { font-size: clamp(1.3rem, 2.2vw, 2rem); font-weight: 800; letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px; }
 .brand-headline .green { color: var(--green); }
-.brand-sub { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; max-width: 380px; margin-bottom: 40px; }
+.brand-sub { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
 
 /* Cards de mensagem */
-.msg-cards { display: flex; flex-direction: column; gap: 14px; max-width: 360px; }
+.msg-cards { display: flex; flex-direction: column; gap: 12px; flex: 1; max-width: 300px; }
 .msg-card { background: rgba(10,26,74,0.75); border: 1px solid var(--card-border); border-radius: 14px; padding: 16px 20px; backdrop-filter: blur(10px); transition: transform 0.3s, border-color 0.3s; animation: floatIn 0.6s ease both; }
 .msg-card:nth-child(1){ animation-delay: 0.1s; }
 .msg-card:nth-child(2){ animation-delay: 0.25s; }
@@ -98,10 +99,11 @@ body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: t
 
   <!-- LADO ESQUERDO -->
   <div class="login-brand">
-    <div class="brand-logo">Retorna<span>x</span></div>
-    <div class="brand-headline">Faturamento<br>recorrente no<br><span class="green">piloto automático.</span></div>
-    <p class="brand-sub">O Retornax lembra seus clientes de voltar via WhatsApp — sem você precisar fazer nada.</p>
-
+    <div class="brand-text">
+      <div class="brand-logo">Retorna<span>x</span></div>
+      <div class="brand-headline">Faturamento<br>recorrente no<br><span class="green">piloto automático.</span></div>
+      <p class="brand-sub">O Retornax lembra seus clientes de voltar via WhatsApp — sem você precisar fazer nada.</p>
+    </div>
     <div class="msg-cards">
       <div class="msg-card">
         <div class="msg-segment">✂ Barbearia</div>
