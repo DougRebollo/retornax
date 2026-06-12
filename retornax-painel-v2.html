@@ -2,15 +2,6 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZLRT2HEST"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-0ZLRT2HEST');
-</script>
-<link rel="icon" type="image/png" href="favicon.png">  
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Retornax — Painel</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -510,42 +501,32 @@ tbody td.name{color:var(--text);font-weight:500}
         <div class="config-section"><h3>Conta</h3><div class="config-row"><span class="config-key">Nome</span><span class="config-val" id="config-nome">—</span></div><div class="config-row"><span class="config-key">E-mail</span><span class="config-val" id="config-email">—</span></div><div class="config-row"><span class="config-key">Plano</span><span class="config-val" style="color:var(--blue-lite)" id="config-plano">—</span></div><div style="margin-top:16px;display:flex;gap:8px"><button class="btn btn-ghost btn-sm" onclick="abrirPlanos('trial')">Alterar plano</button></div></div>
         <div class="config-section">
           <h3>WhatsApp</h3>
-          <div id="wpp-status-wrap">
-            <div class="config-row">
-              <span class="config-key">Status</span>
-              <span id="wpp-status-badge"><span class="badge badge-gray">● Não configurado</span></span>
-            </div>
-            <div class="config-row">
-              <span class="config-key">Número conectado</span>
-              <span class="config-val" id="wpp-numero">—</span>
-            </div>
+          <div class="config-row">
+            <span class="config-key">Status</span>
+            <span id="wpp-status-badge"><span class="badge badge-gray">● Não configurado</span></span>
           </div>
-          <div style="margin-top:16px">
-            <button class="btn btn-ghost btn-sm" onclick="toggleFormWhatsapp()">⚙️ Configurar WhatsApp</button>
+          <div class="config-row">
+            <span class="config-key">Número conectado</span>
+            <span class="config-val" id="wpp-numero">—</span>
           </div>
-          <div id="form-whatsapp" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px">
-            <div style="background:var(--bg3);border-radius:8px;padding:12px 14px;font-size:0.8rem;color:var(--text2);line-height:1.7;margin-bottom:14px">
-              <strong style="color:var(--text);display:block;margin-bottom:4px">Como conectar seu WhatsApp:</strong>
-              1. Acesse <a href="https://app.z-api.io" target="_blank" style="color:var(--accent)">app.z-api.io</a> e crie uma conta<br>
-              2. Crie uma nova instância e escaneie o QR code com seu WhatsApp<br>
-              3. Copie o <strong style="color:var(--text)">ID da instância</strong> e o <strong style="color:var(--text)">Token</strong> e cole abaixo
+          <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-primary btn-sm" id="btn-conectar-wpp" onclick="conectarWhatsapp()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Conectar WhatsApp
+            </button>
+            <button class="btn btn-danger btn-sm" id="btn-desconectar-wpp" onclick="desconectarWhatsapp()" style="display:none">Desconectar</button>
+          </div>
+          <!-- QR Code area -->
+          <div id="qrcode-wrap" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px;text-align:center">
+            <div style="font-size:0.82rem;color:var(--text2);margin-bottom:12px">Escaneie o QR Code com seu WhatsApp</div>
+            <div style="background:white;border-radius:12px;padding:12px;display:inline-block;margin-bottom:12px">
+              <img id="qrcode-img" src="" alt="QR Code" style="width:200px;height:200px;display:block">
             </div>
-            <div class="form-group">
-              <label>ID da Instância</label>
-              <input type="text" id="wpp-instance-id" placeholder="Ex: 3F464BD2E42572708A987269EBE9199A" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none">
-            </div>
-            <div class="form-group">
-              <label>Token da Instância</label>
-              <input type="text" id="wpp-token" placeholder="Ex: 35E96D6B3CEF03E4FA0AF50E" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;margin-top:8px">
-            </div>
-            <div class="form-group">
-              <label>Client Token (token de segurança da conta Z-API)</label>
-              <input type="text" id="wpp-client-token" placeholder="Ex: F7ae82eee3f36448690bdbab90782cb3cS" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;margin-top:8px">
-            </div>
-            <div style="display:flex;gap:8px;margin-top:4px">
-              <button class="btn btn-primary btn-sm" onclick="salvarWhatsapp()">Salvar e conectar</button>
-              <button class="btn btn-ghost btn-sm" onclick="toggleFormWhatsapp()">Cancelar</button>
-            </div>
+            <div style="font-size:0.75rem;color:var(--text3)">WhatsApp → Aparelhos conectados → Conectar aparelho</div>
+            <button class="btn btn-ghost btn-sm" style="margin-top:12px" onclick="verificarConexao()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Já escaniei — verificar conexão
+            </button>
           </div>
         </div>
         <div class="config-section"><h3>Horário de envio</h3><div class="config-row"><span class="config-key">Janela de envio</span><span class="config-val">09:00 — 19:00</span></div><div class="config-row"><span class="config-key">Dias da semana</span><span class="config-val">Seg a Sáb</span></div></div>
@@ -1087,25 +1068,81 @@ async function abrirAssinatura(){
   }catch(err){ showToast('Erro ao conectar com o servidor.','err'); }
 }
 
-function toggleFormWhatsapp(){
-  const form = document.getElementById('form-whatsapp');
-  form.style.display = form.style.display === 'none' ? 'block' : 'none';
+async function conectarWhatsapp() {
+  const btn = document.getElementById('btn-conectar-wpp')
+  btn.textContent = '⏳ Conectando...'
+  btn.disabled = true
+
+  try {
+    // Criar instância
+    const res = await fetch(`${BACKEND}/api/instancia/criar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ empresaId: ACCOUNT.empresaId })
+    })
+    const data = await res.json()
+
+    if (!data.success) {
+      showToast('Erro ao criar instância. Tente novamente.', 'err')
+      btn.textContent = 'Conectar WhatsApp'
+      btn.disabled = false
+      return
+    }
+
+    // Buscar QR Code
+    const qrRes = await fetch(`${BACKEND}/api/instancia/qrcode/${ACCOUNT.empresaId}`)
+    const qrData = await qrRes.json()
+
+    const base64 = qrData.result?.base64 || qrData.result?.qrcode?.base64
+    if (base64) {
+      document.getElementById('qrcode-img').src = base64.startsWith('data:') ? base64 : `data:image/png;base64,${base64}`
+      document.getElementById('qrcode-wrap').style.display = 'block'
+      showToast('QR Code gerado! Escaneie com seu WhatsApp.')
+    } else {
+      showToast('Erro ao gerar QR Code.', 'err')
+    }
+
+  } catch (err) {
+    showToast('Erro ao conectar. Tente novamente.', 'err')
+  }
+
+  btn.textContent = 'Conectar WhatsApp'
+  btn.disabled = false
 }
 
-async function salvarWhatsapp(){
-  const instanceId  = document.getElementById('wpp-instance-id').value.trim();
-  const token       = document.getElementById('wpp-token').value.trim();
-  const clientToken = document.getElementById('wpp-client-token').value.trim();
-  if(!instanceId || !token){ showToast('Preencha o ID e o Token da instância.', 'err'); return; }
-  const zapiApiUrl = `https://api.z-api.io/instances/${instanceId}/token/${token}`;
-  const updateData = { zapi_api_url: zapiApiUrl, zapi_token: token };
-  if(clientToken) updateData.zapi_client_token = clientToken;
-  const { error } = await supabase.from('empresas').update(updateData).eq('id', ACCOUNT.empresaId);
-  if(error){ showToast('Erro ao salvar. Tente novamente.', 'err'); return; }
-  showToast('WhatsApp conectado com sucesso! 🎉');
-  document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>';
-  document.getElementById('wpp-numero').textContent = 'Instância configurada';
-  document.getElementById('form-whatsapp').style.display = 'none';
+async function verificarConexao() {
+  try {
+    const res = await fetch(`${BACKEND}/api/instancia/status/${ACCOUNT.empresaId}`)
+    const data = await res.json()
+    const state = data.result?.instance?.state || data.result?.state
+
+    if (state === 'open') {
+      document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>'
+      document.getElementById('wpp-numero').textContent = 'WhatsApp conectado'
+      document.getElementById('qrcode-wrap').style.display = 'none'
+      document.getElementById('btn-conectar-wpp').style.display = 'none'
+      document.getElementById('btn-desconectar-wpp').style.display = ''
+      showToast('WhatsApp conectado com sucesso! 🎉')
+    } else {
+      showToast('Ainda não conectado. Escaneie o QR Code.', 'err')
+    }
+  } catch (err) {
+    showToast('Erro ao verificar conexão.', 'err')
+  }
+}
+
+async function desconectarWhatsapp() {
+  if (!confirm('Deseja desconectar o WhatsApp?')) return
+  try {
+    await fetch(`${BACKEND}/api/instancia/deletar/${ACCOUNT.empresaId}`, { method: 'DELETE' })
+    document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-gray">● Não configurado</span>'
+    document.getElementById('wpp-numero').textContent = '—'
+    document.getElementById('btn-conectar-wpp').style.display = ''
+    document.getElementById('btn-desconectar-wpp').style.display = 'none'
+    showToast('WhatsApp desconectado.')
+  } catch (err) {
+    showToast('Erro ao desconectar.', 'err')
+  }
 }
 
 async function checkAuth(){
@@ -1129,13 +1166,11 @@ async function checkAuth(){
       const planos = {trial:'Trial gratuito', starter:'Starter — R$147/mês', profissional:'Profissional — R$247/mês', crescimento:'Crescimento — R$447/mês'};
       document.getElementById('config-plano').textContent = planos[empresa.plano] || empresa.plano;
     }
-    if(empresa.zapi_api_url){
+    if(empresa.evolution_instance){
       document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>';
-      document.getElementById('wpp-numero').textContent = 'Instância configurada';
-      const instanceId = empresa.zapi_api_url.split('/instances/')[1]?.split('/token/')[0] || '';
-      const token = empresa.zapi_api_url.split('/token/')[1] || '';
-      document.getElementById('wpp-instance-id').value = instanceId;
-      document.getElementById('wpp-token').value = token;
+      document.getElementById('wpp-numero').textContent = 'WhatsApp conectado';
+      document.getElementById('btn-conectar-wpp').style.display = 'none';
+      document.getElementById('btn-desconectar-wpp').style.display = '';
     }
   }
   initAccountStatus();
