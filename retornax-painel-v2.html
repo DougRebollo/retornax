@@ -1089,25 +1089,54 @@ async function conectarWhatsapp() {
       return
     }
 
-    // Buscar QR Code
+    // Aguarda 2 segundos e busca QR Code
+    await new Promise(r => setTimeout(r, 2000))
+
     const qrRes = await fetch(`${BACKEND}/api/instancia/qrcode/${ACCOUNT.empresaId}`)
     const qrData = await qrRes.json()
 
-    const base64 = qrData.result?.base64 || qrData.result?.qrcode?.base64
+    // Evolution v2 retorna o QR em diferentes formatos
+    const base64 = qrData.result?.base64 ||
+                   qrData.result?.qrcode?.base64 ||
+                   qrData.result?.code ||
+                   qrData.base64
+
     if (base64) {
-      document.getElementById('qrcode-img').src = base64.startsWith('data:') ? base64 : `data:image/png;base64,${base64}`
+      const src = base64.startsWith('data:') ? base64 : `data:image/png;base64,${base64}`
+      document.getElementById('qrcode-img').src = src
       document.getElementById('qrcode-wrap').style.display = 'block'
       showToast('QR Code gerado! Escaneie com seu WhatsApp.')
     } else {
-      showToast('Erro ao gerar QR Code.', 'err')
+      // Tenta buscar direto da Evolution
+      showToast('Aguarde, gerando QR Code...', 'ok')
+      setTimeout(() => buscarQRCode(), 3000)
     }
 
   } catch (err) {
     showToast('Erro ao conectar. Tente novamente.', 'err')
+    console.error(err)
   }
 
   btn.textContent = 'Conectar WhatsApp'
   btn.disabled = false
+}
+
+async function buscarQRCode() {
+  try {
+    const qrRes = await fetch(`${BACKEND}/api/instancia/qrcode/${ACCOUNT.empresaId}`)
+    const qrData = await qrRes.json()
+    const base64 = qrData.result?.base64 || qrData.result?.qrcode?.base64 || qrData.result?.code || qrData.base64
+    if (base64) {
+      const src = base64.startsWith('data:') ? base64 : `data:image/png;base64,${base64}`
+      document.getElementById('qrcode-img').src = src
+      document.getElementById('qrcode-wrap').style.display = 'block'
+      showToast('QR Code gerado! Escaneie com seu WhatsApp.')
+    } else {
+      showToast('Erro ao gerar QR Code. Tente novamente.', 'err')
+    }
+  } catch(err) {
+    showToast('Erro ao gerar QR Code.', 'err')
+  }
 }
 
 async function verificarConexao() {
