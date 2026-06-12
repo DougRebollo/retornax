@@ -74,8 +74,6 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .search-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px 9px 36px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.15s}
 .search-wrap input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(46,106,255,0.12)}
 .search-wrap input::placeholder{color:var(--text3)}
-.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);opacity:0.4;pointer-events:none}
-/* Indicador de busca ativa */
 .search-wrap input:not(:placeholder-shown){border-color:var(--blue-lite);background:rgba(46,106,255,0.07)}
 .search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;font-size:1rem;line-height:1;padding:2px;border-radius:4px;display:none}
 .search-wrap input:not(:placeholder-shown) ~ .search-clear{display:block}
@@ -215,7 +213,6 @@ tbody td.name{color:var(--text);font-weight:500}
 .suporte-btn{position:fixed;bottom:28px;right:28px;z-index:150;display:flex;align-items:center;gap:10px;background:#25d366;color:#ffffff;padding:12px 20px;border-radius:100px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;font-weight:600;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:all 0.2s;border:none;cursor:pointer}
 .suporte-btn:hover{background:#20bc5a;transform:translateY(-2px)}
 .suporte-btn svg{flex-shrink:0}
-/* Contador de resultados da busca */
 .search-results-count{font-size:0.78rem;color:var(--text3);margin-bottom:10px;min-height:18px}
 .search-results-count strong{color:var(--blue-lite)}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
@@ -494,7 +491,6 @@ tbody td.name{color:var(--text);font-weight:500}
         </div>
       </div>
     </div>
-
     <!-- CONFIGURAÇÕES -->
     <div class="page" id="page-config">
       <div class="config-grid">
@@ -516,7 +512,6 @@ tbody td.name{color:var(--text);font-weight:500}
             </button>
             <button class="btn btn-danger btn-sm" id="btn-desconectar-wpp" onclick="desconectarWhatsapp()" style="display:none">Desconectar</button>
           </div>
-          <!-- QR Code area -->
           <div id="qrcode-wrap" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px;text-align:center">
             <div style="font-size:0.82rem;color:var(--text2);margin-bottom:12px">Escaneie o QR Code com seu WhatsApp</div>
             <div style="background:white;border-radius:12px;padding:12px;display:inline-block;margin-bottom:12px">
@@ -747,7 +742,6 @@ function filterClientes(){
   const status=document.getElementById('filter-status').value;
   const filtered=clientes.filter(c=>(!q||c.nome.toLowerCase().includes(q)||c.wpp.replace(/\D/g,'').includes(q.replace(/\D/g,''))||c.wpp.toLowerCase().includes(q))&&(!seg||c.seg===seg)&&(!status||c.status===status));
   renderClientes(filtered);
-  // Contador de resultados
   const countEl = document.getElementById('search-results-count');
   if(q || seg || status){
     const total = clientes.length;
@@ -900,7 +894,6 @@ function openModal(){ document.getElementById('modal-overlay').classList.add('op
 function openImportModal(){ document.getElementById('modal-overlay').classList.add('open'); switchTab('import',document.querySelectorAll('.modal-tab')[1]); }
 function closeModal(){
   document.getElementById('modal-overlay').classList.remove('open');
-  // Reset import state
   importData=[];
   document.getElementById('import-preview').style.display='none';
   document.getElementById('btn-importar').style.display='none';
@@ -1068,13 +1061,14 @@ async function abrirAssinatura(){
   }catch(err){ showToast('Erro ao conectar com o servidor.','err'); }
 }
 
+// ── WHATSAPP — FUNÇÕES ATUALIZADAS (patch v2) ──
+
 async function conectarWhatsapp() {
   const btn = document.getElementById('btn-conectar-wpp')
   btn.textContent = '⏳ Conectando...'
   btn.disabled = true
 
   try {
-    // Criar instância
     const res = await fetch(`${BACKEND}/api/instancia/criar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -1089,28 +1083,22 @@ async function conectarWhatsapp() {
       return
     }
 
-    // Aguarda 2 segundos e busca QR Code
-    await new Promise(r => setTimeout(r, 2000))
-
-    const qrRes = await fetch(`${BACKEND}/api/instancia/qrcode/${ACCOUNT.empresaId}`)
-    const qrData = await qrRes.json()
-
-    // Evolution v2 retorna o QR em diferentes formatos
-    const base64 = qrData.result?.base64 ||
-                   qrData.result?.qrcode?.base64 ||
-                   qrData.result?.code ||
-                   qrData.base64
-
-    if (base64) {
-      const src = base64.startsWith('data:') ? base64 : `data:image/png;base64,${base64}`
-      document.getElementById('qrcode-img').src = src
-      document.getElementById('qrcode-wrap').style.display = 'block'
-      showToast('QR Code gerado! Escaneie com seu WhatsApp.')
-    } else {
-      // Tenta buscar direto da Evolution
-      showToast('Aguarde, gerando QR Code...', 'ok')
-      setTimeout(() => buscarQRCode(), 3000)
+    // Já estava conectada — atualiza UI direto
+    if (data.alreadyConnected) {
+      document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>'
+      document.getElementById('wpp-numero').textContent = 'WhatsApp conectado'
+      document.getElementById('btn-conectar-wpp').style.display = 'none'
+      document.getElementById('btn-desconectar-wpp').style.display = ''
+      showToast('WhatsApp já está conectado! ✓')
+      btn.textContent = 'Conectar WhatsApp'
+      btn.disabled = false
+      return
     }
+
+    // Instância criada/existente — aguarda 2s e busca QR
+    showToast('Gerando QR Code...')
+    await new Promise(r => setTimeout(r, 2000))
+    await buscarQRCode()
 
   } catch (err) {
     showToast('Erro ao conectar. Tente novamente.', 'err')
@@ -1121,25 +1109,44 @@ async function conectarWhatsapp() {
   btn.disabled = false
 }
 
-async function buscarQRCode() {
+async function buscarQRCode(tentativa = 1) {
   try {
     const qrRes = await fetch(`${BACKEND}/api/instancia/qrcode/${ACCOUNT.empresaId}`)
     const qrData = await qrRes.json()
-    const base64 = qrData.result?.base64 || qrData.result?.qrcode?.base64 || qrData.result?.code || qrData.base64
+
+    const base64 =
+      qrData.result?.base64 ||
+      qrData.result?.qrcode?.base64 ||
+      qrData.result?.code ||
+      qrData.base64
+
     if (base64) {
       const src = base64.startsWith('data:') ? base64 : `data:image/png;base64,${base64}`
       document.getElementById('qrcode-img').src = src
       document.getElementById('qrcode-wrap').style.display = 'block'
       showToast('QR Code gerado! Escaneie com seu WhatsApp.')
-    } else {
-      showToast('Erro ao gerar QR Code. Tente novamente.', 'err')
+      return
     }
-  } catch(err) {
-    showToast('Erro ao gerar QR Code.', 'err')
+
+    // QR ainda não gerado — tenta mais 2 vezes
+    if (tentativa < 3) {
+      showToast(`Aguardando QR Code... (tentativa ${tentativa}/3)`)
+      await new Promise(r => setTimeout(r, 3000))
+      await buscarQRCode(tentativa + 1)
+    } else {
+      showToast('Não foi possível gerar o QR Code. Tente novamente.', 'err')
+    }
+
+  } catch (err) {
+    showToast('Erro ao buscar QR Code.', 'err')
+    console.error(err)
   }
 }
 
 async function verificarConexao() {
+  const btn = document.querySelector('#qrcode-wrap .btn-ghost')
+  if (btn) { btn.textContent = '⏳ Verificando...'; btn.disabled = true }
+
   try {
     const res = await fetch(`${BACKEND}/api/instancia/status/${ACCOUNT.empresaId}`)
     const data = await res.json()
@@ -1158,16 +1165,19 @@ async function verificarConexao() {
   } catch (err) {
     showToast('Erro ao verificar conexão.', 'err')
   }
+
+  if (btn) { btn.textContent = 'Já escaniei — verificar conexão'; btn.disabled = false }
 }
 
 async function desconectarWhatsapp() {
-  if (!confirm('Deseja desconectar o WhatsApp?')) return
+  if (!confirm('Deseja desconectar o WhatsApp? Será necessário escanear o QR Code novamente.')) return
   try {
     await fetch(`${BACKEND}/api/instancia/deletar/${ACCOUNT.empresaId}`, { method: 'DELETE' })
     document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-gray">● Não configurado</span>'
     document.getElementById('wpp-numero').textContent = '—'
     document.getElementById('btn-conectar-wpp').style.display = ''
     document.getElementById('btn-desconectar-wpp').style.display = 'none'
+    document.getElementById('qrcode-wrap').style.display = 'none'
     showToast('WhatsApp desconectado.')
   } catch (err) {
     showToast('Erro ao desconectar.', 'err')
