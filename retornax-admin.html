@@ -522,7 +522,16 @@ function showToast(msg, type='ok') {
 
 (async () => {
   const { data: { session } } = await supabase.auth.getSession();
-  if (session && ADMIN_EMAILS.includes(session.user.email)) iniciarAdmin(session.user.email);
+  if (session) {
+    if (ADMIN_EMAILS.includes(session.user.email)) {
+      // Email admin — entra direto
+      iniciarAdmin(session.user.email);
+    } else {
+      // Sessão de cliente comum — faz logout silencioso e mostra login do admin
+      await supabase.auth.signOut();
+    }
+  }
+  // Se não tiver sessão, mostra a tela de login normalmente (sem redirecionar)
 })();
 </script>
 </body>
