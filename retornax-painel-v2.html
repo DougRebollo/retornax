@@ -34,15 +34,11 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .user-plan{font-size:0.7rem;color:var(--text3)}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:60px;flex-shrink:0;background:var(--bg2);border-bottom:1px solid var(--border)}
-.topbar-title{font-weight:700;font-size:1rem;color:var(--white)}
 .topbar-actions{display:flex;align-items:center;gap:10px}
 .btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.84rem;font-weight:500;cursor:pointer;border:none;transition:all 0.15s}
-.btn-primary{background:var(--blue);color:var(--white)}
-.btn-primary:hover{background:var(--blue-lite);transform:translateY(-1px)}
-.btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border)}
-.btn-ghost:hover{border-color:var(--border2);color:var(--white)}
-.btn-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,214,143,0.25)}
-.btn-green:hover{background:rgba(0,214,143,0.2)}
+.btn-primary{background:var(--blue);color:var(--white)}.btn-primary:hover{background:var(--blue-lite);transform:translateY(-1px)}
+.btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border)}.btn-ghost:hover{border-color:var(--border2);color:var(--white)}
+.btn-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,214,143,0.25)}.btn-green:hover{background:rgba(0,214,143,0.2)}
 .btn-sm{padding:6px 12px;font-size:0.8rem}
 .btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(255,77,77,0.2)}
 .content{flex:1;overflow-y:auto;padding:28px}
@@ -60,7 +56,6 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .card-title{font-size:0.95rem;font-weight:700;color:var(--white)}
-.activity-list{display:flex;flex-direction:column;gap:2px}
 .seg-list{display:flex;flex-direction:column;gap:10px}
 .seg-row{display:flex;align-items:center;gap:10px}
 .seg-emoji{font-size:1.1rem;width:28px;text-align:center}
@@ -74,7 +69,6 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .search-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px 9px 36px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.15s}
 .search-wrap input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(46,106,255,0.12)}
 .search-wrap input::placeholder{color:var(--text3)}
-.search-wrap input:not(:placeholder-shown){border-color:var(--blue-lite);background:rgba(46,106,255,0.07)}
 .search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;font-size:1rem;line-height:1;padding:2px;border-radius:4px;display:none}
 .search-wrap input:not(:placeholder-shown) ~ .search-clear{display:block}
 .filter-select{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;cursor:pointer}
@@ -88,7 +82,7 @@ tbody tr:hover{background:rgba(255,255,255,0.025)}
 tbody td{padding:13px 16px;font-size:0.84rem;color:var(--text2)}
 tbody td.name{color:var(--text);font-weight:500}
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:100px;font-size:0.72rem;font-weight:600}
-.badge-green{background:var(--green-dim);color:var(--green)}.badge-amber{background:var(--amber-dim);color:var(--amber)}.badge-red{background:var(--red-dim);color:var(--red)}.badge-blue{background:var(--blue-dim);color:var(--blue-lite)}.badge-accent{background:rgba(0,229,255,0.1);color:var(--accent)}.badge-gray{background:rgba(255,255,255,0.07);color:var(--text2)}
+.badge-green{background:var(--green-dim);color:var(--green)}.badge-amber{background:var(--amber-dim);color:var(--amber)}.badge-red{background:var(--red-dim);color:var(--red)}.badge-blue{background:var(--blue-dim);color:var(--blue-lite)}.badge-accent{background:rgba(0,229,255,0.1);color:var(--accent)}.badge-gray{background:rgba(255,255,255,0.07);color:var(--text2)}.badge-pending{background:rgba(255,176,32,0.15);color:var(--amber)}
 .days-chip{display:inline-block;padding:3px 10px;border-radius:100px;font-size:0.75rem;font-weight:600}
 .days-ok{background:var(--green-dim);color:var(--green)}.days-warn{background:var(--amber-dim);color:var(--amber)}.days-alert{background:var(--red-dim);color:var(--red)}
 .action-btns{display:flex;gap:6px}
@@ -109,7 +103,6 @@ tbody td.name{color:var(--text);font-weight:500}
 .envio-emoji{font-size:1.4rem}
 .envio-seg{font-size:0.9rem;font-weight:700;color:var(--white)}
 .envio-rule{font-size:0.78rem;color:var(--text3);margin-top:2px}
-.msg-edit-wrap{position:relative;margin-top:14px}
 .msg-edit{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;color:var(--text2);line-height:1.6;resize:vertical;min-height:80px;outline:none;transition:border-color 0.15s}
 .msg-edit:focus{border-color:var(--blue)}
 .msg-vars{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
@@ -188,10 +181,8 @@ tbody td.name{color:var(--text);font-weight:500}
 .plano-features li{display:flex;align-items:flex-start;gap:8px;font-size:0.82rem;color:var(--text2)}
 .plano-features li .check{color:var(--accent);font-weight:700;flex-shrink:0}
 .btn-assinar-plano{width:100%;padding:12px;border-radius:9px;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all 0.2s}
-.btn-assinar-plano.outline{background:transparent;border:1px solid var(--border2);color:var(--text)}
-.btn-assinar-plano.outline:hover{border-color:var(--blue);color:var(--blue-lite)}
-.btn-assinar-plano.filled{background:var(--blue);color:var(--white)}
-.btn-assinar-plano.filled:hover{background:var(--blue-lite);box-shadow:0 4px 20px rgba(46,106,255,0.3)}
+.btn-assinar-plano.outline{background:transparent;border:1px solid var(--border2);color:var(--text)}.btn-assinar-plano.outline:hover{border-color:var(--blue);color:var(--blue-lite)}
+.btn-assinar-plano.filled{background:var(--blue);color:var(--white)}.btn-assinar-plano.filled:hover{background:var(--blue-lite);box-shadow:0 4px 20px rgba(46,106,255,0.3)}
 .planos-footer{text-align:center;font-size:0.78rem;color:var(--text2);display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
 .content-blocked{pointer-events:none;filter:blur(3px);user-select:none;opacity:0.4}
 .onboarding-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
@@ -215,20 +206,55 @@ tbody td.name{color:var(--text);font-weight:500}
 .suporte-btn svg{flex-shrink:0}
 .search-results-count{font-size:0.78rem;color:var(--text3);margin-bottom:10px;min-height:18px}
 .search-results-count strong{color:var(--blue-lite)}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.4)}}
-.animate-in{animation:fadeInUp 0.4s ease both}
-.animate-in:nth-child(1){animation-delay:0.05s}
-.animate-in:nth-child(2){animation-delay:0.1s}
-.animate-in:nth-child(3){animation-delay:0.15s}
-.animate-in:nth-child(4){animation-delay:0.2s}
-.pulse-dot{display:inline-block;animation:pulse-dot 1.5s infinite}
+/* BOTAO JA ESCANIEI — VERDE NEON */
+.btn-verificar-wpp{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:12px 24px;border-radius:10px;background:rgba(0,214,143,0.15);border:2px solid var(--green);color:var(--green);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.92rem;font-weight:700;cursor:pointer;transition:all 0.2s;box-shadow:0 0 16px rgba(0,214,143,0.35),0 0 32px rgba(0,214,143,0.12);text-shadow:0 0 8px rgba(0,214,143,0.5);animation:pulse-verificar 2.5s infinite}
+.btn-verificar-wpp:hover{background:rgba(0,214,143,0.28);box-shadow:0 0 24px rgba(0,214,143,0.6),0 0 48px rgba(0,214,143,0.25);transform:translateY(-2px)}
+@keyframes pulse-verificar{0%,100%{box-shadow:0 0 16px rgba(0,214,143,0.35),0 0 32px rgba(0,214,143,0.12)}50%{box-shadow:0 0 28px rgba(0,214,143,0.65),0 0 56px rgba(0,214,143,0.3)}}
+/* TUTORIAIS */
+.tutorial-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:28px}
+.tutorial-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:border-color 0.2s,transform 0.2s;cursor:pointer}
+.tutorial-card:hover{border-color:var(--blue-lite);transform:translateY(-2px)}
+.tutorial-icon{font-size:2rem;margin-bottom:12px}
+.tutorial-title{font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:6px}
+.tutorial-desc{font-size:0.82rem;color:var(--text2);line-height:1.6}
+.tutorial-steps{margin-top:16px;display:none;padding-top:16px;border-top:1px solid var(--border)}
+.tutorial-steps.open{display:block}
+.tutorial-step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.tutorial-step-num{width:24px;height:24px;border-radius:50%;background:var(--blue-dim);color:var(--blue-lite);font-size:0.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.tutorial-step-text{font-size:0.83rem;color:var(--text2);line-height:1.6}
+.tutorial-step-text strong{color:var(--text);display:block;margin-bottom:2px}
 .saudacao-wrap{display:flex;flex-direction:column;gap:1px}
 .saudacao-texto{font-size:0.72rem;color:var(--text2);font-weight:400}
 .saudacao-nome{font-weight:700;font-size:1rem;color:var(--white)}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.4)}}
+.animate-in{animation:fadeInUp 0.4s ease both}
+.animate-in:nth-child(1){animation-delay:0.05s}.animate-in:nth-child(2){animation-delay:0.1s}.animate-in:nth-child(3){animation-delay:0.15s}.animate-in:nth-child(4){animation-delay:0.2s}
+
+/* BOTÃO NOVO CLIENTE MAIOR */
+.btn-novo-cliente{background:var(--blue);color:var(--white);padding:10px 20px;font-size:0.92rem;font-weight:700;border-radius:10px;box-shadow:0 2px 12px rgba(46,106,255,0.35)}
+.btn-novo-cliente:hover{background:var(--blue-lite);transform:translateY(-1px);box-shadow:0 4px 20px rgba(46,106,255,0.5)}
+/* BOTÃO JÁ ESCANIEI VERDE NEON */
+.btn-verificar{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:12px 24px;border-radius:10px;background:rgba(0,214,143,0.12);border:2px solid var(--green);color:var(--green);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.92rem;font-weight:700;cursor:pointer;box-shadow:0 0 16px rgba(0,214,143,0.35),0 0 32px rgba(0,214,143,0.12);text-shadow:0 0 8px rgba(0,214,143,0.4);animation:neon-pulse 2s infinite;transition:all 0.2s}
+.btn-verificar:hover{background:rgba(0,214,143,0.25);box-shadow:0 0 24px rgba(0,214,143,0.6),0 0 48px rgba(0,214,143,0.25);transform:translateY(-2px)}
+@keyframes neon-pulse{0%,100%{box-shadow:0 0 16px rgba(0,214,143,0.35),0 0 32px rgba(0,214,143,0.12)}50%{box-shadow:0 0 28px rgba(0,214,143,0.65),0 0 56px rgba(0,214,143,0.28)}}
+/* BADGE PENDENTE */
+.badge-pending{background:rgba(255,176,32,0.15);color:var(--amber)}
+/* TUTORIAIS */
+.tutorial-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.tutorial-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;cursor:pointer;transition:border-color 0.2s,transform 0.2s}
+.tutorial-card:hover{border-color:var(--blue-lite);transform:translateY(-2px)}
+.tutorial-icon{font-size:2rem;margin-bottom:10px}
+.tutorial-title{font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:6px}
+.tutorial-desc{font-size:0.82rem;color:var(--text2);line-height:1.6}
+.tutorial-steps{display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+.tutorial-steps.open{display:block}
+.tutorial-step{display:flex;gap:12px;margin-bottom:12px}
+.t-num{width:24px;height:24px;border-radius:50%;background:var(--blue-dim);color:var(--blue-lite);font-size:0.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.t-txt{font-size:0.83rem;color:var(--text2);line-height:1.6}
+.t-txt strong{color:var(--text);display:block;margin-bottom:2px}
 </style>
-</head>
-<body>
+</head><body>
 <div class="app">
 <aside class="sidebar">
   <div class="sidebar-logo">Retorna<span>x</span></div>
@@ -239,8 +265,7 @@ tbody td.name{color:var(--text);font-weight:500}
   </button>
   <button class="nav-item" onclick="showPage('clientes',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    Clientes
-    <span class="nav-badge" id="nav-count">0</span>
+    Clientes <span class="nav-badge" id="nav-count">0</span>
   </button>
   <button class="nav-item" onclick="showPage('automacoes',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -248,14 +273,17 @@ tbody td.name{color:var(--text);font-weight:500}
   </button>
   <button class="nav-item" onclick="showPage('campanhas',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-    Campanhas
-    <span style="margin-left:auto;background:rgba(0,229,255,0.15);color:var(--accent);font-size:0.65rem;padding:1px 6px;border-radius:4px;font-weight:700">PRO</span>
+    Campanhas <span style="margin-left:auto;background:rgba(0,229,255,0.15);color:var(--accent);font-size:0.65rem;padding:1px 6px;border-radius:4px;font-weight:700">PRO</span>
   </button>
   <button class="nav-item" onclick="showPage('historico',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
     Histórico
   </button>
   <div class="sidebar-section">Conta</div>
+  <button class="nav-item" onclick="showPage('whatsapp',this)">
+    <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Conectar WhatsApp
+  </button>
   <button class="nav-item" onclick="showPage('config',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     Configurações
@@ -264,18 +292,18 @@ tbody td.name{color:var(--text);font-weight:500}
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
     Minha assinatura
   </button>
+  <button class="nav-item" onclick="showPage('tutoriais',this)">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    Tutoriais
+  </button>
   <button class="nav-item" onclick="showPage('novidades',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-    Novidades
-    <span style="margin-left:auto;background:rgba(0,214,143,0.15);color:var(--green);font-size:0.6rem;padding:1px 6px;border-radius:4px;font-weight:700">NOVO</span>
+    Novidades <span style="margin-left:auto;background:rgba(0,214,143,0.15);color:var(--green);font-size:0.6rem;padding:1px 6px;border-radius:4px;font-weight:700">NOVO</span>
   </button>
   <div class="sidebar-bottom">
-    <div class="user-row" title="Clique para sair" onclick="logout()">
+    <div class="user-row" onclick="logout()">
       <div class="avatar">DR</div>
-      <div class="user-info">
-        <div class="user-name">Douglas R.</div>
-        <div class="user-plan">Período gratuito</div>
-      </div>
+      <div class="user-info"><div class="user-name">Douglas R.</div><div class="user-plan">Período gratuito</div></div>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.4;flex-shrink:0"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
     </div>
   </div>
@@ -287,14 +315,13 @@ tbody td.name{color:var(--text);font-weight:500}
       <div class="saudacao-nome" id="page-title">Dashboard</div>
     </div>
     <div class="topbar-actions">
-      <button class="btn btn-ghost btn-sm" id="topbar-secondary" style="display:none"></button>
-      <button class="btn btn-ghost btn-sm" onclick="toggleTema()" id="btn-tema" title="Alternar tema" style="padding:6px 10px">
+      <button class="btn btn-ghost btn-sm" onclick="toggleTema()" style="padding:6px 10px">
         <svg id="icon-tema-escuro" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg id="icon-tema-claro" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       </button>
-      <button class="btn btn-primary btn-sm" id="topbar-action" onclick="topbarAction()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Novo cliente
+      <button class="btn btn-primary btn-novo-cliente" id="topbar-action" onclick="topbarAction()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        + Novo cliente
       </button>
     </div>
   </div>
@@ -303,24 +330,21 @@ tbody td.name{color:var(--text);font-weight:500}
     <!-- DASHBOARD -->
     <div class="page active" id="page-dashboard">
       <div class="stats-grid">
-        <div class="stat-card"><div class="stat-top"><div class="stat-label">Total de clientes</div><div class="stat-icon blue">&#x1F465;</div></div><div class="stat-val" id="dash-total">0</div><div class="stat-sub">cadastrados</div></div>
-        <div class="stat-card"><div class="stat-top"><div class="stat-label">Mensagens enviadas</div><div class="stat-icon green">&#x1F4E4;</div></div><div class="stat-val" id="dash-enviadas">0</div><div class="stat-sub">últimos 30 dias</div></div>
-        <div class="stat-card"><div class="stat-top"><div class="stat-label">Clientes reativados</div><div class="stat-icon amber">&#x1F501;</div></div><div class="stat-val" id="dash-reativados">0</div><div class="stat-sub">este mês</div></div>
-        <div class="stat-card"><div class="stat-top"><div class="stat-label">Precisam de contato</div><div class="stat-icon red">&#x26A0;&#xFE0F;</div></div><div class="stat-val" id="dash-fila">0</div><div class="stat-sub">aguardando envio</div></div>
+        <div class="stat-card animate-in"><div class="stat-top"><div class="stat-label">Total de clientes</div><div class="stat-icon blue">&#x1F465;</div></div><div class="stat-val" id="dash-total">0</div><div class="stat-sub">cadastrados</div></div>
+        <div class="stat-card animate-in"><div class="stat-top"><div class="stat-label">Mensagens enviadas</div><div class="stat-icon green">&#x1F4E4;</div></div><div class="stat-val" id="dash-enviadas">0</div><div class="stat-sub">ultimos 30 dias</div></div>
+        <div class="stat-card animate-in"><div class="stat-top"><div class="stat-label">Clientes reativados</div><div class="stat-icon amber">&#x1F501;</div></div><div class="stat-val" id="dash-reativados">0</div><div class="stat-sub">este mes</div></div>
+        <div class="stat-card animate-in"><div class="stat-top"><div class="stat-label">Precisam de contato</div><div class="stat-icon red">&#x26A0;&#xFE0F;</div></div><div class="stat-val" id="dash-fila">0</div><div class="stat-sub">aguardando envio</div></div>
       </div>
       <div class="grid-2">
-        <div class="card">
-          <div class="card-header"><div class="card-title">Atividade recente</div><button class="btn btn-ghost btn-sm" onclick="showPage('historico',document.querySelectorAll('.nav-item')[3])">Ver histórico</button></div>
-          <div class="activity-list" id="activity-list"><div class="empty-state" style="padding:24px"><div class="empty-icon">&#x1F4ED;</div><strong style="color:var(--text)">Nenhuma atividade ainda</strong><p>As mensagens enviadas aparecerão aqui.</p></div></div>
-        </div>
+        <div class="card"><div class="card-header"><div class="card-title">Atividade recente</div><button class="btn btn-ghost btn-sm" onclick="showPage('historico',document.querySelectorAll('.nav-item')[4])">Ver historico</button></div><div id="activity-list"><div class="empty-state" style="padding:24px"><div class="empty-icon">&#x1F4ED;</div><strong style="color:var(--text)">Nenhuma atividade ainda</strong><p>As mensagens enviadas aparecerao aqui.</p></div></div></div>
         <div class="card">
           <div class="card-header"><div class="card-title">Por segmento</div></div>
           <div class="seg-list" id="dash-segs"></div>
           <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
             <div class="card-title" style="margin-bottom:12px">Plano atual</div>
-            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:8px"><span style="color:var(--text2)">Clientes cadastrados</span><span style="color:var(--text)" id="plano-cli">0 / —</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:8px"><span style="color:var(--text2)">Clientes cadastrados</span><span id="plano-cli">0 / -</span></div>
             <div style="height:6px;background:var(--bg3);border-radius:4px;overflow:hidden"><div style="height:100%;width:0%;background:var(--blue);border-radius:4px;transition:width 0.5s" id="bar-cli"></div></div>
-            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-top:10px"><span style="color:var(--text2)">Mensagens este mês</span><span style="color:var(--text)" id="plano-msg">0 / —</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-top:10px"><span style="color:var(--text2)">Mensagens este mes</span><span id="plano-msg">0 / -</span></div>
             <div style="height:6px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-top:6px"><div style="height:100%;width:0%;background:var(--green);border-radius:4px;transition:width 0.5s" id="bar-msg"></div></div>
           </div>
         </div>
@@ -330,202 +354,157 @@ tbody td.name{color:var(--text);font-weight:500}
     <div class="page" id="page-clientes">
       <div class="toolbar">
         <div class="search-wrap">
-          <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="search-input" placeholder="Buscar por nome ou número..." oninput="filterClientes()">
-          <button class="search-clear" onclick="limparBusca()" title="Limpar busca">✕</button>
+          <svg style="position:absolute;left:10px;top:50%;transform:translateY(-50%);opacity:0.4" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="search-input" placeholder="Buscar por nome ou numero..." oninput="filterClientes()">
+          <button class="search-clear" onclick="limparBusca()">x</button>
         </div>
-        <select class="filter-select" id="filter-seg" onchange="filterClientes()">
-          <option value="">Todos os segmentos</option>
-          <option value="Barbearia">✂ Barbearia</option>
-          <option value="Estética auto">🚗 Estética auto</option>
-          <option value="Mecânica">🔧 Mecânica</option>
-          <option value="Beleza">💅 Beleza</option>
-          <option value="Pet shop">🐾 Pet shop</option>
-          <option value="Academia">🏋 Academia</option>
-          <option value="Outros">📌 Outros</option>
-        </select>
-        <select class="filter-select" id="filter-status" onchange="filterClientes()">
-          <option value="">Todos os status</option>
-          <option value="ok">Em dia</option>
-          <option value="alerta">Atenção</option>
-          <option value="critico">Crítico</option>
-        </select>
-        <button class="btn btn-ghost btn-sm" onclick="openImportModal()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Importar planilha
-        </button>
+        <select class="filter-select" id="filter-seg" onchange="filterClientes()"><option value="">Todos os segmentos</option><option value="Barbearia">Barbearia</option><option value="Estetica auto">Estetica auto</option><option value="Mecanica">Mecanica</option><option value="Beleza">Beleza</option><option value="Pet shop">Pet shop</option><option value="Academia">Academia</option><option value="Outros">Outros</option></select>
+        <select class="filter-select" id="filter-status" onchange="filterClientes()"><option value="">Todos os status</option><option value="ok">Em dia</option><option value="alerta">Atencao</option><option value="critico">Critico</option></select>
+        <button class="btn btn-ghost btn-sm" onclick="openImportModal()">Importar planilha</button>
       </div>
       <div class="search-results-count" id="search-results-count"></div>
-      <div class="table-wrap"><table><thead><tr><th>Nome</th><th>WhatsApp</th><th>Segmento</th><th>Última visita</th><th>Dias sem visitar</th><th>Status</th><th>Ações</th></tr></thead><tbody id="clientes-tbody"></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>Nome</th><th>WhatsApp</th><th>Segmento</th><th>Ultima visita</th><th>Dias</th><th>Status</th><th>Acoes</th></tr></thead><tbody id="clientes-tbody"></tbody></table></div>
     </div>
-    <!-- AUTOMAÇÕES -->
+    <!-- AUTOMACOES -->
     <div class="page" id="page-automacoes">
       <div class="card" style="margin-bottom:24px">
         <div class="fila-header">
-          <div><div class="card-title">Fila de envios — hoje</div><div class="fila-count" style="margin-top:4px"><strong id="fila-qtd">0</strong> clientes aguardando contato</div></div>
-          <button class="btn btn-green" onclick="dispararTodos()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            Disparar todos agora
-          </button>
+          <div><div class="card-title">Fila de envios - hoje</div><div class="fila-count" style="margin-top:4px"><strong id="fila-qtd">0</strong> clientes aguardando contato</div></div>
+          <button class="btn btn-green" onclick="dispararTodos()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Disparar todos agora</button>
         </div>
-        <div class="table-wrap" style="border:none;border-radius:0"><table><thead><tr><th>Cliente</th><th>Segmento</th><th>Dias sem visitar</th><th>Mensagem prévia</th><th>Ação</th></tr></thead><tbody id="fila-tbody"></tbody></table></div>
+        <div class="table-wrap" style="border:none;border-radius:0"><table><thead><tr><th>Cliente</th><th>Segmento</th><th>Dias</th><th>Mensagem previa</th><th>Acao</th></tr></thead><tbody id="fila-tbody"></tbody></table></div>
       </div>
-      <div style="margin-bottom:16px"><div class="card-title">Templates de mensagem</div><p style="font-size:0.83rem;color:var(--text2);margin-top:4px">Edite o texto e clique em salvar. Use {nome} e {dias} para personalizar.</p></div>
+      <div style="margin-bottom:16px"><div class="card-title">Templates de mensagem</div><p style="font-size:0.83rem;color:var(--text2);margin-top:4px">Edite e clique em salvar. Use {nome} e {dias} para personalizar.</p></div>
       <div class="envios-grid" id="templates-grid"></div>
     </div>
     <!-- CAMPANHAS -->
     <div class="page" id="page-campanhas">
-      <div id="campanhas-bloqueado" style="display:none">
-        <div style="text-align:center;padding:80px 20px;max-width:480px;margin:0 auto">
-          <div style="font-size:3rem;margin-bottom:16px">🔒</div>
-          <div style="font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:10px">Campanhas é exclusivo do plano Profissional</div>
-          <div style="font-size:0.9rem;color:var(--text2);line-height:1.7;margin-bottom:28px">Dispare mensagens para toda a sua base de clientes com promoções, novidades e datas especiais. Disponível a partir do plano Profissional.</div>
-          <button class="btn btn-primary" onclick="abrirPlanos('trial')" style="font-size:0.95rem;padding:12px 28px">Ver planos →</button>
-        </div>
-      </div>
+      <div id="campanhas-bloqueado" style="display:none"><div style="text-align:center;padding:80px 20px;max-width:480px;margin:0 auto"><div style="font-size:3rem;margin-bottom:16px">&#x1F512;</div><div style="font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:10px">Campanhas e exclusivo do plano Profissional</div><button class="btn btn-primary" onclick="abrirPlanos('trial')" style="font-size:0.95rem;padding:12px 28px">Ver planos</button></div></div>
       <div id="campanhas-conteudo">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
-          <div>
-            <div style="font-size:1.1rem;font-weight:700;color:var(--white)">Campanhas</div>
-            <div style="font-size:0.82rem;color:var(--text2);margin-top:4px">Dispare mensagens para toda sua base — promoções, novidades e datas especiais.</div>
-          </div>
-          <button class="btn btn-primary" onclick="abrirModalCampanha()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Nova campanha
-          </button>
-        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px"><div><div style="font-size:1.1rem;font-weight:700;color:var(--white)">Campanhas</div><div style="font-size:0.82rem;color:var(--text2);margin-top:4px">Dispare para toda sua base.</div></div><button class="btn btn-primary" onclick="abrirModalCampanha()">+ Nova campanha</button></div>
         <div class="card" style="margin-bottom:24px" id="form-campanha" style="display:none">
-          <div class="card-header">
-            <div class="card-title">✏️ Configurar campanha</div>
-            <button class="btn btn-ghost btn-sm" onclick="fecharFormCampanha()">Cancelar</button>
-          </div>
+          <div class="card-header"><div class="card-title">Configurar campanha</div><button class="btn btn-ghost btn-sm" onclick="fecharFormCampanha()">Cancelar</button></div>
           <div style="padding:4px 0">
-            <div class="form-group">
-              <label>Nome da campanha</label>
-              <input type="text" id="camp-nome" placeholder="Ex: Promoção de Junho" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none">
-            </div>
-            <div class="form-group">
-              <label>Público-alvo</label>
-              <select id="camp-publico" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none">
-                <option value="todos">Todos os clientes</option>
-                <option value="Barbearia">✂ Barbearia</option>
-                <option value="Estética auto">🚗 Estética auto</option>
-                <option value="Mecânica">🔧 Mecânica</option>
-                <option value="Beleza">💅 Beleza</option>
-                <option value="Pet shop">🐾 Pet shop</option>
-                <option value="Academia">🏋 Academia</option>
-                <option value="Outros">📌 Outros</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Mensagem da campanha</label>
-              <textarea id="camp-mensagem" placeholder="Ex: Oi {nome}! Este mês temos 10% de desconto em todos os serviços. Que tal agendar hoje? 😊" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none;resize:vertical;min-height:100px;line-height:1.6"></textarea>
-              <div style="display:flex;gap:6px;margin-top:6px">
-                <button class="var-chip" onclick="insertVarCampanha('{nome}')">{nome}</button>
-              </div>
-            </div>
-            <div style="background:var(--amber-dim);border:1px solid rgba(255,176,32,0.2);border-radius:8px;padding:10px 14px;font-size:0.8rem;color:var(--amber);margin-bottom:16px">
-              ⚠️ A campanha será enviada para <strong id="camp-preview-count">0</strong> clientes. Confirme antes de disparar.
-            </div>
-            <div style="display:flex;justify-content:flex-end;gap:10px">
-              <button class="btn btn-ghost" onclick="fecharFormCampanha()">Cancelar</button>
-              <button class="btn btn-green" onclick="dispararCampanha()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                Disparar campanha
-              </button>
-            </div>
+            <div class="form-group"><label>Nome da campanha</label><input type="text" id="camp-nome" placeholder="Ex: Promocao de Junho" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none"></div>
+            <div class="form-group"><label>Publico-alvo</label><select id="camp-publico" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none"><option value="todos">Todos os clientes</option><option value="Barbearia">Barbearia</option><option value="Estetica auto">Estetica auto</option><option value="Mecanica">Mecanica</option><option value="Beleza">Beleza</option><option value="Pet shop">Pet shop</option><option value="Academia">Academia</option><option value="Outros">Outros</option></select></div>
+            <div class="form-group"><label>Mensagem</label><textarea id="camp-mensagem" placeholder="Oi {nome}! Temos promocao essa semana!" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none;resize:vertical;min-height:100px;line-height:1.6"></textarea><div style="margin-top:6px"><button class="var-chip" onclick="insertVarCampanha('{nome}')">{nome}</button></div></div>
+            <div style="background:var(--amber-dim);border:1px solid rgba(255,176,32,0.2);border-radius:8px;padding:10px 14px;font-size:0.8rem;color:var(--amber);margin-bottom:16px">Serao enviados para <strong id="camp-preview-count">0</strong> clientes em lotes de 5.</div>
+            <div style="display:flex;justify-content:flex-end;gap:10px"><button class="btn btn-ghost" onclick="fecharFormCampanha()">Cancelar</button><button class="btn btn-green" onclick="dispararCampanha()">Disparar campanha</button></div>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header"><div class="card-title">Histórico de campanhas</div></div>
-          <div id="campanhas-lista">
-            <div class="empty-state">
-              <div class="empty-icon">📣</div>
-              <strong style="color:var(--text)">Nenhuma campanha ainda</strong>
-              <p>Crie sua primeira campanha e dispare para toda sua base!</p>
-            </div>
+        <div class="card"><div class="card-header"><div class="card-title">Historico de campanhas</div></div><div id="campanhas-lista"><div class="empty-state"><div class="empty-icon">&#x1F4E3;</div><strong style="color:var(--text)">Nenhuma campanha ainda</strong></div></div></div>
+      </div>
+    </div>
+    <!-- HISTORICO -->
+    <div class="page" id="page-historico">
+      <div class="hist-filters">
+        <select class="filter-select" id="hist-filter-seg" onchange="renderHistorico()"><option value="">Todos os segmentos</option><option value="Barbearia">Barbearia</option><option value="Estetica auto">Estetica auto</option><option value="Mecanica">Mecanica</option><option value="Beleza">Beleza</option><option value="Pet shop">Pet shop</option><option value="Academia">Academia</option><option value="Outros">Outros</option></select>
+        <select class="filter-select" id="hist-filter-status" onchange="renderHistorico()"><option value="">Todos os status</option><option value="enviado">Enviado</option><option value="pendente">Pendente</option></select>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>Data/Hora</th><th>Cliente</th><th>Mensagem</th><th>Status</th></tr></thead><tbody id="historico-tbody"></tbody></table></div>
+    </div>
+    <!-- WHATSAPP -->
+    <div class="page" id="page-whatsapp">
+      <div style="max-width:560px">
+        <div style="margin-bottom:24px"><div style="font-size:1.1rem;font-weight:700;color:var(--white)">Conectar WhatsApp</div><div style="font-size:0.82rem;color:var(--text2);margin-top:4px">Escaneie o QR Code para vincular seu numero.</div></div>
+        <div class="config-section">
+          <h3>WhatsApp</h3>
+          <div class="config-row"><span class="config-key">Status</span><span id="wpp-status-badge"><span class="badge badge-gray">Nao configurado</span></span></div>
+          <div class="config-row"><span class="config-key">Numero conectado</span><span class="config-val" id="wpp-numero">-</span></div>
+          <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-primary btn-sm" id="btn-conectar-wpp" onclick="conectarWhatsapp()">Conectar WhatsApp</button>
+            <button class="btn btn-danger btn-sm" id="btn-desconectar-wpp" onclick="desconectarWhatsapp()" style="display:none">Desconectar</button>
+          </div>
+          <div id="qrcode-wrap" style="display:none;margin-top:20px;border-top:1px solid var(--border);padding-top:20px;text-align:center">
+            <div style="font-size:0.82rem;color:var(--text2);margin-bottom:12px">Abra o WhatsApp &rarr; Aparelhos conectados &rarr; Conectar aparelho</div>
+            <div style="background:white;border-radius:12px;padding:12px;display:inline-block;margin-bottom:16px;box-shadow:0 4px 24px rgba(0,0,0,0.3)"><img id="qrcode-img" src="" alt="QR Code" style="width:220px;height:220px;display:block"></div>
+            <div style="font-size:0.75rem;color:var(--text3);margin-bottom:16px">O QR Code expira em alguns segundos. Clique em verificar apos escanear.</div>
+            <button class="btn-verificar" onclick="verificarConexao()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Ja escaniei - verificar conexao
+            </button>
           </div>
         </div>
       </div>
     </div>
-    <!-- HISTÓRICO -->
-    <div class="page" id="page-historico">
-      <div class="hist-filters">
-        <select class="filter-select" id="hist-filter-seg" onchange="renderHistorico()"><option value="">Todos os segmentos</option><option value="Barbearia">✂ Barbearia</option><option value="Estética auto">🚗 Estética auto</option><option value="Mecânica">🔧 Mecânica</option><option value="Beleza">💅 Beleza</option><option value="Pet shop">🐾 Pet shop</option><option value="Academia">🏋 Academia</option><option value="Outros">📌 Outros</option></select>
-        <select class="filter-select" id="hist-filter-resp" onchange="renderHistorico()"><option value="">Todos</option><option value="respondeu">Respondeu</option><option value="sem_resposta">Sem resposta</option></select>
+    <!-- TUTORIAIS -->
+    <div class="page" id="page-tutoriais">
+      <div style="margin-bottom:24px"><div style="font-size:1.1rem;font-weight:700;color:var(--white)">Tutoriais</div><div style="font-size:0.82rem;color:var(--text2);margin-top:4px">Clique em qualquer card para ver o passo a passo.</div></div>
+      <div class="tutorial-grid">
+        <div class="tutorial-card" onclick="toggleTutorial(this)">
+          <div class="tutorial-icon">&#x1F465;</div><div class="tutorial-title">Como cadastrar clientes</div>
+          <div class="tutorial-desc">Adicione manualmente ou importe uma planilha com toda sua base.</div>
+          <div class="tutorial-steps">
+            <div class="tutorial-step"><div class="t-num">1</div><div class="t-txt"><strong>Clique em + Novo cliente</strong>Botao azul no canto superior direito.</div></div>
+            <div class="tutorial-step"><div class="t-num">2</div><div class="t-txt"><strong>Preencha os dados</strong>Nome, WhatsApp, segmento e data da ultima visita.</div></div>
+            <div class="tutorial-step"><div class="t-num">3</div><div class="t-txt"><strong>Ou importe planilha</strong>Clique em Importar planilha. Colunas: Nome, WhatsApp, Segmento, Data.</div></div>
+          </div>
+        </div>
+        <div class="tutorial-card" onclick="toggleTutorial(this)">
+          <div class="tutorial-icon">&#x1F4F1;</div><div class="tutorial-title">Como conectar o WhatsApp</div>
+          <div class="tutorial-desc">Vincule seu numero para envios automaticos.</div>
+          <div class="tutorial-steps">
+            <div class="tutorial-step"><div class="t-num">1</div><div class="t-txt"><strong>Acesse Conectar WhatsApp</strong>No menu lateral esquerdo.</div></div>
+            <div class="tutorial-step"><div class="t-num">2</div><div class="t-txt"><strong>Clique em Conectar WhatsApp</strong>Um QR Code sera gerado na tela.</div></div>
+            <div class="tutorial-step"><div class="t-num">3</div><div class="t-txt"><strong>Escaneie com seu celular</strong>WhatsApp > Aparelhos conectados > Conectar aparelho.</div></div>
+            <div class="tutorial-step"><div class="t-num">4</div><div class="t-txt"><strong>Clique no botao verde</strong>Ja escaniei - verificar conexao confirma o link.</div></div>
+          </div>
+        </div>
+        <div class="tutorial-card" onclick="toggleTutorial(this)">
+          <div class="tutorial-icon">&#x26A1;</div><div class="tutorial-title">Como funciona o disparo automatico</div>
+          <div class="tutorial-desc">O Retornax verifica diariamente quem precisa de contato.</div>
+          <div class="tutorial-steps">
+            <div class="tutorial-step"><div class="t-num">1</div><div class="t-txt"><strong>Configure os templates</strong>Em Automacoes, edite a mensagem de cada segmento.</div></div>
+            <div class="tutorial-step"><div class="t-num">2</div><div class="t-txt"><strong>Defina os dias</strong>Ex: barbearia dispara apos 10 dias sem visita.</div></div>
+            <div class="tutorial-step"><div class="t-num">3</div><div class="t-txt"><strong>Disparo em lotes de 5</strong>Automatico todo dia, com pausa entre lotes para nao bloquear.</div></div>
+          </div>
+        </div>
+        <div class="tutorial-card" onclick="toggleTutorial(this)">
+          <div class="tutorial-icon">&#x1F4E3;</div><div class="tutorial-title">Como criar uma campanha</div>
+          <div class="tutorial-desc">Envie promocoes para toda sua base ou um segmento.</div>
+          <div class="tutorial-steps">
+            <div class="tutorial-step"><div class="t-num">1</div><div class="t-txt"><strong>Acesse Campanhas</strong>Disponivel nos planos Profissional e Crescimento.</div></div>
+            <div class="tutorial-step"><div class="t-num">2</div><div class="t-txt"><strong>Clique em Nova campanha</strong>Escolha publico e escreva a mensagem com {nome}.</div></div>
+            <div class="tutorial-step"><div class="t-num">3</div><div class="t-txt"><strong>Disparo em lotes de 5</strong>Mensagens enviadas com intervalo para proteger o numero.</div></div>
+          </div>
+        </div>
+        <div class="tutorial-card" onclick="toggleTutorial(this)">
+          <div class="tutorial-icon">&#x2705;</div><div class="tutorial-title">Como marcar uma visita</div>
+          <div class="tutorial-desc">Registre quando um cliente retornou.</div>
+          <div class="tutorial-steps">
+            <div class="tutorial-step"><div class="t-num">1</div><div class="t-txt"><strong>Va para Clientes</strong>Encontre o cliente na lista.</div></div>
+            <div class="tutorial-step"><div class="t-num">2</div><div class="t-txt"><strong>Clique no icone de check</strong>Registra a visita com a data de hoje automaticamente.</div></div>
+            <div class="tutorial-step"><div class="t-num">3</div><div class="t-txt"><strong>Contagem resetada</strong>O cliente sai da fila e o contador volta a zero.</div></div>
+          </div>
+        </div>
+        <div class="tutorial-card" onclick="toggleTutorial(this)">
+          <div class="tutorial-icon">&#x1F4CA;</div><div class="tutorial-title">Entendendo o Historico</div>
+          <div class="tutorial-desc">Acompanhe todas as mensagens enviadas.</div>
+          <div class="tutorial-steps">
+            <div class="tutorial-step"><div class="t-num">1</div><div class="t-txt"><strong>Acesse Historico</strong>Veja todas as mensagens com data e conteudo.</div></div>
+            <div class="tutorial-step"><div class="t-num">2</div><div class="t-txt"><strong>Status Enviado</strong>Mensagem chegou ao WhatsApp com sucesso.</div></div>
+            <div class="tutorial-step"><div class="t-num">3</div><div class="t-txt"><strong>Status Pendente</strong>Falha na entrega. Numero pode estar errado ou WhatsApp desconectado.</div></div>
+          </div>
+        </div>
       </div>
-      <div class="table-wrap"><table><thead><tr><th>Data</th><th>Cliente</th><th>Segmento</th><th>Mensagem enviada</th><th>Resposta</th></tr></thead><tbody id="historico-tbody"></tbody></table></div>
     </div>
     <!-- NOVIDADES -->
     <div class="page" id="page-novidades">
       <div style="max-width:640px">
-        <div style="margin-bottom:28px">
-          <div style="font-size:1.1rem;font-weight:700;color:var(--white)">Novidades do Retornax</div>
-          <div style="font-size:0.82rem;color:var(--text2);margin-top:4px">Acompanhe as últimas melhorias e funcionalidades.</div>
-        </div>
+        <div style="margin-bottom:28px"><div style="font-size:1.1rem;font-weight:700;color:var(--white)">Novidades do Retornax</div><div style="font-size:0.82rem;color:var(--text2);margin-top:4px">Acompanhe as ultimas melhorias.</div></div>
         <div style="display:flex;flex-direction:column;gap:16px">
-          <div class="card">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-              <span style="background:var(--green-dim);color:var(--green);font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:100px">NOVO</span>
-              <span style="font-size:0.78rem;color:var(--text3)">Junho 2025</span>
-            </div>
-            <div style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px">Marcar visita e editar cliente</div>
-            <div style="font-size:0.84rem;color:var(--text2);line-height:1.7">Agora você pode marcar a visita de um cliente com um clique direto na tabela, atualizando a data automaticamente. Também é possível editar nome, WhatsApp, segmento e data de qualquer cliente sem precisar removê-lo.</div>
-          </div>
-          <div class="card">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-              <span style="background:var(--green-dim);color:var(--green);font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:100px">NOVO</span>
-              <span style="font-size:0.78rem;color:var(--text3)">Junho 2025</span>
-            </div>
-            <div style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px">Importação de planilha</div>
-            <div style="font-size:0.84rem;color:var(--text2);line-height:1.7">Importe sua base de clientes via arquivo .xlsx ou .csv de forma simples e rápida. O sistema detecta automaticamente o formato da data e o segmento de cada cliente.</div>
-          </div>
-          <div class="card">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-              <span style="background:var(--blue-dim);color:var(--blue-lite);font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:100px">MELHORIA</span>
-              <span style="font-size:0.78rem;color:var(--text3)">Junho 2025</span>
-            </div>
-            <div style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px">Busca de clientes aprimorada</div>
-            <div style="font-size:0.84rem;color:var(--text2);line-height:1.7">A busca agora encontra clientes por nome ou número de WhatsApp, com contador de resultados em tempo real e botão para limpar a busca rapidamente.</div>
-          </div>
+          <div class="card"><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><span style="background:var(--green-dim);color:var(--green);font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:100px">NOVO</span><span style="font-size:0.78rem;color:var(--text3)">Junho 2025</span></div><div style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px">Disparo em lotes de 5</div><div style="font-size:0.84rem;color:var(--text2);line-height:1.7">Campanhas e disparos automaticos agora enviam em lotes de 5 com pausa entre eles, protegendo seu numero de bloqueio.</div></div>
+          <div class="card"><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><span style="background:var(--green-dim);color:var(--green);font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:100px">NOVO</span><span style="font-size:0.78rem;color:var(--text3)">Junho 2025</span></div><div style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px">Historico real do Supabase</div><div style="font-size:0.84rem;color:var(--text2);line-height:1.7">O historico agora carrega diretamente do banco, mostrando todas as mensagens enviadas com status Enviado ou Pendente.</div></div>
+          <div class="card"><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><span style="background:var(--green-dim);color:var(--green);font-size:0.7rem;font-weight:700;padding:3px 10px;border-radius:100px">NOVO</span><span style="font-size:0.78rem;color:var(--text3)">Junho 2025</span></div><div style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px">Marcar visita e editar cliente</div><div style="font-size:0.84rem;color:var(--text2);line-height:1.7">Marque visita com um clique e edite qualquer dado sem remover o cliente.</div></div>
         </div>
       </div>
     </div>
-    <!-- CONFIGURAÇÕES -->
+    <!-- CONFIGURACOES -->
     <div class="page" id="page-config">
       <div class="config-grid">
-        <div class="config-section"><h3>Conta</h3><div class="config-row"><span class="config-key">Nome</span><span class="config-val" id="config-nome">—</span></div><div class="config-row"><span class="config-key">E-mail</span><span class="config-val" id="config-email">—</span></div><div class="config-row"><span class="config-key">Plano</span><span class="config-val" style="color:var(--blue-lite)" id="config-plano">—</span></div><div style="margin-top:16px;display:flex;gap:8px"><button class="btn btn-ghost btn-sm" onclick="abrirPlanos('trial')">Alterar plano</button></div></div>
-        <div class="config-section">
-          <h3>WhatsApp</h3>
-          <div class="config-row">
-            <span class="config-key">Status</span>
-            <span id="wpp-status-badge"><span class="badge badge-gray">● Não configurado</span></span>
-          </div>
-          <div class="config-row">
-            <span class="config-key">Número conectado</span>
-            <span class="config-val" id="wpp-numero">—</span>
-          </div>
-          <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn btn-primary btn-sm" id="btn-conectar-wpp" onclick="conectarWhatsapp()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Conectar WhatsApp
-            </button>
-            <button class="btn btn-danger btn-sm" id="btn-desconectar-wpp" onclick="desconectarWhatsapp()" style="display:none">Desconectar</button>
-          </div>
-          <div id="qrcode-wrap" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px;text-align:center">
-            <div style="font-size:0.82rem;color:var(--text2);margin-bottom:12px">Escaneie o QR Code com seu WhatsApp</div>
-            <div style="background:white;border-radius:12px;padding:12px;display:inline-block;margin-bottom:12px">
-              <img id="qrcode-img" src="" alt="QR Code" style="width:200px;height:200px;display:block">
-            </div>
-            <div style="font-size:0.75rem;color:var(--text3)">WhatsApp → Aparelhos conectados → Conectar aparelho</div>
-            <button class="btn btn-ghost btn-sm" style="margin-top:12px" onclick="verificarConexao()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-              Já escaniei — verificar conexão
-            </button>
-          </div>
-        </div>
-        <div class="config-section"><h3>Horário de envio</h3><div class="config-row"><span class="config-key">Janela de envio</span><span class="config-val">09:00 — 19:00</span></div><div class="config-row"><span class="config-key">Dias da semana</span><span class="config-val">Seg a Sáb</span></div></div>
-        <div class="config-section"><h3>Notificações</h3><div class="config-row"><span class="config-key">Quando cliente responde</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div><div class="config-row"><span class="config-key">Resumo diário por e-mail</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div></div>
+        <div class="config-section"><h3>Conta</h3><div class="config-row"><span class="config-key">Nome</span><span class="config-val" id="config-nome">-</span></div><div class="config-row"><span class="config-key">E-mail</span><span class="config-val" id="config-email">-</span></div><div class="config-row"><span class="config-key">Plano</span><span class="config-val" style="color:var(--blue-lite)" id="config-plano">-</span></div><div style="margin-top:16px;display:flex;gap:8px"><button class="btn btn-ghost btn-sm" onclick="abrirPlanos('trial')">Alterar plano</button></div></div>
+        <div class="config-section"><h3>Horario de envio</h3><div class="config-row"><span class="config-key">Janela de envio</span><span class="config-val">09:00 - 19:00</span></div><div class="config-row"><span class="config-key">Dias da semana</span><span class="config-val">Seg a Sab</span></div></div>
+        <div class="config-section"><h3>Notificacoes</h3><div class="config-row"><span class="config-key">Quando cliente responde</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div><div class="config-row"><span class="config-key">Resumo diario por e-mail</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div></div>
       </div>
     </div>
   </div>
@@ -535,653 +514,345 @@ tbody td.name{color:var(--text);font-weight:500}
 <!-- ONBOARDING -->
 <div class="onboarding-overlay" id="onboarding-overlay">
   <div class="onboarding-modal">
-    <div id="ob-step-1">
-      <div class="onboarding-steps"><div class="onboarding-step-dot active"></div><div class="onboarding-step-dot"></div><div class="onboarding-step-dot"></div></div>
-      <div class="onboarding-icon">🎉</div>
-      <div class="onboarding-title">Bem-vindo ao Retornax!</div>
-      <div class="onboarding-sub">Você está a 3 passos de ter seu faturamento recorrente no piloto automático.</div>
-      <div class="onboarding-actions"><button class="btn btn-primary" onclick="obNext(2)">Começar configuração →</button></div>
-    </div>
-    <div id="ob-step-2" style="display:none">
-      <div class="onboarding-steps"><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot active"></div><div class="onboarding-step-dot"></div></div>
-      <div class="onboarding-icon">👥</div>
-      <div class="onboarding-title">Cadastre seus primeiros clientes</div>
-      <div class="onboarding-sub">Adicione os clientes que você quer reativar.</div>
-      <div class="onboarding-checklist">
-        <div class="onboarding-check-item" onclick="obAbrirClientes()"><div class="check-icon">➕</div><div class="check-text"><strong>Adicionar cliente manualmente</strong>Nome, WhatsApp, segmento e última visita</div></div>
-        <div class="onboarding-check-item" onclick="obImportarPlanilha()"><div class="check-icon">📊</div><div class="check-text"><strong>Importar planilha</strong>Suba um arquivo .xlsx ou .csv</div></div>
-      </div>
-      <div class="onboarding-actions"><button class="btn btn-ghost" onclick="obNext(3)">Fazer isso depois</button><button class="btn btn-primary" onclick="obNext(3)">Próximo →</button></div>
-    </div>
-    <div id="ob-step-3" style="display:none">
-      <div class="onboarding-steps"><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot active"></div></div>
-      <div class="onboarding-icon">⚡</div>
-      <div class="onboarding-title">Ative suas automações</div>
-      <div class="onboarding-sub">Configure os templates de mensagem para cada segmento.</div>
-      <div class="onboarding-checklist">
-        <div class="onboarding-check-item" onclick="obAbrirAutomacoes()"><div class="check-icon">📝</div><div class="check-text"><strong>Personalizar mensagens</strong>Edite os templates com o tom da sua marca</div></div>
-      </div>
-      <div class="onboarding-actions"><button class="btn btn-primary" onclick="obFinalizar()">Ir para o painel 🚀</button></div>
-    </div>
+    <div id="ob-step-1"><div class="onboarding-steps"><div class="onboarding-step-dot active"></div><div class="onboarding-step-dot"></div><div class="onboarding-step-dot"></div></div><div class="onboarding-icon">&#x1F389;</div><div class="onboarding-title">Bem-vindo ao Retornax!</div><div class="onboarding-sub">Voce esta a 3 passos de ter seu faturamento recorrente no piloto automatico.</div><div class="onboarding-actions"><button class="btn btn-primary" onclick="obNext(2)">Comecar configuracao</button></div></div>
+    <div id="ob-step-2" style="display:none"><div class="onboarding-steps"><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot active"></div><div class="onboarding-step-dot"></div></div><div class="onboarding-icon">&#x1F465;</div><div class="onboarding-title">Cadastre seus primeiros clientes</div><div class="onboarding-sub">Adicione os clientes que voce quer reativar.</div><div class="onboarding-checklist"><div class="onboarding-check-item" onclick="obAbrirClientes()"><div class="check-icon">&#x2795;</div><div class="check-text"><strong>Adicionar cliente manualmente</strong>Nome, WhatsApp, segmento e ultima visita</div></div><div class="onboarding-check-item" onclick="obImportarPlanilha()"><div class="check-icon">&#x1F4CA;</div><div class="check-text"><strong>Importar planilha</strong>Suba um arquivo .xlsx ou .csv</div></div></div><div class="onboarding-actions"><button class="btn btn-ghost" onclick="obNext(3)">Fazer isso depois</button><button class="btn btn-primary" onclick="obNext(3)">Proximo</button></div></div>
+    <div id="ob-step-3" style="display:none"><div class="onboarding-steps"><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot active"></div></div><div class="onboarding-icon">&#x26A1;</div><div class="onboarding-title">Ative suas automacoes</div><div class="onboarding-sub">Configure os templates de mensagem para cada segmento.</div><div class="onboarding-checklist"><div class="onboarding-check-item" onclick="obAbrirAutomacoes()"><div class="check-icon">&#x1F4DD;</div><div class="check-text"><strong>Personalizar mensagens</strong>Edite os templates com o tom da sua marca</div></div></div><div class="onboarding-actions"><button class="btn btn-primary" onclick="obFinalizar()">Ir para o painel &#x1F680;</button></div></div>
   </div>
 </div>
-
 <!-- MODAL PLANOS -->
 <div class="planos-overlay" id="planos-overlay">
   <div class="planos-modal">
-    <div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button onclick="fecharPlanos()" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:1.4rem;line-height:1;padding:4px 8px;border-radius:6px">✕</button></div>
-    <div class="planos-modal-header"><div class="planos-modal-icon" id="planos-icon">🔒</div><div class="planos-modal-title" id="planos-title">Seu período gratuito acabou</div><div class="planos-modal-sub" id="planos-sub">Escolha um plano para continuar usando o Retornax.</div></div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button onclick="fecharPlanos()" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:1.4rem;line-height:1;padding:4px 8px">X</button></div>
+    <div class="planos-modal-header"><div class="planos-modal-icon" id="planos-icon">&#x1F512;</div><div class="planos-modal-title" id="planos-title">Seu periodo gratuito acabou</div><div class="planos-modal-sub" id="planos-sub">Escolha um plano para continuar usando o Retornax.</div></div>
     <div class="planos-grid">
-      <div class="plano-card"><div class="plano-nome">Starter</div><div class="plano-preco"><sup>R$</sup>147<sub>/mês</sub></div><div class="plano-roi">Se 2 clientes voltarem, já se paga.</div><ul class="plano-features"><li><span class="check">✓</span>Até 100 clientes</li><li><span class="check">✓</span>200 mensagens/mês</li><li><span class="check">✓</span>Templates prontos</li><li><span class="check">✓</span>WhatsApp conectado incluso</li><li><span class="check">✓</span>Suporte WhatsApp</li></ul><button class="btn-assinar-plano outline" onclick="assinarPlano('starter',147)">Assinar Starter</button></div>
-      <div class="plano-card featured"><div class="plano-tag">Mais popular</div><div class="plano-nome">Profissional</div><div class="plano-preco"><sup>R$</sup>247<sub>/mês</sub></div><div class="plano-roi">5 clientes reativados já pagam 3x o plano.</div><ul class="plano-features"><li><span class="check">✓</span>Até 300 clientes</li><li><span class="check">✓</span>600 mensagens/mês</li><li><span class="check">✓</span>Todos os segmentos</li><li><span class="check">✓</span>Templates editáveis</li><li><span class="check">✓</span>WhatsApp conectado incluso</li><li><span class="check">✓</span>Campanhas em massa</li><li><span class="check">✓</span>Dashboard completo</li><li><span class="check">✓</span>Suporte prioritário</li></ul><button class="btn-assinar-plano filled" onclick="assinarPlano('profissional',247)">Assinar Profissional</button></div>
-      <div class="plano-card"><div class="plano-nome">Crescimento</div><div class="plano-preco"><sup>R$</sup>447<sub>/mês</sub></div><div class="plano-roi">Ideal para redes e franquias.</div><ul class="plano-features"><li><span class="check">✓</span>Até 800 clientes</li><li><span class="check">✓</span>1.600 mensagens/mês</li><li><span class="check">✓</span>Múltiplas unidades</li><li><span class="check">✓</span>WhatsApp conectado incluso</li><li><span class="check">✓</span>Campanhas em massa</li><li><span class="check">✓</span>API e integrações</li></ul><button class="btn-assinar-plano outline" onclick="assinarPlano('crescimento',447)">Assinar Crescimento</button></div>
+      <div class="plano-card"><div class="plano-nome">Starter</div><div class="plano-preco"><sup>R$</sup>147<sub>/mes</sub></div><div class="plano-roi">Se 2 clientes voltarem, ja se paga.</div><ul class="plano-features"><li><span class="check">v</span>Ate 100 clientes</li><li><span class="check">v</span>200 mensagens/mes</li><li><span class="check">v</span>WhatsApp conectado incluso</li><li><span class="check">v</span>Suporte WhatsApp</li></ul><button class="btn-assinar-plano outline" onclick="assinarPlano('starter',147)">Assinar Starter</button></div>
+      <div class="plano-card featured"><div class="plano-tag">Mais popular</div><div class="plano-nome">Profissional</div><div class="plano-preco"><sup>R$</sup>247<sub>/mes</sub></div><div class="plano-roi">5 clientes reativados ja pagam 3x o plano.</div><ul class="plano-features"><li><span class="check">v</span>Ate 300 clientes</li><li><span class="check">v</span>600 mensagens/mes</li><li><span class="check">v</span>Campanhas em massa</li><li><span class="check">v</span>Dashboard completo</li><li><span class="check">v</span>Suporte prioritario</li></ul><button class="btn-assinar-plano filled" onclick="assinarPlano('profissional',247)">Assinar Profissional</button></div>
+      <div class="plano-card"><div class="plano-nome">Crescimento</div><div class="plano-preco"><sup>R$</sup>447<sub>/mes</sub></div><div class="plano-roi">Ideal para redes e franquias.</div><ul class="plano-features"><li><span class="check">v</span>Ate 800 clientes</li><li><span class="check">v</span>1.600 mensagens/mes</li><li><span class="check">v</span>Multiplas unidades</li><li><span class="check">v</span>API e integracoes</li></ul><button class="btn-assinar-plano outline" onclick="assinarPlano('crescimento',447)">Assinar Crescimento</button></div>
     </div>
-    <div class="planos-footer"><span>Cancele quando quiser</span><span>Sem taxa de setup</span><span>Cobrança via Stripe</span><span>Suporte em português</span></div>
+    <div class="planos-footer"><span>Cancele quando quiser</span><span>Sem taxa de setup</span><span>Cobranca via Stripe</span></div>
   </div>
 </div>
-
 <!-- MODAL NOVO CLIENTE -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
   <div class="modal">
-    <div class="modal-header"><div class="modal-title" id="modal-title">Adicionar cliente</div><button class="modal-close" onclick="closeModal()">✕</button></div>
-    <div class="modal-tabs" id="modal-tabs">
-      <button class="modal-tab active" onclick="switchTab('manual',this)">Manual</button>
-      <button class="modal-tab" onclick="switchTab('import',this)">Importar planilha</button>
-    </div>
+    <div class="modal-header"><div class="modal-title">Adicionar cliente</div><button class="modal-close" onclick="closeModal()">X</button></div>
+    <div class="modal-tabs"><button class="modal-tab active" onclick="switchTab('manual',this)">Manual</button><button class="modal-tab" onclick="switchTab('import',this)">Importar planilha</button></div>
     <div id="tab-manual">
-      <div class="form-row">
-        <div class="form-group"><label>Nome completo</label><input type="text" id="f-nome" placeholder="João Silva"></div>
-        <div class="form-group"><label>WhatsApp</label><input type="tel" id="f-wpp" placeholder="(51) 99999-9999"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Segmento</label><select id="f-seg"><option value="Barbearia">✂ Barbearia</option><option value="Estética auto">🚗 Estética auto</option><option value="Mecânica">🔧 Mecânica</option><option value="Beleza">💅 Beleza</option><option value="Pet shop">🐾 Pet shop</option><option value="Academia">🏋 Academia</option><option value="Outros">📌 Outros</option></select></div>
-        <div class="form-group"><label>Última visita</label><input type="date" id="f-data"></div>
-      </div>
-      <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="addCliente()">Adicionar cliente</button></div>
+      <div class="form-row"><div class="form-group"><label>Nome completo</label><input type="text" id="f-nome" placeholder="Joao Silva"></div><div class="form-group"><label>WhatsApp</label><input type="tel" id="f-wpp" placeholder="(51) 99999-9999"></div></div>
+      <div class="form-row"><div class="form-group"><label>Segmento</label><select id="f-seg"><option value="Barbearia">Barbearia</option><option value="Estetica auto">Estetica auto</option><option value="Mecanica">Mecanica</option><option value="Beleza">Beleza</option><option value="Pet shop">Pet shop</option><option value="Academia">Academia</option><option value="Outros">Outros</option></select></div><div class="form-group"><label>Ultima visita</label><input type="date" id="f-data"></div></div>
+      <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="addCliente()" style="padding:10px 24px;font-size:0.92rem">+ Adicionar cliente</button></div>
     </div>
     <div id="tab-import" style="display:none">
-      <div class="import-zone" id="import-zone" onclick="document.getElementById('file-input').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFile(event)">
-        <div style="font-size:2rem">📊</div>
-        <p>Clique ou arraste sua planilha aqui</p>
-        <span>Formatos aceitos: .xlsx, .csv — máx. 1.000 clientes</span>
-      </div>
+      <div class="import-zone" id="import-zone" onclick="document.getElementById('file-input').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFile(event)"><div style="font-size:2rem">&#x1F4CA;</div><p>Clique ou arraste sua planilha aqui</p><span>Formatos aceitos: .xlsx, .csv - max. 1.000 clientes</span></div>
       <input type="file" id="file-input" accept=".xlsx,.csv" style="display:none" onchange="handleFile(event)">
-      <div style="background:var(--bg3);border-radius:8px;padding:14px;font-size:0.8rem;color:var(--text2);line-height:1.7"><strong style="color:var(--text);display:block;margin-bottom:4px">Formato esperado:</strong>Coluna A: Nome | Coluna B: WhatsApp | Coluna C: Segmento | Coluna D: Última visita (dd/mm/aaaa)</div>
+      <div style="background:var(--bg3);border-radius:8px;padding:14px;font-size:0.8rem;color:var(--text2);line-height:1.7"><strong style="color:var(--text);display:block;margin-bottom:4px">Formato esperado:</strong>Coluna A: Nome | Coluna B: WhatsApp | Coluna C: Segmento | Coluna D: Ultima visita (dd/mm/aaaa)</div>
       <div id="import-preview" style="margin-top:14px;display:none"><div style="font-size:0.82rem;margin-bottom:8px" id="import-msg"></div></div>
       <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" id="btn-importar" onclick="confirmarImport()" style="display:none">Importar clientes</button></div>
     </div>
   </div>
 </div>
-
 <!-- MODAL EDITAR CLIENTE -->
 <div class="modal-overlay" id="modal-editar-cliente" onclick="if(event.target===this)fecharEditarCliente()">
   <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">✏️ Editar cliente</div>
-      <button class="modal-close" onclick="fecharEditarCliente()">✕</button>
-    </div>
+    <div class="modal-header"><div class="modal-title">Editar cliente</div><button class="modal-close" onclick="fecharEditarCliente()">X</button></div>
     <input type="hidden" id="edit-cli-id">
-    <div class="form-row">
-      <div class="form-group"><label>Nome completo</label><input type="text" id="edit-cli-nome" placeholder="João Silva"></div>
-      <div class="form-group"><label>WhatsApp</label><input type="tel" id="edit-cli-wpp" placeholder="(51) 99999-9999"></div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label>Segmento</label>
-        <select id="edit-cli-seg">
-          <option value="Barbearia">✂ Barbearia</option>
-          <option value="Estética auto">🚗 Estética auto</option>
-          <option value="Mecânica">🔧 Mecânica</option>
-          <option value="Beleza">💅 Beleza</option>
-          <option value="Pet shop">🐾 Pet shop</option>
-          <option value="Academia">🏋 Academia</option>
-          <option value="Outros">📌 Outros</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Última visita</label><input type="date" id="edit-cli-data"></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="fecharEditarCliente()">Cancelar</button>
-      <button class="btn btn-primary" onclick="salvarEdicaoCliente()">Salvar alterações</button>
-    </div>
+    <div class="form-row"><div class="form-group"><label>Nome completo</label><input type="text" id="edit-cli-nome"></div><div class="form-group"><label>WhatsApp</label><input type="tel" id="edit-cli-wpp"></div></div>
+    <div class="form-row"><div class="form-group"><label>Segmento</label><select id="edit-cli-seg"><option value="Barbearia">Barbearia</option><option value="Estetica auto">Estetica auto</option><option value="Mecanica">Mecanica</option><option value="Beleza">Beleza</option><option value="Pet shop">Pet shop</option><option value="Academia">Academia</option><option value="Outros">Outros</option></select></div><div class="form-group"><label>Ultima visita</label><input type="date" id="edit-cli-data"></div></div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="fecharEditarCliente()">Cancelar</button><button class="btn btn-primary" onclick="salvarEdicaoCliente()">Salvar alteracoes</button></div>
   </div>
 </div>
-
-<div class="toast" id="toast"><span>✓</span><span id="toast-msg">Feito!</span></div>
-
 <!-- MODAL EDITAR MENSAGEM -->
 <div class="modal-overlay" id="modal-editar-msg" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal" style="width:480px">
-    <div class="modal-header">
-      <div class="modal-title">✏️ Editar mensagem</div>
-      <button class="modal-close" onclick="document.getElementById('modal-editar-msg').classList.remove('open')">✕</button>
-    </div>
+    <div class="modal-header"><div class="modal-title">Editar mensagem</div><button class="modal-close" onclick="document.getElementById('modal-editar-msg').classList.remove('open')">X</button></div>
     <div style="margin-bottom:12px">
       <div style="font-size:0.78rem;color:var(--text2);margin-bottom:6px;font-weight:600">Mensagem para <span id="edit-msg-nome" style="color:var(--text)"></span></div>
-      <textarea id="edit-msg-texto" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none;resize:vertical;min-height:120px;line-height:1.6;transition:border-color 0.15s" onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='var(--border)'"></textarea>
-      <div style="display:flex;gap:6px;margin-top:6px">
-        <button class="var-chip" onclick="insertVarEditMsg('{nome}')">{nome}</button>
-        <button class="var-chip" onclick="insertVarEditMsg('{dias}')">{dias}</button>
-      </div>
+      <textarea id="edit-msg-texto" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none;resize:vertical;min-height:120px;line-height:1.6"></textarea>
+      <div style="display:flex;gap:6px;margin-top:6px"><button class="var-chip" onclick="insertVarEditMsg('{nome}')">{nome}</button><button class="var-chip" onclick="insertVarEditMsg('{dias}')">{dias}</button></div>
     </div>
-    <input type="hidden" id="edit-msg-wpp">
-    <input type="hidden" id="edit-msg-dias">
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="document.getElementById('modal-editar-msg').classList.remove('open')">Cancelar</button>
-      <button class="btn btn-green" onclick="enviarMsgEditada()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        Enviar mensagem
-      </button>
-    </div>
+    <input type="hidden" id="edit-msg-wpp"><input type="hidden" id="edit-msg-dias">
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="document.getElementById('modal-editar-msg').classList.remove('open')">Cancelar</button><button class="btn btn-green" onclick="enviarMsgEditada()">Enviar mensagem</button></div>
   </div>
 </div>
+<div class="toast" id="toast"><span>v</span><span id="toast-msg">Feito!</span></div>
 
 <script>
 const BACKEND = 'https://spirited-youthfulness-production-e76c.up.railway.app';
 
 const SEGMENTOS = {
-  'Barbearia':     { emoji:'✂',  dias:10,  cor:'badge-blue',   template:'Oi {nome}! Já faz {dias} dias que você não passa por aqui. 😊 Quer marcar um horário essa semana?' },
-  'Estética auto': { emoji:'🚗', dias:15,  cor:'badge-green',  template:'Oi {nome}! Faz {dias} dias que seu carro não vem lavar. Quer agendar uma lavagem essa semana? 🚗' },
-  'Mecânica':      { emoji:'🔧', dias:90,  cor:'badge-amber',  template:'Oi {nome}! Fim de ano chegando. Que tal uma revisão? Freios, óleo, filtros. 🔧' },
-  'Beleza':        { emoji:'💅', dias:21,  cor:'badge-accent', template:'Oi {nome}! Já faz {dias} dias desde sua última visita. Quer agendar manicure ou sobrancelha? 💅' },
-  'Pet shop':      { emoji:'🐾', dias:20,  cor:'badge-green',  template:'Oi! O bichinho de {nome} já tá precisando de um banho, faz {dias} dias. Quer agendar essa semana? 🐾' },
-  'Academia':      { emoji:'🏋', dias:7,   cor:'badge-blue',   template:'Oi {nome}! Notei que você não treina há {dias} dias. Que tal retomar amanhã? 💪' },
-  'Outros':        { emoji:'📌', dias:30,  cor:'badge-gray',   template:'Oi {nome}! Já faz {dias} dias desde sua última visita. Sentimos sua falta! Quer agendar um horário? 😊' },
+  'Barbearia':     { emoji:'\u2702',  dias:10,  cor:'badge-blue',   template:'Oi {nome}! Ja faz {dias} dias que voce nao passa por aqui. Quer marcar um horario essa semana?' },
+  'Estetica auto': { emoji:'\uD83D\uDE97', dias:15, cor:'badge-green',  template:'Oi {nome}! Faz {dias} dias que seu carro nao vem lavar. Quer agendar essa semana?' },
+  'Mecanica':      { emoji:'\uD83D\uDD27', dias:90, cor:'badge-amber',  template:'Oi {nome}! Fim de ano chegando. Que tal uma revisao? Freios, oleo, filtros.' },
+  'Beleza':        { emoji:'\uD83D\uDC85', dias:21, cor:'badge-accent', template:'Oi {nome}! Ja faz {dias} dias desde sua ultima visita. Quer agendar?' },
+  'Pet shop':      { emoji:'\uD83D\uDC3E', dias:20, cor:'badge-green',  template:'Oi! O bichinho de {nome} ja ta precisando de um banho, faz {dias} dias. Quer agendar?' },
+  'Academia':      { emoji:'\uD83C\uDFCB', dias:7,  cor:'badge-blue',   template:'Oi {nome}! Notei que voce nao treina ha {dias} dias. Que tal retomar amanha?' },
+  'Outros':        { emoji:'\uD83D\uDCCC', dias:30, cor:'badge-gray',   template:'Oi {nome}! Ja faz {dias} dias desde sua ultima visita. Sentimos sua falta!' },
 };
 
 let clientes = [];
-const historico = [];
+let historicoEnvios = [];
 
-function calcDays(dateStr){ return Math.floor((new Date() - new Date(dateStr+'T12:00'))/(1000*60*60*24)); }
-function getDaysChip(days, seg){ const lim=SEGMENTOS[seg]?.dias||10; if(days<lim) return `<span class="days-chip days-ok">${days}d</span>`; if(days<lim*1.5) return `<span class="days-chip days-warn">${days}d</span>`; return `<span class="days-chip days-alert">${days}d</span>`; }
-function getStatusBadge(s){ if(s==='ok') return '<span class="badge badge-green">● Em dia</span>'; if(s==='alerta') return '<span class="badge badge-amber">● Atenção</span>'; return '<span class="badge badge-red">● Crítico</span>'; }
+function calcDays(d){ return Math.floor((new Date()-new Date(d+'T12:00'))/(864e5)); }
+function getDaysChip(days,seg){ const l=SEGMENTOS[seg]?.dias||10; if(days<l) return `<span class="days-chip days-ok">${days}d</span>`; if(days<l*1.5) return `<span class="days-chip days-warn">${days}d</span>`; return `<span class="days-chip days-alert">${days}d</span>`; }
+function getStatusBadge(s){ if(s==='ok') return '<span class="badge badge-green">Em dia</span>'; if(s==='alerta') return '<span class="badge badge-amber">Atencao</span>'; return '<span class="badge badge-red">Critico</span>'; }
 function getSegBadge(seg){ const s=SEGMENTOS[seg]||{emoji:'',cor:'badge-gray'}; return `<span class="badge ${s.cor}">${s.emoji} ${seg}</span>`; }
-function getFila(){ return clientes.filter(c=>{ const days=calcDays(c.ultima); const lim=SEGMENTOS[c.seg]?.dias||10; return days>=lim; }); }
+function getFila(){ return clientes.filter(c=>calcDays(c.ultima)>=(SEGMENTOS[c.seg]?.dias||10)); }
 
 function renderClientes(list){
-  const tbody=document.getElementById('clientes-tbody');
-  if(!list.length){ tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text3)">Nenhum cliente encontrado.</td></tr>`; return; }
-  tbody.innerHTML=list.map(c=>{
+  const tb=document.getElementById('clientes-tbody');
+  if(!list.length){ tb.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text3)">Nenhum cliente encontrado.</td></tr>`; return; }
+  tb.innerHTML=list.map(c=>{
     const days=calcDays(c.ultima);
-    return `<tr>
-      <td class="name">${c.nome}</td>
-      <td>${c.wpp}</td>
-      <td>${getSegBadge(c.seg)}</td>
-      <td>${new Date(c.ultima+'T12:00').toLocaleDateString('pt-BR')}</td>
-      <td>${getDaysChip(days,c.seg)}</td>
-      <td>${getStatusBadge(c.status)}</td>
-      <td><div class="action-btns">
-        <button class="icon-btn send" title="Enviar mensagem" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" onclick="sendMsgCliente(this)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </button>
-        <button class="icon-btn checkin" title="Marcar visita hoje" data-id="${c.id}" data-nome="${c.nome.split(' ')[0]}" onclick="marcarVisita(this)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-        </button>
-        <button class="icon-btn edit" title="Editar cliente" data-id="${c.id}" data-nome="${c.nome}" data-wpp="${c.wpp}" data-seg="${c.seg}" data-ultima="${c.ultima}" onclick="abrirEditarCliente(this)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </button>
-        <button class="icon-btn" title="Editar mensagem" style="color:var(--text2)" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" data-ultima="${c.ultima}" onclick="abrirEditarMsg(this)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </button>
-        <button class="icon-btn del" title="Remover" onclick="removeCliente('${c.id}')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
-        </button>
-      </div></td>
-    </tr>`;
+    return `<tr><td class="name">${c.nome}</td><td>${c.wpp}</td><td>${getSegBadge(c.seg)}</td><td>${new Date(c.ultima+'T12:00').toLocaleDateString('pt-BR')}</td><td>${getDaysChip(days,c.seg)}</td><td>${getStatusBadge(c.status)}</td>
+    <td><div class="action-btns">
+      <button class="icon-btn send" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" onclick="sendMsgCliente(this)" title="Enviar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+      <button class="icon-btn checkin" data-id="${c.id}" data-nome="${c.nome.split(' ')[0]}" onclick="marcarVisita(this)" title="Marcar visita"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></button>
+      <button class="icon-btn edit" data-id="${c.id}" data-nome="${c.nome}" data-wpp="${c.wpp}" data-seg="${c.seg}" data-ultima="${c.ultima}" onclick="abrirEditarCliente(this)" title="Editar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+      <button class="icon-btn" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" data-ultima="${c.ultima}" onclick="abrirEditarMsg(this)" title="Editar mensagem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+      <button class="icon-btn del" onclick="removeCliente('${c.id}')" title="Remover"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg></button>
+    </div></td></tr>`;
   }).join('');
 }
 
-function limparBusca(){
-  document.getElementById('search-input').value = '';
-  filterClientes();
-  document.getElementById('search-input').focus();
-}
-
+function limparBusca(){ document.getElementById('search-input').value=''; filterClientes(); }
 function filterClientes(){
   const q=document.getElementById('search-input').value.toLowerCase().trim();
   const seg=document.getElementById('filter-seg').value;
-  const status=document.getElementById('filter-status').value;
-  const filtered=clientes.filter(c=>(!q||c.nome.toLowerCase().includes(q)||c.wpp.replace(/\D/g,'').includes(q.replace(/\D/g,''))||c.wpp.toLowerCase().includes(q))&&(!seg||c.seg===seg)&&(!status||c.status===status));
-  renderClientes(filtered);
-  const countEl = document.getElementById('search-results-count');
-  if(q || seg || status){
-    const total = clientes.length;
-    countEl.innerHTML = filtered.length === total
-      ? `<strong>${total}</strong> cliente${total !== 1 ? 's' : ''}`
-      : `<strong>${filtered.length}</strong> de ${total} cliente${total !== 1 ? 's' : ''}`;
-  } else {
-    countEl.innerHTML = clientes.length ? `<strong>${clientes.length}</strong> cliente${clientes.length !== 1 ? 's' : ''} cadastrado${clientes.length !== 1 ? 's' : ''}` : '';
-  }
+  const st=document.getElementById('filter-status').value;
+  const f=clientes.filter(c=>(!q||c.nome.toLowerCase().includes(q)||c.wpp.includes(q))&&(!seg||c.seg===seg)&&(!st||c.status===st));
+  renderClientes(f);
+  const el=document.getElementById('search-results-count');
+  if(q||seg||st){ el.innerHTML=f.length===clientes.length?`<strong>${clientes.length}</strong> clientes`:`<strong>${f.length}</strong> de ${clientes.length}`; }
+  else { el.innerHTML=clientes.length?`<strong>${clientes.length}</strong> clientes cadastrados`:''; }
 }
-
-async function removeCliente(id){
-  const idx=clientes.findIndex(c=>String(c.id)===String(id));
-  if(idx>-1){ const cId=clientes[idx].id; clientes.splice(idx,1); filterClientes(); updateCount(); showToast('Cliente removido.'); await removerClienteBanco(cId); }
-}
-
+async function removeCliente(id){ const i=clientes.findIndex(c=>String(c.id)===String(id)); if(i>-1){ const cId=clientes[i].id; clientes.splice(i,1); filterClientes(); updateCount(); showToast('Cliente removido.'); await supabase.from('clientes').delete().eq('id',cId); } }
 function updateCount(){
-  const total = clientes.length;
-  const fila = getFila().length;
-  document.getElementById('nav-count').textContent = total;
-  animarNumero(document.getElementById('dash-total'), total);
-  animarNumero(document.getElementById('dash-fila'), fila);
-  const filaIcon = document.querySelector('.stat-icon.red');
-  if(filaIcon) filaIcon.style.animation = fila > 0 ? 'pulse-dot 1.5s infinite' : '';
-  renderDashSegs(); renderFila(); atualizarLimitesPlano();
-  filterClientes();
-  document.querySelectorAll('.stat-card').forEach((c,i) => {
-    c.classList.remove('animate-in');
-    void c.offsetWidth;
-    c.classList.add('animate-in');
-    c.style.animationDelay = (i * 0.07) + 's';
-  });
+  const total=clientes.length; const fila=getFila().length;
+  document.getElementById('nav-count').textContent=total;
+  animarNumero(document.getElementById('dash-total'),total);
+  animarNumero(document.getElementById('dash-fila'),fila);
+  renderDashSegs(); renderFila(); atualizarLimitesPlano(); filterClientes();
 }
-
-const LIMITES_PLANO={trial:{clientes:10,mensagens:50},starter:{clientes:100,mensagens:200},profissional:{clientes:300,mensagens:600},crescimento:{clientes:800,mensagens:1600}};
-
-function atualizarLimitesPlano(){
-  const plano=ACCOUNT.plano||'trial';
-  const limites=LIMITES_PLANO[plano]||LIMITES_PLANO.trial;
-  const total=clientes.length;
-  const pct=Math.min(Math.round(total/limites.clientes*100),100);
-  document.getElementById('plano-cli').textContent=total+' / '+limites.clientes;
-  if(document.getElementById('bar-cli')) document.getElementById('bar-cli').style.width=pct+'%';
-}
-
+const LIMITES={trial:{clientes:10,mensagens:50},starter:{clientes:100,mensagens:200},profissional:{clientes:300,mensagens:600},crescimento:{clientes:800,mensagens:1600}};
+function atualizarLimitesPlano(){ const l=LIMITES[ACCOUNT.plano||'trial']||LIMITES.trial; const t=clientes.length; document.getElementById('plano-cli').textContent=t+' / '+l.clientes; if(document.getElementById('bar-cli')) document.getElementById('bar-cli').style.width=Math.min(Math.round(t/l.clientes*100),100)+'%'; }
 function renderFila(){
-  const fila=getFila();
-  document.getElementById('fila-qtd').textContent=fila.length;
-  document.getElementById('dash-fila').textContent=fila.length;
-  const tbody=document.getElementById('fila-tbody');
-  if(!fila.length){ tbody.innerHTML=`<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">🎉</div><strong style="color:var(--text)">Fila vazia!</strong><p>Nenhum cliente precisa de contato agora.</p></div></td></tr>`; return; }
-  tbody.innerHTML=fila.map(c=>{
-    const days=calcDays(c.ultima);
-    const tmpl=SEGMENTOS[c.seg]?.template||'';
-    const prev=tmpl.replace('{nome}',c.nome.split(' ')[0]).replace('{dias}',days);
-    return `<tr>
-      <td class="name">${c.nome}</td>
-      <td>${getSegBadge(c.seg)}</td>
-      <td>${getDaysChip(days,c.seg)}</td>
-      <td style="color:var(--text3);font-style:italic;font-size:0.78rem;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${prev}</td>
-      <td><button class="btn btn-ghost btn-sm" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" onclick="sendMsgCliente(this)">Enviar agora</button></td>
-    </tr>`;
+  const fila=getFila(); document.getElementById('fila-qtd').textContent=fila.length; document.getElementById('dash-fila').textContent=fila.length;
+  const tb=document.getElementById('fila-tbody');
+  if(!fila.length){ tb.innerHTML=`<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">&#x1F389;</div><strong style="color:var(--text)">Fila vazia!</strong></div></td></tr>`; return; }
+  tb.innerHTML=fila.map(c=>{ const d=calcDays(c.ultima); const p=(SEGMENTOS[c.seg]?.template||'').replace('{nome}',c.nome.split(' ')[0]).replace('{dias}',d);
+    return `<tr><td class="name">${c.nome}</td><td>${getSegBadge(c.seg)}</td><td>${getDaysChip(d,c.seg)}</td><td style="color:var(--text3);font-style:italic;font-size:0.78rem;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p}</td><td><button class="btn btn-ghost btn-sm" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" onclick="sendMsgCliente(this)">Enviar agora</button></td></tr>`;
   }).join('');
 }
-
 async function dispararTodos(){
-  const fila=getFila();
-  if(!fila.length){ showToast('Fila já está vazia!','err'); return; }
-  const btn=document.querySelector('.btn-green');
-  btn.textContent='⏳ Enviando...'; btn.disabled=true;
-  let enviados=0;
+  const fila=getFila(); if(!fila.length){ showToast('Fila vazia!','err'); return; }
+  const btn=document.querySelector('.btn-green'); btn.textContent='Enviando...'; btn.disabled=true;
+  let ok=0;
   for(const c of fila){
-    const days=calcDays(c.ultima);
-    const tmpl=SEGMENTOS[c.seg]?.template||'Oi {nome}! Sentimos sua falta! 😊';
-    const mensagem=tmpl.replace('{nome}',c.nome.split(' ')[0]).replace('{dias}',days);
-    try{
-      const res=await fetch(`${BACKEND}/api/enviar-mensagem`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:c.wpp,mensagem,empresaId:ACCOUNT.empresaId})});
-      const data=await res.json();
-      if(data.success) enviados++;
-    }catch(e){}
+    const d=calcDays(c.ultima); const tmpl=SEGMENTOS[c.seg]?.template||'Oi {nome}!';
+    const msg=tmpl.replace('{nome}',c.nome.split(' ')[0]).replace('{dias}',d);
+    try{ const r=await fetch(`${BACKEND}/api/enviar-mensagem`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:c.wpp,mensagem:msg,empresaId:ACCOUNT.empresaId})}); const dat=await r.json(); if(dat.success) ok++; }catch(e){}
   }
-  showToast(`${enviados} mensagens enviadas!`);
-  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Disparar todos agora';
-  btn.disabled=false;
+  showToast(`${ok} mensagens enviadas!`);
+  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Disparar todos agora'; btn.disabled=false;
 }
-
 async function sendMsgCliente(btn){
-  const nome=btn.dataset.nome;
-  const wpp=btn.dataset.wpp;
-  const seg=btn.dataset.seg;
-  const orig=btn.innerHTML||btn.textContent;
-  btn.innerHTML='⏳'; btn.disabled=true;
-  const cliente=clientes.find(c=>c.wpp===wpp);
-  const days=cliente?calcDays(cliente.ultima):0;
-  const tmpl=SEGMENTOS[seg]?.template||'Oi {nome}! Sentimos sua falta! 😊';
-  const mensagem=tmpl.replace('{nome}',nome).replace('{dias}',days);
+  const nome=btn.dataset.nome,wpp=btn.dataset.wpp,seg=btn.dataset.seg,orig=btn.innerHTML||btn.textContent;
+  btn.innerHTML='...'; btn.disabled=true;
+  const c=clientes.find(x=>x.wpp===wpp); const d=c?calcDays(c.ultima):0;
+  const msg=(SEGMENTOS[seg]?.template||'Oi {nome}!').replace('{nome}',nome).replace('{dias}',d);
   try{
-    const res=await fetch(`${BACKEND}/api/enviar-mensagem`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:wpp,mensagem,empresaId:ACCOUNT.empresaId})});
-    const data=await res.json();
-    if(data.success){ btn.innerHTML='✓'; btn.style.color='var(--green)'; showToast(`Mensagem enviada para ${nome}!`); }
-    else{ btn.innerHTML='✕'; btn.style.color='var(--red)'; showToast('Erro ao enviar mensagem.','err'); }
-  }catch(err){ btn.innerHTML='✕'; btn.style.color='var(--red)'; showToast('Erro ao conectar com o servidor.','err'); }
+    const r=await fetch(`${BACKEND}/api/enviar-mensagem`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:wpp,mensagem:msg,empresaId:ACCOUNT.empresaId})});
+    const dat=await r.json();
+    if(dat.success){ btn.innerHTML='OK'; btn.style.color='var(--green)'; showToast(`Enviado para ${nome}!`); }
+    else{ btn.innerHTML='X'; btn.style.color='var(--red)'; showToast('Erro ao enviar.','err'); }
+  }catch(e){ btn.innerHTML='X'; btn.style.color='var(--red)'; }
   setTimeout(()=>{ btn.innerHTML=orig; btn.disabled=false; btn.style.color=''; },3000);
 }
-
 function renderTemplates(){
-  const grid=document.getElementById('templates-grid');
-  grid.innerHTML=Object.entries(SEGMENTOS).map(([seg,s])=>`
+  document.getElementById('templates-grid').innerHTML=Object.entries(SEGMENTOS).map(([seg,s])=>`
     <div class="envio-card">
-      <div class="envio-header"><div class="envio-emoji">${s.emoji}</div><div><div class="envio-seg">${seg}</div><div class="envio-rule" id="rule-${seg}">Dispara após ${s.dias} dias sem visita</div></div></div>
-      <div class="dias-input-row"><label>Disparar após</label><input type="number" class="dias-input" value="${s.dias}" min="1" max="365" onchange="updateDias('${seg}',this.value)"><label>dias</label></div>
-      <div class="msg-edit-wrap">
-        <textarea class="msg-edit" id="tmpl-${seg}">${s.template}</textarea>
-        <div class="msg-vars"><button class="var-chip" onclick="insertVar('tmpl-${seg}','{nome}')">{nome}</button><button class="var-chip" onclick="insertVar('tmpl-${seg}','{dias}')">{dias}</button></div>
-      </div>
-      <div class="toggle-row">
-        <span class="toggle-label">Automação ativa</span>
-        <div style="display:flex;align-items:center;gap:10px">
-          <button class="btn btn-ghost btn-sm" onclick="salvarTemplate('${seg}')">Salvar</button>
-          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-        </div>
-      </div>
-    </div>
-  `).join('');
+      <div class="envio-header"><div class="envio-emoji">${s.emoji}</div><div><div class="envio-seg">${seg}</div><div class="envio-rule" id="rule-${seg}">Dispara apos ${s.dias} dias sem visita</div></div></div>
+      <div class="dias-input-row"><label>Disparar apos</label><input type="number" class="dias-input" value="${s.dias}" min="1" max="365" onchange="updateDias('${seg}',this.value)"><label>dias</label></div>
+      <div class="msg-edit-wrap"><textarea class="msg-edit" id="tmpl-${seg}">${s.template}</textarea><div class="msg-vars"><button class="var-chip" onclick="insertVar('tmpl-${seg}','{nome}')">{nome}</button><button class="var-chip" onclick="insertVar('tmpl-${seg}','{dias}')">{dias}</button></div></div>
+      <div class="toggle-row"><span class="toggle-label">Automacao ativa</span><div style="display:flex;align-items:center;gap:10px"><button class="btn btn-ghost btn-sm" onclick="salvarTemplate('${seg}')">Salvar</button><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div></div>
+    </div>`).join('');
 }
-
-function updateDias(seg,val){ SEGMENTOS[seg].dias=parseInt(val); document.getElementById(`rule-${seg}`).textContent=`Dispara após ${val} dias sem visita`; renderFila(); }
+function updateDias(seg,val){ SEGMENTOS[seg].dias=parseInt(val); document.getElementById(`rule-${seg}`).textContent=`Dispara apos ${val} dias sem visita`; renderFila(); }
 function insertVar(id,v){ const el=document.getElementById(id); const s=el.selectionStart,e=el.selectionEnd; el.value=el.value.slice(0,s)+v+el.value.slice(e); el.focus(); el.selectionStart=el.selectionEnd=s+v.length; }
 function salvarTemplate(seg){ SEGMENTOS[seg].template=document.getElementById(`tmpl-${seg}`).value; showToast(`Template de ${seg} salvo!`); renderFila(); }
-
 function renderDashSegs(){
-  const total=clientes.length||1; const bySegs={};
-  clientes.forEach(c=>bySegs[c.seg]=(bySegs[c.seg]||0)+1);
-  const colors=['var(--blue)','var(--accent)','var(--amber)','var(--green)','#a78bfa','#f472b6'];
-  document.getElementById('dash-segs').innerHTML=Object.entries(bySegs).map(([seg,cnt],i)=>`
-    <div class="seg-row"><div class="seg-emoji">${SEGMENTOS[seg]?.emoji||'📌'}</div><div class="seg-info"><div class="seg-name">${seg}</div><div class="seg-bar-wrap"><div class="seg-bar" style="width:${Math.round(cnt/total*100)}%;background:${colors[i%colors.length]}"></div></div></div><div class="seg-count">${cnt} cliente${cnt>1?'s':''}</div></div>
-  `).join('');
+  const total=clientes.length||1; const byS={};
+  clientes.forEach(c=>byS[c.seg]=(byS[c.seg]||0)+1);
+  const cols=['var(--blue)','var(--accent)','var(--amber)','var(--green)','#a78bfa','#f472b6'];
+  document.getElementById('dash-segs').innerHTML=Object.entries(byS).map(([seg,cnt],i)=>`
+    <div class="seg-row"><div class="seg-emoji">${SEGMENTOS[seg]?.emoji||''}</div><div class="seg-info"><div class="seg-name">${seg}</div><div class="seg-bar-wrap"><div class="seg-bar" style="width:${Math.round(cnt/total*100)}%;background:${cols[i%cols.length]}"></div></div></div><div class="seg-count">${cnt} cliente${cnt>1?'s':''}</div></div>`).join('');
 }
 
+// HISTORICO — carrega do Supabase
+async function carregarHistorico(){
+  if(!ACCOUNT.empresaId) return;
+  try{
+    const{data}=await supabase.from('envios').select('*,clientes(nome,segmento)').eq('empresa_id',ACCOUNT.empresaId).order('enviado_at',{ascending:false}).limit(200);
+    if(data) historicoEnvios=data;
+    renderHistorico();
+    const hoje=new Date(); const inicioMes=new Date(hoje.getFullYear(),hoje.getMonth(),1);
+    const mes=(data||[]).filter(e=>new Date(e.enviado_at)>=inicioMes).length;
+    animarNumero(document.getElementById('dash-enviadas'),mes);
+  }catch(e){ console.error('Historico error',e); }
+}
 function renderHistorico(){
   const seg=document.getElementById('hist-filter-seg').value;
-  const resp=document.getElementById('hist-filter-resp').value;
-  const list=historico.filter(h=>(!seg||h.seg===seg)&&(!resp||h.resp===resp));
-  const tbody=document.getElementById('historico-tbody');
-  if(!list.length){ tbody.innerHTML=`<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--text3)">Nenhum envio encontrado.</td></tr>`; return; }
-  tbody.innerHTML=list.map(h=>`<tr><td>${new Date(h.data+'T12:00').toLocaleDateString('pt-BR')}</td><td class="name">${h.nome}</td><td>${getSegBadge(h.seg)}</td><td style="font-size:0.8rem;color:var(--text3);font-style:italic">${h.msg}</td><td>${h.resp==='respondeu'?'<span class="badge badge-green">✓ Respondeu</span>':'<span class="badge badge-gray">Sem resposta</span>'}</td></tr>`).join('');
+  const st=document.getElementById('hist-filter-status').value;
+  const list=historicoEnvios.filter(h=>{ const hSeg=h.clientes?.segmento||''; const hSt=h.status||'enviado'; return(!seg||hSeg===seg)&&(!st||hSt===st); });
+  const tb=document.getElementById('historico-tbody');
+  if(!list.length){ tb.innerHTML=`<tr><td colspan="4" style="text-align:center;padding:32px;color:var(--text3)">Nenhum envio encontrado.</td></tr>`; return; }
+  tb.innerHTML=list.map(h=>{
+    const nome=h.clientes?.nome||'-'; const status=h.status||'enviado';
+    const badge=status==='pendente'?'<span class="badge badge-pending">Pendente</span>':'<span class="badge badge-green">Enviado</span>';
+    const dt=new Date(h.enviado_at).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    return `<tr><td>${dt}</td><td class="name">${nome}</td><td style="font-size:0.8rem;color:var(--text3);font-style:italic;max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${h.mensagem||'-'}</td><td>${badge}</td></tr>`;
+  }).join('');
 }
 
 function openModal(){ document.getElementById('modal-overlay').classList.add('open'); document.getElementById('f-data').valueAsDate=new Date(); switchTab('manual',document.querySelector('.modal-tab')); }
 function openImportModal(){ document.getElementById('modal-overlay').classList.add('open'); switchTab('import',document.querySelectorAll('.modal-tab')[1]); }
-function closeModal(){
-  document.getElementById('modal-overlay').classList.remove('open');
-  importData=[];
-  document.getElementById('import-preview').style.display='none';
-  document.getElementById('btn-importar').style.display='none';
-  document.getElementById('file-input').value='';
-}
+function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); importData=[]; document.getElementById('import-preview').style.display='none'; document.getElementById('btn-importar').style.display='none'; document.getElementById('file-input').value=''; }
 function closeModalOutside(e){ if(e.target===document.getElementById('modal-overlay')) closeModal(); }
 function switchTab(tab,btn){ document.querySelectorAll('.modal-tab').forEach(t=>t.classList.remove('active')); btn.classList.add('active'); document.getElementById('tab-manual').style.display=tab==='manual'?'':'none'; document.getElementById('tab-import').style.display=tab==='import'?'':'none'; }
 
 async function addCliente(){
-  const nome=document.getElementById('f-nome').value.trim();
-  const wpp=document.getElementById('f-wpp').value.trim();
-  const seg=document.getElementById('f-seg').value;
-  const data=document.getElementById('f-data').value;
+  const nome=document.getElementById('f-nome').value.trim(),wpp=document.getElementById('f-wpp').value.trim(),seg=document.getElementById('f-seg').value,data=document.getElementById('f-data').value;
   if(!nome||!wpp||!data){ showToast('Preencha todos os campos.','err'); return; }
-  const novoCliente={id:Date.now(),nome,wpp,seg,ultima:data,status:'ok'};
-  clientes.unshift(novoCliente);
-  filterClientes(); updateCount(); closeModal();
-  showToast(`${nome} adicionado!`);
-  document.getElementById('f-nome').value='';
-  document.getElementById('f-wpp').value='';
-  const saved=await salvarClienteBanco(novoCliente);
-  if(saved){ novoCliente.id=saved.id; }
+  const novo={id:Date.now(),nome,wpp,seg,ultima:data,status:'ok'};
+  clientes.unshift(novo); filterClientes(); updateCount(); closeModal(); showToast(`${nome} adicionado!`);
+  document.getElementById('f-nome').value=''; document.getElementById('f-wpp').value='';
+  const saved=await salvarClienteBanco(novo); if(saved) novo.id=saved.id;
 }
-
 let importData=[];
 function dragOver(e){ e.preventDefault(); document.getElementById('import-zone').classList.add('dragover'); }
 function dragLeave(){ document.getElementById('import-zone').classList.remove('dragover'); }
 function dropFile(e){ e.preventDefault(); dragLeave(); handleFile({target:{files:e.dataTransfer.files}}); }
-
-function handleFile(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(evt) {
-    try {
-      const data = new Uint8Array(evt.target.result);
-      const workbook = XLSX.read(data, { type: 'array', cellDates: true });
-      const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
-      const primeiraLinha = rows[0] || [];
-      const temCabecalho = typeof primeiraLinha[0] === 'string' && primeiraLinha[0].toLowerCase().includes('nome');
-      const dadosLinha = temCabecalho ? rows.slice(1) : rows;
-      const SEGMENTOS_VALIDOS = Object.keys(SEGMENTOS);
-      const erros = [];
-      importData = [];
-      dadosLinha.forEach((row, i) => {
-        if (!row[0] && !row[1]) return;
-        const nome = String(row[0] || '').trim();
-        const wppRaw = String(row[1] || '').trim();
-        const seg = String(row[2] || 'Outros').trim();
-        const dataRaw = row[3];
-        if (!nome) { erros.push(`Linha ${i + 2}: nome vazio`); return; }
-        const wppNum = wppRaw.replace(/\D/g, '');
-        if (wppNum.length < 10) { erros.push(`Linha ${i + 2}: WhatsApp inválido (${wppRaw})`); return; }
-        const segFormatado = SEGMENTOS_VALIDOS.find(s => s.toLowerCase() === seg.toLowerCase()) || 'Outros';
-        let ultima = '';
-        if (dataRaw instanceof Date) {
-          ultima = dataRaw.toISOString().split('T')[0];
-        } else {
-          const dataStr = String(dataRaw || '').trim();
-          if (/^\d{2}\/\d{2}\/\d{4}$/.test(dataStr)) {
-            const [d, m, a] = dataStr.split('/');
-            ultima = `${a}-${m}-${d}`;
-          } else if (/^\d{4}-\d{2}-\d{2}$/.test(dataStr)) {
-            ultima = dataStr;
-          } else {
-            ultima = new Date().toISOString().split('T')[0];
-          }
-        }
-        const dias = Math.floor((new Date() - new Date(ultima + 'T12:00')) / (1000 * 60 * 60 * 24));
-        const limDias = SEGMENTOS[segFormatado]?.dias || 10;
-        const status = dias < limDias ? 'ok' : dias < limDias * 1.5 ? 'alerta' : 'critico';
-        importData.push({ id: Date.now() + i, nome, wpp: wppRaw || wppNum, seg: segFormatado, ultima, status });
+function handleFile(e){
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(evt){
+    try{
+      const wb=XLSX.read(new Uint8Array(evt.target.result),{type:'array',cellDates:true}); const sh=wb.Sheets[wb.SheetNames[0]]; const rows=XLSX.utils.sheet_to_json(sh,{header:1,defval:''});
+      const pl=rows[0]||[]; const tc=typeof pl[0]==='string'&&pl[0].toLowerCase().includes('nome'); const dl=tc?rows.slice(1):rows;
+      const SV=Object.keys(SEGMENTOS); const erros=[]; importData=[];
+      dl.forEach((row,i)=>{
+        if(!row[0]&&!row[1]) return;
+        const nome=String(row[0]||'').trim(),wppR=String(row[1]||'').trim(),seg=String(row[2]||'Outros').trim(),dr=row[3];
+        if(!nome){ erros.push(i); return; }
+        const wppN=wppR.replace(/\D/g,''); if(wppN.length<10){ erros.push(i); return; }
+        const sf=SV.find(s=>s.toLowerCase()===seg.toLowerCase())||'Outros';
+        let ultima='';
+        if(dr instanceof Date){ ultima=dr.toISOString().split('T')[0]; }
+        else{ const ds=String(dr||'').trim(); if(/^\d{2}\/\d{2}\/\d{4}$/.test(ds)){ const[d,m,a]=ds.split('/'); ultima=`${a}-${m}-${d}`; } else if(/^\d{4}-\d{2}-\d{2}$/.test(ds)){ ultima=ds; } else{ ultima=new Date().toISOString().split('T')[0]; } }
+        const dias=Math.floor((new Date()-new Date(ultima+'T12:00'))/864e5); const ld=SEGMENTOS[sf]?.dias||10; const status=dias<ld?'ok':dias<ld*1.5?'alerta':'critico';
+        importData.push({id:Date.now()+i,nome,wpp:wppR||wppN,seg:sf,ultima,status});
       });
-      if (!importData.length) {
-        document.getElementById('import-preview').style.display = '';
-        document.getElementById('import-msg').textContent = '❌ Nenhum cliente válido encontrado na planilha.';
-        document.getElementById('import-msg').style.color = 'var(--red)';
-        document.getElementById('btn-importar').style.display = 'none';
-        return;
-      }
-      document.getElementById('import-preview').style.display = '';
-      document.getElementById('import-msg').style.color = 'var(--green)';
-      let msg = `✓ ${file.name} — ${importData.length} cliente${importData.length > 1 ? 's' : ''} encontrado${importData.length > 1 ? 's' : ''}.`;
-      if (erros.length) msg += ` (${erros.length} linha${erros.length > 1 ? 's' : ''} ignorada${erros.length > 1 ? 's' : ''} por erro)`;
-      document.getElementById('import-msg').textContent = msg;
-      document.getElementById('btn-importar').style.display = '';
-    } catch (err) {
-      document.getElementById('import-preview').style.display = '';
-      document.getElementById('import-msg').textContent = '❌ Erro ao ler o arquivo. Verifique se é um .xlsx ou .csv válido.';
-      document.getElementById('import-msg').style.color = 'var(--red)';
-      document.getElementById('btn-importar').style.display = 'none';
-      console.error('Erro import:', err);
-    }
+      if(!importData.length){ document.getElementById('import-preview').style.display=''; document.getElementById('import-msg').textContent='Nenhum cliente valido encontrado.'; document.getElementById('import-msg').style.color='var(--red)'; document.getElementById('btn-importar').style.display='none'; return; }
+      document.getElementById('import-preview').style.display=''; document.getElementById('import-msg').style.color='var(--green)';
+      let msg=`${file.name} - ${importData.length} cliente${importData.length>1?'s':''} encontrado${importData.length>1?'s':''}.`; if(erros.length) msg+=` (${erros.length} linha${erros.length>1?'s':''} ignorada${erros.length>1?'s':''})`;
+      document.getElementById('import-msg').textContent=msg; document.getElementById('btn-importar').style.display='';
+    }catch(err){ document.getElementById('import-preview').style.display=''; document.getElementById('import-msg').textContent='Erro ao ler o arquivo.'; document.getElementById('import-msg').style.color='var(--red)'; document.getElementById('btn-importar').style.display='none'; }
   };
   reader.readAsArrayBuffer(file);
 }
-
-async function confirmarImport() {
-  if (!importData.length) return;
-  const btn = document.getElementById('btn-importar');
-  btn.textContent = '⏳ Importando...';
-  btn.disabled = true;
-  let salvos = 0;
-  const novos = [];
-  for (const cliente of importData) {
-    const saved = await salvarClienteBanco(cliente);
-    if (saved) { cliente.id = saved.id; novos.push(cliente); salvos++; }
-    else { novos.push(cliente); }
-  }
-  clientes.unshift(...novos);
-  filterClientes();
-  updateCount();
-  closeModal();
-  showToast(`${salvos || novos.length} clientes importados com sucesso!`);
-  importData = [];
-  btn.textContent = 'Importar clientes';
-  btn.disabled = false;
+async function confirmarImport(){
+  if(!importData.length) return;
+  const btn=document.getElementById('btn-importar'); btn.textContent='Importando...'; btn.disabled=true;
+  let salvos=0; const novos=[];
+  for(const c of importData){ const s=await salvarClienteBanco(c); if(s){ c.id=s.id; novos.push(c); salvos++; } else{ novos.push(c); } }
+  clientes.unshift(...novos); filterClientes(); updateCount(); closeModal(); showToast(`${salvos||novos.length} clientes importados!`);
+  importData=[]; btn.textContent='Importar clientes'; btn.disabled=false;
 }
-
 function showToast(msg,type='ok'){
-  const t=document.getElementById('toast');
-  t.querySelector('span:first-child').textContent=type==='err'?'✕':'✓';
-  document.getElementById('toast-msg').textContent=msg;
-  t.style.borderColor=type==='err'?'var(--red)':'var(--green)';
-  t.style.color=type==='err'?'var(--red)':'var(--green)';
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
+  const t=document.getElementById('toast'); t.querySelector('span:first-child').textContent=type==='err'?'X':'v'; document.getElementById('toast-msg').textContent=msg;
+  t.style.borderColor=type==='err'?'var(--red)':'var(--green)'; t.style.color=type==='err'?'var(--red)':'var(--green)';
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800);
 }
-
 function showPage(id,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
-  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',config:'Configurações',novidades:'Novidades'};
-  const saudacaoEl = document.getElementById('saudacao-texto');
-  const tituloEl = document.getElementById('page-title');
-  if(id === 'dashboard'){
-    const primeiroNome = (document.querySelector('.user-name')?.textContent || '').split(' ')[0];
-    tituloEl.textContent = primeiroNome || 'Dashboard';
-    atualizarSaudacao();
-    if(saudacaoEl) saudacaoEl.style.display = '';
-  } else {
-    tituloEl.textContent = titles[id] || id;
-    if(saudacaoEl) saudacaoEl.style.display = 'none';
-  }
-  const actionBtn=document.getElementById('topbar-action');
-  if(id==='clientes'||id==='dashboard'){ actionBtn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo cliente'; actionBtn.style.display=''; }
-  else{ actionBtn.style.display='none'; }
-  if(id==='historico') renderHistorico();
+  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automacoes',campanhas:'Campanhas',historico:'Historico',config:'Configuracoes',novidades:'Novidades',tutoriais:'Tutoriais',whatsapp:'Conectar WhatsApp'};
+  const se=document.getElementById('saudacao-texto'); const te=document.getElementById('page-title');
+  if(id==='dashboard'){ te.textContent=(document.querySelector('.user-name')?.textContent||'').split(' ')[0]||'Dashboard'; atualizarSaudacao(); if(se) se.style.display=''; }
+  else{ te.textContent=titles[id]||id; if(se) se.style.display='none'; }
+  const ab=document.getElementById('topbar-action');
+  if(id==='clientes'||id==='dashboard'){ ab.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> + Novo cliente'; ab.style.display=''; }
+  else{ ab.style.display='none'; }
+  if(id==='historico') carregarHistorico();
   if(id==='campanhas') initCampanhas();
 }
-function topbarAction(){ const active=document.querySelector('.page.active').id; if(active==='page-clientes'||active==='page-dashboard') openModal(); }
-
-const ACCOUNT={status:'trial',trialEndsAt:new Date(Date.now()+7*24*60*60*1000),plano:null,empresaId:null,email:null};
+function topbarAction(){ const a=document.querySelector('.page.active').id; if(a==='page-clientes'||a==='page-dashboard') openModal(); }
+const ACCOUNT={status:'trial',trialEndsAt:new Date(Date.now()+7*864e5),plano:null,empresaId:null,email:null};
 
 async function abrirAssinatura(){
   showToast('Abrindo portal da assinatura...');
   try{
-    const res=await fetch(`${BACKEND}/api/portal`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({empresaId:ACCOUNT.empresaId})});
-    const data=await res.json();
-    if(data.url) window.location.href=data.url;
-    else showToast('Erro ao abrir portal.','err');
-  }catch(err){ showToast('Erro ao conectar com o servidor.','err'); }
+    const r=await fetch(`${BACKEND}/api/portal`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({empresaId:ACCOUNT.empresaId})});
+    const d=await r.json();
+    if(d.url) window.open(d.url,'_blank');
+    else{ showToast('Sem assinatura ativa. Escolha um plano.','err'); abrirPlanos('trial'); }
+  }catch(e){ showToast('Erro ao conectar.','err'); }
 }
 
-// ── WHATSAPP — FUNÇÕES ATUALIZADAS (patch v2) ──
-
-async function conectarWhatsapp() {
-  const btn = document.getElementById('btn-conectar-wpp')
-  btn.textContent = '⏳ Conectando...'
-  btn.disabled = true
-
-  try {
-    const res = await fetch(`${BACKEND}/api/instancia/criar`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ empresaId: ACCOUNT.empresaId })
-    })
-    const data = await res.json()
-
-    if (!data.success) {
-      showToast('Erro ao criar instância. Tente novamente.', 'err')
-      btn.textContent = 'Conectar WhatsApp'
-      btn.disabled = false
-      return
-    }
-
-    // Já estava conectada — atualiza UI direto
-    if (data.alreadyConnected) {
-      document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>'
-      document.getElementById('wpp-numero').textContent = 'WhatsApp conectado'
-      document.getElementById('btn-conectar-wpp').style.display = 'none'
-      document.getElementById('btn-desconectar-wpp').style.display = ''
-      showToast('WhatsApp já está conectado! ✓')
-      btn.textContent = 'Conectar WhatsApp'
-      btn.disabled = false
-      return
-    }
-
-    // Instância criada/existente — aguarda 2s e busca QR
-    showToast('Gerando QR Code...')
-    await new Promise(r => setTimeout(r, 2000))
-    await buscarQRCode()
-
-  } catch (err) {
-    showToast('Erro ao conectar. Tente novamente.', 'err')
-    console.error(err)
-  }
-
-  btn.textContent = 'Conectar WhatsApp'
-  btn.disabled = false
+// WHATSAPP
+async function conectarWhatsapp(){
+  const btn=document.getElementById('btn-conectar-wpp'); btn.textContent='Conectando...'; btn.disabled=true;
+  try{
+    const r=await fetch(`${BACKEND}/api/instancia/criar`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({empresaId:ACCOUNT.empresaId})});
+    const d=await r.json();
+    if(!d.success){ showToast('Erro ao criar instancia.','err'); btn.textContent='Conectar WhatsApp'; btn.disabled=false; return; }
+    if(d.alreadyConnected){ setWppConectado(); showToast('WhatsApp ja conectado!'); btn.textContent='Conectar WhatsApp'; btn.disabled=false; return; }
+    showToast('Gerando QR Code...');
+    await new Promise(r=>setTimeout(r,2000));
+    await buscarQRCode();
+  }catch(e){ showToast('Erro ao conectar.','err'); }
+  btn.textContent='Conectar WhatsApp'; btn.disabled=false;
 }
-
-async function buscarQRCode(tentativa = 1) {
-  try {
-    const qrRes = await fetch(`${BACKEND}/api/instancia/qrcode/${ACCOUNT.empresaId}`)
-    const qrData = await qrRes.json()
-
-    const base64 =
-      qrData.result?.base64 ||
-      qrData.result?.qrcode?.base64 ||
-      qrData.result?.code ||
-      qrData.base64
-
-    if (base64) {
-      const src = base64.startsWith('data:') ? base64 : `data:image/png;base64,${base64}`
-      document.getElementById('qrcode-img').src = src
-      document.getElementById('qrcode-wrap').style.display = 'block'
-      showToast('QR Code gerado! Escaneie com seu WhatsApp.')
-      return
-    }
-
-    // QR ainda não gerado — tenta mais 2 vezes
-    if (tentativa < 3) {
-      showToast(`Aguardando QR Code... (tentativa ${tentativa}/3)`)
-      await new Promise(r => setTimeout(r, 3000))
-      await buscarQRCode(tentativa + 1)
-    } else {
-      showToast('Não foi possível gerar o QR Code. Tente novamente.', 'err')
-    }
-
-  } catch (err) {
-    showToast('Erro ao buscar QR Code.', 'err')
-    console.error(err)
-  }
+async function buscarQRCode(n=1){
+  try{
+    const r=await fetch(`${BACKEND}/api/instancia/qrcode/${ACCOUNT.empresaId}`);
+    const d=await r.json();
+    const b64=d.result?.base64||d.result?.qrcode?.base64||d.result?.code||d.base64;
+    if(b64){ const src=b64.startsWith('data:')?b64:`data:image/png;base64,${b64}`; document.getElementById('qrcode-img').src=src; document.getElementById('qrcode-wrap').style.display='block'; showToast('QR Code gerado! Escaneie.'); return; }
+    if(n<3){ showToast(`Aguardando QR (${n}/3)...`); await new Promise(r=>setTimeout(r,3000)); await buscarQRCode(n+1); }
+    else showToast('Nao foi possivel gerar QR Code.','err');
+  }catch(e){ showToast('Erro ao buscar QR.','err'); }
 }
-
-async function verificarConexao() {
-  const btn = document.querySelector('#qrcode-wrap .btn-ghost')
-  if (btn) { btn.textContent = '⏳ Verificando...'; btn.disabled = true }
-
-  try {
-    const res = await fetch(`${BACKEND}/api/instancia/status/${ACCOUNT.empresaId}`)
-    const data = await res.json()
-    const state = data.result?.instance?.state || data.result?.state
-
-    if (state === 'open') {
-      document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>'
-      document.getElementById('wpp-numero').textContent = 'WhatsApp conectado'
-      document.getElementById('qrcode-wrap').style.display = 'none'
-      document.getElementById('btn-conectar-wpp').style.display = 'none'
-      document.getElementById('btn-desconectar-wpp').style.display = ''
-      showToast('WhatsApp conectado com sucesso! 🎉')
-    } else {
-      showToast('Ainda não conectado. Escaneie o QR Code.', 'err')
-    }
-  } catch (err) {
-    showToast('Erro ao verificar conexão.', 'err')
-  }
-
-  if (btn) { btn.textContent = 'Já escaniei — verificar conexão'; btn.disabled = false }
+async function verificarConexao(){
+  const btn=document.querySelector('#qrcode-wrap .btn-verificar'); if(btn){ btn.textContent='Verificando...'; btn.disabled=true; }
+  try{
+    const r=await fetch(`${BACKEND}/api/instancia/status/${ACCOUNT.empresaId}`);
+    const d=await r.json(); const state=d.result?.instance?.state||d.result?.state;
+    if(state==='open'){ setWppConectado(); document.getElementById('qrcode-wrap').style.display='none'; showToast('WhatsApp conectado com sucesso!'); }
+    else showToast('Ainda nao conectado. Escaneie o QR.','err');
+  }catch(e){ showToast('Erro ao verificar.','err'); }
+  if(btn){ btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Ja escaniei - verificar conexao'; btn.disabled=false; }
 }
-
-async function desconectarWhatsapp() {
-  if (!confirm('Deseja desconectar o WhatsApp? Será necessário escanear o QR Code novamente.')) return
-  try {
-    await fetch(`${BACKEND}/api/instancia/deletar/${ACCOUNT.empresaId}`, { method: 'DELETE' })
-    document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-gray">● Não configurado</span>'
-    document.getElementById('wpp-numero').textContent = '—'
-    document.getElementById('btn-conectar-wpp').style.display = ''
-    document.getElementById('btn-desconectar-wpp').style.display = 'none'
-    document.getElementById('qrcode-wrap').style.display = 'none'
-    showToast('WhatsApp desconectado.')
-  } catch (err) {
-    showToast('Erro ao desconectar.', 'err')
-  }
+function setWppConectado(){
+  const verde='<span class="badge badge-green">Conectado</span>';
+  document.getElementById('wpp-status-badge').innerHTML=verde;
+  document.getElementById('wpp-numero').textContent='WhatsApp conectado';
+  document.getElementById('btn-conectar-wpp').style.display='none';
+  document.getElementById('btn-desconectar-wpp').style.display='';
+}
+async function desconectarWhatsapp(){
+  if(!confirm('Deseja desconectar o WhatsApp?')) return;
+  try{
+    await fetch(`${BACKEND}/api/instancia/deletar/${ACCOUNT.empresaId}`,{method:'DELETE'});
+    document.getElementById('wpp-status-badge').innerHTML='<span class="badge badge-gray">Nao configurado</span>';
+    document.getElementById('wpp-numero').textContent='-';
+    document.getElementById('btn-conectar-wpp').style.display='';
+    document.getElementById('btn-desconectar-wpp').style.display='none';
+    document.getElementById('qrcode-wrap').style.display='none';
+    showToast('WhatsApp desconectado.');
+  }catch(e){ showToast('Erro ao desconectar.','err'); }
 }
 
 async function checkAuth(){
@@ -1189,364 +860,118 @@ async function checkAuth(){
   if(!session){ window.location.href='retornax-login.html'; return; }
   const{data:empresa}=await supabase.from('empresas').select('*').eq('user_id',session.user.id).single();
   if(empresa){
-    ACCOUNT.status=empresa.status;
-    ACCOUNT.trialEndsAt=new Date(empresa.trial_ends_at);
-    ACCOUNT.plano=empresa.plano;
-    ACCOUNT.empresaId=empresa.id;
-    ACCOUNT.email=empresa.email;
+    ACCOUNT.status=empresa.status; ACCOUNT.trialEndsAt=new Date(empresa.trial_ends_at); ACCOUNT.plano=empresa.plano; ACCOUNT.empresaId=empresa.id; ACCOUNT.email=empresa.email;
     document.querySelector('.user-name').textContent=empresa.nome;
-    document.querySelector('.user-plan').textContent=empresa.plano==='trial'?'Período gratuito':`Plano ${empresa.plano}`;
-    const primeiroNome = (empresa.nome || '').split(' ')[0];
-    document.getElementById('page-title').textContent = primeiroNome || 'Dashboard';
-    atualizarSaudacao(primeiroNome);
-    if(document.getElementById('config-nome')) document.getElementById('config-nome').textContent = empresa.nome || '—';
-    if(document.getElementById('config-email')) document.getElementById('config-email').textContent = empresa.email || '—';
-    if(document.getElementById('config-plano')){
-      const planos = {trial:'Trial gratuito', starter:'Starter — R$147/mês', profissional:'Profissional — R$247/mês', crescimento:'Crescimento — R$447/mês'};
-      document.getElementById('config-plano').textContent = planos[empresa.plano] || empresa.plano;
-    }
-    if(empresa.evolution_instance){
-      document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>';
-      document.getElementById('wpp-numero').textContent = 'WhatsApp conectado';
-      document.getElementById('btn-conectar-wpp').style.display = 'none';
-      document.getElementById('btn-desconectar-wpp').style.display = '';
-    }
+    document.querySelector('.user-plan').textContent=empresa.plano==='trial'?'Periodo gratuito':`Plano ${empresa.plano}`;
+    const pn=(empresa.nome||'').split(' ')[0]; document.getElementById('page-title').textContent=pn||'Dashboard'; atualizarSaudacao(pn);
+    if(document.getElementById('config-nome')) document.getElementById('config-nome').textContent=empresa.nome||'-';
+    if(document.getElementById('config-email')) document.getElementById('config-email').textContent=empresa.email||'-';
+    if(document.getElementById('config-plano')){ const pls={trial:'Trial gratuito',starter:'Starter - R$147/mes',profissional:'Profissional - R$247/mes',crescimento:'Crescimento - R$447/mes'}; document.getElementById('config-plano').textContent=pls[empresa.plano]||empresa.plano; }
+    if(empresa.evolution_instance) setWppConectado();
   }
-  initAccountStatus();
-  await carregarClientes();
+  initAccountStatus(); await carregarClientes(); await carregarHistorico();
 }
-
 async function carregarClientes(){
   if(!ACCOUNT.empresaId) return;
   const{data}=await supabase.from('clientes').select('*').eq('empresa_id',ACCOUNT.empresaId).order('created_at',{ascending:false});
-  if(data&&data.length>0){
-    clientes=data.map(c=>({id:c.id,nome:c.nome,wpp:c.whatsapp,seg:c.segmento,ultima:c.ultima_visita,status:c.status}));
-    filterClientes(); updateCount();
-  }
+  if(data&&data.length){ clientes=data.map(c=>({id:c.id,nome:c.nome,wpp:c.whatsapp,seg:c.segmento,ultima:c.ultima_visita,status:c.status})); filterClientes(); updateCount(); }
   checkOnboarding();
 }
-
-async function salvarClienteBanco(cliente){
-  if(!ACCOUNT.empresaId) return;
-  const{data}=await supabase.from('clientes').insert({empresa_id:ACCOUNT.empresaId,nome:cliente.nome,whatsapp:cliente.wpp,segmento:cliente.seg,ultima_visita:cliente.ultima,status:cliente.status}).select().single();
-  return data;
+async function salvarClienteBanco(c){ if(!ACCOUNT.empresaId) return; const{data}=await supabase.from('clientes').insert({empresa_id:ACCOUNT.empresaId,nome:c.nome,whatsapp:c.wpp,segmento:c.seg,ultima_visita:c.ultima,status:c.status}).select().single(); return data; }
+async function marcarVisita(btn){
+  const id=btn.dataset.id,nome=btn.dataset.nome,hoje=new Date().toISOString().split('T')[0],orig=btn.innerHTML; btn.innerHTML='...'; btn.disabled=true;
+  const i=clientes.findIndex(c=>String(c.id)===String(id)); if(i===-1){ btn.innerHTML=orig; btn.disabled=false; return; }
+  const{error}=await supabase.from('clientes').update({ultima_visita:hoje,status:'ok'}).eq('id',id);
+  if(!error){ clientes[i].ultima=hoje; clientes[i].status='ok'; filterClientes(); updateCount(); btn.innerHTML='OK'; btn.style.color='var(--accent)'; showToast(`Visita de ${nome} registrada!`); }
+  else{ showToast('Erro ao registrar visita.','err'); btn.innerHTML=orig; }
+  btn.disabled=false; setTimeout(()=>{ btn.innerHTML=orig; btn.style.color=''; },2500);
 }
-
-async function removerClienteBanco(id){ await supabase.from('clientes').delete().eq('id',id); }
-
-async function marcarVisita(btn) {
-  const id = btn.dataset.id;
-  const nome = btn.dataset.nome;
-  const hoje = new Date().toISOString().split('T')[0];
-  const orig = btn.innerHTML;
-  btn.innerHTML = '⏳'; btn.disabled = true;
-
-  const idx = clientes.findIndex(c => String(c.id) === String(id));
-  if (idx === -1) { btn.innerHTML = orig; btn.disabled = false; return; }
-
-  const { error } = await supabase.from('clientes')
-    .update({ ultima_visita: hoje, status: 'ok' })
-    .eq('id', id);
-
-  if (!error) {
-    clientes[idx].ultima = hoje;
-    clientes[idx].status = 'ok';
-    filterClientes();
-    updateCount();
-    btn.innerHTML = '✓'; btn.style.color = 'var(--accent)';
-    showToast(`Visita de ${nome} registrada! ✓`);
-  } else {
-    showToast('Erro ao registrar visita.', 'err');
-    btn.innerHTML = orig;
-  }
-  btn.disabled = false;
-  setTimeout(() => { btn.innerHTML = orig; btn.style.color = ''; }, 2500);
-}
-
-function abrirEditarCliente(btn) {
-  document.getElementById('edit-cli-id').value    = btn.dataset.id;
-  document.getElementById('edit-cli-nome').value  = btn.dataset.nome;
-  document.getElementById('edit-cli-wpp').value   = btn.dataset.wpp;
-  document.getElementById('edit-cli-seg').value   = btn.dataset.seg;
-  document.getElementById('edit-cli-data').value  = btn.dataset.ultima;
-  document.getElementById('modal-editar-cliente').classList.add('open');
-}
-
-function fecharEditarCliente() {
-  document.getElementById('modal-editar-cliente').classList.remove('open');
-}
-
-async function salvarEdicaoCliente() {
-  const id    = document.getElementById('edit-cli-id').value;
-  const nome  = document.getElementById('edit-cli-nome').value.trim();
-  const wpp   = document.getElementById('edit-cli-wpp').value.trim();
-  const seg   = document.getElementById('edit-cli-seg').value;
-  const ultima = document.getElementById('edit-cli-data').value;
-
-  if (!nome || !wpp || !ultima) { showToast('Preencha todos os campos.', 'err'); return; }
-
-  const btn = document.querySelector('#modal-editar-cliente .btn-primary');
-  btn.textContent = '⏳ Salvando...'; btn.disabled = true;
-
-  const dias = Math.floor((new Date() - new Date(ultima + 'T12:00')) / (1000 * 60 * 60 * 24));
-  const limDias = SEGMENTOS[seg]?.dias || 10;
-  const status = dias < limDias ? 'ok' : dias < limDias * 1.5 ? 'alerta' : 'critico';
-
-  const { error } = await supabase.from('clientes')
-    .update({ nome, whatsapp: wpp, segmento: seg, ultima_visita: ultima, status })
-    .eq('id', id);
-
-  if (!error) {
-    const idx = clientes.findIndex(c => String(c.id) === String(id));
-    if (idx > -1) { clientes[idx] = { ...clientes[idx], nome, wpp, seg, ultima, status }; }
-    filterClientes();
-    updateCount();
-    fecharEditarCliente();
-    showToast(`${nome} atualizado com sucesso!`);
-  } else {
-    showToast('Erro ao salvar. Tente novamente.', 'err');
-  }
-
-  btn.textContent = 'Salvar alterações'; btn.disabled = false;
+function abrirEditarCliente(btn){ document.getElementById('edit-cli-id').value=btn.dataset.id; document.getElementById('edit-cli-nome').value=btn.dataset.nome; document.getElementById('edit-cli-wpp').value=btn.dataset.wpp; document.getElementById('edit-cli-seg').value=btn.dataset.seg; document.getElementById('edit-cli-data').value=btn.dataset.ultima; document.getElementById('modal-editar-cliente').classList.add('open'); }
+function fecharEditarCliente(){ document.getElementById('modal-editar-cliente').classList.remove('open'); }
+async function salvarEdicaoCliente(){
+  const id=document.getElementById('edit-cli-id').value,nome=document.getElementById('edit-cli-nome').value.trim(),wpp=document.getElementById('edit-cli-wpp').value.trim(),seg=document.getElementById('edit-cli-seg').value,ultima=document.getElementById('edit-cli-data').value;
+  if(!nome||!wpp||!ultima){ showToast('Preencha todos os campos.','err'); return; }
+  const btn=document.querySelector('#modal-editar-cliente .btn-primary'); btn.textContent='Salvando...'; btn.disabled=true;
+  const dias=Math.floor((new Date()-new Date(ultima+'T12:00'))/864e5); const ld=SEGMENTOS[seg]?.dias||10; const status=dias<ld?'ok':dias<ld*1.5?'alerta':'critico';
+  const{error}=await supabase.from('clientes').update({nome,whatsapp:wpp,segmento:seg,ultima_visita:ultima,status}).eq('id',id);
+  if(!error){ const i=clientes.findIndex(c=>String(c.id)===String(id)); if(i>-1) clientes[i]={...clientes[i],nome,wpp,seg,ultima,status}; filterClientes(); updateCount(); fecharEditarCliente(); showToast(`${nome} atualizado!`); }
+  else showToast('Erro ao salvar.','err');
+  btn.textContent='Salvar alteracoes'; btn.disabled=false;
 }
 async function logout(){ await supabase.auth.signOut(); window.location.href='retornax-login.html'; }
-
 function initAccountStatus(){
-  const banner=document.getElementById('trial-banner');
-  const content=document.getElementById('main-content');
-  const hoje=new Date();
-  const diff=Math.ceil((ACCOUNT.trialEndsAt-hoje)/(1000*60*60*24));
+  const banner=document.getElementById('trial-banner'),content=document.getElementById('main-content'),hoje=new Date(),diff=Math.ceil((ACCOUNT.trialEndsAt-hoje)/864e5);
   if(ACCOUNT.status==='ativo'){ banner.style.display='none'; return; }
-  if(ACCOUNT.status==='trial'&&diff>0){
-    const cor=diff<=2?'warning':'active';
-    banner.className=`trial-banner ${cor}`;
-    banner.innerHTML=`<span>${diff<=2?'⚠️':'🎁'} Período gratuito — <strong>${diff} dia${diff>1?'s':''} restante${diff>1?'s':''}</strong>. Após isso, escolha um plano.</span><button class="btn-assinar-banner" onclick="abrirPlanos('trial')">Ver planos →</button>`;
-    return;
-  }
-  banner.className='trial-banner expired';
-  banner.innerHTML=`<span>🔒 Seu acesso está <strong>expirado</strong>. Assine um plano para continuar.</span><button class="btn-assinar-banner" onclick="abrirPlanos('expired')">Assinar agora →</button>`;
-  content.classList.add('content-blocked');
-  abrirPlanos(ACCOUNT.status);
+  if(ACCOUNT.status==='trial'&&diff>0){ const cor=diff<=2?'warning':'active'; banner.className=`trial-banner ${cor}`; banner.innerHTML=`<span>${diff<=2?'':'&#x1F381;'} Periodo gratuito - <strong>${diff} dia${diff>1?'s':''}</strong> restante${diff>1?'s':''}.</span><button class="btn-assinar-banner" onclick="abrirPlanos('trial')">Ver planos</button>`; return; }
+  banner.className='trial-banner expired'; banner.innerHTML=`<span>&#x1F512; Acesso <strong>expirado</strong>. Assine para continuar.</span><button class="btn-assinar-banner" onclick="abrirPlanos('expired')">Assinar agora</button>`;
+  content.classList.add('content-blocked'); abrirPlanos(ACCOUNT.status);
 }
-
 function fecharPlanos(){ document.getElementById('planos-overlay').classList.remove('open'); document.getElementById('main-content').classList.remove('content-blocked'); }
 function abrirPlanos(motivo){
-  const icon=document.getElementById('planos-icon'),title=document.getElementById('planos-title'),sub=document.getElementById('planos-sub');
-  if(motivo==='inadimplente'){ icon.textContent='⚠️'; title.textContent='Pagamento pendente'; sub.textContent='Houve um problema com sua cobrança.'; }
-  else if(motivo==='trial'){ icon.textContent='🚀'; title.textContent='Escolha seu plano'; sub.textContent='Continue usando o Retornax no piloto automático.'; }
-  else{ icon.textContent='🔒'; title.textContent='Seu período gratuito acabou'; sub.textContent='Escolha um plano para continuar.'; }
+  const i=document.getElementById('planos-icon'),t=document.getElementById('planos-title'),s=document.getElementById('planos-sub');
+  if(motivo==='trial'){ i.textContent='&#x1F680;'; t.textContent='Escolha seu plano'; s.textContent='Continue no piloto automatico.'; }
+  else{ i.textContent='&#x1F512;'; t.textContent='Seu periodo gratuito acabou'; s.textContent='Escolha um plano para continuar.'; }
   document.getElementById('planos-overlay').classList.add('open');
 }
-
 async function assinarPlano(plano,valor){
   showToast('Preparando checkout...');
-  try{
-    const res=await fetch(`${BACKEND}/api/create-checkout`,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({plano,empresaId:ACCOUNT.empresaId,email:ACCOUNT.email})});
-    const data=await res.json();
-    if(data.url) window.location.href=data.url;
-    else showToast('Erro ao criar checkout.','err');
-  }catch(err){ showToast('Erro ao conectar com o servidor.','err'); }
+  try{ const r=await fetch(`${BACKEND}/api/create-checkout`,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({plano,empresaId:ACCOUNT.empresaId,email:ACCOUNT.email})}); const d=await r.json(); if(d.url) window.location.href=d.url; else showToast('Erro ao criar checkout.','err'); }
+  catch(e){ showToast('Erro ao conectar.','err'); }
 }
 
-// ── CAMPANHAS ──
-let campanhasHistorico = [];
-
-function initCampanhas(){
-  const plano = ACCOUNT.plano || 'trial';
-  const temAcesso = plano === 'profissional' || plano === 'crescimento';
-  document.getElementById('campanhas-bloqueado').style.display = temAcesso ? 'none' : 'block';
-  document.getElementById('campanhas-conteudo').style.display = temAcesso ? 'block' : 'none';
-  if(temAcesso) atualizarContadorCampanha();
-}
-
-function abrirModalCampanha(){
-  document.getElementById('form-campanha').style.display = 'block';
-  atualizarContadorCampanha();
-}
-
-function fecharFormCampanha(){
-  document.getElementById('form-campanha').style.display = 'none';
-  document.getElementById('camp-nome').value = '';
-  document.getElementById('camp-mensagem').value = '';
-  document.getElementById('camp-publico').value = 'todos';
-}
-
-function atualizarContadorCampanha(){
-  const publico = document.getElementById('camp-publico')?.value || 'todos';
-  const count = publico === 'todos' ? clientes.length : clientes.filter(c => c.seg === publico).length;
-  const el = document.getElementById('camp-preview-count');
-  if(el) el.textContent = count;
-}
-
-document.addEventListener('change', e => { if(e.target.id === 'camp-publico') atualizarContadorCampanha(); });
-
-function insertVarCampanha(v){
-  const el = document.getElementById('camp-mensagem');
-  const s = el.selectionStart, e = el.selectionEnd;
-  el.value = el.value.slice(0,s) + v + el.value.slice(e);
-  el.focus(); el.selectionStart = el.selectionEnd = s + v.length;
-}
-
+// CAMPANHAS
+let campanhasHistorico=[];
+function initCampanhas(){ const p=ACCOUNT.plano||'trial'; const t=p==='profissional'||p==='crescimento'; document.getElementById('campanhas-bloqueado').style.display=t?'none':'block'; document.getElementById('campanhas-conteudo').style.display=t?'block':'none'; if(t) atualizarContadorCampanha(); }
+function abrirModalCampanha(){ document.getElementById('form-campanha').style.display='block'; atualizarContadorCampanha(); }
+function fecharFormCampanha(){ document.getElementById('form-campanha').style.display='none'; document.getElementById('camp-nome').value=''; document.getElementById('camp-mensagem').value=''; document.getElementById('camp-publico').value='todos'; }
+function atualizarContadorCampanha(){ const p=document.getElementById('camp-publico')?.value||'todos'; const c=p==='todos'?clientes.length:clientes.filter(x=>x.seg===p).length; const el=document.getElementById('camp-preview-count'); if(el) el.textContent=c; }
+document.addEventListener('change',e=>{ if(e.target.id==='camp-publico') atualizarContadorCampanha(); });
+function insertVarCampanha(v){ const el=document.getElementById('camp-mensagem'); const s=el.selectionStart,e=el.selectionEnd; el.value=el.value.slice(0,s)+v+el.value.slice(e); el.focus(); el.selectionStart=el.selectionEnd=s+v.length; }
 async function dispararCampanha(){
-  const nome = document.getElementById('camp-nome').value.trim();
-  const publico = document.getElementById('camp-publico').value;
-  const mensagemTemplate = document.getElementById('camp-mensagem').value.trim();
-  if(!nome || !mensagemTemplate){ showToast('Preencha o nome e a mensagem.', 'err'); return; }
-  const lista = publico === 'todos' ? clientes : clientes.filter(c => c.seg === publico);
-  if(!lista.length){ showToast('Nenhum cliente neste segmento.', 'err'); return; }
-  if(!confirm(`Confirma o disparo para ${lista.length} cliente${lista.length > 1 ? 's' : ''}? As mensagens serão enviadas com intervalo para evitar bloqueio.`)) return;
-  const btn = document.querySelector('#form-campanha .btn-green');
-  btn.textContent = '⏳ Disparando...'; btn.disabled = true;
-  try {
-    const res = await fetch(`${BACKEND}/api/disparar-campanha`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ empresaId: ACCOUNT.empresaId, mensagemTemplate, publico })
-    });
-    const data = await res.json();
-    if(data.success){
-      campanhasHistorico.unshift({
-        nome, publico, enviados: data.enviados, total: data.total,
-        data: new Date().toLocaleDateString('pt-BR'),
-        hora: new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})
-      });
-      renderCampanhasHistorico();
-      fecharFormCampanha();
-      showToast(`Campanha "${nome}" enviada para ${data.enviados} clientes!`);
-    } else {
-      showToast(data.error || 'Erro ao disparar campanha.', 'err');
-    }
-  } catch(err){
-    showToast('Erro ao conectar com o servidor.', 'err');
-  }
-  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Disparar campanha';
-  btn.disabled = false;
+  const nome=document.getElementById('camp-nome').value.trim(),publico=document.getElementById('camp-publico').value,msg=document.getElementById('camp-mensagem').value.trim();
+  if(!nome||!msg){ showToast('Preencha o nome e a mensagem.','err'); return; }
+  const lista=publico==='todos'?clientes:clientes.filter(c=>c.seg===publico);
+  if(!lista.length){ showToast('Nenhum cliente neste segmento.','err'); return; }
+  if(!confirm(`Confirma disparo para ${lista.length} cliente${lista.length>1?'s':''}? Serao enviados em lotes de 5.`)) return;
+  const btn=document.querySelector('#form-campanha .btn-green'); btn.textContent='Disparando...'; btn.disabled=true;
+  try{
+    const r=await fetch(`${BACKEND}/api/disparar-campanha`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({empresaId:ACCOUNT.empresaId,mensagemTemplate:msg,publico})});
+    const d=await r.json();
+    if(d.success){
+      campanhasHistorico.unshift({nome,publico,enviados:d.enviados,pendentes:d.erros||0,total:d.total,data:new Date().toLocaleDateString('pt-BR'),hora:new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})});
+      renderCampanhasHistorico(); fecharFormCampanha();
+      showToast(`Campanha "${nome}" - ${d.enviados} enviados${d.erros?`, ${d.erros} pendentes`:''}`);
+    }else showToast(d.error||'Erro ao disparar.','err');
+  }catch(e){ showToast('Erro ao conectar.','err'); }
+  btn.innerHTML='Disparar campanha'; btn.disabled=false;
 }
-
 function renderCampanhasHistorico(){
-  const el = document.getElementById('campanhas-lista');
-  if(!campanhasHistorico.length){
-    el.innerHTML = `<div class="empty-state"><div class="empty-icon">📣</div><strong style="color:var(--text)">Nenhuma campanha ainda</strong><p>Crie sua primeira campanha e dispare para toda sua base!</p></div>`;
-    return;
-  }
-  el.innerHTML = `<table><thead><tr><th>Campanha</th><th>Público</th><th>Enviados</th><th>Data</th><th>Status</th></tr></thead><tbody>
-    ${campanhasHistorico.map(c=>`<tr>
-      <td class="name">${c.nome}</td>
-      <td>${c.publico === 'todos' ? 'Todos os clientes' : c.publico}</td>
-      <td>${c.enviados} / ${c.total}</td>
-      <td>${c.data} ${c.hora}</td>
-      <td><span class="badge badge-green">✓ Concluída</span></td>
-    </tr>`).join('')}
-  </tbody></table>`;
+  const el=document.getElementById('campanhas-lista');
+  if(!campanhasHistorico.length){ el.innerHTML=`<div class="empty-state"><div class="empty-icon">&#x1F4E3;</div><strong style="color:var(--text)">Nenhuma campanha ainda</strong></div>`; return; }
+  el.innerHTML=`<table><thead><tr><th>Campanha</th><th>Publico</th><th>Enviados</th><th>Pendentes</th><th>Data</th></tr></thead><tbody>${campanhasHistorico.map(c=>`<tr><td class="name">${c.nome}</td><td>${c.publico==='todos'?'Todos':c.publico}</td><td>${c.enviados}/${c.total}</td><td>${c.pendentes>0?`<span class="badge badge-pending">${c.pendentes}</span>`:'<span style="color:var(--text3)">-</span>'}</td><td>${c.data} ${c.hora}</td></tr>`).join('')}</tbody></table>`;
 }
 
-function checkOnboarding(){
-  const visto=localStorage.getItem('retornax_onboarding_'+(ACCOUNT.empresaId||'x'));
-  if(!visto&&clientes.length===0) document.getElementById('onboarding-overlay').classList.add('open');
-}
-function obNext(step){ for(let i=1;i<=3;i++){ const el=document.getElementById('ob-step-'+i); if(el) el.style.display=i===step?'':'none'; } }
+// TUTORIAIS
+function toggleTutorial(card){ const s=card.querySelector('.tutorial-steps'); if(!s) return; const o=s.classList.contains('open'); document.querySelectorAll('.tutorial-steps').forEach(x=>x.classList.remove('open')); if(!o) s.classList.add('open'); }
+
+function checkOnboarding(){ const v=localStorage.getItem('retornax_ob_'+(ACCOUNT.empresaId||'x')); if(!v&&clientes.length===0) document.getElementById('onboarding-overlay').classList.add('open'); }
+function obNext(s){ for(let i=1;i<=3;i++){ const el=document.getElementById('ob-step-'+i); if(el) el.style.display=i===s?'':'none'; } }
 function obAbrirClientes(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('clientes',document.querySelectorAll('.nav-item')[1]); setTimeout(()=>openModal(),300); }
 function obImportarPlanilha(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('clientes',document.querySelectorAll('.nav-item')[1]); setTimeout(()=>openImportModal(),300); }
 function obAbrirAutomacoes(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('automacoes',document.querySelectorAll('.nav-item')[2]); }
-function obFinalizar(){ localStorage.setItem('retornax_onboarding_'+(ACCOUNT.empresaId||'x'),'1'); document.getElementById('onboarding-overlay').classList.remove('open'); }
+function obFinalizar(){ localStorage.setItem('retornax_ob_'+(ACCOUNT.empresaId||'x'),'1'); document.getElementById('onboarding-overlay').classList.remove('open'); }
+function abrirEditarMsg(btn){ const nome=btn.dataset.nome,wpp=btn.dataset.wpp,seg=btn.dataset.seg,ultima=btn.dataset.ultima,d=calcDays(ultima); const msg=(SEGMENTOS[seg]?.template||'Oi {nome}!').replace('{nome}',nome).replace('{dias}',d); document.getElementById('edit-msg-nome').textContent=nome; document.getElementById('edit-msg-texto').value=msg; document.getElementById('edit-msg-wpp').value=wpp; document.getElementById('edit-msg-dias').value=d; document.getElementById('modal-editar-msg').classList.add('open'); setTimeout(()=>document.getElementById('edit-msg-texto').focus(),100); }
+function insertVarEditMsg(v){ const el=document.getElementById('edit-msg-texto'); const s=el.selectionStart,e=el.selectionEnd; el.value=el.value.slice(0,s)+v+el.value.slice(e); el.focus(); el.selectionStart=el.selectionEnd=s+v.length; }
+async function enviarMsgEditada(){ const wpp=document.getElementById('edit-msg-wpp').value,msg=document.getElementById('edit-msg-texto').value.trim(),nome=document.getElementById('edit-msg-nome').textContent; if(!msg){ showToast('Mensagem vazia.','err'); return; } const btn=document.querySelector('#modal-editar-msg .btn-green'); btn.textContent='Enviando...'; btn.disabled=true; try{ const r=await fetch(`${BACKEND}/api/enviar-mensagem`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:wpp,mensagem:msg,empresaId:ACCOUNT.empresaId})}); const d=await r.json(); if(d.success){ showToast(`Enviado para ${nome}!`); document.getElementById('modal-editar-msg').classList.remove('open'); } else showToast('Erro ao enviar.','err'); }catch(e){ showToast('Erro ao conectar.','err'); } btn.innerHTML='Enviar mensagem'; btn.disabled=false; }
+function atualizarSaudacao(){ const h=new Date().getHours(); let s='Boa noite,'; if(h>=5&&h<12) s='Bom dia,'; else if(h>=12&&h<18) s='Boa tarde,'; const el=document.getElementById('saudacao-texto'); if(el) el.textContent=s; }
+function animarNumero(el,target,dur=800){ const st=performance.now(); function up(t){ const p=Math.min((t-st)/dur,1); el.textContent=Math.round(target*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(up); } requestAnimationFrame(up); }
+function toggleTema(){ const l=document.body.classList.toggle('light-mode'); document.getElementById('icon-tema-escuro').style.display=l?'none':''; document.getElementById('icon-tema-claro').style.display=l?'':'none'; localStorage.setItem('rtx_tema',l?'light':'dark'); }
+(function(){ const t=localStorage.getItem('rtx_tema'); if(t==='light'){ document.body.classList.add('light-mode'); document.getElementById('icon-tema-escuro').style.display='none'; document.getElementById('icon-tema-claro').style.display=''; } })();
 
-// ── EDITAR MENSAGEM INDIVIDUAL ──
-function abrirEditarMsg(btn) {
-  const nome  = btn.dataset.nome;
-  const wpp   = btn.dataset.wpp;
-  const seg   = btn.dataset.seg;
-  const ultima = btn.dataset.ultima;
-  const days  = calcDays(ultima);
-  const tmpl  = SEGMENTOS[seg]?.template || 'Oi {nome}! Sentimos sua falta! 😊';
-  const msg   = tmpl.replace('{nome}', nome).replace('{dias}', days);
-  document.getElementById('edit-msg-nome').textContent = nome;
-  document.getElementById('edit-msg-texto').value = msg;
-  document.getElementById('edit-msg-wpp').value = wpp;
-  document.getElementById('edit-msg-dias').value = days;
-  document.getElementById('modal-editar-msg').classList.add('open');
-  setTimeout(() => document.getElementById('edit-msg-texto').focus(), 100);
-}
-
-function insertVarEditMsg(v) {
-  const el = document.getElementById('edit-msg-texto');
-  const s = el.selectionStart, e = el.selectionEnd;
-  el.value = el.value.slice(0,s) + v + el.value.slice(e);
-  el.focus(); el.selectionStart = el.selectionEnd = s + v.length;
-}
-
-async function enviarMsgEditada() {
-  const wpp      = document.getElementById('edit-msg-wpp').value;
-  const mensagem = document.getElementById('edit-msg-texto').value.trim();
-  const nome     = document.getElementById('edit-msg-nome').textContent;
-  if (!mensagem) { showToast('Mensagem não pode estar vazia.', 'err'); return; }
-  const btn = document.querySelector('#modal-editar-msg .btn-green');
-  btn.textContent = '⏳ Enviando...'; btn.disabled = true;
-  try {
-    const res = await fetch(`${BACKEND}/api/enviar-mensagem`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ telefone: wpp, mensagem, empresaId: ACCOUNT.empresaId })
-    });
-    const data = await res.json();
-    if (data.success) {
-      showToast(`Mensagem enviada para ${nome}! ✓`);
-      document.getElementById('modal-editar-msg').classList.remove('open');
-    } else {
-      showToast('Erro ao enviar mensagem.', 'err');
-    }
-  } catch(err) {
-    showToast('Erro ao conectar com o servidor.', 'err');
-  }
-  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Enviar mensagem';
-  btn.disabled = false;
-}
-
-function atualizarSaudacao(nome) {
-  const hora = new Date().getHours();
-  let saudacao = 'Boa noite,';
-  if (hora >= 5 && hora < 12) saudacao = 'Bom dia,';
-  else if (hora >= 12 && hora < 18) saudacao = 'Boa tarde,';
-  const el = document.getElementById('saudacao-texto');
-  if (el) el.textContent = saudacao;
-}
-
-function animarNumero(el, target, duracao = 800) {
-  const start = 0;
-  const startTime = performance.now();
-  function update(currentTime) {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duracao, 1);
-    const ease = 1 - Math.pow(1 - progress, 3);
-    el.textContent = Math.round(start + (target - start) * ease);
-    if (progress < 1) requestAnimationFrame(update);
-  }
-  requestAnimationFrame(update);
-}
-
-function toggleTema(){
-  const isLight = document.body.classList.toggle('light-mode');
-  document.getElementById('icon-tema-escuro').style.display = isLight ? 'none' : '';
-  document.getElementById('icon-tema-claro').style.display = isLight ? '' : 'none';
-  localStorage.setItem('retornax_tema', isLight ? 'light' : 'dark');
-}
-
-(function(){
-  const tema = localStorage.getItem('retornax_tema');
-  if(tema === 'light'){
-    document.body.classList.add('light-mode');
-    document.getElementById('icon-tema-escuro').style.display = 'none';
-    document.getElementById('icon-tema-claro').style.display = '';
-  }
-})();
-
-renderTemplates();
-document.getElementById('f-data').valueAsDate=new Date();
-checkAuth();
+renderTemplates(); document.getElementById('f-data').valueAsDate=new Date(); checkAuth();
 </script>
-
-<a href="https://wa.me/5551984026354?text=Oi!+Preciso+de+ajuda+com+o+Retornax+%F0%9F%9A%80" target="_blank" class="suporte-btn">
+<a href="https://wa.me/5551984026354?text=Oi!+Preciso+de+ajuda+com+o+Retornax" target="_blank" class="suporte-btn">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   Suporte
 </a>
-</body>
-</html>
+</body></html>
