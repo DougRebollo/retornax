@@ -2,7 +2,6 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZLRT2HEST"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -10,7 +9,7 @@
   gtag('js', new Date());
   gtag('config', 'G-0ZLRT2HEST');
 </script>
-<link rel="icon" type="image/png" href="favicon.png">  
+<link rel="icon" type="image/png" href="favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Retornax — Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,15 +18,7 @@
 <script src="retornax-config.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root {
-  --bg:#07091a;--bg2:#0d1230;--bg3:#111a3a;--surface:rgba(255,255,255,0.04);
-  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.13);
-  --blue:#2e6aff;--blue-dim:rgba(46,106,255,0.15);--blue-lite:#5b8fff;
-  --accent:#00e5ff;--green:#00d68f;--green-dim:rgba(0,214,143,0.12);
-  --amber:#ffb020;--amber-dim:rgba(255,176,32,0.12);
-  --red:#ff4d4d;--red-dim:rgba(255,77,77,0.12);
-  --text:#dce6ff;--text2:#7a8ab0;--text3:#4a5880;--white:#ffffff;
-}
+:root{--bg:#07091a;--bg2:#0d1230;--bg3:#111a3a;--surface:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.13);--blue:#2e6aff;--blue-dim:rgba(46,106,255,0.15);--blue-lite:#5b8fff;--accent:#00e5ff;--green:#00d68f;--green-dim:rgba(0,214,143,0.12);--amber:#ffb020;--amber-dim:rgba(255,176,32,0.12);--red:#ff4d4d;--red-dim:rgba(255,77,77,0.12);--text:#dce6ff;--text2:#7a8ab0;--text3:#4a5880;--white:#ffffff}
 html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px}
 .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center}
 .login-box{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:40px;width:360px}
@@ -73,38 +64,14 @@ tbody tr:hover{background:rgba(255,255,255,0.02)}
 tbody td{padding:12px 16px;font-size:0.83rem;color:var(--text2)}
 tbody td.name{color:var(--text);font-weight:500}
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:100px;font-size:0.72rem;font-weight:600}
-.badge-green{background:var(--green-dim);color:var(--green)}.badge-amber{background:var(--amber-dim);color:var(--amber)}
-.badge-blue{background:var(--blue-dim);color:var(--blue-lite)}.badge-red{background:var(--red-dim);color:var(--red)}
-.badge-gray{background:rgba(255,255,255,0.07);color:var(--text2)}
+.badge-green{background:var(--green-dim);color:var(--green)}.badge-amber{background:var(--amber-dim);color:var(--amber)}.badge-blue{background:var(--blue-dim);color:var(--blue-lite)}.badge-red{background:var(--red-dim);color:var(--red)}.badge-gray{background:rgba(255,255,255,0.07);color:var(--text2)}
 .btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:7px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.78rem;font-weight:500;cursor:pointer;border:none;transition:all 0.15s}
 .btn-primary{background:var(--blue);color:var(--white)}.btn-primary:hover{background:var(--blue-lite)}
 .btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border)}.btn-ghost:hover{border-color:var(--border2);color:var(--white)}
-.btn-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,214,143,0.2)}.btn-green:hover{background:rgba(0,214,143,0.2)}
-.btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(255,77,77,0.2)}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(4px)}
-.modal-overlay.open{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;width:520px;max-width:95vw;padding:28px;animation:modalIn 0.2s ease;max-height:90vh;overflow-y:auto}
-@keyframes modalIn{from{opacity:0;transform:scale(0.96) translateY(10px)}to{opacity:1;transform:none}}
-.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.modal-title{font-weight:700;font-size:1.05rem;color:var(--white)}
-.modal-close{background:none;border:none;color:var(--text3);cursor:pointer;font-size:1.2rem;line-height:1}
-.modal .form-group{margin-bottom:16px}
-.modal .form-group label{display:block;font-size:0.78rem;font-weight:600;color:var(--text2);margin-bottom:6px}
-.modal .form-group input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.15s}
-.modal .form-group input:focus{border-color:var(--blue)}
-.modal .form-group input::placeholder{color:var(--text3)}
-.modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
-.modal-info{background:var(--bg3);border-radius:8px;padding:12px 14px;font-size:0.8rem;color:var(--text2);line-height:1.6;margin-bottom:16px}
-.modal-info strong{color:var(--text)}
 .toast{position:fixed;bottom:28px;right:28px;z-index:500;background:var(--bg2);border:1px solid var(--green);color:var(--green);padding:12px 20px;border-radius:10px;font-size:0.85rem;font-weight:500;display:flex;align-items:center;gap:8px;transform:translateY(80px);opacity:0;transition:all 0.3s;pointer-events:none}
 .toast.show{transform:translateY(0);opacity:1}
 .loading{text-align:center;padding:40px;color:var(--text3)}
-.zapi-connected{display:inline-flex;align-items:center;gap:5px;color:var(--green);font-size:0.78rem;font-weight:600}
-.zapi-connected::before{content:'●';font-size:0.6rem}
-.zapi-missing{display:inline-flex;align-items:center;gap:5px;color:var(--amber);font-size:0.78rem;font-weight:600}
-.zapi-missing::before{content:'○';font-size:0.6rem}
-
-/* FINANCEIRO */
+/* FINANCEIRO / GESTAO */
 .fin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
 .fin-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}
 .fin-card h3{font-size:0.82rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:20px}
@@ -113,22 +80,22 @@ tbody td.name{color:var(--text);font-weight:500}
 .fin-row.total{padding-top:14px;margin-top:4px;border-top:1px solid var(--border2)}
 .fin-key{font-size:0.83rem;color:var(--text2)}
 .fin-val{font-size:0.9rem;font-weight:600;color:var(--text)}
-.fin-val.green{color:var(--green)}
-.fin-val.red{color:var(--red)}
-.fin-val.amber{color:var(--amber)}
+.fin-val.green{color:var(--green)}.fin-val.red{color:var(--red)}.fin-val.amber{color:var(--amber)}.fin-val.blue{color:var(--blue-lite)}
 .plano-bar-wrap{margin-top:8px}
 .plano-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .plano-bar-label{font-size:0.78rem;color:var(--text2);width:90px;flex-shrink:0}
 .plano-bar-track{flex:1;height:6px;background:var(--bg3);border-radius:4px;overflow:hidden}
 .plano-bar-fill{height:100%;border-radius:4px;transition:width 0.6s ease}
-.plano-bar-fill.starter{background:var(--blue-lite)}
-.plano-bar-fill.profissional{background:var(--accent)}
-.plano-bar-fill.crescimento{background:var(--green)}
+.plano-bar-fill.starter{background:var(--blue-lite)}.plano-bar-fill.profissional{background:var(--accent)}.plano-bar-fill.crescimento{background:var(--green)}
 .plano-bar-count{font-size:0.75rem;color:var(--text3);width:60px;text-align:right;flex-shrink:0}
+/* WHATSAPP STATUS */
+.wpp-connected{display:inline-flex;align-items:center;gap:5px;color:var(--green);font-size:0.78rem;font-weight:600}
+.wpp-connected::before{content:'●';font-size:0.6rem}
+.wpp-missing{display:inline-flex;align-items:center;gap:5px;color:var(--amber);font-size:0.78rem;font-weight:600}
+.wpp-missing::before{content:'○';font-size:0.6rem}
 </style>
 </head>
 <body>
-
 <!-- LOGIN -->
 <div class="login-screen" id="login-screen">
   <div class="login-box">
@@ -157,7 +124,7 @@ tbody td.name{color:var(--text);font-weight:500}
   <div class="admin-tabs">
     <button class="admin-tab active" onclick="showTab('dashboard',this)">Dashboard</button>
     <button class="admin-tab" onclick="showTab('financeiro',this)">Financeiro</button>
-    <button class="admin-tab" onclick="showTab('zapi',this)">WhatsApp / Z-API</button>
+    <button class="admin-tab" onclick="showTab('gestao',this)">Gestão</button>
   </div>
 
   <div class="admin-content">
@@ -191,13 +158,11 @@ tbody td.name{color:var(--text);font-weight:500}
     <div class="tab-content" id="tab-financeiro">
       <div class="admin-title">Financeiro</div>
       <div class="admin-sub">Visão detalhada de faturamento bruto, custos e receita líquida.</div>
-
       <div class="stats-grid-3">
         <div class="stat-card"><div class="stat-label">MRR Bruto</div><div class="stat-val green" id="fin-mrr-bruto">R$ —</div><div class="stat-sub">receita total dos planos</div></div>
-        <div class="stat-card"><div class="stat-label">Custos mensais</div><div class="stat-val red" id="fin-custos">R$ —</div><div class="stat-sub">Z-API + infraestrutura</div></div>
+        <div class="stat-card"><div class="stat-label">Custos mensais</div><div class="stat-val red" id="fin-custos">R$ —</div><div class="stat-sub">infraestrutura + stripe</div></div>
         <div class="stat-card"><div class="stat-label">MRR Líquido</div><div class="stat-val amber" id="fin-mrr-liquido">R$ —</div><div class="stat-sub">após custos operacionais</div></div>
       </div>
-
       <div class="fin-grid">
         <div class="fin-card">
           <h3>Detalhamento de receita</h3>
@@ -207,15 +172,16 @@ tbody td.name{color:var(--text);font-weight:500}
           <div class="fin-row total"><span class="fin-key" style="font-weight:700;color:var(--text)">MRR Bruto</span><span class="fin-val green" id="fin-bruto-total">R$ 0</span></div>
         </div>
         <div class="fin-card">
-          <h3>Detalhamento de custos</h3>
-          <div class="fin-row"><span class="fin-key">Railway (servidor)</span><span class="fin-val red">R$ 50</span></div>
-          <div class="fin-row"><span class="fin-key">Z-API (<span id="fin-zapi-qtd">0</span> instâncias × R$99,99)</span><span class="fin-val red" id="fin-zapi-total">R$ 0</span></div>
-          <div class="fin-row"><span class="fin-key">Stripe (2,9% sobre MRR)</span><span class="fin-val red" id="fin-stripe-total">R$ 0</span></div>
-          <div class="fin-row"><span class="fin-key">Supabase / GitHub</span><span class="fin-val" style="color:var(--green)">Grátis</span></div>
+          <h3>Custos fixos mensais</h3>
+          <div class="fin-row"><span class="fin-key">Railway Pro</span><span class="fin-val red">R$ 116</span></div>
+          <div class="fin-row"><span class="fin-key">Supabase Pro</span><span class="fin-val red">R$ 145</span></div>
+          <div class="fin-row"><span class="fin-key">Claude Pro</span><span class="fin-val red">R$ 120</span></div>
+          <div class="fin-row"><span class="fin-key">MEI / CNPJ</span><span class="fin-val red">R$ 89</span></div>
+          <div class="fin-row"><span class="fin-key">Domínio</span><span class="fin-val red">R$ 4</span></div>
+          <div class="fin-row"><span class="fin-key">Stripe (~3,99% sobre MRR)</span><span class="fin-val red" id="fin-stripe-total">R$ 0</span></div>
           <div class="fin-row total"><span class="fin-key" style="font-weight:700;color:var(--text)">Total de custos</span><span class="fin-val red" id="fin-custos-total">R$ 0</span></div>
         </div>
       </div>
-
       <div class="fin-grid">
         <div class="fin-card">
           <h3>Distribuição por plano</h3>
@@ -233,74 +199,41 @@ tbody td.name{color:var(--text);font-weight:500}
       </div>
     </div>
 
-    <!-- TAB ZAPI -->
-    <div class="tab-content" id="tab-zapi">
-      <div class="admin-title">WhatsApp / Z-API</div>
-      <div class="admin-sub">Gerencie as instâncias Z-API de cada cliente. Cada empresa precisa de uma instância própria para enviar mensagens pelo WhatsApp dela.</div>
+    <!-- TAB GESTAO -->
+    <div class="tab-content" id="tab-gestao">
+      <div class="admin-title">Gestão</div>
+      <div class="admin-sub">Visão operacional — empresas, WhatsApp e saúde da plataforma.</div>
+
       <div class="stats-grid-3">
-        <div class="stat-card"><div class="stat-label">Instâncias configuradas</div><div class="stat-val green" id="zapi-configuradas">—</div><div class="stat-sub">clientes com WhatsApp ativo</div></div>
-        <div class="stat-card"><div class="stat-label">Sem instância</div><div class="stat-val amber" id="zapi-pendentes">—</div><div class="stat-sub">aguardando configuração</div></div>
-        <div class="stat-card"><div class="stat-label">Custo mensal Z-API</div><div class="stat-val blue" id="zapi-custo">—</div><div class="stat-sub">R$99,99 por instância</div></div>
+        <div class="stat-card"><div class="stat-label">WhatsApp conectados</div><div class="stat-val green" id="gest-wpp-ok">—</div><div class="stat-sub">instâncias Baileys ativas</div></div>
+        <div class="stat-card"><div class="stat-label">Sem WhatsApp</div><div class="stat-val amber" id="gest-wpp-pend">—</div><div class="stat-sub">empresas sem instância</div></div>
+        <div class="stat-card"><div class="stat-label">Total de empresas</div><div class="stat-val blue" id="gest-total-emp">—</div><div class="stat-sub">cadastradas na plataforma</div></div>
       </div>
+
       <div class="card">
         <div class="card-header">
-          <div class="card-title">Instâncias por empresa</div>
-          <button class="btn btn-primary" onclick="abrirModalZapi(null)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Nova instância
-          </button>
+          <div class="card-title">Status WhatsApp por empresa</div>
+          <span style="font-size:0.8rem;color:var(--text2)" id="gest-wpp-sub"></span>
         </div>
-        <div id="tabela-zapi-wrap"><div class="loading">Carregando...</div></div>
+        <div id="tabela-gestao-wrap"><div class="loading">Carregando...</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Empresas por status</div>
+        </div>
+        <div id="tabela-status-wrap"><div class="loading">Carregando...</div></div>
       </div>
     </div>
 
-  </div>
-</div>
-
-<!-- MODAL Z-API -->
-<div class="modal-overlay" id="modal-zapi" onclick="fecharModalZapi(event)">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-zapi-title">Configurar Z-API</div>
-      <button class="modal-close" onclick="document.getElementById('modal-zapi').classList.remove('open')">✕</button>
-    </div>
-    <div class="modal-info">
-      <strong>Como obter as credenciais:</strong><br>
-      1. Acesse <a href="https://app.z-api.io" target="_blank" style="color:var(--accent)">app.z-api.io</a> e crie uma instância<br>
-      2. Copie o <strong>ID da instância</strong> e o <strong>Token</strong><br>
-      3. Cole abaixo e salve — a URL será gerada automaticamente
-    </div>
-    <input type="hidden" id="zapi-empresa-id">
-    <div class="form-group">
-      <label>Empresa</label>
-      <input type="text" id="zapi-empresa-nome" placeholder="Nome da empresa" disabled style="opacity:0.6">
-    </div>
-    <div class="form-group">
-      <label>ID da Instância Z-API</label>
-      <input type="text" id="zapi-instance-id" placeholder="Ex: 3F464BD2E42572708A987269EBE9199A">
-    </div>
-    <div class="form-group">
-      <label>Token da Instância</label>
-      <input type="text" id="zapi-token" placeholder="Ex: 35E96D6B3CEF03E4FA0AF50E">
-    </div>
-    <div class="form-group">
-      <label>Client Token</label>
-      <input type="text" id="zapi-client-token" placeholder="Ex: F7ae82eee3f36448690bdbab90782cb3cS">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="document.getElementById('modal-zapi').classList.remove('open')">Cancelar</button>
-      <button class="btn btn-primary" onclick="salvarZapi()">Salvar instância</button>
-    </div>
   </div>
 </div>
 
 <div class="toast" id="toast"><span>✓</span><span id="toast-msg">Feito!</span></div>
-
 <script>
 const ADMIN_EMAILS = ['douglas.rebollo.mh@gmail.com', 'h.especialistainvest@gmail.com'];
 const MRR_PLANO = { starter: 147, profissional: 247, crescimento: 447 };
-const CUSTO_RAILWAY = 50;
-const CUSTO_ZAPI = 99.99;
+const CUSTOS_FIXOS = 116 + 145 + 120 + 89 + 4; // Railway + Supabase + Claude + MEI + Domínio = 474
 
 let todasEmpresas = [];
 let totalClientesBase = 0;
@@ -336,8 +269,8 @@ function showTab(id, btn) {
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
   btn.classList.add('active');
-  if (id === 'zapi') renderZapi();
   if (id === 'financeiro') renderFinanceiro();
+  if (id === 'gestao') renderGestao();
 }
 
 async function carregarDados() {
@@ -345,21 +278,17 @@ async function carregarDados() {
   if (error || !empresas) { document.getElementById('last-updated').textContent = 'Erro ao carregar dados.'; return; }
   todasEmpresas = empresas;
 
-  // Buscar total de clientes na base
   const { count } = await supabase.from('clientes').select('*', { count: 'exact', head: true });
   totalClientesBase = count || 0;
 
-  const ativas    = empresas.filter(e => e.status === 'ativo');
-  const trial     = empresas.filter(e => e.status === 'trial');
-  const inadim    = empresas.filter(e => e.status === 'inadimplente');
-  const expirado  = empresas.filter(e => e.status === 'expirado');
-  const mrr       = ativas.reduce((sum, e) => sum + (MRR_PLANO[e.plano] || 0), 0);
-
+  const ativas   = empresas.filter(e => e.status === 'ativo');
+  const trial    = empresas.filter(e => e.status === 'trial');
+  const inadim   = empresas.filter(e => e.status === 'inadimplente');
+  const mrr      = ativas.reduce((sum, e) => sum + (MRR_PLANO[e.plano] || 0), 0);
   const starter  = ativas.filter(e => e.plano === 'starter');
   const pro      = ativas.filter(e => e.plano === 'profissional');
   const cresc    = ativas.filter(e => e.plano === 'crescimento');
 
-  // Dashboard
   document.getElementById('stat-mrr').textContent = 'R$ ' + mrr.toLocaleString('pt-BR');
   document.getElementById('stat-mrr-sub').textContent = ativas.length + ' assinantes × planos';
   document.getElementById('stat-ativas').textContent = ativas.length;
@@ -383,7 +312,9 @@ async function carregarDados() {
       inadimplente: '<span class="badge badge-red">⚠ Inadimplente</span>',
       expirado:     '<span class="badge badge-gray">✕ Expirado</span>',
     }[e.status] || e.status;
-    const planoBadge = e.plano && e.plano !== 'trial' ? `<span class="badge badge-blue">${e.plano}</span>` : '<span class="badge badge-gray">—</span>';
+    const planoBadge = e.plano && e.plano !== 'trial'
+      ? `<span class="badge badge-blue">${e.plano}</span>`
+      : '<span class="badge badge-gray">—</span>';
     return `<tr>
       <td class="name">${e.nome || '—'}</td>
       <td>${e.email}</td>
@@ -399,159 +330,115 @@ async function carregarDados() {
 
 function renderFinanceiro() {
   if (!todasEmpresas.length) return;
-
   const ativas   = todasEmpresas.filter(e => e.status === 'ativo');
   const trial    = todasEmpresas.filter(e => e.status === 'trial');
   const inadim   = todasEmpresas.filter(e => e.status === 'inadimplente');
   const expirado = todasEmpresas.filter(e => e.status === 'expirado');
-
   const starter  = ativas.filter(e => e.plano === 'starter');
   const pro      = ativas.filter(e => e.plano === 'profissional');
   const cresc    = ativas.filter(e => e.plano === 'crescimento');
 
-  const recStarter = starter.length * 147;
-  const recPro     = pro.length * 247;
-  const recCresc   = cresc.length * 447;
-  const mrrBruto   = recStarter + recPro + recCresc;
+  const recS   = starter.length * 147;
+  const recP   = pro.length * 247;
+  const recC   = cresc.length * 447;
+  const bruto  = recS + recP + recC;
+  const stripe = Math.round(bruto * 0.0399);
+  const total  = CUSTOS_FIXOS + stripe;
+  const liquido = bruto - total;
+  const margem  = bruto > 0 ? Math.round((liquido / bruto) * 100) : 0;
 
-  const zapiQtd    = todasEmpresas.filter(e => e.zapi_api_url).length;
-  const custoZapi  = zapiQtd * CUSTO_ZAPI;
-  const custoStripe = Math.round(mrrBruto * 0.029);
-  const custoTotal = CUSTO_RAILWAY + custoZapi + custoStripe;
-  const mrrLiquido = mrrBruto - custoTotal;
-  const margem     = mrrBruto > 0 ? Math.round((mrrLiquido / mrrBruto) * 100) : 0;
+  document.getElementById('fin-mrr-bruto').textContent   = 'R$ ' + bruto.toLocaleString('pt-BR');
+  document.getElementById('fin-custos').textContent      = 'R$ ' + total.toLocaleString('pt-BR');
+  document.getElementById('fin-mrr-liquido').textContent = 'R$ ' + liquido.toLocaleString('pt-BR');
+  document.getElementById('fin-starter-total').textContent = 'R$ ' + recS.toLocaleString('pt-BR') + ' (' + starter.length + 'x)';
+  document.getElementById('fin-pro-total').textContent   = 'R$ ' + recP.toLocaleString('pt-BR') + ' (' + pro.length + 'x)';
+  document.getElementById('fin-cresc-total').textContent = 'R$ ' + recC.toLocaleString('pt-BR') + ' (' + cresc.length + 'x)';
+  document.getElementById('fin-bruto-total').textContent = 'R$ ' + bruto.toLocaleString('pt-BR');
+  document.getElementById('fin-stripe-total').textContent = 'R$ ' + stripe.toLocaleString('pt-BR');
+  document.getElementById('fin-custos-total').textContent = 'R$ ' + total.toLocaleString('pt-BR');
 
-  // Cards topo
-  document.getElementById('fin-mrr-bruto').textContent = 'R$ ' + mrrBruto.toLocaleString('pt-BR');
-  document.getElementById('fin-custos').textContent = 'R$ ' + custoTotal.toLocaleString('pt-BR');
-  document.getElementById('fin-mrr-liquido').textContent = 'R$ ' + mrrLiquido.toLocaleString('pt-BR');
-
-  // Receita
-  document.getElementById('fin-starter-total').textContent = 'R$ ' + recStarter.toLocaleString('pt-BR') + ' (' + starter.length + 'x)';
-  document.getElementById('fin-pro-total').textContent = 'R$ ' + recPro.toLocaleString('pt-BR') + ' (' + pro.length + 'x)';
-  document.getElementById('fin-cresc-total').textContent = 'R$ ' + recCresc.toLocaleString('pt-BR') + ' (' + cresc.length + 'x)';
-  document.getElementById('fin-bruto-total').textContent = 'R$ ' + mrrBruto.toLocaleString('pt-BR');
-
-  // Custos
-  document.getElementById('fin-zapi-qtd').textContent = zapiQtd;
-  document.getElementById('fin-zapi-total').textContent = 'R$ ' + custoZapi.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
-  document.getElementById('fin-stripe-total').textContent = 'R$ ' + custoStripe.toLocaleString('pt-BR');
-  document.getElementById('fin-custos-total').textContent = 'R$ ' + custoTotal.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
-
-  // Barras por plano
-  const totalAtivos = ativas.length || 1;
-  document.getElementById('fin-plano-bars').innerHTML = `
+  const tot = ativas.length || 1;
+  document.getElementById('fin-plano-bars').innerHTML = [
+    ['Starter',      starter.length, 'starter'],
+    ['Profissional', pro.length,     'profissional'],
+    ['Crescimento',  cresc.length,   'crescimento'],
+  ].map(([lbl, n, cls]) => `
     <div class="plano-bar-row">
-      <div class="plano-bar-label">Starter</div>
-      <div class="plano-bar-track"><div class="plano-bar-fill starter" style="width:${Math.round(starter.length/totalAtivos*100)}%"></div></div>
-      <div class="plano-bar-count">${starter.length} cliente${starter.length !== 1 ? 's' : ''}</div>
-    </div>
-    <div class="plano-bar-row">
-      <div class="plano-bar-label">Profissional</div>
-      <div class="plano-bar-track"><div class="plano-bar-fill profissional" style="width:${Math.round(pro.length/totalAtivos*100)}%"></div></div>
-      <div class="plano-bar-count">${pro.length} cliente${pro.length !== 1 ? 's' : ''}</div>
-    </div>
-    <div class="plano-bar-row">
-      <div class="plano-bar-label">Crescimento</div>
-      <div class="plano-bar-track"><div class="plano-bar-fill crescimento" style="width:${Math.round(cresc.length/totalAtivos*100)}%"></div></div>
-      <div class="plano-bar-count">${cresc.length} cliente${cresc.length !== 1 ? 's' : ''}</div>
-    </div>`;
+      <div class="plano-bar-label">${lbl}</div>
+      <div class="plano-bar-track"><div class="plano-bar-fill ${cls}" style="width:${Math.round(n/tot*100)}%"></div></div>
+      <div class="plano-bar-count">${n} cliente${n !== 1 ? 's' : ''}</div>
+    </div>`).join('');
 
-  // Resumo
   document.getElementById('fin-res-ativos').textContent = ativas.length;
-  document.getElementById('fin-res-trial').textContent = trial.length;
+  document.getElementById('fin-res-trial').textContent  = trial.length;
   document.getElementById('fin-res-inadim').textContent = inadim.length;
-  document.getElementById('fin-res-exp').textContent = expirado.length;
-  document.getElementById('fin-res-base').textContent = totalClientesBase.toLocaleString('pt-BR');
-  document.getElementById('fin-margem').textContent = margem + '%';
-  document.getElementById('fin-margem').className = 'fin-val ' + (margem >= 50 ? 'green' : margem >= 20 ? 'amber' : 'red');
+  document.getElementById('fin-res-exp').textContent    = expirado.length;
+  document.getElementById('fin-res-base').textContent   = totalClientesBase.toLocaleString('pt-BR');
+  const mEl = document.getElementById('fin-margem');
+  mEl.textContent = margem + '%';
+  mEl.className = 'fin-val ' + (margem >= 50 ? 'green' : margem >= 20 ? 'amber' : 'red');
 }
 
-function renderZapi() {
-  if (!todasEmpresas.length) { carregarDados(); return; }
-  const comInstancia = todasEmpresas.filter(e => e.zapi_api_url);
-  const semInstancia = todasEmpresas.filter(e => !e.zapi_api_url);
-  const custoTotal   = comInstancia.length * CUSTO_ZAPI;
-  document.getElementById('zapi-configuradas').textContent = comInstancia.length;
-  document.getElementById('zapi-pendentes').textContent = semInstancia.length;
-  document.getElementById('zapi-custo').textContent = 'R$ ' + custoTotal.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
-  const tbody = todasEmpresas.map(e => {
-    const temInstancia = !!e.zapi_api_url;
-    const statusZapi = temInstancia ? '<span class="zapi-connected">Configurado</span>' : '<span class="zapi-missing">Pendente</span>';
-    const instanceId = e.zapi_api_url ? e.zapi_api_url.split('/instances/')[1]?.split('/token/')[0] || '—' : '—';
+function renderGestao() {
+  if (!todasEmpresas.length) return;
+
+  const comWpp = todasEmpresas.filter(e => e.evolution_instance);
+  const semWpp = todasEmpresas.filter(e => !e.evolution_instance);
+
+  document.getElementById('gest-wpp-ok').textContent    = comWpp.length;
+  document.getElementById('gest-wpp-pend').textContent  = semWpp.length;
+  document.getElementById('gest-total-emp').textContent = todasEmpresas.length;
+  document.getElementById('gest-wpp-sub').textContent   = comWpp.length + ' de ' + todasEmpresas.length + ' empresas com Baileys ativo';
+
+  // Tabela WhatsApp
+  const rowsWpp = todasEmpresas.map(e => {
+    const tem = !!e.evolution_instance;
+    const diasTrial = e.trial_ends_at ? Math.ceil((new Date(e.trial_ends_at) - new Date()) / (1000*60*60*24)) : null;
+    const statusBadge = {
+      ativo:        '<span class="badge badge-green">● Ativo</span>',
+      trial:        `<span class="badge badge-amber">⏳ Trial (${diasTrial > 0 ? diasTrial + 'd' : 'exp.'})</span>`,
+      inadimplente: '<span class="badge badge-red">⚠ Inadim.</span>',
+      expirado:     '<span class="badge badge-gray">✕ Expirado</span>',
+    }[e.status] || e.status;
     return `<tr>
       <td class="name">${e.nome || '—'}</td>
       <td>${e.email}</td>
-      <td><span class="badge ${e.status === 'ativo' ? 'badge-green' : 'badge-gray'}">${e.status}</span></td>
-      <td>${statusZapi}</td>
-      <td style="font-size:0.75rem;color:var(--text3);font-family:monospace">${instanceId}</td>
-      <td>
-        <button class="btn btn-ghost" onclick="abrirModalZapi('${e.id}')">${temInstancia ? 'Editar' : '+ Configurar'}</button>
-        ${temInstancia ? `<button class="btn btn-danger" style="margin-left:6px" onclick="removerZapi('${e.id}')">Remover</button>` : ''}
-      </td>
+      <td>${statusBadge}</td>
+      <td>${tem ? '<span class="wpp-connected">Conectado</span>' : '<span class="wpp-missing">Pendente</span>'}</td>
+      <td style="font-size:0.73rem;color:var(--text3);font-family:monospace">${e.evolution_instance || '—'}</td>
     </tr>`;
   }).join('');
-  document.getElementById('tabela-zapi-wrap').innerHTML = `<table><thead><tr><th>Empresa</th><th>E-mail</th><th>Status</th><th>Z-API</th><th>Instance ID</th><th>Ações</th></tr></thead><tbody>${tbody}</tbody></table>`;
-}
+  document.getElementById('tabela-gestao-wrap').innerHTML = `<table>
+    <thead><tr><th>Empresa</th><th>E-mail</th><th>Status</th><th>WhatsApp</th><th>Instância Baileys</th></tr></thead>
+    <tbody>${rowsWpp}</tbody></table>`;
 
-function abrirModalZapi(empresaId) {
-  const modal = document.getElementById('modal-zapi');
-  document.getElementById('zapi-instance-id').value = '';
-  document.getElementById('zapi-token').value = '';
-  document.getElementById('zapi-client-token').value = '';
-  document.getElementById('zapi-empresa-nome').value = '';
-  document.getElementById('zapi-empresa-id').value = '';
-  if (empresaId) {
-    const empresa = todasEmpresas.find(e => e.id === empresaId);
-    if (empresa) {
-      document.getElementById('modal-zapi-title').textContent = `Z-API — ${empresa.nome || empresa.email}`;
-      document.getElementById('zapi-empresa-nome').value = empresa.nome || empresa.email;
-      document.getElementById('zapi-empresa-id').value = empresa.id;
-      if (empresa.zapi_api_url) {
-        const instanceId = empresa.zapi_api_url.split('/instances/')[1]?.split('/token/')[0] || '';
-        const token = empresa.zapi_api_url.split('/token/')[1] || '';
-        document.getElementById('zapi-instance-id').value = instanceId;
-        document.getElementById('zapi-token').value = token;
-      }
-    }
-  } else {
-    document.getElementById('modal-zapi-title').textContent = 'Nova instância Z-API';
-    const options = todasEmpresas.filter(e => !e.zapi_api_url).map(e => `<option value="${e.id}">${e.nome || e.email}</option>`).join('');
-    document.getElementById('zapi-empresa-nome').outerHTML = `<select id="zapi-empresa-nome" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none"><option value="">Selecione a empresa...</option>${options}</select>`;
-  }
-  modal.classList.add('open');
-}
-
-function fecharModalZapi(e) {
-  if (e.target === document.getElementById('modal-zapi')) document.getElementById('modal-zapi').classList.remove('open');
-}
-
-async function salvarZapi() {
-  const empresaId   = document.getElementById('zapi-empresa-id').value || document.getElementById('zapi-empresa-nome').value;
-  const instanceId  = document.getElementById('zapi-instance-id').value.trim();
-  const token       = document.getElementById('zapi-token').value.trim();
-  const clientToken = document.getElementById('zapi-client-token').value.trim();
-  if (!empresaId || !instanceId || !token) { showToast('Preencha todos os campos obrigatórios.', 'err'); return; }
-  const zapiApiUrl = `https://api.z-api.io/instances/${instanceId}/token/${token}`;
-  const updateData = { zapi_api_url: zapiApiUrl, zapi_token: token };
-  if (clientToken) updateData.zapi_client_token = clientToken;
-  const { error } = await supabase.from('empresas').update(updateData).eq('id', empresaId);
-  if (error) { showToast('Erro ao salvar.', 'err'); return; }
-  const idx = todasEmpresas.findIndex(e => e.id === empresaId);
-  if (idx > -1) { todasEmpresas[idx].zapi_api_url = zapiApiUrl; todasEmpresas[idx].zapi_token = token; }
-  document.getElementById('modal-zapi').classList.remove('open');
-  showToast('Instância Z-API salva!');
-  renderZapi();
-}
-
-async function removerZapi(empresaId) {
-  if (!confirm('Tem certeza? Isso vai desconectar o WhatsApp desta empresa.')) return;
-  const { error } = await supabase.from('empresas').update({ zapi_api_url: null, zapi_token: null }).eq('id', empresaId);
-  if (error) { showToast('Erro ao remover.', 'err'); return; }
-  const idx = todasEmpresas.findIndex(e => e.id === empresaId);
-  if (idx > -1) { todasEmpresas[idx].zapi_api_url = null; todasEmpresas[idx].zapi_token = null; }
-  showToast('Instância removida.');
-  renderZapi();
+  // Tabela por status
+  const grupos = { ativo: [], trial: [], inadimplente: [], expirado: [] };
+  todasEmpresas.forEach(e => { if (grupos[e.status]) grupos[e.status].push(e); });
+  const rowsStatus = Object.entries(grupos).flatMap(([status, lista]) =>
+    lista.map(e => {
+      const badgeMap = {
+        ativo:        '<span class="badge badge-green">● Ativo</span>',
+        trial:        '<span class="badge badge-amber">⏳ Trial</span>',
+        inadimplente: '<span class="badge badge-red">⚠ Inadimplente</span>',
+        expirado:     '<span class="badge badge-gray">✕ Expirado</span>',
+      };
+      const planoBadge = e.plano && e.plano !== 'trial'
+        ? `<span class="badge badge-blue">${e.plano}</span>`
+        : '<span class="badge badge-gray">—</span>';
+      return `<tr>
+        <td class="name">${e.nome || '—'}</td>
+        <td>${e.email}</td>
+        <td>${badgeMap[status] || status}</td>
+        <td>${planoBadge}</td>
+        <td>R$ ${MRR_PLANO[e.plano] || 0}/mês</td>
+        <td>${new Date(e.created_at).toLocaleDateString('pt-BR')}</td>
+      </tr>`;
+    })
+  ).join('');
+  document.getElementById('tabela-status-wrap').innerHTML = `<table>
+    <thead><tr><th>Nome</th><th>E-mail</th><th>Status</th><th>Plano</th><th>MRR</th><th>Cadastro</th></tr></thead>
+    <tbody>${rowsStatus}</tbody></table>`;
 }
 
 function showToast(msg, type='ok') {
