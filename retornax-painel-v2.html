@@ -286,6 +286,38 @@ tbody td.name{color:var(--text);font-weight:500}
 .zapi-connected::before{content:'●';font-size:0.55rem}
 .zapi-missing{display:inline-flex;align-items:center;gap:4px;color:var(--amber);font-size:0.75rem;font-weight:600}
 .zapi-missing::before{content:'○';font-size:0.55rem}
+
+/* PERFIL */
+.perfil-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.perfil-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+.perfil-card h3{font-size:0.82rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.perfil-field{margin-bottom:16px}
+.perfil-field label{display:block;font-size:0.75rem;font-weight:600;color:var(--text2);margin-bottom:6px}
+.perfil-field input,.perfil-field select{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.15s}
+.perfil-field input:focus,.perfil-field select:focus{border-color:var(--blue)}
+.perfil-field input::placeholder{color:var(--text3)}
+.perfil-field select option{background:var(--bg2)}
+.perfil-aviso{display:flex;align-items:center;gap:12px;background:rgba(255,176,32,0.1);border:1px solid rgba(255,176,32,0.25);border-radius:10px;padding:14px 18px;margin-bottom:24px;font-size:0.85rem;color:var(--amber)}
+.perfil-aviso-icon{font-size:1.4rem;flex-shrink:0}
+.perfil-completo{display:flex;align-items:center;gap:12px;background:var(--green-dim);border:1px solid rgba(0,214,143,0.25);border-radius:10px;padding:14px 18px;margin-bottom:24px;font-size:0.85rem;color:var(--green)}
+/* ASSINATURA */
+.ass-hero{background:linear-gradient(135deg,rgba(46,106,255,0.12),rgba(0,229,255,0.05));border:1px solid rgba(46,106,255,0.3);border-radius:16px;padding:32px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.ass-hero-info h2{font-size:1.6rem;font-weight:800;color:var(--white);margin-bottom:4px}
+.ass-hero-info p{font-size:0.85rem;color:var(--text2)}
+.ass-hero-preco{text-align:right}
+.ass-hero-preco .valor{font-size:2.4rem;font-weight:800;color:var(--green);line-height:1}
+.ass-hero-preco .periodo{font-size:0.82rem;color:var(--text2);margin-top:2px}
+.ass-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.ass-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+.ass-card-label{font-size:0.75rem;color:var(--text2);font-weight:500;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}
+.ass-card-val{font-size:1rem;font-weight:600;color:var(--white)}
+.ass-card-val.green{color:var(--green)}.ass-card-val.amber{color:var(--amber)}.ass-card-val.red{color:var(--red)}
+.ass-features{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:24px}
+.ass-features h3{font-size:0.85rem;font-weight:700;color:var(--white);margin-bottom:16px}
+.ass-features-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ass-feature-item{display:flex;align-items:center;gap:8px;font-size:0.83rem;color:var(--text2)}
+.ass-feature-item span{color:var(--green);font-weight:700}
+.ass-actions{display:flex;gap:12px}
 </style>
 </head><body>
 <div class="app">
@@ -321,7 +353,7 @@ tbody td.name{color:var(--text);font-weight:500}
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     Configurações
   </button>
-  <button class="nav-item" onclick="abrirAssinatura()">
+  <button class="nav-item" onclick="showPage('assinatura',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
     Minha assinatura
   </button>
@@ -333,10 +365,9 @@ tbody td.name{color:var(--text);font-weight:500}
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
     Novidades <span style="margin-left:auto;background:rgba(0,214,143,0.15);color:var(--green);font-size:0.6rem;padding:1px 6px;border-radius:4px;font-weight:700">NOVO</span>
   </button>
-  <button class="nav-item" onclick="showPage('operacional',this)">
-    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-    Operacional
-    <span class="admin-badge">ADMIN</span>
+  <button class="nav-item" onclick="showPage('perfil',this)">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    Meu Perfil
   </button>
   <div class="sidebar-bottom">
     <div class="user-row" onclick="logout()">
@@ -633,6 +664,141 @@ tbody td.name{color:var(--text);font-weight:500}
 </div>
 </div>
 
+
+    <!-- PERFIL -->
+    <div class="page" id="page-perfil">
+      <div id="perfil-aviso-wrap"></div>
+      <div class="perfil-grid">
+        <div class="perfil-card">
+          <h3>&#x1F464; Dados pessoais</h3>
+          <div class="perfil-field"><label>Nome completo</label><input type="text" id="perf-nome" placeholder="Seu nome completo"></div>
+          <div class="perfil-field"><label>Telefone / WhatsApp</label><input type="tel" id="perf-tel" placeholder="(51) 99999-9999"></div>
+          <div class="perfil-field"><label>E-mail</label><input type="email" id="perf-email" placeholder="seu@email.com" disabled style="opacity:0.6"></div>
+        </div>
+        <div class="perfil-card">
+          <h3>&#x1F3E2; Dados da empresa</h3>
+          <div class="perfil-field"><label>Nome da empresa</label><input type="text" id="perf-empresa" placeholder="Ex: Barbearia do João"></div>
+          <div class="perfil-field"><label>Segmento</label>
+            <select id="perf-segmento">
+              <option value="">Selecione o segmento...</option>
+              <option value="Barbearia">✂ Barbearia</option>
+              <option value="Estetica auto">🚗 Estética auto</option>
+              <option value="Mecanica">🔧 Mecânica</option>
+              <option value="Beleza">💅 Beleza / Salão</option>
+              <option value="Pet shop">🐾 Pet shop</option>
+              <option value="Academia">🏋 Academia / Fitness</option>
+              <option value="Restaurante">🍽 Restaurante / Delivery</option>
+              <option value="Clinica">🏥 Clínica / Saúde</option>
+              <option value="Outros">📌 Outros</option>
+            </select>
+          </div>
+          <div class="perfil-field"><label>Cidade / Estado</label><input type="text" id="perf-cidade" placeholder="Ex: Porto Alegre, RS"></div>
+        </div>
+        <div class="perfil-card">
+          <h3>&#x1F4CA; Dados do negócio</h3>
+          <div class="perfil-field"><label>Quantidade de funcionários</label>
+            <select id="perf-funcionarios">
+              <option value="">Selecione...</option>
+              <option value="1">Só eu (MEI)</option>
+              <option value="2-5">2 a 5 funcionários</option>
+              <option value="6-15">6 a 15 funcionários</option>
+              <option value="16-30">16 a 30 funcionários</option>
+              <option value="30+">Mais de 30</option>
+            </select>
+          </div>
+          <div class="perfil-field"><label>Faturamento mensal estimado</label>
+            <select id="perf-faturamento">
+              <option value="">Selecione...</option>
+              <option value="ate5k">Até R$ 5.000</option>
+              <option value="5k-15k">R$ 5.000 a R$ 15.000</option>
+              <option value="15k-30k">R$ 15.000 a R$ 30.000</option>
+              <option value="30k-80k">R$ 30.000 a R$ 80.000</option>
+              <option value="80k+">Acima de R$ 80.000</option>
+            </select>
+          </div>
+          <div class="perfil-field"><label>Há quanto tempo no mercado?</label>
+            <select id="perf-tempo">
+              <option value="">Selecione...</option>
+              <option value="menos1">Menos de 1 ano</option>
+              <option value="1-3">1 a 3 anos</option>
+              <option value="3-5">3 a 5 anos</option>
+              <option value="5-10">5 a 10 anos</option>
+              <option value="10+">Mais de 10 anos</option>
+            </select>
+          </div>
+        </div>
+        <div class="perfil-card">
+          <h3>&#x1F4F1; Presença digital</h3>
+          <div class="perfil-field"><label>Instagram</label><input type="text" id="perf-insta" placeholder="@suaempresa"></div>
+          <div class="perfil-field"><label>Google Meu Negócio</label>
+            <select id="perf-google">
+              <option value="">Selecione...</option>
+              <option value="sim_verificado">Sim, verificado</option>
+              <option value="sim_nao_verificado">Sim, mas não verificado</option>
+              <option value="nao">Não tenho</option>
+            </select>
+          </div>
+          <div class="perfil-field"><label>Como ficou sabendo do Retornax?</label>
+            <select id="perf-origem">
+              <option value="">Selecione...</option>
+              <option value="instagram">Instagram</option>
+              <option value="indicacao">Indicação de amigo</option>
+              <option value="google">Google</option>
+              <option value="vendedor">Abordagem de vendedor</option>
+              <option value="outros">Outros</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <button class="btn btn-primary" style="padding:12px 28px;font-size:0.92rem" onclick="salvarPerfil()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Salvar perfil
+        </button>
+      </div>
+    </div>
+
+    <!-- ASSINATURA -->
+    <div class="page" id="page-assinatura">
+      <div id="ass-content">
+        <div class="ass-hero">
+          <div class="ass-hero-info">
+            <h2 id="ass-plano-nome">Plano —</h2>
+            <p id="ass-plano-desc">Carregando informações da assinatura...</p>
+          </div>
+          <div class="ass-hero-preco">
+            <div class="valor" id="ass-valor">R$ —</div>
+            <div class="periodo">/mês</div>
+          </div>
+        </div>
+        <div class="ass-grid">
+          <div class="ass-card">
+            <div class="ass-card-label">Status</div>
+            <div class="ass-card-val green" id="ass-status">—</div>
+          </div>
+          <div class="ass-card">
+            <div class="ass-card-label">E-mail cadastrado</div>
+            <div class="ass-card-val" id="ass-email">—</div>
+          </div>
+          <div class="ass-card">
+            <div class="ass-card-label">Próxima cobrança</div>
+            <div class="ass-card-val" id="ass-vencimento">—</div>
+          </div>
+        </div>
+        <div class="ass-features" id="ass-features-wrap"></div>
+        <div class="ass-actions">
+          <button class="btn btn-ghost" onclick="abrirPortalStripe()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Gerenciar pagamento
+          </button>
+          <button class="btn btn-ghost" onclick="abrirPlanos('trial')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+            Mudar plano
+          </button>
+        </div>
+      </div>
+    </div>
+
 <!-- ONBOARDING -->
 <div class="onboarding-overlay" id="onboarding-overlay">
   <div class="onboarding-modal">
@@ -900,15 +1066,17 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
-  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automacoes',campanhas:'Campanhas',historico:'Historico',config:'Configuracoes',novidades:'Novidades',tutoriais:'Tutoriais',whatsapp:'Conectar WhatsApp',operacional:'Operacional'};
+  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automacoes',campanhas:'Campanhas',historico:'Historico',config:'Configuracoes',novidades:'Novidades',tutoriais:'Tutoriais',whatsapp:'Conectar WhatsApp',perfil:'Meu Perfil',assinatura:'Minha Assinatura'};
   const se=document.getElementById('saudacao-texto'); const te=document.getElementById('page-title');
   if(id==='dashboard'){ te.textContent=(document.querySelector('.user-name')?.textContent||'').split(' ')[0]||'Dashboard'; atualizarSaudacao(); if(se) se.style.display=''; }
   else{ te.textContent=titles[id]||id; if(se) se.style.display='none'; }
   const ab=document.getElementById('topbar-action');
-  if((id==='clientes'||id==='dashboard')&&id!=='operacional'){ ab.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> + Novo cliente'; ab.style.display=''; }
+  if(id==='clientes'||id==='dashboard'){ ab.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> + Novo cliente'; ab.style.display=''; }
+  else if(id==='perfil'||id==='assinatura'||id==='tutoriais'||id==='novidades'||id==='config'||id==='whatsapp'){ ab.style.display='none'; }
   else{ ab.style.display='none'; }
   if(id==='historico') carregarHistorico();
-  if(id==='operacional') opCarregarDados();
+  if(id==='perfil') carregarPerfil();
+  if(id==='assinatura') carregarAssinatura();
   if(id==='campanhas') initCampanhas();
 }
 function topbarAction(){ const a=document.querySelector('.page.active').id; if(a==='page-clientes'||a==='page-dashboard') openModal(); }
@@ -992,7 +1160,7 @@ async function checkAuth(){
     if(document.getElementById('config-plano')){ const pls={trial:'Trial gratuito',starter:'Starter - R$147/mes',profissional:'Profissional - R$247/mes',crescimento:'Crescimento - R$447/mes'}; document.getElementById('config-plano').textContent=pls[empresa.plano]||empresa.plano; }
     if(empresa.evolution_instance) setWppConectado();
   }
-  initAccountStatus(); await carregarClientes(); await carregarHistorico();
+  initAccountStatus(); await carregarClientes(); await carregarHistorico(); await verificarPerfil();
 }
 async function carregarClientes(){
   if(!ACCOUNT.empresaId) return;
@@ -1247,6 +1415,163 @@ function opRenderWhatsapp() {
     <tbody>${rows}</tbody></table>`;
 }
 
+
+// ── PERFIL ──
+const PLANO_INFO = {
+  trial:        { nome:'Trial Gratuito', valor:0,   desc:'Período de teste — 7 dias grátis', cor:'amber' },
+  starter:      { nome:'Starter',        valor:147, desc:'Até 100 clientes e 200 mensagens/mês', cor:'blue' },
+  profissional: { nome:'Profissional',   valor:247, desc:'Até 300 clientes, campanhas e dashboard completo', cor:'blue' },
+  crescimento:  { nome:'Crescimento',    valor:447, desc:'Até 800 clientes, múltiplas unidades e API', cor:'green' },
+};
+
+const FEATURES_PLANO = {
+  trial:        ['Até 10 clientes','50 mensagens/mês','Templates prontos','WhatsApp via QR Code'],
+  starter:      ['Até 100 clientes','200 mensagens/mês','Templates prontos','WhatsApp conectado','Suporte WhatsApp'],
+  profissional: ['Até 300 clientes','600 mensagens/mês','Todos os segmentos','Templates editáveis','Campanhas em massa','Dashboard completo','Suporte prioritário'],
+  crescimento:  ['Até 800 clientes','1.600 mensagens/mês','Múltiplas unidades','Campanhas em massa','API e integrações','Suporte VIP'],
+};
+
+async function carregarPerfil() {
+  if (!ACCOUNT.empresaId) return;
+  const { data } = await supabase.from('empresas').select('*').eq('id', ACCOUNT.empresaId).single();
+  if (!data) return;
+
+  // Preencher campos
+  if (document.getElementById('perf-nome'))    document.getElementById('perf-nome').value    = data.nome || '';
+  if (document.getElementById('perf-tel'))     document.getElementById('perf-tel').value     = data.whatsapp || '';
+  if (document.getElementById('perf-email'))   document.getElementById('perf-email').value   = data.email || '';
+  if (document.getElementById('perf-empresa')) document.getElementById('perf-empresa').value = data.nome_empresa || '';
+  if (document.getElementById('perf-segmento'))document.getElementById('perf-segmento').value= data.segmento_empresa || '';
+  if (document.getElementById('perf-cidade'))  document.getElementById('perf-cidade').value  = data.cidade || '';
+  if (document.getElementById('perf-funcionarios')) document.getElementById('perf-funcionarios').value = data.qtd_funcionarios || '';
+  if (document.getElementById('perf-faturamento'))  document.getElementById('perf-faturamento').value  = data.faturamento || '';
+  if (document.getElementById('perf-tempo'))   document.getElementById('perf-tempo').value   = data.tempo_mercado || '';
+  if (document.getElementById('perf-insta'))   document.getElementById('perf-insta').value   = data.instagram || '';
+  if (document.getElementById('perf-google'))  document.getElementById('perf-google').value  = data.google_negocio || '';
+  if (document.getElementById('perf-origem'))  document.getElementById('perf-origem').value  = data.origem || '';
+
+  // Verificar se perfil está completo
+  const camposObrig = [data.nome, data.whatsapp, data.nome_empresa, data.segmento_empresa, data.qtd_funcionarios, data.faturamento];
+  const completo = camposObrig.every(c => c && c.trim && c.trim() !== '');
+  const avisoWrap = document.getElementById('perfil-aviso-wrap');
+  if (avisoWrap) {
+    avisoWrap.innerHTML = completo
+      ? '<div class="perfil-completo"><span style="font-size:1.4rem">✅</span><div><strong>Perfil completo!</strong> Obrigado por preencher seus dados.</div></div>'
+      : '<div class="perfil-aviso"><span class="perfil-aviso-icon">⚠️</span><div><strong>Perfil incompleto.</strong> Preencha seus dados para uma melhor experiência no Retornax.</div></div>';
+  }
+}
+
+async function salvarPerfil() {
+  const btn = document.querySelector('#page-perfil .btn-primary');
+  btn.textContent = '⏳ Salvando...'; btn.disabled = true;
+
+  const updates = {
+    nome:              document.getElementById('perf-nome')?.value.trim(),
+    whatsapp:          document.getElementById('perf-tel')?.value.trim(),
+    nome_empresa:      document.getElementById('perf-empresa')?.value.trim(),
+    segmento_empresa:  document.getElementById('perf-segmento')?.value,
+    cidade:            document.getElementById('perf-cidade')?.value.trim(),
+    qtd_funcionarios:  document.getElementById('perf-funcionarios')?.value,
+    faturamento:       document.getElementById('perf-faturamento')?.value,
+    tempo_mercado:     document.getElementById('perf-tempo')?.value,
+    instagram:         document.getElementById('perf-insta')?.value.trim(),
+    google_negocio:    document.getElementById('perf-google')?.value,
+    origem:            document.getElementById('perf-origem')?.value,
+  };
+
+  const { error } = await supabase.from('empresas').update(updates).eq('id', ACCOUNT.empresaId);
+
+  if (!error) {
+    showToast('Perfil salvo com sucesso! ✓');
+    // Atualizar nome no sidebar
+    if (updates.nome) document.querySelector('.user-name').textContent = updates.nome.split(' ')[0] + ' ' + (updates.nome.split(' ')[1] || '');
+    carregarPerfil();
+  } else {
+    showToast('Erro ao salvar. Tente novamente.', 'err');
+  }
+
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Salvar perfil';
+  btn.disabled = false;
+}
+
+// ── ASSINATURA ──
+function carregarAssinatura() {
+  const plano = ACCOUNT.plano || 'trial';
+  const info  = PLANO_INFO[plano] || PLANO_INFO.trial;
+  const features = FEATURES_PLANO[plano] || [];
+
+  document.getElementById('ass-plano-nome').textContent = 'Plano ' + info.nome;
+  document.getElementById('ass-plano-desc').textContent = info.desc;
+  document.getElementById('ass-valor').textContent = info.valor > 0 ? 'R$ ' + info.valor : 'Grátis';
+  document.getElementById('ass-email').textContent = ACCOUNT.email || '—';
+
+  // Status
+  const statusEl = document.getElementById('ass-status');
+  const statusMap = {
+    ativo:        { txt: '● Ativo',       cls: 'green' },
+    trial:        { txt: '⏳ Trial',       cls: 'amber' },
+    inadimplente: { txt: '⚠ Inadimplente',cls: 'red'   },
+    expirado:     { txt: '✕ Expirado',    cls: 'red'   },
+  };
+  const s = statusMap[ACCOUNT.status] || { txt: ACCOUNT.status, cls: '' };
+  statusEl.textContent = s.txt;
+  statusEl.className = 'ass-card-val ' + s.cls;
+
+  // Vencimento
+  const vencEl = document.getElementById('ass-vencimento');
+  if (ACCOUNT.status === 'trial' && ACCOUNT.trialEndsAt) {
+    const dias = Math.ceil((ACCOUNT.trialEndsAt - new Date()) / 864e5);
+    vencEl.textContent = dias > 0 ? 'Em ' + dias + ' dia' + (dias > 1 ? 's' : '') : 'Expirado';
+    vencEl.className = 'ass-card-val ' + (dias <= 2 ? 'red' : 'amber');
+  } else if (ACCOUNT.status === 'ativo') {
+    vencEl.textContent = 'Renovação automática';
+    vencEl.className = 'ass-card-val green';
+  } else {
+    vencEl.textContent = '—';
+  }
+
+  // Features do plano
+  const featWrap = document.getElementById('ass-features-wrap');
+  if (featWrap) {
+    featWrap.innerHTML = '<h3>O que está incluso no seu plano</h3><div class="ass-features-grid">'
+      + features.map(f => `<div class="ass-feature-item"><span>✓</span>${f}</div>`).join('')
+      + '</div>';
+  }
+}
+
+async function abrirPortalStripe() {
+  showToast('Abrindo portal de pagamento...');
+  try {
+    const res = await fetch(BACKEND + '/api/portal', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ empresaId: ACCOUNT.empresaId })
+    });
+    const data = await res.json();
+    if (data.url) window.open(data.url, '_blank');
+    else { showToast('Sem assinatura ativa. Escolha um plano.', 'err'); abrirPlanos('trial'); }
+  } catch(e) { showToast('Erro ao conectar.', 'err'); }
+}
+
+
+async function verificarPerfil() {
+  if (!ACCOUNT.empresaId) return;
+  const { data } = await supabase.from('empresas').select('nome_empresa,qtd_funcionarios,faturamento,segmento_empresa').eq('id', ACCOUNT.empresaId).single();
+  if (!data) return;
+  const camposObrig = [data.nome_empresa, data.qtd_funcionarios, data.faturamento, data.segmento_empresa];
+  const incompleto = camposObrig.some(c => !c || c === '');
+  // Adicionar badge no nav item de perfil se incompleto
+  const navPerfil = document.querySelector('[onclick*="perfil"]');
+  if (navPerfil && incompleto) {
+    if (!navPerfil.querySelector('.perfil-badge')) {
+      const badge = document.createElement('span');
+      badge.className = 'perfil-badge';
+      badge.style.cssText = 'margin-left:auto;background:rgba(255,176,32,0.15);color:var(--amber);font-size:0.6rem;padding:1px 6px;border-radius:4px;font-weight:700';
+      badge.textContent = 'PENDENTE';
+      navPerfil.appendChild(badge);
+    }
+  }
+}
 renderTemplates(); document.getElementById('f-data').valueAsDate=new Date(); checkAuth();
 </script>
 <a href="https://wa.me/5551984026354?text=Oi!+Preciso+de+ajuda+com+o+Retornax" target="_blank" class="suporte-btn">
