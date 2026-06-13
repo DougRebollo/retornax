@@ -93,6 +93,25 @@ tbody td.name{color:var(--text);font-weight:500}
 .wpp-connected::before{content:'●';font-size:0.6rem}
 .wpp-missing{display:inline-flex;align-items:center;gap:5px;color:var(--amber);font-size:0.78rem;font-weight:600}
 .wpp-missing::before{content:'○';font-size:0.6rem}
+
+/* PROJECAO FINANCEIRA */
+.proj-section{margin-top:28px}
+.proj-title{font-size:0.82rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+.proj-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.proj-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px}
+.proj-card-label{font-size:0.72rem;color:var(--text2);margin-bottom:6px}
+.proj-card-val{font-size:1.4rem;font-weight:800;color:var(--white);line-height:1}
+.proj-card-sub{font-size:0.7rem;color:var(--text3);margin-top:4px}
+.proj-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px}
+.proj-table-wrap table thead th{background:var(--bg3);font-size:0.68rem}
+.resultado-lucro{color:var(--green);font-weight:600}
+.resultado-prej{color:var(--red);font-weight:600}
+.status-badge{display:inline-block;padding:2px 8px;border-radius:100px;font-size:0.68rem;font-weight:600}
+.status-lucro{background:var(--green-dim);color:var(--green)}
+.status-solido{background:rgba(0,229,255,0.1);color:var(--accent)}
+.status-escala{background:rgba(46,106,255,0.15);color:var(--blue-lite)}
+.status-prej{background:var(--red-dim);color:var(--red)}
+.row-destaque{background:rgba(46,106,255,0.06)}
 </style>
 </head>
 <body>
@@ -198,6 +217,56 @@ tbody td.name{color:var(--text);font-weight:500}
         </div>
       </div>
     </div>
+
+
+      <!-- PROJECAO -->
+      <div class="proj-section">
+        <div class="proj-title">Margem líquida por plano (após Stripe 3,99%)</div>
+        <div class="proj-table-wrap">
+          <table>
+            <thead><tr><th>Plano</th><th>Preço</th><th>Taxa Stripe</th><th>Receita líq.</th><th>Margem</th></tr></thead>
+            <tbody>
+              <tr><td class="name">Starter</td><td>R$ 147</td><td style="color:var(--red)">-R$ 6,26</td><td style="color:var(--green);font-weight:600">R$ 140,74</td><td>95,7%</td></tr>
+              <tr><td class="name">Profissional</td><td>R$ 247</td><td style="color:var(--red)">-R$ 10,25</td><td style="color:var(--green);font-weight:600">R$ 236,75</td><td>95,8%</td></tr>
+              <tr><td class="name">Crescimento</td><td>R$ 447</td><td style="color:var(--red)">-R$ 18,22</td><td style="color:var(--green);font-weight:600">R$ 428,78</td><td>95,9%</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="proj-title">Break-even — clientes para cobrir R$474 fixos</div>
+        <div class="proj-cards">
+          <div class="proj-card"><div class="proj-card-label">Só Starter</div><div class="proj-card-val" style="color:var(--blue-lite)">4</div><div class="proj-card-sub">clientes = R$ 563</div></div>
+          <div class="proj-card"><div class="proj-card-label">Só Profissional</div><div class="proj-card-val" style="color:var(--blue-lite)">2</div><div class="proj-card-sub">clientes = R$ 473</div></div>
+          <div class="proj-card"><div class="proj-card-label">Só Crescimento</div><div class="proj-card-val" style="color:var(--blue-lite)">2</div><div class="proj-card-sub">clientes = R$ 857</div></div>
+          <div class="proj-card"><div class="proj-card-label">Mix realista</div><div class="proj-card-val" style="color:var(--green)">3</div><div class="proj-card-sub">clientes pagando</div></div>
+        </div>
+
+        <div class="proj-title">Projeção mês a mês — mix: 50% Profissional, 30% Starter, 20% Crescimento</div>
+        <div class="proj-table-wrap">
+          <table>
+            <thead><tr><th>Mês</th><th>Clientes</th><th>MRR bruto</th><th>Stripe (~4%)</th><th>MRR líq.</th><th>Custos fixos</th><th>Resultado</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>2</td><td>R$ 444</td><td style="color:var(--red)">-R$ 18</td><td>R$ 426</td><td>R$ 474</td><td class="resultado-prej">-R$ 48</td><td><span class="status-badge status-prej">prejuízo</span></td></tr>
+              <tr><td>2</td><td>4</td><td>R$ 888</td><td style="color:var(--red)">-R$ 36</td><td>R$ 852</td><td>R$ 474</td><td class="resultado-lucro">+R$ 378</td><td><span class="status-badge status-lucro">lucro</span></td></tr>
+              <tr><td>3</td><td>7</td><td>R$ 1.554</td><td style="color:var(--red)">-R$ 62</td><td>R$ 1.492</td><td>R$ 474</td><td class="resultado-lucro">+R$ 1.018</td><td><span class="status-badge status-lucro">lucro</span></td></tr>
+              <tr><td>4</td><td>10</td><td>R$ 2.220</td><td style="color:var(--red)">-R$ 89</td><td>R$ 2.131</td><td>R$ 474</td><td class="resultado-lucro">+R$ 1.657</td><td><span class="status-badge status-lucro">lucro</span></td></tr>
+              <tr><td>5</td><td>15</td><td>R$ 3.330</td><td style="color:var(--red)">-R$ 133</td><td>R$ 3.197</td><td>R$ 474</td><td class="resultado-lucro">+R$ 2.723</td><td><span class="status-badge status-lucro">lucro</span></td></tr>
+              <tr class="row-destaque"><td><strong>6</strong></td><td><strong>20</strong></td><td><strong>R$ 4.440</strong></td><td style="color:var(--red)">-R$ 178</td><td><strong>R$ 4.262</strong></td><td>R$ 474</td><td class="resultado-lucro"><strong>+R$ 3.788</strong></td><td><span class="status-badge status-solido">sólido</span></td></tr>
+              <tr><td>9</td><td>35</td><td>R$ 7.770</td><td style="color:var(--red)">-R$ 311</td><td>R$ 7.459</td><td>R$ 524*</td><td class="resultado-lucro">+R$ 6.935</td><td><span class="status-badge status-escala">escalando</span></td></tr>
+              <tr><td>12</td><td>50</td><td>R$ 11.100</td><td style="color:var(--red)">-R$ 444</td><td>R$ 10.656</td><td>R$ 524*</td><td class="resultado-lucro">+R$ 10.132</td><td><span class="status-badge status-escala">escala</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text3);margin-bottom:28px">* Mês 9+: Supabase pode precisar de upgrade (~$50/mês). Railway Pro aguenta até ~30 empresas sem custo extra.</div>
+
+        <div class="proj-title">Resumo de viabilidade</div>
+        <div class="proj-cards">
+          <div class="proj-card"><div class="proj-card-label">Custo fixo/mês</div><div class="proj-card-val">R$ 474</div><div class="proj-card-sub">sem Stripe</div></div>
+          <div class="proj-card"><div class="proj-card-label">Break-even</div><div class="proj-card-val" style="color:var(--green)">3</div><div class="proj-card-sub">clientes pagando Prof.</div></div>
+          <div class="proj-card"><div class="proj-card-label">Margem Stripe</div><div class="proj-card-val" style="color:var(--accent)">~96%</div><div class="proj-card-sub">por assinatura</div></div>
+          <div class="proj-card"><div class="proj-card-label">Lucro com 20 cli.</div><div class="proj-card-val" style="color:var(--green)">R$ 3.788</div><div class="proj-card-sub">mês 6</div></div>
+        </div>
+      </div>
 
     <!-- TAB GESTAO -->
     <div class="tab-content" id="tab-gestao">
