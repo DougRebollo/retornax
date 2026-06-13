@@ -170,19 +170,19 @@ tbody td.name{color:var(--text);font-weight:500}
 .planos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
 .plano-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 24px;position:relative;transition:border-color 0.2s,transform 0.2s;cursor:pointer}
 .plano-card:hover{border-color:var(--blue);transform:translateY(-2px)}
-.plano-card.featured{background:linear-gradient(135deg,rgba(46,106,255,0.12),rgba(0,229,255,0.04));border-color:rgba(46,106,255,0.5)}
-.plano-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:var(--white);font-size:0.7rem;font-weight:700;padding:3px 14px;border-radius:100px;white-space:nowrap}
+.plano-card.featured{background:linear-gradient(135deg,rgba(46,106,255,0.18),rgba(0,229,255,0.08));border-color:rgba(46,106,255,0.7);box-shadow:0 0 32px rgba(46,106,255,0.2)}
+.plano-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--blue),var(--accent));color:var(--white);font-size:0.7rem;font-weight:700;padding:4px 16px;border-radius:100px;white-space:nowrap;box-shadow:0 2px 12px rgba(46,106,255,0.4)}
 .plano-nome{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);margin-bottom:10px}
 .plano-preco{font-size:2.4rem;font-weight:800;color:var(--white);line-height:1;margin-bottom:4px}
 .plano-preco sup{font-size:1rem;vertical-align:top;margin-top:6px;display:inline-block}
 .plano-preco sub{font-size:0.85rem;color:var(--text2);font-weight:400}
-.plano-roi{background:var(--green-dim);border:1px solid rgba(0,214,143,0.2);border-radius:8px;padding:8px 12px;margin:12px 0;font-size:0.78rem;color:var(--green)}
+.plano-roi{background:var(--green-dim);border:1px solid rgba(0,214,143,0.2);border-radius:8px;padding:8px 12px;margin:12px 0;font-size:0.78rem;color:var(--green)}.plano-card.featured .plano-roi{background:rgba(0,229,255,0.1);border-color:rgba(0,229,255,0.25);color:var(--accent)}
 .plano-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
 .plano-features li{display:flex;align-items:flex-start;gap:8px;font-size:0.82rem;color:var(--text2)}
-.plano-features li .check{color:var(--accent);font-weight:700;flex-shrink:0}
+.plano-features li .check{color:var(--green);font-weight:700;flex-shrink:0;font-size:0.85rem}.plano-card.featured .plano-features li .check{color:var(--accent)}
 .btn-assinar-plano{width:100%;padding:12px;border-radius:9px;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;transition:all 0.2s}
 .btn-assinar-plano.outline{background:transparent;border:1px solid var(--border2);color:var(--text)}.btn-assinar-plano.outline:hover{border-color:var(--blue);color:var(--blue-lite)}
-.btn-assinar-plano.filled{background:var(--blue);color:var(--white)}.btn-assinar-plano.filled:hover{background:var(--blue-lite);box-shadow:0 4px 20px rgba(46,106,255,0.3)}
+.btn-assinar-plano.filled{background:linear-gradient(135deg,var(--blue),#1a8fff);color:var(--white);font-size:0.95rem;padding:14px;box-shadow:0 4px 20px rgba(46,106,255,0.4)}.btn-assinar-plano.filled:hover{background:linear-gradient(135deg,var(--blue-lite),#2e9fff);box-shadow:0 6px 28px rgba(46,106,255,0.55);transform:translateY(-2px)}
 .planos-footer{text-align:center;font-size:0.78rem;color:var(--text2);display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
 .content-blocked{pointer-events:none;filter:blur(3px);user-select:none;opacity:0.4}
 .onboarding-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
@@ -253,6 +253,39 @@ tbody td.name{color:var(--text);font-weight:500}
 .t-num{width:24px;height:24px;border-radius:50%;background:var(--blue-dim);color:var(--blue-lite);font-size:0.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
 .t-txt{font-size:0.83rem;color:var(--text2);line-height:1.6}
 .t-txt strong{color:var(--text);display:block;margin-bottom:2px}
+
+/* OPERACIONAL / ADMIN */
+.admin-badge{background:var(--red-dim);color:var(--red);border:1px solid rgba(255,77,77,0.25);padding:2px 8px;border-radius:100px;font-size:0.65rem;font-weight:700;letter-spacing:0.5px;margin-left:auto}
+.op-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.op-stats-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.op-stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px}
+.op-stat-label{font-size:0.75rem;color:var(--text2);font-weight:500;margin-bottom:8px}
+.op-stat-val{font-size:2rem;font-weight:800;color:var(--white);line-height:1}
+.op-stat-val.green{color:var(--green)}.op-stat-val.amber{color:var(--amber)}.op-stat-val.blue{color:var(--blue-lite)}.op-stat-val.red{color:var(--red)}
+.op-stat-sub{font-size:0.72rem;color:var(--text3);margin-top:5px}
+.op-tabs{display:flex;gap:4px;margin-bottom:24px;background:var(--bg3);border-radius:10px;padding:4px}
+.op-tab{flex:1;padding:8px;border-radius:7px;border:none;background:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:500;color:var(--text2);cursor:pointer;transition:all 0.15s;text-align:center}
+.op-tab.active{background:var(--bg2);color:var(--white);box-shadow:0 1px 4px rgba(0,0,0,0.3)}
+.op-section{display:none}.op-section.active{display:block}
+.fin-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.fin-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+.fin-card h3{font-size:0.75rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+.fin-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border)}
+.fin-row:last-child{border-bottom:none;padding-bottom:0}
+.fin-row.total{padding-top:12px;margin-top:4px;border-top:1px solid var(--border2)}
+.fin-key{font-size:0.82rem;color:var(--text2)}
+.fin-val{font-size:0.88rem;font-weight:600;color:var(--text)}
+.fin-val.green{color:var(--green)}.fin-val.red{color:var(--red)}.fin-val.amber{color:var(--amber)}.fin-val.blue{color:var(--blue-lite)}
+.plano-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.plano-bar-label{font-size:0.78rem;color:var(--text2);width:90px;flex-shrink:0}
+.plano-bar-track{flex:1;height:5px;background:var(--bg3);border-radius:4px;overflow:hidden}
+.plano-bar-fill{height:100%;border-radius:4px;transition:width 0.6s ease}
+.plano-bar-fill.starter{background:var(--blue-lite)}.plano-bar-fill.profissional{background:var(--accent)}.plano-bar-fill.crescimento{background:var(--green)}
+.plano-bar-count{font-size:0.72rem;color:var(--text3);width:60px;text-align:right;flex-shrink:0}
+.zapi-connected{display:inline-flex;align-items:center;gap:4px;color:var(--green);font-size:0.75rem;font-weight:600}
+.zapi-connected::before{content:'●';font-size:0.55rem}
+.zapi-missing{display:inline-flex;align-items:center;gap:4px;color:var(--amber);font-size:0.75rem;font-weight:600}
+.zapi-missing::before{content:'○';font-size:0.55rem}
 </style>
 </head><body>
 <div class="app">
@@ -299,6 +332,11 @@ tbody td.name{color:var(--text);font-weight:500}
   <button class="nav-item" onclick="showPage('novidades',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
     Novidades <span style="margin-left:auto;background:rgba(0,214,143,0.15);color:var(--green);font-size:0.6rem;padding:1px 6px;border-radius:4px;font-weight:700">NOVO</span>
+  </button>
+  <button class="nav-item" onclick="showPage('operacional',this)">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    Operacional
+    <span class="admin-badge">ADMIN</span>
   </button>
   <div class="sidebar-bottom">
     <div class="user-row" onclick="logout()">
@@ -379,7 +417,7 @@ tbody td.name{color:var(--text);font-weight:500}
     </div>
     <!-- CAMPANHAS -->
     <div class="page" id="page-campanhas">
-      <div id="campanhas-bloqueado" style="display:none"><div style="text-align:center;padding:80px 20px;max-width:480px;margin:0 auto"><div style="font-size:3rem;margin-bottom:16px">&#x1F512;</div><div style="font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:10px">Campanhas e exclusivo do plano Profissional</div><button class="btn btn-primary" onclick="abrirPlanos('trial')" style="font-size:0.95rem;padding:12px 28px">Ver planos</button></div></div>
+      <div id="campanhas-bloqueado" style="display:none"><div style="text-align:center;padding:80px 20px;max-width:480px;margin:0 auto"><div style="font-size:3rem;margin-bottom:16px">🔒</div><div style="font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:10px">Campanhas e exclusivo do plano Profissional</div><button class="btn btn-primary" onclick="abrirPlanos('trial')" style="font-size:0.95rem;padding:12px 28px">Ver planos</button></div></div>
       <div id="campanhas-conteudo">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px"><div><div style="font-size:1.1rem;font-weight:700;color:var(--white)">Campanhas</div><div style="font-size:0.82rem;color:var(--text2);margin-top:4px">Dispare para toda sua base.</div></div><button class="btn btn-primary" onclick="abrirModalCampanha()">+ Nova campanha</button></div>
         <div class="card" style="margin-bottom:24px" id="form-campanha" style="display:none">
@@ -507,6 +545,90 @@ tbody td.name{color:var(--text);font-weight:500}
         <div class="config-section"><h3>Notificacoes</h3><div class="config-row"><span class="config-key">Quando cliente responde</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div><div class="config-row"><span class="config-key">Resumo diario por e-mail</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div></div>
       </div>
     </div>
+
+    <!-- OPERACIONAL (ADMIN) -->
+    <div class="page" id="page-operacional">
+      <div class="op-tabs">
+        <button class="op-tab active" onclick="opShowSection('op-visao',this)">Visao Geral</button>
+        <button class="op-tab" onclick="opShowSection('op-financeiro',this)">Financeiro</button>
+        <button class="op-tab" onclick="opShowSection('op-empresas',this)">Empresas</button>
+        <button class="op-tab" onclick="opShowSection('op-whatsapp',this)">WhatsApp</button>
+      </div>
+
+      <!-- VISAO GERAL -->
+      <div class="op-section active" id="op-visao">
+        <div class="op-stats-grid">
+          <div class="op-stat"><div class="op-stat-label">MRR Bruto</div><div class="op-stat-val green" id="op-mrr">R$ 0</div><div class="op-stat-sub" id="op-mrr-sub">0 assinantes</div></div>
+          <div class="op-stat"><div class="op-stat-label">Empresas ativas</div><div class="op-stat-val blue" id="op-ativas">0</div><div class="op-stat-sub">assinantes pagantes</div></div>
+          <div class="op-stat"><div class="op-stat-label">Em trial</div><div class="op-stat-val amber" id="op-trial">0</div><div class="op-stat-sub">periodo gratuito</div></div>
+          <div class="op-stat"><div class="op-stat-label">Inadimplentes</div><div class="op-stat-val red" id="op-inadim">0</div><div class="op-stat-sub">pagamento pendente</div></div>
+        </div>
+        <div class="op-stats-grid">
+          <div class="op-stat"><div class="op-stat-label">Base total de clientes</div><div class="op-stat-val blue" id="op-base">0</div><div class="op-stat-sub">na plataforma</div></div>
+          <div class="op-stat"><div class="op-stat-label">Starter</div><div class="op-stat-val" id="op-n-starter">0</div><div class="op-stat-sub" id="op-mrr-starter">R$ 0/mes</div></div>
+          <div class="op-stat"><div class="op-stat-label">Profissional</div><div class="op-stat-val blue" id="op-n-pro">0</div><div class="op-stat-sub" id="op-mrr-pro">R$ 0/mes</div></div>
+          <div class="op-stat"><div class="op-stat-label">Crescimento</div><div class="op-stat-val green" id="op-n-cresc">0</div><div class="op-stat-sub" id="op-mrr-cresc">R$ 0/mes</div></div>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text3);text-align:right;margin-bottom:16px" id="op-last-update"></div>
+      </div>
+
+      <!-- FINANCEIRO -->
+      <div class="op-section" id="op-financeiro">
+        <div class="op-stats-grid-3">
+          <div class="op-stat"><div class="op-stat-label">MRR Bruto</div><div class="op-stat-val green" id="op-fin-bruto">R$ 0</div><div class="op-stat-sub">receita dos planos</div></div>
+          <div class="op-stat"><div class="op-stat-label">Custos mensais</div><div class="op-stat-val red" id="op-fin-custos">R$ 0</div><div class="op-stat-sub">infra + stripe</div></div>
+          <div class="op-stat"><div class="op-stat-label">MRR Liquido</div><div class="op-stat-val amber" id="op-fin-liquido">R$ 0</div><div class="op-stat-sub">apos custos</div></div>
+        </div>
+        <div class="fin-grid">
+          <div class="fin-card">
+            <h3>Detalhamento de receita</h3>
+            <div class="fin-row"><span class="fin-key">Starter (R$147)</span><span class="fin-val" id="op-rec-starter">R$ 0</span></div>
+            <div class="fin-row"><span class="fin-key">Profissional (R$247)</span><span class="fin-val" id="op-rec-pro">R$ 0</span></div>
+            <div class="fin-row"><span class="fin-key">Crescimento (R$447)</span><span class="fin-val" id="op-rec-cresc">R$ 0</span></div>
+            <div class="fin-row total"><span class="fin-key" style="font-weight:700;color:var(--text)">MRR Bruto</span><span class="fin-val green" id="op-rec-total">R$ 0</span></div>
+          </div>
+          <div class="fin-card">
+            <h3>Detalhamento de custos</h3>
+            <div class="fin-row"><span class="fin-key">Railway Pro</span><span class="fin-val red">R$ 116</span></div>
+            <div class="fin-row"><span class="fin-key">Supabase Pro</span><span class="fin-val red">R$ 145</span></div>
+            <div class="fin-row"><span class="fin-key">Claude Pro</span><span class="fin-val red">R$ 120</span></div>
+            <div class="fin-row"><span class="fin-key">MEI/CNPJ</span><span class="fin-val red">R$ 89</span></div>
+            <div class="fin-row"><span class="fin-key">Stripe (~3,99% MRR)</span><span class="fin-val red" id="op-custo-stripe">R$ 0</span></div>
+            <div class="fin-row total"><span class="fin-key" style="font-weight:700;color:var(--text)">Total de custos</span><span class="fin-val red" id="op-custo-total">R$ 0</span></div>
+          </div>
+        </div>
+        <div class="fin-grid">
+          <div class="fin-card">
+            <h3>Distribuicao por plano</h3>
+            <div id="op-plano-bars"></div>
+          </div>
+          <div class="fin-card">
+            <h3>Resumo</h3>
+            <div class="fin-row"><span class="fin-key">Clientes ativos</span><span class="fin-val" id="op-res-ativ">0</span></div>
+            <div class="fin-row"><span class="fin-key">Em trial</span><span class="fin-val amber" id="op-res-trial">0</span></div>
+            <div class="fin-row"><span class="fin-key">Inadimplentes</span><span class="fin-val red" id="op-res-inadim">0</span></div>
+            <div class="fin-row"><span class="fin-key">Expirados</span><span class="fin-val" id="op-res-exp">0</span></div>
+            <div class="fin-row"><span class="fin-key">Base de clientes</span><span class="fin-val blue" id="op-res-base">0</span></div>
+            <div class="fin-row total"><span class="fin-key" style="font-weight:700;color:var(--text)">Margem liquida</span><span class="fin-val green" id="op-margem">0%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMPRESAS -->
+      <div class="op-section" id="op-empresas">
+        <div class="table-wrap" id="op-tabela-empresas"><div class="empty-state"><div class="empty-icon">&#x1F4CA;</div><p>Carregando empresas...</p></div></div>
+      </div>
+
+      <!-- WHATSAPP -->
+      <div class="op-section" id="op-whatsapp">
+        <div class="op-stats-grid-3">
+          <div class="op-stat"><div class="op-stat-label">Instancias ativas</div><div class="op-stat-val green" id="op-wpp-config">0</div><div class="op-stat-sub">WhatsApp conectado</div></div>
+          <div class="op-stat"><div class="op-stat-label">Sem instancia</div><div class="op-stat-val amber" id="op-wpp-pend">0</div><div class="op-stat-sub">aguardando</div></div>
+          <div class="op-stat"><div class="op-stat-label">Custo Baileys</div><div class="op-stat-val blue">Incluso</div><div class="op-stat-sub">no Railway Pro</div></div>
+        </div>
+        <div class="table-wrap" id="op-tabela-wpp"><div class="empty-state"><div class="empty-icon">&#x1F4F1;</div><p>Carregando...</p></div></div>
+      </div>
+    </div>
   </div>
 </div>
 </div>
@@ -522,12 +644,12 @@ tbody td.name{color:var(--text);font-weight:500}
 <!-- MODAL PLANOS -->
 <div class="planos-overlay" id="planos-overlay">
   <div class="planos-modal">
-    <div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button onclick="fecharPlanos()" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:1.4rem;line-height:1;padding:4px 8px">X</button></div>
-    <div class="planos-modal-header"><div class="planos-modal-icon" id="planos-icon">&#x1F512;</div><div class="planos-modal-title" id="planos-title">Seu periodo gratuito acabou</div><div class="planos-modal-sub" id="planos-sub">Escolha um plano para continuar usando o Retornax.</div></div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:8px"><button onclick="fecharPlanos()" style="background:none;border:none;color:var(--text2);cursor:pointer;font-size:1.4rem;line-height:1;padding:4px 8px">✕</button></div>
+    <div class="planos-modal-header"><div class="planos-modal-icon" id="planos-icon">🔒</div><div class="planos-modal-title" id="planos-title">Seu periodo gratuito acabou</div><div class="planos-modal-sub" id="planos-sub">Escolha um plano para continuar usando o Retornax.</div></div>
     <div class="planos-grid">
-      <div class="plano-card"><div class="plano-nome">Starter</div><div class="plano-preco"><sup>R$</sup>147<sub>/mes</sub></div><div class="plano-roi">Se 2 clientes voltarem, ja se paga.</div><ul class="plano-features"><li><span class="check">v</span>Ate 100 clientes</li><li><span class="check">v</span>200 mensagens/mes</li><li><span class="check">v</span>WhatsApp conectado incluso</li><li><span class="check">v</span>Suporte WhatsApp</li></ul><button class="btn-assinar-plano outline" onclick="assinarPlano('starter',147)">Assinar Starter</button></div>
-      <div class="plano-card featured"><div class="plano-tag">Mais popular</div><div class="plano-nome">Profissional</div><div class="plano-preco"><sup>R$</sup>247<sub>/mes</sub></div><div class="plano-roi">5 clientes reativados ja pagam 3x o plano.</div><ul class="plano-features"><li><span class="check">v</span>Ate 300 clientes</li><li><span class="check">v</span>600 mensagens/mes</li><li><span class="check">v</span>Campanhas em massa</li><li><span class="check">v</span>Dashboard completo</li><li><span class="check">v</span>Suporte prioritario</li></ul><button class="btn-assinar-plano filled" onclick="assinarPlano('profissional',247)">Assinar Profissional</button></div>
-      <div class="plano-card"><div class="plano-nome">Crescimento</div><div class="plano-preco"><sup>R$</sup>447<sub>/mes</sub></div><div class="plano-roi">Ideal para redes e franquias.</div><ul class="plano-features"><li><span class="check">v</span>Ate 800 clientes</li><li><span class="check">v</span>1.600 mensagens/mes</li><li><span class="check">v</span>Multiplas unidades</li><li><span class="check">v</span>API e integracoes</li></ul><button class="btn-assinar-plano outline" onclick="assinarPlano('crescimento',447)">Assinar Crescimento</button></div>
+      <div class="plano-card"><div class="plano-nome">Starter</div><div class="plano-preco"><sup>R$</sup>147<sub>/mes</sub></div><div class="plano-roi">Se 2 clientes voltarem, ja se paga.</div><ul class="plano-features"><li><span class="check">✓</span>Ate 100 clientes</li><li><span class="check">✓</span>200 mensagens/mes</li><li><span class="check">✓</span>WhatsApp conectado incluso</li><li><span class="check">✓</span>Suporte WhatsApp</li></ul><button class="btn-assinar-plano outline" onclick="assinarPlano('starter',147)">Assinar Starter</button></div>
+      <div class="plano-card featured"><div class="plano-tag">Mais popular</div><div class="plano-nome">Profissional</div><div class="plano-preco"><sup>R$</sup>247<sub>/mes</sub></div><div class="plano-roi">5 clientes reativados ja pagam 3x o plano.</div><ul class="plano-features"><li><span class="check">✓</span>Ate 300 clientes</li><li><span class="check">✓</span>600 mensagens/mes</li><li><span class="check">✓</span>Campanhas em massa</li><li><span class="check">✓</span>Dashboard completo</li><li><span class="check">✓</span>Suporte prioritario</li></ul><button class="btn-assinar-plano filled" onclick="assinarPlano('profissional',247)">Assinar Profissional</button></div>
+      <div class="plano-card"><div class="plano-nome">Crescimento</div><div class="plano-preco"><sup>R$</sup>447<sub>/mes</sub></div><div class="plano-roi">Ideal para redes e franquias.</div><ul class="plano-features"><li><span class="check">✓</span>Ate 800 clientes</li><li><span class="check">✓</span>1.600 mensagens/mes</li><li><span class="check">✓</span>Multiplas unidades</li><li><span class="check">✓</span>API e integracoes</li></ul><button class="btn-assinar-plano outline" onclick="assinarPlano('crescimento',447)">Assinar Crescimento</button></div>
     </div>
     <div class="planos-footer"><span>Cancele quando quiser</span><span>Sem taxa de setup</span><span>Cobranca via Stripe</span></div>
   </div>
@@ -778,14 +900,15 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
-  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automacoes',campanhas:'Campanhas',historico:'Historico',config:'Configuracoes',novidades:'Novidades',tutoriais:'Tutoriais',whatsapp:'Conectar WhatsApp'};
+  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automacoes',campanhas:'Campanhas',historico:'Historico',config:'Configuracoes',novidades:'Novidades',tutoriais:'Tutoriais',whatsapp:'Conectar WhatsApp',operacional:'Operacional'};
   const se=document.getElementById('saudacao-texto'); const te=document.getElementById('page-title');
   if(id==='dashboard'){ te.textContent=(document.querySelector('.user-name')?.textContent||'').split(' ')[0]||'Dashboard'; atualizarSaudacao(); if(se) se.style.display=''; }
   else{ te.textContent=titles[id]||id; if(se) se.style.display='none'; }
   const ab=document.getElementById('topbar-action');
-  if(id==='clientes'||id==='dashboard'){ ab.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> + Novo cliente'; ab.style.display=''; }
+  if((id==='clientes'||id==='dashboard')&&id!=='operacional'){ ab.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> + Novo cliente'; ab.style.display=''; }
   else{ ab.style.display='none'; }
   if(id==='historico') carregarHistorico();
+  if(id==='operacional') opCarregarDados();
   if(id==='campanhas') initCampanhas();
 }
 function topbarAction(){ const a=document.querySelector('.page.active').id; if(a==='page-clientes'||a==='page-dashboard') openModal(); }
@@ -903,14 +1026,14 @@ function initAccountStatus(){
   const banner=document.getElementById('trial-banner'),content=document.getElementById('main-content'),hoje=new Date(),diff=Math.ceil((ACCOUNT.trialEndsAt-hoje)/864e5);
   if(ACCOUNT.status==='ativo'){ banner.style.display='none'; return; }
   if(ACCOUNT.status==='trial'&&diff>0){ const cor=diff<=2?'warning':'active'; banner.className=`trial-banner ${cor}`; banner.innerHTML=`<span>${diff<=2?'':'&#x1F381;'} Periodo gratuito - <strong>${diff} dia${diff>1?'s':''}</strong> restante${diff>1?'s':''}.</span><button class="btn-assinar-banner" onclick="abrirPlanos('trial')">Ver planos</button>`; return; }
-  banner.className='trial-banner expired'; banner.innerHTML=`<span>&#x1F512; Acesso <strong>expirado</strong>. Assine para continuar.</span><button class="btn-assinar-banner" onclick="abrirPlanos('expired')">Assinar agora</button>`;
+  banner.className='trial-banner expired'; banner.innerHTML=`<span>🔒 Acesso <strong>expirado</strong>. Assine para continuar.</span><button class="btn-assinar-banner" onclick="abrirPlanos('expired')">Assinar agora</button>`;
   content.classList.add('content-blocked'); abrirPlanos(ACCOUNT.status);
 }
 function fecharPlanos(){ document.getElementById('planos-overlay').classList.remove('open'); document.getElementById('main-content').classList.remove('content-blocked'); }
 function abrirPlanos(motivo){
   const i=document.getElementById('planos-icon'),t=document.getElementById('planos-title'),s=document.getElementById('planos-sub');
-  if(motivo==='trial'){ i.textContent='&#x1F680;'; t.textContent='Escolha seu plano'; s.textContent='Continue no piloto automatico.'; }
-  else{ i.textContent='&#x1F512;'; t.textContent='Seu periodo gratuito acabou'; s.textContent='Escolha um plano para continuar.'; }
+  if(motivo==='trial'){ i.textContent='🚀'; t.textContent='Escolha seu plano'; s.textContent='Continue no piloto automatico.'; }
+  else{ i.textContent='🔒'; t.textContent='Seu periodo gratuito acabou'; s.textContent='Escolha um plano para continuar.'; }
   document.getElementById('planos-overlay').classList.add('open');
 }
 async function assinarPlano(plano,valor){
@@ -967,6 +1090,162 @@ function atualizarSaudacao(){ const h=new Date().getHours(); let s='Boa noite,';
 function animarNumero(el,target,dur=800){ const st=performance.now(); function up(t){ const p=Math.min((t-st)/dur,1); el.textContent=Math.round(target*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(up); } requestAnimationFrame(up); }
 function toggleTema(){ const l=document.body.classList.toggle('light-mode'); document.getElementById('icon-tema-escuro').style.display=l?'none':''; document.getElementById('icon-tema-claro').style.display=l?'':'none'; localStorage.setItem('rtx_tema',l?'light':'dark'); }
 (function(){ const t=localStorage.getItem('rtx_tema'); if(t==='light'){ document.body.classList.add('light-mode'); document.getElementById('icon-tema-escuro').style.display='none'; document.getElementById('icon-tema-claro').style.display=''; } })();
+
+
+
+// ── OPERACIONAL (ADMIN) ──
+const MRR_PLANO = { starter: 147, profissional: 247, crescimento: 447 };
+const CUSTOS_FIXOS = 116 + 145 + 120 + 89 + 4; // Railway + Supabase + Claude + MEI + Dominio = 474
+const ADMIN_EMAILS = ['douglas.rebollo.mh@gmail.com', 'h.especialistainvest@gmail.com'];
+let opEmpresas = [];
+let opTotalBase = 0;
+let opCarregado = false;
+
+function opShowSection(id, btn) {
+  document.querySelectorAll('.op-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.op-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+async function opCarregarDados() {
+  if (opCarregado) return;
+  if (!ADMIN_EMAILS.includes(ACCOUNT.email)) {
+    document.getElementById('page-operacional').innerHTML = '<div class="empty-state" style="padding:80px"><div class="empty-icon">🔒</div><strong style="color:var(--text)">Acesso restrito</strong><p>Apenas administradores podem acessar esta area.</p></div>';
+    return;
+  }
+
+  const { data: empresas } = await supabase.from('empresas').select('*').order('created_at', { ascending: false });
+  const { count } = await supabase.from('clientes').select('*', { count: 'exact', head: true });
+  opEmpresas = empresas || [];
+  opTotalBase = count || 0;
+  opCarregado = true;
+
+  opRenderVisao();
+  opRenderFinanceiro();
+  opRenderEmpresas();
+  opRenderWhatsapp();
+}
+
+function opRenderVisao() {
+  const ativas   = opEmpresas.filter(e => e.status === 'ativo');
+  const trial    = opEmpresas.filter(e => e.status === 'trial');
+  const inadim   = opEmpresas.filter(e => e.status === 'inadimplente');
+  const starter  = ativas.filter(e => e.plano === 'starter');
+  const pro      = ativas.filter(e => e.plano === 'profissional');
+  const cresc    = ativas.filter(e => e.plano === 'crescimento');
+  const mrr      = ativas.reduce((s, e) => s + (MRR_PLANO[e.plano] || 0), 0);
+
+  document.getElementById('op-mrr').textContent = 'R$ ' + mrr.toLocaleString('pt-BR');
+  document.getElementById('op-mrr-sub').textContent = ativas.length + ' assinantes';
+  document.getElementById('op-ativas').textContent = ativas.length;
+  document.getElementById('op-trial').textContent = trial.length;
+  document.getElementById('op-inadim').textContent = inadim.length;
+  document.getElementById('op-base').textContent = opTotalBase.toLocaleString('pt-BR');
+  document.getElementById('op-n-starter').textContent = starter.length;
+  document.getElementById('op-mrr-starter').textContent = 'R$ ' + (starter.length * 147).toLocaleString('pt-BR') + '/mes';
+  document.getElementById('op-n-pro').textContent = pro.length;
+  document.getElementById('op-mrr-pro').textContent = 'R$ ' + (pro.length * 247).toLocaleString('pt-BR') + '/mes';
+  document.getElementById('op-n-cresc').textContent = cresc.length;
+  document.getElementById('op-mrr-cresc').textContent = 'R$ ' + (cresc.length * 447).toLocaleString('pt-BR') + '/mes';
+  document.getElementById('op-last-update').textContent = 'Atualizado em ' + new Date().toLocaleString('pt-BR');
+}
+
+function opRenderFinanceiro() {
+  const ativas   = opEmpresas.filter(e => e.status === 'ativo');
+  const trial    = opEmpresas.filter(e => e.status === 'trial');
+  const inadim   = opEmpresas.filter(e => e.status === 'inadimplente');
+  const expirado = opEmpresas.filter(e => e.status === 'expirado');
+  const starter  = ativas.filter(e => e.plano === 'starter');
+  const pro      = ativas.filter(e => e.plano === 'profissional');
+  const cresc    = ativas.filter(e => e.plano === 'crescimento');
+
+  const recS = starter.length * 147;
+  const recP = pro.length * 247;
+  const recC = cresc.length * 447;
+  const bruto = recS + recP + recC;
+  const stripe = Math.round(bruto * 0.0399);
+  const total  = CUSTOS_FIXOS + stripe;
+  const liquido = bruto - total;
+  const margem  = bruto > 0 ? Math.round((liquido / bruto) * 100) : 0;
+
+  document.getElementById('op-fin-bruto').textContent   = 'R$ ' + bruto.toLocaleString('pt-BR');
+  document.getElementById('op-fin-custos').textContent  = 'R$ ' + total.toLocaleString('pt-BR');
+  document.getElementById('op-fin-liquido').textContent = 'R$ ' + liquido.toLocaleString('pt-BR');
+  document.getElementById('op-rec-starter').textContent = 'R$ ' + recS.toLocaleString('pt-BR') + ' (' + starter.length + 'x)';
+  document.getElementById('op-rec-pro').textContent     = 'R$ ' + recP.toLocaleString('pt-BR') + ' (' + pro.length + 'x)';
+  document.getElementById('op-rec-cresc').textContent   = 'R$ ' + recC.toLocaleString('pt-BR') + ' (' + cresc.length + 'x)';
+  document.getElementById('op-rec-total').textContent   = 'R$ ' + bruto.toLocaleString('pt-BR');
+  document.getElementById('op-custo-stripe').textContent = 'R$ ' + stripe.toLocaleString('pt-BR');
+  document.getElementById('op-custo-total').textContent  = 'R$ ' + total.toLocaleString('pt-BR');
+
+  const tot = ativas.length || 1;
+  document.getElementById('op-plano-bars').innerHTML = [
+    ['Starter',       starter.length, 'starter',      tot],
+    ['Profissional',  pro.length,     'profissional',  tot],
+    ['Crescimento',   cresc.length,   'crescimento',   tot],
+  ].map(([lbl, n, cls, t]) => `
+    <div class="plano-bar-row">
+      <div class="plano-bar-label">${lbl}</div>
+      <div class="plano-bar-track"><div class="plano-bar-fill ${cls}" style="width:${Math.round(n/t*100)}%"></div></div>
+      <div class="plano-bar-count">${n} cli.</div>
+    </div>`).join('');
+
+  document.getElementById('op-res-ativ').textContent   = ativas.length;
+  document.getElementById('op-res-trial').textContent  = trial.length;
+  document.getElementById('op-res-inadim').textContent = inadim.length;
+  document.getElementById('op-res-exp').textContent    = expirado.length;
+  document.getElementById('op-res-base').textContent   = opTotalBase.toLocaleString('pt-BR');
+  const mEl = document.getElementById('op-margem');
+  mEl.textContent = margem + '%';
+  mEl.className = 'fin-val ' + (margem >= 50 ? 'green' : margem >= 20 ? 'amber' : 'red');
+}
+
+function opRenderEmpresas() {
+  const statusBadge = (e) => {
+    const dias = e.trial_ends_at ? Math.ceil((new Date(e.trial_ends_at) - new Date()) / 864e5) : null;
+    const map = {
+      ativo:        '<span class="badge badge-green">Ativo</span>',
+      trial:        `<span class="badge badge-amber">Trial (${dias > 0 ? dias + 'd' : 'exp.'})</span>`,
+      inadimplente: '<span class="badge badge-red">Inadimplente</span>',
+      expirado:     '<span class="badge badge-gray">Expirado</span>',
+    };
+    return map[e.status] || e.status;
+  };
+  const rows = opEmpresas.map(e => `<tr>
+    <td class="name">${e.nome || '-'}</td>
+    <td>${e.email}</td>
+    <td>${e.whatsapp || '-'}</td>
+    <td>${statusBadge(e)}</td>
+    <td>${e.plano && e.plano !== 'trial' ? `<span class="badge badge-blue">${e.plano}</span>` : '<span class="badge badge-gray">-</span>'}</td>
+    <td>R$ ${MRR_PLANO[e.plano] || 0}/mes</td>
+    <td>${new Date(e.created_at).toLocaleDateString('pt-BR')}</td>
+  </tr>`).join('');
+  document.getElementById('op-tabela-empresas').innerHTML = `<table>
+    <thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Status</th><th>Plano</th><th>MRR</th><th>Cadastro</th></tr></thead>
+    <tbody>${rows}</tbody></table>`;
+}
+
+function opRenderWhatsapp() {
+  const com = opEmpresas.filter(e => e.evolution_instance);
+  const sem = opEmpresas.filter(e => !e.evolution_instance);
+  document.getElementById('op-wpp-config').textContent = com.length;
+  document.getElementById('op-wpp-pend').textContent   = sem.length;
+
+  const rows = opEmpresas.map(e => {
+    const tem = !!e.evolution_instance;
+    return `<tr>
+      <td class="name">${e.nome || '-'}</td>
+      <td>${e.email}</td>
+      <td><span class="badge ${e.status === 'ativo' ? 'badge-green' : 'badge-gray'}">${e.status}</span></td>
+      <td>${tem ? '<span class="zapi-connected">Conectado</span>' : '<span class="zapi-missing">Pendente</span>'}</td>
+      <td style="font-size:0.72rem;color:var(--text3);font-family:monospace">${e.evolution_instance || '-'}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('op-tabela-wpp').innerHTML = `<table>
+    <thead><tr><th>Empresa</th><th>E-mail</th><th>Status</th><th>WhatsApp</th><th>Instancia Baileys</th></tr></thead>
+    <tbody>${rows}</tbody></table>`;
+}
 
 renderTemplates(); document.getElementById('f-data').valueAsDate=new Date(); checkAuth();
 </script>
