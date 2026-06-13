@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retornax — Prospecção</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07091a;--bg2:#0d1230;--bg3:#111a3a;--surface:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.13);
+  --blue:#2e6aff;--blue-dim:rgba(46,106,255,0.15);--blue-lite:#5b8fff;
+  --accent:#00e5ff;--green:#00d68f;--green-dim:rgba(0,214,143,0.12);
+  --amber:#ffb020;--amber-dim:rgba(255,176,32,0.12);
+  --red:#ff4d4d;--red-dim:rgba(255,77,77,0.12);
+  --purple:#a78bfa;--purple-dim:rgba(167,139,250,0.12);
+  --pink:#f472b6;--pink-dim:rgba(244,114,182,0.12);
+  --text:#dce6ff;--text2:#7a8ab0;--text3:#4a5880;--white:#ffffff;
+}
+html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px}
+.app{display:flex;flex-direction:column;height:100vh}
+/* NAV */
+.nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.nav-logo{font-weight:800;font-size:1.2rem;color:var(--white)}
+.nav-logo span{color:var(--accent)}
+.nav-badge{background:var(--blue-dim);color:var(--blue-lite);padding:3px 10px;border-radius:100px;font-size:0.72rem;font-weight:700;margin-left:8px}
+.nav-actions{display:flex;gap:10px;align-items:center}
+/* TOOLBAR */
+.toolbar{padding:16px 28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
+.toolbar-title{font-size:1rem;font-weight:700;color:var(--white);margin-right:8px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.84rem;font-weight:500;cursor:pointer;border:none;transition:all 0.15s}
+.btn-primary{background:var(--blue);color:var(--white)}.btn-primary:hover{background:var(--blue-lite);transform:translateY(-1px)}
+.btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border)}.btn-ghost:hover{border-color:var(--border2);color:var(--white)}
+.btn-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,214,143,0.25)}.btn-green:hover{background:rgba(0,214,143,0.2)}
+.btn-sm{padding:6px 12px;font-size:0.8rem}
+.btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(255,77,77,0.2)}
+.search-wrap{position:relative;flex:1;min-width:200px;max-width:320px}
+.search-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 12px 8px 34px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.84rem;outline:none;transition:border-color 0.15s}
+.search-wrap input:focus{border-color:var(--blue)}
+.search-wrap input::placeholder{color:var(--text3)}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);opacity:0.4}
+.filter-select{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.84rem;outline:none;cursor:pointer}
+.filter-select option{background:var(--bg2)}
+/* STATS BAR */
+.stats-bar{display:flex;gap:12px;padding:12px 28px;background:var(--bg);border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto}
+.stat-chip{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 14px;white-space:nowrap;display:flex;align-items:center;gap:8px;font-size:0.8rem}
+.stat-chip-val{font-weight:700;color:var(--white);font-size:1rem}
+.stat-chip-label{color:var(--text2)}
+/* KANBAN */
+.kanban-wrap{flex:1;overflow-x:auto;padding:20px 28px;display:flex;gap:16px;align-items:flex-start}
+.kanban-col{flex-shrink:0;width:290px;display:flex;flex-direction:column;gap:0}
+.col-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px 10px 0 0;margin-bottom:0}
+.col-title{display:flex;align-items:center;gap:8px;font-size:0.85rem;font-weight:700;color:var(--white)}
+.col-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.col-count{background:rgba(255,255,255,0.1);color:var(--text2);padding:2px 8px;border-radius:100px;font-size:0.72rem;font-weight:600}
+.col-actions{display:flex;gap:4px}
+.col-btn{background:none;border:none;color:var(--text3);cursor:pointer;padding:4px;border-radius:4px;font-size:0.8rem;transition:color 0.15s}
+.col-btn:hover{color:var(--text)}
+.col-body{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:10px;min-height:120px;display:flex;flex-direction:column;gap:8px}
+.col-body.drag-over{background:rgba(46,106,255,0.08);border-color:var(--blue)}
+/* CARD */
+.prospect-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:grab;transition:all 0.15s;position:relative}
+.prospect-card:hover{border-color:var(--border2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,0.3)}
+.prospect-card.dragging{opacity:0.5;cursor:grabbing}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+.card-nome{font-size:0.88rem;font-weight:700;color:var(--white);line-height:1.3}
+.card-empresa{font-size:0.78rem;color:var(--text2);margin-top:2px}
+.card-menu-btn{background:none;border:none;color:var(--text3);cursor:pointer;padding:2px 4px;border-radius:4px;font-size:1rem;line-height:1;flex-shrink:0;transition:color 0.15s}
+.card-menu-btn:hover{color:var(--text)}
+.card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.card-tag{padding:2px 8px;border-radius:100px;font-size:0.68rem;font-weight:600}
+.card-info{display:flex;flex-direction:column;gap:3px;margin-bottom:8px}
+.card-info-row{display:flex;align-items:center;gap:6px;font-size:0.75rem;color:var(--text2)}
+.card-info-row svg{flex-shrink:0;opacity:0.6}
+.card-footer{display:flex;align-items:center;justify-content:space-between}
+.card-origem{font-size:0.68rem;color:var(--text3);display:flex;align-items:center;gap:4px}
+.card-data{font-size:0.68rem;color:var(--text3)}
+.card-priority{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+/* ADD COL */
+.add-col-btn{flex-shrink:0;width:240px;background:var(--surface);border:2px dashed var(--border);border-radius:10px;padding:20px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;color:var(--text3);font-size:0.84rem;font-weight:500;transition:all 0.2s;height:60px}
+.add-col-btn:hover{border-color:var(--blue);color:var(--blue-lite);background:var(--blue-dim)}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;width:540px;max-width:95vw;padding:28px;animation:modalIn 0.2s ease;max-height:90vh;overflow-y:auto}
+@keyframes modalIn{from{opacity:0;transform:scale(0.96) translateY(10px)}to{opacity:1;transform:none}}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.modal-title{font-weight:700;font-size:1.05rem;color:var(--white)}
+.modal-close{background:none;border:none;color:var(--text3);cursor:pointer;font-size:1.3rem;line-height:1}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:0.75rem;font-weight:600;color:var(--text2);margin-bottom:5px}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.15s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue)}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--text3)}
+.form-group select option{background:var(--bg2)}
+.form-group textarea{resize:vertical;min-height:70px;line-height:1.5}
+.modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}
+/* CONTEXT MENU */
+.ctx-menu{position:fixed;background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:6px;z-index:300;min-width:160px;box-shadow:0 8px 32px rgba(0,0,0,0.4);display:none}
+.ctx-menu.open{display:block}
+.ctx-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:0.82rem;color:var(--text2);transition:all 0.15s;border:none;background:none;width:100%;text-align:left;font-family:'Plus Jakarta Sans',sans-serif}
+.ctx-item:hover{background:var(--surface);color:var(--text)}
+.ctx-item.danger:hover{background:var(--red-dim);color:var(--red)}
+.ctx-divider{height:1px;background:var(--border);margin:4px 0}
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;z-index:500;background:var(--bg2);border:1px solid var(--green);color:var(--green);padding:12px 20px;border-radius:10px;font-size:0.85rem;font-weight:500;display:flex;align-items:center;gap:8px;transform:translateY(80px);opacity:0;transition:all 0.3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+/* IMPORT ZONE */
+.import-zone{border:2px dashed var(--border2);border-radius:10px;padding:28px;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:16px}
+.import-zone:hover{border-color:var(--blue);background:var(--blue-dim)}
+.import-zone p{font-size:0.85rem;color:var(--text2);margin-top:8px}
+.import-zone span{font-size:0.75rem;color:var(--text3)}
+/* EMPTY */
+.col-empty{text-align:center;padding:20px 10px;color:var(--text3);font-size:0.78rem}
+.col-empty-icon{font-size:1.5rem;margin-bottom:6px}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+/* BADGE ORIGEM */
+.origem-amigos{background:rgba(167,139,250,0.15);color:var(--purple)}
+.origem-local{background:rgba(0,229,255,0.1);color:var(--accent)}
+.origem-google{background:rgba(255,176,32,0.12);color:var(--amber)}
+.origem-instagram{background:rgba(244,114,182,0.12);color:var(--pink)}
+.origem-outros{background:rgba(255,255,255,0.07);color:var(--text2)}
+/* PRIORIDADE */
+.prio-alta{background:var(--red)}
+.prio-media{background:var(--amber)}
+.prio-baixa{background:var(--green)}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div style="display:flex;align-items:center;gap:0">
+      <div class="nav-logo">Retorna<span>x</span></div>
+      <span class="nav-badge">PROSPECÇÃO</span>
+    </div>
+    <div class="nav-actions">
+      <span style="font-size:0.8rem;color:var(--text2)" id="nav-data"></span>
+    </div>
+  </nav>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="toolbar-title">Pipeline de vendas</div>
+    <div class="search-wrap">
+      <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search-input" placeholder="Buscar prospecto..." oninput="filtrar()">
+    </div>
+    <select class="filter-select" id="filter-origem" onchange="filtrar()">
+      <option value="">Todas as origens</option>
+      <option value="amigos">👥 Ciclo de amizade</option>
+      <option value="local">🏪 Negócios locais</option>
+      <option value="google">🔍 Google</option>
+      <option value="instagram">📸 Instagram</option>
+      <option value="outros">📌 Outros</option>
+    </select>
+    <select class="filter-select" id="filter-prio" onchange="filtrar()">
+      <option value="">Todas as prioridades</option>
+      <option value="alta">🔴 Alta</option>
+      <option value="media">🟡 Média</option>
+      <option value="baixa">🟢 Baixa</option>
+    </select>
+    <div style="margin-left:auto;display:flex;gap:8px">
+      <button class="btn btn-ghost btn-sm" onclick="abrirImport()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Importar
+      </button>
+      <button class="btn btn-primary" onclick="abrirModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Novo prospecto
+      </button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar" id="stats-bar"></div>
+
+  <!-- KANBAN -->
+  <div class="kanban-wrap" id="kanban-wrap">
+    <button class="add-col-btn" onclick="adicionarColuna()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Nova etapa
+    </button>
+  </div>
+
+</div>
+
+<!-- MODAL NOVO PROSPECTO -->
+<div class="modal-overlay" id="modal-prospect" onclick="if(event.target===this)fecharModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title-text">Novo prospecto</div>
+      <button class="modal-close" onclick="fecharModal()">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Nome *</label><input type="text" id="f-nome" placeholder="João Silva"></div>
+      <div class="form-group"><label>WhatsApp</label><input type="tel" id="f-wpp" placeholder="(51) 99999-9999"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Nome da empresa</label><input type="text" id="f-empresa" placeholder="Barbearia do João"></div>
+      <div class="form-group"><label>Segmento</label>
+        <select id="f-segmento">
+          <option value="">Selecione...</option>
+          <option value="Barbearia">✂ Barbearia</option>
+          <option value="Estetica auto">🚗 Estética auto</option>
+          <option value="Mecanica">🔧 Mecânica</option>
+          <option value="Beleza">💅 Beleza / Salão</option>
+          <option value="Pet shop">🐾 Pet shop</option>
+          <option value="Academia">🏋 Academia</option>
+          <option value="Restaurante">🍽 Restaurante</option>
+          <option value="Clinica">🏥 Clínica</option>
+          <option value="Outros">📌 Outros</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Origem</label>
+        <select id="f-origem">
+          <option value="amigos">👥 Ciclo de amizade</option>
+          <option value="local">🏪 Negócios locais</option>
+          <option value="google">🔍 Google</option>
+          <option value="instagram">📸 Instagram</option>
+          <option value="outros">📌 Outros</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Prioridade</label>
+        <select id="f-prio">
+          <option value="media">🟡 Média</option>
+          <option value="alta">🔴 Alta</option>
+          <option value="baixa">🟢 Baixa</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Cidade</label><input type="text" id="f-cidade" placeholder="Porto Alegre, RS"></div>
+      <div class="form-group"><label>Instagram</label><input type="text" id="f-insta" placeholder="@empresa"></div>
+    </div>
+    <div class="form-group"><label>Observações</label><textarea id="f-obs" placeholder="Anotações sobre o contato, interesse, próximos passos..."></textarea></div>
+    <div class="form-group"><label>Etapa</label>
+      <select id="f-coluna"></select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="fecharModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="salvarProspecto()">Salvar prospecto</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL IMPORTAR -->
+<div class="modal-overlay" id="modal-import" onclick="if(event.target===this)fecharImport()">
+  <div class="modal" style="width:480px">
+    <div class="modal-header">
+      <div class="modal-title">Importar prospectos</div>
+      <button class="modal-close" onclick="fecharImport()">✕</button>
+    </div>
+    <div class="import-zone" onclick="document.getElementById('file-input').click()" ondragover="event.preventDefault()" ondrop="dropImport(event)">
+      <div style="font-size:2rem">📊</div>
+      <p>Clique ou arraste sua planilha aqui</p>
+      <span>Formatos: .xlsx, .csv</span>
+    </div>
+    <input type="file" id="file-input" accept=".xlsx,.csv" style="display:none" onchange="handleImport(event)">
+    <div style="background:var(--bg3);border-radius:8px;padding:12px;font-size:0.78rem;color:var(--text2);line-height:1.7;margin-bottom:16px">
+      <strong style="color:var(--text);display:block;margin-bottom:4px">Formato esperado:</strong>
+      Nome | WhatsApp | Empresa | Segmento | Origem | Cidade
+    </div>
+    <div id="import-msg" style="font-size:0.82rem;margin-bottom:12px;display:none"></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="fecharImport()">Cancelar</button>
+      <button class="btn btn-primary" id="btn-confirmar-import" onclick="confirmarImport()" style="display:none">Importar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NOVA COLUNA -->
+<div class="modal-overlay" id="modal-coluna" onclick="if(event.target===this)fecharModalColuna()">
+  <div class="modal" style="width:400px">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-col-title">Nova etapa</div>
+      <button class="modal-close" onclick="fecharModalColuna()">✕</button>
+    </div>
+    <div class="form-group"><label>Nome da etapa *</label><input type="text" id="f-col-nome" placeholder="Ex: Proposta enviada"></div>
+    <div class="form-group"><label>Cor</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap" id="cor-picker">
+        <div class="cor-opt" data-cor="#2e6aff" style="width:28px;height:28px;border-radius:50%;background:#2e6aff;cursor:pointer;border:3px solid transparent" onclick="selecionarCor(this)"></div>
+        <div class="cor-opt" data-cor="#00e5ff" style="width:28px;height:28px;border-radius:50%;background:#00e5ff;cursor:pointer;border:3px solid transparent" onclick="selecionarCor(this)"></div>
+        <div class="cor-opt" data-cor="#00d68f" style="width:28px;height:28px;border-radius:50%;background:#00d68f;cursor:pointer;border:3px solid transparent" onclick="selecionarCor(this)"></div>
+        <div class="cor-opt" data-cor="#ffb020" style="width:28px;height:28px;border-radius:50%;background:#ffb020;cursor:pointer;border:3px solid transparent" onclick="selecionarCor(this)"></div>
+        <div class="cor-opt" data-cor="#ff4d4d" style="width:28px;height:28px;border-radius:50%;background:#ff4d4d;cursor:pointer;border:3px solid transparent" onclick="selecionarCor(this)"></div>
+        <div class="cor-opt" data-cor="#a78bfa" style="width:28px;height:28px;border-radius:50%;background:#a78bfa;cursor:pointer;border:3px solid transparent" onclick="selecionarCor(this)"></div>
+        <div class="cor-opt" data-cor="#f472b6" style="width:28px;height:28px;border-radius:50%;background:#f472b6;cursor:pointer;border:3px solid transparent" onclick="selecionarCor(this)"></div>
+        <div class="cor-opt" data-cor="#fb923c" style="width:28px;height:28px;border-radius:50%;background:#fb923c;cursor:pointer;border:3px solid transparent" onclick="selecionarCor(this)"></div>
+      </div>
+    </div>
+    <input type="hidden" id="f-col-id">
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="fecharModalColuna()">Cancelar</button>
+      <button class="btn btn-primary" onclick="salvarColuna()">Salvar etapa</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEXT MENU -->
+<div class="ctx-menu" id="ctx-menu">
+  <button class="ctx-item" onclick="ctxEditar()">✏️ Editar</button>
+  <button class="ctx-item" onclick="ctxMover()">↕️ Mover para etapa</button>
+  <div class="ctx-divider"></div>
+  <button class="ctx-item" onclick="ctxWhatsapp()">💬 Abrir WhatsApp</button>
+  <button class="ctx-item" onclick="ctxInstagram()">📸 Ver Instagram</button>
+  <div class="ctx-divider"></div>
+  <button class="ctx-item danger" onclick="ctxDeletar()">🗑️ Remover</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span>✓</span><span id="toast-msg">Feito!</span></div>
+
+<script>
+// ── ESTADO ──
+let colunas = [];
+let prospectos = [];
+let corSelecionada = '#2e6aff';
+let editandoId = null;
+let ctxProspectoId = null;
+let importData = [];
+let dragId = null;
+let dragColId = null;
+
+const ORIGENS = {
+  amigos:    { label:'👥 Amizade',  cls:'origem-amigos' },
+  local:     { label:'🏪 Local',    cls:'origem-local' },
+  google:    { label:'🔍 Google',   cls:'origem-google' },
+  instagram: { label:'📸 Instagram',cls:'origem-instagram' },
+  outros:    { label:'📌 Outros',   cls:'origem-outros' },
+};
+
+const PRIO_COR = { alta:'prio-alta', media:'prio-media', baixa:'prio-baixa' };
+
+// ── STORAGE ──
+function salvar(){ localStorage.setItem('rtx_prosp_cols', JSON.stringify(colunas)); localStorage.setItem('rtx_prosp_cards', JSON.stringify(prospectos)); }
+function carregar(){
+  const c = localStorage.getItem('rtx_prosp_cols'); const p = localStorage.getItem('rtx_prosp_cards');
+  if(c) colunas = JSON.parse(c); else colunas = defaultColunas();
+  if(p) prospectos = JSON.parse(p); else prospectos = [];
+}
+
+function defaultColunas(){
+  return [
+    { id: uid(), nome:'Identificado',   cor:'#7a8ab0' },
+    { id: uid(), nome:'Primeiro contato',cor:'#2e6aff' },
+    { id: uid(), nome:'Apresentação',   cor:'#00e5ff' },
+    { id: uid(), nome:'Proposta',       cor:'#ffb020' },
+    { id: uid(), nome:'Fechado',        cor:'#00d68f' },
+    { id: uid(), nome:'Perdido',        cor:'#ff4d4d' },
+  ];
+}
+
+function uid(){ return Math.random().toString(36).slice(2) + Date.now().toString(36); }
+
+// ── RENDER ──
+function render(filtro = ''){
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const origem = document.getElementById('filter-origem').value;
+  const prio = document.getElementById('filter-prio').value;
+
+  const wrap = document.getElementById('kanban-wrap');
+  const addBtn = wrap.querySelector('.add-col-btn');
+  wrap.innerHTML = '';
+
+  colunas.forEach(col => {
+    let cards = prospectos.filter(p => p.colunaId === col.id);
+    if(q) cards = cards.filter(p => p.nome.toLowerCase().includes(q) || (p.empresa||'').toLowerCase().includes(q) || (p.cidade||'').toLowerCase().includes(q));
+    if(origem) cards = cards.filter(p => p.origem === origem);
+    if(prio) cards = cards.filter(p => p.prio === prio);
+
+    const colEl = document.createElement('div');
+    colEl.className = 'kanban-col';
+    colEl.innerHTML = `
+      <div class="col-header" style="background:${col.cor}18;border:1px solid ${col.cor}33;border-bottom:none">
+        <div class="col-title">
+          <div class="col-dot" style="background:${col.cor}"></div>
+          ${col.nome}
+          <span class="col-count">${cards.length}</span>
+        </div>
+        <div class="col-actions">
+          <button class="col-btn" title="Adicionar prospecto" onclick="abrirModalNaColuna('${col.id}')">+</button>
+          <button class="col-btn" title="Editar etapa" onclick="editarColuna('${col.id}')">✏</button>
+          <button class="col-btn" title="Remover etapa" onclick="removerColuna('${col.id}')">✕</button>
+        </div>
+      </div>
+      <div class="col-body" id="col-${col.id}" ondragover="dragOver(event,'${col.id}')" ondragleave="dragLeave(event)" ondrop="drop(event,'${col.id}')">
+        ${cards.length === 0 ? '<div class="col-empty"><div class="col-empty-icon">📭</div>Nenhum prospecto</div>' : ''}
+        ${cards.map(p => renderCard(p)).join('')}
+      </div>
+    `;
+    wrap.appendChild(colEl);
+  });
+
+  const addBtnNew = document.createElement('button');
+  addBtnNew.className = 'add-col-btn';
+  addBtnNew.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Nova etapa`;
+  addBtnNew.onclick = adicionarColuna;
+  wrap.appendChild(addBtnNew);
+
+  renderStats();
+  atualizarSelectColuna();
+}
+
+function renderCard(p){
+  const o = ORIGENS[p.origem] || ORIGENS.outros;
+  const seg = p.segmento ? `<span class="card-tag" style="background:rgba(0,229,255,0.1);color:var(--accent)">${p.segmento}</span>` : '';
+  return `
+    <div class="prospect-card" id="card-${p.id}" draggable="true"
+      ondragstart="dragStart(event,'${p.id}')" ondragend="dragEnd(event)">
+      <div class="card-top">
+        <div>
+          <div class="card-nome">${p.nome}</div>
+          ${p.empresa ? `<div class="card-empresa">${p.empresa}</div>` : ''}
+        </div>
+        <button class="card-menu-btn" onclick="abrirCtx(event,'${p.id}')">⋯</button>
+      </div>
+      <div class="card-tags">${seg}</div>
+      <div class="card-info">
+        ${p.wpp ? `<div class="card-info-row"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3-8.58A2 2 0 0 1 3.62 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>${p.wpp}</div>` : ''}
+        ${p.cidade ? `<div class="card-info-row"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${p.cidade}</div>` : ''}
+        ${p.obs ? `<div class="card-info-row" style="font-style:italic;font-size:0.72rem;color:var(--text3)">"${p.obs.slice(0,60)}${p.obs.length>60?'...':''}"</div>` : ''}
+      </div>
+      <div class="card-footer">
+        <span class="card-origem ${o.cls}">${o.label}</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          <div class="card-priority ${PRIO_COR[p.prio]||''}"></div>
+          <span class="card-data">${formatData(p.criadoEm)}</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderStats(){
+  const bar = document.getElementById('stats-bar');
+  const total = prospectos.length;
+  const porOrigem = {};
+  prospectos.forEach(p => porOrigem[p.origem] = (porOrigem[p.origem]||0)+1);
+  const fechados = prospectos.filter(p => {
+    const col = colunas.find(c => c.id === p.colunaId);
+    return col && col.nome.toLowerCase().includes('fechado');
+  }).length;
+
+  bar.innerHTML = `
+    <div class="stat-chip"><span class="stat-chip-val">${total}</span><span class="stat-chip-label">Total</span></div>
+    <div class="stat-chip"><span class="stat-chip-val" style="color:var(--green)">${fechados}</span><span class="stat-chip-label">Fechados</span></div>
+    ${Object.entries(porOrigem).map(([o,n]) => `<div class="stat-chip"><span class="stat-chip-val">${n}</span><span class="stat-chip-label">${ORIGENS[o]?.label||o}</span></div>`).join('')}
+    <div class="stat-chip"><span class="stat-chip-val" style="color:var(--red)">${prospectos.filter(p=>p.prio==='alta').length}</span><span class="stat-chip-label">🔴 Alta prioridade</span></div>
+  `;
+}
+
+function formatData(ts){ if(!ts) return ''; const d=new Date(ts); return d.toLocaleDateString('pt-BR'); }
+function filtrar(){ render(); }
+
+// ── COLUNAS ──
+function adicionarColuna(){ corSelecionada='#2e6aff'; document.getElementById('f-col-nome').value=''; document.getElementById('f-col-id').value=''; document.getElementById('modal-col-title').textContent='Nova etapa'; document.querySelectorAll('.cor-opt').forEach(o=>o.style.border='3px solid transparent'); document.querySelectorAll('.cor-opt')[0].style.border='3px solid white'; document.getElementById('modal-coluna').classList.add('open'); setTimeout(()=>document.getElementById('f-col-nome').focus(),100); }
+function fecharModalColuna(){ document.getElementById('modal-coluna').classList.remove('open'); }
+function editarColuna(id){ const col=colunas.find(c=>c.id===id); if(!col) return; corSelecionada=col.cor; document.getElementById('f-col-nome').value=col.nome; document.getElementById('f-col-id').value=id; document.getElementById('modal-col-title').textContent='Editar etapa'; document.querySelectorAll('.cor-opt').forEach(o=>{ o.style.border=o.dataset.cor===col.cor?'3px solid white':'3px solid transparent'; }); document.getElementById('modal-coluna').classList.add('open'); }
+function salvarColuna(){
+  const nome=document.getElementById('f-col-nome').value.trim(); if(!nome){ showToast('Informe o nome da etapa.','err'); return; }
+  const id=document.getElementById('f-col-id').value;
+  if(id){ const i=colunas.findIndex(c=>c.id===id); if(i>-1){ colunas[i].nome=nome; colunas[i].cor=corSelecionada; } }
+  else{ colunas.push({id:uid(),nome,cor:corSelecionada}); }
+  salvar(); fecharModalColuna(); render(); showToast(id?'Etapa atualizada!':'Etapa criada!');
+}
+function removerColuna(id){
+  const cards=prospectos.filter(p=>p.colunaId===id);
+  if(cards.length>0&&!confirm(`Esta etapa tem ${cards.length} prospecto(s). Remover mesmo assim? Os prospectos serão excluídos.`)) return;
+  colunas=colunas.filter(c=>c.id!==id);
+  prospectos=prospectos.filter(p=>p.colunaId!==id);
+  salvar(); render(); showToast('Etapa removida.');
+}
+function selecionarCor(el){ corSelecionada=el.dataset.cor; document.querySelectorAll('.cor-opt').forEach(o=>o.style.border='3px solid transparent'); el.style.border='3px solid white'; }
+
+// ── PROSPECTOS ──
+function abrirModal(){ editandoId=null; limparForm(); document.getElementById('modal-title-text').textContent='Novo prospecto'; atualizarSelectColuna(); if(colunas.length) document.getElementById('f-coluna').value=colunas[0].id; document.getElementById('modal-prospect').classList.add('open'); setTimeout(()=>document.getElementById('f-nome').focus(),100); }
+function abrirModalNaColuna(colId){ abrirModal(); document.getElementById('f-coluna').value=colId; }
+function fecharModal(){ document.getElementById('modal-prospect').classList.remove('open'); editandoId=null; }
+function limparForm(){ ['f-nome','f-wpp','f-empresa','f-cidade','f-insta','f-obs'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; }); document.getElementById('f-segmento').value=''; document.getElementById('f-origem').value='amigos'; document.getElementById('f-prio').value='media'; }
+
+function atualizarSelectColuna(){
+  const sel=document.getElementById('f-coluna'); if(!sel) return;
+  sel.innerHTML=colunas.map(c=>`<option value="${c.id}">${c.nome}</option>`).join('');
+}
+
+function salvarProspecto(){
+  const nome=document.getElementById('f-nome').value.trim(); if(!nome){ showToast('Informe o nome.','err'); return; }
+  const p={
+    id: editandoId||uid(),
+    nome,
+    wpp: document.getElementById('f-wpp').value.trim(),
+    empresa: document.getElementById('f-empresa').value.trim(),
+    segmento: document.getElementById('f-segmento').value,
+    origem: document.getElementById('f-origem').value,
+    prio: document.getElementById('f-prio').value,
+    cidade: document.getElementById('f-cidade').value.trim(),
+    insta: document.getElementById('f-insta').value.trim(),
+    obs: document.getElementById('f-obs').value.trim(),
+    colunaId: document.getElementById('f-coluna').value,
+    criadoEm: editandoId ? (prospectos.find(x=>x.id===editandoId)?.criadoEm||Date.now()) : Date.now(),
+  };
+  if(editandoId){ const i=prospectos.findIndex(x=>x.id===editandoId); if(i>-1) prospectos[i]=p; }
+  else prospectos.push(p);
+  salvar(); fecharModal(); render(); showToast(editandoId?'Prospecto atualizado!':'Prospecto adicionado!');
+}
+
+// ── DRAG & DROP ──
+function dragStart(e,id){ dragId=id; setTimeout(()=>document.getElementById('card-'+id)?.classList.add('dragging'),0); }
+function dragEnd(e){ document.getElementById('card-'+dragId)?.classList.remove('dragging'); }
+function dragOver(e,colId){ e.preventDefault(); document.getElementById('col-'+colId)?.classList.add('drag-over'); }
+function dragLeave(e){ e.currentTarget.classList.remove('drag-over'); }
+function drop(e,colId){ e.preventDefault(); e.currentTarget.classList.remove('drag-over'); if(!dragId) return; const i=prospectos.findIndex(p=>p.id===dragId); if(i>-1){ prospectos[i].colunaId=colId; salvar(); render(); } dragId=null; }
+
+// ── CONTEXT MENU ──
+function abrirCtx(e,id){ e.stopPropagation(); ctxProspectoId=id; const m=document.getElementById('ctx-menu'); m.style.left=Math.min(e.clientX,window.innerWidth-180)+'px'; m.style.top=Math.min(e.clientY,window.innerHeight-220)+'px'; m.classList.add('open'); }
+document.addEventListener('click',()=>document.getElementById('ctx-menu').classList.remove('open'));
+function ctxEditar(){ const p=prospectos.find(x=>x.id===ctxProspectoId); if(!p) return; editandoId=p.id; atualizarSelectColuna(); document.getElementById('f-nome').value=p.nome; document.getElementById('f-wpp').value=p.wpp||''; document.getElementById('f-empresa').value=p.empresa||''; document.getElementById('f-segmento').value=p.segmento||''; document.getElementById('f-origem').value=p.origem||'outros'; document.getElementById('f-prio').value=p.prio||'media'; document.getElementById('f-cidade').value=p.cidade||''; document.getElementById('f-insta').value=p.insta||''; document.getElementById('f-obs').value=p.obs||''; document.getElementById('f-coluna').value=p.colunaId; document.getElementById('modal-title-text').textContent='Editar prospecto'; document.getElementById('modal-prospect').classList.add('open'); }
+function ctxMover(){ const p=prospectos.find(x=>x.id===ctxProspectoId); if(!p) return; const opcoes=colunas.map(c=>`${c.nome}`).join('\n'); const nomes=colunas.map(c=>c.nome); const escolha=prompt('Mover para qual etapa?\n\n'+nomes.map((n,i)=>`${i+1}. ${n}`).join('\n')+'\n\nDigite o número:'); const idx=parseInt(escolha)-1; if(idx>=0&&idx<colunas.length){ p.colunaId=colunas[idx].id; salvar(); render(); showToast('Movido para: '+colunas[idx].nome); } }
+function ctxWhatsapp(){ const p=prospectos.find(x=>x.id===ctxProspectoId); if(!p||!p.wpp) return showToast('WhatsApp não cadastrado.','err'); const fone=p.wpp.replace(/\D/g,''); window.open(`https://wa.me/55${fone}`,'_blank'); }
+function ctxInstagram(){ const p=prospectos.find(x=>x.id===ctxProspectoId); if(!p||!p.insta) return showToast('Instagram não cadastrado.','err'); const handle=p.insta.replace('@',''); window.open(`https://instagram.com/${handle}`,'_blank'); }
+function ctxDeletar(){ if(!confirm('Remover este prospecto?')) return; prospectos=prospectos.filter(x=>x.id!==ctxProspectoId); salvar(); render(); showToast('Prospecto removido.'); }
+
+// ── IMPORT ──
+function abrirImport(){ importData=[]; document.getElementById('import-msg').style.display='none'; document.getElementById('btn-confirmar-import').style.display='none'; document.getElementById('file-input').value=''; document.getElementById('modal-import').classList.add('open'); }
+function fecharImport(){ document.getElementById('modal-import').classList.remove('open'); }
+function dropImport(e){ e.preventDefault(); handleImport({target:{files:e.dataTransfer.files}}); }
+function handleImport(e){
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=function(evt){
+    try{
+      const wb=XLSX.read(new Uint8Array(evt.target.result),{type:'array'}); const sh=wb.Sheets[wb.SheetNames[0]]; const rows=XLSX.utils.sheet_to_json(sh,{header:1,defval:''});
+      const dl=rows[0]&&typeof rows[0][0]==='string'&&rows[0][0].toLowerCase().includes('nome')?rows.slice(1):rows;
+      importData=dl.filter(r=>r[0]).map((r,i)=>({
+        id:uid(), nome:String(r[0]||'').trim(), wpp:String(r[1]||'').trim(), empresa:String(r[2]||'').trim(),
+        segmento:String(r[3]||'').trim(), origem:String(r[4]||'outros').trim().toLowerCase(), cidade:String(r[5]||'').trim(),
+        prio:'media', colunaId:colunas[0]?.id||'', criadoEm:Date.now()+i,
+      }));
+      const msgEl=document.getElementById('import-msg');
+      msgEl.style.display=''; msgEl.style.color=importData.length?'var(--green)':'var(--red)';
+      msgEl.textContent=importData.length?`✓ ${importData.length} prospectos encontrados em "${file.name}"`:'❌ Nenhum prospecto válido encontrado.';
+      document.getElementById('btn-confirmar-import').style.display=importData.length?'':'none';
+    }catch(err){ const m=document.getElementById('import-msg'); m.style.display=''; m.style.color='var(--red)'; m.textContent='❌ Erro ao ler o arquivo.'; }
+  };
+  reader.readAsArrayBuffer(file);
+}
+function confirmarImport(){ prospectos.push(...importData); salvar(); fecharImport(); render(); showToast(`${importData.length} prospectos importados!`); importData=[]; }
+
+// ── UTILS ──
+function showToast(msg,type='ok'){
+  const t=document.getElementById('toast'); t.querySelector('span:first-child').textContent=type==='err'?'✕':'✓'; document.getElementById('toast-msg').textContent=msg;
+  t.style.borderColor=type==='err'?'var(--red)':'var(--green)'; t.style.color=type==='err'?'var(--red)':'var(--green)'; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ── INIT ──
+document.getElementById('nav-data').textContent = new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'});
+carregar();
+render();
+</script>
+</body>
+</html>
