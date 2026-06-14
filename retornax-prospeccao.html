@@ -129,6 +129,42 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .prio-alta{background:var(--red)}
 .prio-media{background:var(--amber)}
 .prio-baixa{background:var(--green)}
+
+/* PROSPECCAO FRENETICA */
+.fren-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:400;backdrop-filter:blur(6px);align-items:center;justify-content:center}
+.fren-overlay.open{display:flex}
+.fren-modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;width:860px;max-width:95vw;max-height:90vh;display:flex;flex-direction:column;animation:modalIn 0.25s ease;overflow:hidden}
+.fren-header{padding:24px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.fren-title{font-size:1.15rem;font-weight:800;color:var(--white);display:flex;align-items:center;gap:10px}
+.fren-title .fire{font-size:1.4rem;animation:fire-pulse 1s infinite alternate}
+@keyframes fire-pulse{from{transform:scale(1)}to{transform:scale(1.2)}}
+.fren-search{padding:20px 28px;border-bottom:1px solid var(--border);flex-shrink:0;display:flex;gap:12px;flex-wrap:wrap}
+.fren-input{flex:1;min-width:180px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.15s}
+.fren-input:focus{border-color:var(--blue)}
+.fren-input::placeholder{color:var(--text3)}
+.btn-fren{background:linear-gradient(135deg,#ff4d00,#ff9000);color:var(--white);border:none;padding:10px 22px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.btn-fren:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,77,0,0.4)}
+.btn-fren:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.fren-status{padding:10px 28px;font-size:0.78rem;color:var(--text2);flex-shrink:0;min-height:36px;display:flex;align-items:center;gap:8px}
+.fren-status .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse-dot 1s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.3}}
+.fren-results{flex:1;overflow-y:auto;padding:0}
+.fren-results table{width:100%;border-collapse:collapse}
+.fren-results thead th{padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--text3);background:var(--bg3);border-bottom:1px solid var(--border);position:sticky;top:0}
+.fren-results tbody tr{border-bottom:1px solid var(--border);transition:background 0.1s}
+.fren-results tbody tr:hover{background:rgba(255,255,255,0.025)}
+.fren-results tbody td{padding:11px 16px;font-size:0.82rem;color:var(--text2)}
+.fren-results tbody td.name{color:var(--text);font-weight:600}
+.fren-empty{text-align:center;padding:60px 20px;color:var(--text3)}
+.fren-empty .icon{font-size:2.5rem;margin-bottom:12px}
+.fren-footer{padding:16px 28px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.fren-counter{font-size:0.82rem;color:var(--text2)}
+.fren-counter strong{color:var(--green)}
+.star{color:var(--amber);font-size:0.75rem}
+.btn-add-kanban{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,214,143,0.25);padding:5px 12px;border-radius:6px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.btn-add-kanban:hover{background:rgba(0,214,143,0.2)}
+.btn-add-all{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,214,143,0.25);padding:8px 18px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.15s}
+.btn-add-all:hover{background:rgba(0,214,143,0.2)}
 </style>
 </head>
 <body>
@@ -174,6 +210,9 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
       <button class="btn btn-primary" onclick="abrirModal()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Novo prospecto
+      </button>
+      <button class="btn-fren" onclick="abrirFren()">
+        🔥 Prospecção Frenética
       </button>
     </div>
   </div>
@@ -314,6 +353,38 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
   <button class="ctx-item" onclick="ctxInstagram()">📸 Ver Instagram</button>
   <div class="ctx-divider"></div>
   <button class="ctx-item danger" onclick="ctxDeletar()">🗑️ Remover</button>
+</div>
+
+
+<!-- PROSPECCAO FRENETICA -->
+<div class="fren-overlay" id="fren-overlay" onclick="if(event.target===this)fecharFren()">
+  <div class="fren-modal">
+    <div class="fren-header">
+      <div class="fren-title"><span class="fire">🔥</span> Prospecção Frenética</div>
+      <button class="modal-close" onclick="fecharFren()">✕</button>
+    </div>
+    <div class="fren-search">
+      <input class="fren-input" id="fren-cidade" placeholder="Cidade (ex: Porto Alegre, Caxias do Sul...)">
+      <input class="fren-input" id="fren-segmento" placeholder="Segmento (ex: oficina mecânica, pet shop, barbearia...)">
+      <input class="fren-input" id="fren-qtd" type="number" placeholder="Qtd (max 100)" value="50" style="max-width:120px">
+      <button class="btn-fren" id="btn-buscar-fren" onclick="buscarFren()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Buscar agora
+      </button>
+    </div>
+    <div class="fren-status" id="fren-status">
+      <span style="color:var(--text3)">Digite cidade e segmento para começar a busca no Google Maps.</span>
+    </div>
+    <div class="fren-results" id="fren-results">
+      <div class="fren-empty"><div class="icon">🗺️</div><p>Os resultados aparecerão aqui.</p></div>
+    </div>
+    <div class="fren-footer">
+      <div class="fren-counter" id="fren-counter"></div>
+      <button class="btn-add-all" id="btn-add-all" onclick="adicionarTodosKanban()" style="display:none">
+        ✅ Adicionar todos ao Kanban
+      </button>
+    </div>
+  </div>
 </div>
 
 <!-- TOAST -->
@@ -558,6 +629,159 @@ function confirmarImport(){ prospectos.push(...importData); salvar(); fecharImpo
 function showToast(msg,type='ok'){
   const t=document.getElementById('toast'); t.querySelector('span:first-child').textContent=type==='err'?'✕':'✓'; document.getElementById('toast-msg').textContent=msg;
   t.style.borderColor=type==='err'?'var(--red)':'var(--green)'; t.style.color=type==='err'?'var(--red)':'var(--green)'; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+
+// ── PROSPECCAO FRENETICA ──
+const APIFY_TOKEN = 'apify_api_1IEGdUpKCm7lBFAgr2z4qwdNi9ajzV4zRP4k';
+let frenResultados = [];
+
+function abrirFren(){ document.getElementById('fren-overlay').classList.add('open'); setTimeout(()=>document.getElementById('fren-cidade').focus(),100); }
+function fecharFren(){ document.getElementById('fren-overlay').classList.remove('open'); }
+
+async function buscarFren(){
+  const cidade   = document.getElementById('fren-cidade').value.trim();
+  const segmento = document.getElementById('fren-segmento').value.trim();
+  const qtd      = Math.min(parseInt(document.getElementById('fren-qtd').value)||50, 100);
+
+  if(!cidade||!segmento){ showToast('Preencha cidade e segmento.','err'); return; }
+
+  const btn = document.getElementById('btn-buscar-fren');
+  btn.disabled = true; btn.innerHTML = '⏳ Buscando...';
+
+  const statusEl = document.getElementById('fren-status');
+  statusEl.innerHTML = '<span class="dot"></span> Iniciando busca no Google Maps...';
+
+  document.getElementById('fren-results').innerHTML = '<div class="fren-empty"><div class="icon">⏳</div><p>Aguarde, coletando dados do Google Maps...</p></div>';
+  document.getElementById('btn-add-all').style.display = 'none';
+  document.getElementById('fren-counter').textContent = '';
+  frenResultados = [];
+
+  const query = `${segmento} ${cidade}`;
+
+  try {
+    // Iniciar o actor do Apify
+    const runRes = await fetch('https://api.apify.com/v2/acts/compass~crawler-google-places/runs?token=' + APIFY_TOKEN, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        searchStringsArray: [query],
+        maxCrawledPlacesPerSearch: qtd,
+        language: 'pt',
+        countryCode: 'br',
+        includeWebResults: false,
+      })
+    });
+
+    const runData = await runRes.json();
+    const runId = runData.data?.id;
+
+    if(!runId){ throw new Error('Não foi possível iniciar a busca.'); }
+
+    statusEl.innerHTML = '<span class="dot"></span> Buscando "' + query + '" no Google Maps (ID: ' + runId.slice(0,8) + '...)';
+
+    // Aguardar conclusão (polling)
+    let tentativas = 0;
+    let status = 'RUNNING';
+
+    while(status === 'RUNNING' || status === 'READY') {
+      await new Promise(r => setTimeout(r, 3000));
+      tentativas++;
+
+      const checkRes = await fetch('https://api.apify.com/v2/actor-runs/' + runId + '?token=' + APIFY_TOKEN);
+      const checkData = await checkRes.json();
+      status = checkData.data?.status;
+
+      statusEl.innerHTML = '<span class="dot"></span> Coletando dados... (' + (tentativas * 3) + 's)';
+
+      if(tentativas > 60) { throw new Error('Tempo limite atingido. Tente novamente.'); }
+    }
+
+    if(status !== 'SUCCEEDED') { throw new Error('Busca falhou com status: ' + status); }
+
+    // Buscar resultados
+    statusEl.innerHTML = '<span class="dot"></span> Processando resultados...';
+    const dataRes = await fetch('https://api.apify.com/v2/actor-runs/' + runId + '/dataset/items?token=' + APIFY_TOKEN + '&limit=' + qtd);
+    const items = await dataRes.json();
+
+    frenResultados = items.map(item => ({
+      nome:     item.title || '—',
+      telefone: item.phone || '—',
+      endereco: item.address || '—',
+      cidade:   cidade,
+      site:     item.website || '',
+      stars:    item.totalScore || 0,
+      reviews:  item.reviewsCount || 0,
+      categoria:item.categoryName || segmento,
+      maps:     item.url || '',
+    }));
+
+    renderFrenResultados();
+    statusEl.innerHTML = '✅ ' + frenResultados.length + ' empresas encontradas para "' + query + '"';
+    document.getElementById('fren-counter').innerHTML = '<strong>' + frenResultados.length + '</strong> resultados encontrados';
+    if(frenResultados.length > 0) document.getElementById('btn-add-all').style.display = '';
+
+  } catch(err) {
+    statusEl.innerHTML = '❌ ' + err.message;
+    document.getElementById('fren-results').innerHTML = '<div class="fren-empty"><div class="icon">❌</div><p>' + err.message + '</p></div>';
+    showToast(err.message, 'err');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Buscar agora';
+}
+
+function renderFrenResultados(){
+  const wrap = document.getElementById('fren-results');
+  if(!frenResultados.length){ wrap.innerHTML = '<div class="fren-empty"><div class="icon">🔍</div><p>Nenhum resultado encontrado.</p></div>'; return; }
+
+  const rows = frenResultados.map((r, i) => `<tr>
+    <td class="name">${r.nome}</td>
+    <td>${r.telefone}</td>
+    <td style="font-size:0.75rem;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.endereco}</td>
+    <td>${r.stars > 0 ? '<span class="star">★</span> ' + r.stars.toFixed(1) + ' <span style="color:var(--text3)">(' + r.reviews + ')</span>' : '—'}</td>
+    <td>${r.site ? '<a href="' + r.site + '" target="_blank" style="color:var(--blue-lite);font-size:0.75rem">🔗 site</a>' : '—'}</td>
+    <td>${r.maps ? '<a href="' + r.maps + '" target="_blank" style="color:var(--accent);font-size:0.75rem">📍 Maps</a>' : '—'}</td>
+    <td><button class="btn-add-kanban" onclick="adicionarUmKanban(' + i + ')">+ Kanban</button></td>
+  </tr>`).join('');
+
+  wrap.innerHTML = '<table><thead><tr><th>Nome</th><th>Telefone</th><th>Endereço</th><th>Avaliação</th><th>Site</th><th>Maps</th><th>Ação</th></tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+function adicionarUmKanban(idx){
+  const r = frenResultados[idx];
+  if(!r) return;
+  const p = {
+    id: uid(), nome: r.nome, wpp: r.telefone !== '—' ? r.telefone : '',
+    empresa: r.nome, segmento: r.categoria, origem: 'google',
+    prio: 'media', cidade: r.cidade, insta: '', obs: r.site ? 'Site: ' + r.site : '',
+    colunaId: colunas[0]?.id || '', criadoEm: Date.now(),
+  };
+  prospectos.push(p);
+  salvar(); render();
+  showToast(r.nome + ' adicionado ao Kanban!');
+  // Trocar botão por check
+  const btn = document.querySelector('#fren-results tbody tr:nth-child(' + (idx+1) + ') .btn-add-kanban');
+  if(btn){ btn.textContent = '✓ Adicionado'; btn.disabled = true; btn.style.opacity = '0.5'; }
+}
+
+function adicionarTodosKanban(){
+  if(!frenResultados.length) return;
+  let count = 0;
+  frenResultados.forEach(r => {
+    const jaExiste = prospectos.find(p => p.nome === r.nome && p.cidade === r.cidade);
+    if(!jaExiste){
+      prospectos.push({
+        id: uid(), nome: r.nome, wpp: r.telefone !== '—' ? r.telefone : '',
+        empresa: r.nome, segmento: r.categoria, origem: 'google',
+        prio: 'media', cidade: r.cidade, insta: '', obs: r.site ? 'Site: ' + r.site : '',
+        colunaId: colunas[0]?.id || '', criadoEm: Date.now() + count,
+      });
+      count++;
+    }
+  });
+  salvar(); render(); fecharFren();
+  showToast(count + ' empresas adicionadas ao Kanban! 🔥');
 }
 
 // ── INIT ──
