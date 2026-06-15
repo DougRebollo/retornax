@@ -42,8 +42,6 @@ body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: t
 .brand-stats { display: flex; flex-direction: column; gap: 10px; }
 .brand-stat { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }
 .brand-stat::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
-
-/* Cards de mensagem */
 .msg-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; flex: 1; max-width: 620px; }
 .msg-card { background: rgba(10,26,74,0.75); border: 1px solid rgba(46,106,255,0.2); border-radius: 14px; padding: 16px 20px; backdrop-filter: blur(10px); transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 24px rgba(46,106,255,0.12), 0 0 0 1px rgba(46,106,255,0.08); }
 .msg-card:nth-child(1){ animation: float1 4s ease-in-out infinite; }
@@ -62,11 +60,8 @@ body::after { content: ''; position: fixed; top: -100px; left: 50%; transform: t
 .msg-result { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 0.7rem; color: var(--green); font-weight: 600; }
 .msg-result::before { content: '↩'; font-size: 0.75rem; }
 .msg-time { font-size: 0.65rem; color: var(--text-muted); margin-top: 3px; text-align: right; }
-
-@keyframes floatIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeInCards { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 .msg-cards { animation: fadeInCards 0.6s ease both; }
-
 .login-form-side { width: 480px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 48px; }
 .form-card { width: 100%; background: var(--card-bg); border: 1px solid var(--card-border2); border-radius: 20px; padding: 40px 36px; backdrop-filter: blur(16px); animation: fadeUp 0.5s ease both; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -326,6 +321,25 @@ async function handleLogin() {
     return;
   }
   if (!data.user.email_confirmed_at) { await supabase.auth.signOut(); mostrarVerificacao(email); return; }
+
+  // ── FIX: cria empresa no primeiro login se não existir ──
+  const { data: empresaExiste } = await supabase
+    .from('empresas')
+    .select('id')
+    .eq('user_id', data.user.id)
+    .single()
+
+  if (!empresaExiste) {
+    await supabase.from('empresas').insert({
+      user_id: data.user.id,
+      nome: data.user.user_metadata?.nome || email.split('@')[0],
+      email: data.user.email,
+      whatsapp: '',
+      status: 'trial',
+      trial_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+    })
+  }
+
   const { data: empresa } = await supabase.from('empresas').select('status, trial_ends_at, plano').eq('user_id', data.user.id).single();
   if (empresa) {
     const hoje = new Date();
@@ -354,22 +368,23 @@ async function handleCadastro() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) { errEl.textContent = 'Digite um e-mail válido.'; errEl.classList.add('show'); return; }
   setLoading('cadastro', true);
+
+  // Salva wpp e nome nos metadados para usar no primeiro login
   const { data, error } = await supabase.auth.signUp({
     email, password: senha,
-    options: { emailRedirectTo: window.location.origin + '/retornax-login.html', data: { nome: `${nome} ${sob}`.trim() } }
+    options: {
+      emailRedirectTo: window.location.origin + '/retornax-login.html',
+      data: { nome: `${nome} ${sob}`.trim(), whatsapp: wpp }
+    }
   });
+
   if (error) {
     setLoading('cadastro', false);
     errEl.textContent = (error.message.includes('already registered') || error.message.includes('already been registered')) ? 'Este e-mail já está cadastrado. Tente fazer login.' : error.message;
     errEl.classList.add('show');
     return;
   }
-  if (data.user) {
-    await supabase.from('empresas').insert({
-      user_id: data.user.id, nome: `${nome} ${sob}`.trim(), email, whatsapp: wpp,
-      status: 'trial', trial_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
-    });
-  }
+
   setLoading('cadastro', false);
   mostrarVerificacao(email);
 }
