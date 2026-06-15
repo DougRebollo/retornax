@@ -1261,7 +1261,20 @@ function abrirPlanos(motivo){
 }
 async function assinarPlano(plano,valor){
   showToast('Preparando checkout...');
-  try{ const r=await fetch(`${BACKEND}/api/create-checkout`,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({plano,empresaId:ACCOUNT.empresaId,email:ACCOUNT.email})}); const d=await r.json(); if(d.url) window.location.href=d.url; else showToast('Erro ao criar checkout.','err'); }
+  try{
+    // Garantir que temos o email — pegar da sessão se necessário
+    let email = ACCOUNT.email;
+    if(!email){
+      const { data: { session } } = await supabase.auth.getSession();
+      email = session?.user?.email || null;
+    }
+    if(!email){ showToast('Faça login para assinar.','err'); return; }
+
+    const r=await fetch(`${BACKEND}/api/create-checkout`,{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({plano,empresaId:ACCOUNT.empresaId,email})});
+    const d=await r.json();
+    if(d.url) window.location.href=d.url;
+    else showToast(d.error||'Erro ao criar checkout.','err');
+  }
   catch(e){ showToast('Erro ao conectar.','err'); }
 }
 
