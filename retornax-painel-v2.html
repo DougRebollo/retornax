@@ -318,6 +318,25 @@ tbody td.name{color:var(--text);font-weight:500}
 .ass-feature-item{display:flex;align-items:center;gap:8px;font-size:0.83rem;color:var(--text2)}
 .ass-feature-item span{color:var(--green);font-weight:700}
 .ass-actions{display:flex;gap:12px}
+
+/* FIDELIZADOS */
+.fid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px}
+.fid-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:all 0.2s;position:relative}
+.fid-card:hover{border-color:var(--amber);transform:translateY(-2px)}
+.fid-card.top1{border-color:rgba(255,176,32,0.4);background:rgba(255,176,32,0.05)}
+.fid-star{position:absolute;top:14px;right:14px;font-size:1.2rem}
+.fid-nome{font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:4px}
+.fid-seg{font-size:0.78rem;color:var(--text2);margin-bottom:12px}
+.fid-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.fid-stat{background:var(--bg3);border-radius:8px;padding:8px 10px;text-align:center}
+.fid-stat-val{font-size:1.1rem;font-weight:800;color:var(--white);line-height:1}
+.fid-stat-label{font-size:0.65rem;color:var(--text3);margin-top:2px}
+.fid-actions{display:flex;gap:6px}
+.fid-empty{text-align:center;padding:60px 20px;color:var(--text3)}
+.fid-empty .empty-icon{font-size:2.5rem;margin-bottom:12px}
+.fid-tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--bg3);border-radius:10px;padding:4px}
+.fid-tab{flex:1;padding:8px;border-radius:7px;border:none;background:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:500;color:var(--text2);cursor:pointer;transition:all 0.15s;text-align:center}
+.fid-tab.active{background:var(--bg2);color:var(--white);box-shadow:0 1px 4px rgba(0,0,0,0.3)}
 </style>
 </head><body>
 <div class="app">
@@ -364,6 +383,10 @@ tbody td.name{color:var(--text);font-weight:500}
   <button class="nav-item" onclick="showPage('novidades',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
     Novidades <span style="margin-left:auto;background:rgba(0,214,143,0.15);color:var(--green);font-size:0.6rem;padding:1px 6px;border-radius:4px;font-weight:700">NOVO</span>
+  </button>
+  <button class="nav-item" onclick="showPage('fidelizados',this)">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    Fidelizados
   </button>
   <button class="nav-item" onclick="showPage('perfil',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
@@ -664,8 +687,17 @@ tbody td.name{color:var(--text);font-weight:500}
 </div>
 </div>
 
+    <!-- FIDELIZADOS -->
+    <div class="page" id="page-fidelizados">
+      <div class="fid-tabs">
+        <button class="fid-tab active" onclick="fidShowTab('mais-visitas',this)">⭐ Mais visitas</button>
+        <button class="fid-tab" onclick="fidShowTab('mais-recentes',this)">🕐 Mais recentes</button>
+        <button class="fid-tab" onclick="fidShowTab('em-risco',this)">⚠️ Em risco</button>
+      </div>
+      <div id="fid-content"></div>
+    </div>
 
-    <!-- PERFIL -->
+<!-- PERFIL -->
     <div class="page" id="page-perfil">
       <div id="perfil-aviso-wrap"></div>
       <div class="perfil-grid">
@@ -798,6 +830,7 @@ tbody td.name{color:var(--text);font-weight:500}
         </div>
       </div>
     </div>
+
 
 <!-- ONBOARDING -->
 <div class="onboarding-overlay" id="onboarding-overlay">
@@ -1066,17 +1099,18 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
-  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automacoes',campanhas:'Campanhas',historico:'Historico',config:'Configuracoes',novidades:'Novidades',tutoriais:'Tutoriais',whatsapp:'Conectar WhatsApp',perfil:'Meu Perfil',assinatura:'Minha Assinatura'};
+  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automacoes',campanhas:'Campanhas',historico:'Historico',config:'Configuracoes',novidades:'Novidades',tutoriais:'Tutoriais',whatsapp:'Conectar WhatsApp',fidelizados:'Fidelizados',perfil:'Meu Perfil',assinatura:'Minha Assinatura'};
   const se=document.getElementById('saudacao-texto'); const te=document.getElementById('page-title');
   if(id==='dashboard'){ te.textContent=(document.querySelector('.user-name')?.textContent||'').split(' ')[0]||'Dashboard'; atualizarSaudacao(); if(se) se.style.display=''; }
   else{ te.textContent=titles[id]||id; if(se) se.style.display='none'; }
   const ab=document.getElementById('topbar-action');
   if(id==='clientes'||id==='dashboard'){ ab.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> + Novo cliente'; ab.style.display=''; }
-  else if(id==='perfil'||id==='assinatura'||id==='tutoriais'||id==='novidades'||id==='config'||id==='whatsapp'){ ab.style.display='none'; }
+  else if(id==='perfil'||id==='assinatura'||id==='tutoriais'||id==='novidades'||id==='config'||id==='whatsapp'||id==='fidelizados'){ ab.style.display='none'; }
   else{ ab.style.display='none'; }
   if(id==='historico') carregarHistorico();
   if(id==='perfil') carregarPerfil();
   if(id==='assinatura') carregarAssinatura();
+  if(id==='fidelizados') renderFidelizados();
   if(id==='campanhas') initCampanhas();
 }
 function topbarAction(){ const a=document.querySelector('.page.active').id; if(a==='page-clientes'||a==='page-dashboard') openModal(); }
@@ -1415,6 +1449,80 @@ function opRenderWhatsapp() {
     <tbody>${rows}</tbody></table>`;
 }
 
+
+
+// ── FIDELIZADOS ──
+let fidTabAtual = 'mais-visitas';
+
+function fidShowTab(tab, btn) {
+  fidTabAtual = tab;
+  document.querySelectorAll('.fid-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderFidelizados();
+}
+
+function renderFidelizados() {
+  const wrap = document.getElementById('fid-content');
+  if (!wrap) return;
+  if (!clientes.length) {
+    wrap.innerHTML = '<div class="fid-empty"><div class="empty-icon">⭐</div><strong style="color:var(--text)">Nenhum cliente ainda</strong><p>Cadastre clientes para ver seus fidelizados aqui.</p></div>';
+    return;
+  }
+
+  let lista = [...clientes];
+
+  if (fidTabAtual === 'mais-visitas') {
+    // Ordena por menor número de dias (visitou mais recentemente = mais fiel)
+    lista = lista.filter(c => calcDays(c.ultima) < (SEGMENTOS[c.seg]?.dias || 10) * 2);
+    lista.sort((a, b) => calcDays(a.ultima) - calcDays(b.ultima));
+    lista = lista.slice(0, 20);
+  } else if (fidTabAtual === 'mais-recentes') {
+    lista.sort((a, b) => new Date(b.ultima) - new Date(a.ultima));
+    lista = lista.slice(0, 20);
+  } else if (fidTabAtual === 'em-risco') {
+    lista = lista.filter(c => c.status === 'alerta' || c.status === 'critico');
+    lista.sort((a, b) => calcDays(b.ultima) - calcDays(a.ultima));
+    lista = lista.slice(0, 20);
+  }
+
+  if (!lista.length) {
+    wrap.innerHTML = '<div class="fid-empty"><div class="empty-icon">🔍</div><p>Nenhum cliente nesta categoria.</p></div>';
+    return;
+  }
+
+  const stars = ['🥇', '🥈', '🥉'];
+
+  wrap.innerHTML = '<div class="fid-grid">' + lista.map((c, i) => {
+    const dias = calcDays(c.ultima);
+    const seg = SEGMENTOS[c.seg] || { emoji: '📌' };
+    const star = fidTabAtual === 'mais-visitas' && i < 3 ? stars[i] : (fidTabAtual === 'em-risco' ? '⚠️' : '⭐');
+    const isTop = fidTabAtual === 'mais-visitas' && i === 0;
+    const diasLabel = fidTabAtual === 'em-risco' ? 'dias sem visita' : 'dias desde visita';
+
+    return `<div class="fid-card ${isTop ? 'top1' : ''}">
+      <div class="fid-star">${star}</div>
+      <div class="fid-nome">${c.nome}</div>
+      <div class="fid-seg">${seg.emoji} ${c.seg}</div>
+      <div class="fid-stats">
+        <div class="fid-stat">
+          <div class="fid-stat-val" style="color:${dias < 7 ? 'var(--green)' : dias < 20 ? 'var(--amber)' : 'var(--red)'}">${dias}</div>
+          <div class="fid-stat-label">${diasLabel}</div>
+        </div>
+        <div class="fid-stat">
+          <div class="fid-stat-val">${c.wpp.slice(-4)}</div>
+          <div class="fid-stat-label">últ. 4 dígitos</div>
+        </div>
+      </div>
+      <div class="fid-actions">
+        <button class="btn btn-green btn-sm" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" onclick="sendMsgCliente(this)">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Enviar msg
+        </button>
+        <button class="btn btn-ghost btn-sm" data-id="${c.id}" data-nome="${c.nome.split(' ')[0]}" onclick="marcarVisita(this)">✓ Visita</button>
+      </div>
+    </div>`;
+  }).join('') + '</div>';
+}
 
 // ── PERFIL ──
 const PLANO_INFO = {
