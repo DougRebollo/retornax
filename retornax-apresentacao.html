@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retornax — Apresentação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#050810;
+  --surface:#0a0f1e;
+  --card:#0f1628;
+  --border:rgba(255,255,255,0.07);
+  --blue-brand:#2e6aff;
+  --blue-dim:rgba(46,106,255,0.12);
+  --blue-glow:rgba(46,106,255,0.4);
+  --white:#f0f4ff;
+  --text2:#6b7a99;
+  --text3:#3a4560;
+  --accent:#00e5ff;
+}
+
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
+body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+/* SLIDES */
+.slide{
+  min-height:100vh;
+  scroll-snap-align:start;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:60px 40px;
+  position:relative;
+  overflow:hidden;
+}
+
+/* NAV DOTS */
+.nav-dots{
+  position:fixed;right:28px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:10px;z-index:100;
+}
+.dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--border);border:1px solid var(--text3);
+  cursor:pointer;transition:all 0.3s;
+}
+.dot.active{background:var(--blue-brand);border-color:var(--blue-brand);box-shadow:0 0 8px var(--blue-glow);}
+.dot:hover{border-color:var(--blue-brand);}
+
+/* DISPLAY TYPE */
+.display{font-family:'Plus Jakarta Sans',sans-serif;line-height:1.05;letter-spacing:-0.02em}
+.eyebrow{font-size:0.72rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--blue-brand);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';display:inline-block;width:24px;height:2px;background:var(--blue-brand)}
+
+/* GRID NOISE BACKGROUND */
+.noise{
+  position:absolute;inset:0;
+  background-image:radial-gradient(circle at 20% 50%, rgba(46,106,255,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0,196,255,0.03) 0%, transparent 50%);
+  pointer-events:none;
+}
+.grid-lines{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+
+/* ─── SLIDE 1: HERO ─── */
+#s1{justify-content:center;align-items:center;text-align:center}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--blue-dim);border:1px solid rgba(46,106,255,0.2);
+  border-radius:100px;padding:6px 16px;font-size:0.75rem;font-weight:500;color:var(--blue-brand);
+  margin-bottom:32px;
+  animation:fadeUp 0.6s ease both;
+}
+.hero-badge .pulse{width:7px;height:7px;border-radius:50%;background:var(--blue-brand);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+.hero-title{font-size:clamp(3rem,7vw,6rem);font-weight:800;color:var(--white);margin-bottom:24px;animation:fadeUp 0.6s 0.1s ease both}
+.hero-title .green{color:var(--blue-brand)}
+.hero-sub{font-size:clamp(1rem,2vw,1.2rem);color:var(--text2);max-width:580px;line-height:1.8;animation:fadeUp 0.6s 0.2s ease both;margin:0 auto 40px}
+.hero-cta{animation:fadeUp 0.6s 0.3s ease both;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-hero{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:10px;font-size:0.9rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.2s;font-family:'Inter',sans-serif}
+.btn-primary-hero{background:var(--blue-brand);color:var(--black)}
+.btn-primary-hero:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--blue-glow)}
+.btn-ghost-hero{background:transparent;color:var(--white);border:1px solid var(--border)}
+.btn-ghost-hero:hover{border-color:var(--blue-brand);color:var(--blue-brand)}
+
+/* BIG STAT */
+.big-number{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(5rem,12vw,10rem);font-weight:800;line-height:1;color:var(--blue-brand);text-shadow:0 0 80px var(--blue-glow)}
+
+/* ─── SLIDE 2: PROBLEMA ─── */
+.problem-wrap{max-width:800px;width:100%}
+.problem-title{font-size:clamp(2rem,5vw,4rem);font-weight:800;margin-bottom:40px}
+.problem-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.problem-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;
+  transition:all 0.3s;
+}
+.problem-card:hover{border-color:rgba(255,77,77,0.3);transform:translateY(-4px)}
+.problem-card .icon{font-size:1.8rem;margin-bottom:14px}
+.problem-card h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--white)}
+.problem-card p{font-size:0.82rem;color:var(--text2);line-height:1.7}
+.problem-card .red{color:#ff5555;font-weight:700}
+
+/* ─── SLIDE 3: SOLUÇÃO ─── */
+.solution-wrap{max-width:900px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.solution-left h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:800;margin-bottom:20px;line-height:1.1}
+.solution-left p{color:var(--text2);line-height:1.9;font-size:0.95rem}
+.solution-right{display:flex;flex-direction:column;gap:16px}
+.feature-item{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;
+  display:flex;align-items:flex-start;gap:14px;transition:all 0.2s;
+}
+.feature-item:hover{border-color:rgba(46,106,255,0.25);background:rgba(46,106,255,0.04)}
+.feature-icon{width:36px;height:36px;border-radius:8px;background:var(--blue-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
+.feature-title{font-weight:600;font-size:0.9rem;color:var(--white);margin-bottom:3px}
+.feature-desc{font-size:0.78rem;color:var(--text2);line-height:1.5}
+
+/* ─── SLIDE 4: COMO FUNCIONA ─── */
+.how-wrap{max-width:900px;width:100%;text-align:center}
+.how-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:800;margin-bottom:16px}
+.how-sub{color:var(--text2);margin-bottom:56px;font-size:0.95rem}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.steps::before{
+  content:'';position:absolute;top:36px;left:calc(12.5%);right:calc(12.5%);
+  height:1px;background:linear-gradient(90deg,transparent,var(--blue-brand),var(--accent),transparent);
+  opacity:0.4;
+}
+.step{text-align:center;padding:0 16px;position:relative}
+.step-num{
+  width:72px;height:72px;border-radius:50%;border:2px solid var(--blue-brand);
+  background:var(--card);display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;font-family:'Plus Jakarta Sans',sans-serif;font-size:1.5rem;font-weight:800;
+  color:var(--blue-brand);position:relative;z-index:1;
+  box-shadow:0 0 24px rgba(46,106,255,0.15);transition:all 0.3s;
+}
+.step:hover .step-num{box-shadow:0 0 40px rgba(46,106,255,0.4);transform:scale(1.08)}
+.step-emoji{font-size:1.6rem;margin-bottom:12px}
+.step h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:8px}
+.step p{font-size:0.78rem;color:var(--text2);line-height:1.6}
+
+/* ─── SLIDE 5: IMPACTO ─── */
+.impact-wrap{max-width:900px;width:100%}
+.impact-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:800;margin-bottom:48px;text-align:center}
+.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.impact-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;
+  text-align:center;transition:all 0.3s;
+}
+.impact-card:hover{border-color:rgba(46,106,255,0.3);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.4)}
+.impact-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:3.5rem;font-weight:800;color:var(--blue-brand);line-height:1;margin-bottom:8px}
+.impact-label{font-size:0.82rem;color:var(--text2);line-height:1.5}
+.impact-card.accent .impact-val{color:var(--accent)}
+.impact-card.white .impact-val{color:var(--white)}
+.impact-quote{
+  margin-top:32px;background:var(--blue-dim);border:1px solid rgba(46,106,255,0.2);
+  border-radius:16px;padding:28px;text-align:center;
+}
+.impact-quote p{font-size:1.05rem;color:var(--white);line-height:1.8;font-style:italic}
+.impact-quote strong{color:var(--blue-brand);font-style:normal}
+
+/* ─── SLIDE 6: NICHOS ─── */
+.nichos-wrap{max-width:900px;width:100%}
+.nichos-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:800;margin-bottom:16px}
+.nichos-sub{color:var(--text2);margin-bottom:48px;font-size:0.95rem}
+.nichos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.nicho-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;
+  transition:all 0.3s;cursor:default;
+}
+.nicho-card:hover{border-color:rgba(46,106,255,0.3);transform:translateY(-3px)}
+.nicho-emoji{font-size:2rem;margin-bottom:14px}
+.nicho-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--white);margin-bottom:6px}
+.nicho-dias{font-size:0.75rem;color:var(--blue-brand);font-weight:500;margin-bottom:8px}
+.nicho-msg{font-size:0.75rem;color:var(--text2);line-height:1.6;font-style:italic}
+
+/* ─── SLIDE 7: PLANOS ─── */
+.planos-wrap{max-width:900px;width:100%}
+.planos-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:800;margin-bottom:48px;text-align:center}
+.planos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.plano{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;
+  position:relative;transition:all 0.3s;
+}
+.plano:hover{transform:translateY(-4px)}
+.plano.destaque{
+  background:linear-gradient(135deg,rgba(46,106,255,0.08),rgba(0,196,255,0.04));
+  border-color:rgba(46,106,255,0.4);
+  box-shadow:0 0 48px rgba(46,106,255,0.1);
+}
+.plano-badge{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--blue-brand);color:var(--black);font-size:0.7rem;font-weight:700;
+  padding:4px 16px;border-radius:100px;white-space:nowrap;
+}
+.plano-nome{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text2);margin-bottom:12px}
+.plano-preco{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.8rem;font-weight:800;color:var(--white);line-height:1;margin-bottom:4px}
+.plano-preco sup{font-size:1rem;vertical-align:top;margin-top:6px;display:inline-block}
+.plano-preco sub{font-size:0.8rem;color:var(--text2);font-weight:400}
+.plano-roi{background:rgba(46,106,255,0.08);border:1px solid rgba(46,106,255,0.15);border-radius:8px;padding:8px 12px;margin:16px 0;font-size:0.75rem;color:var(--blue-brand)}
+.plano-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.plano-features li{font-size:0.8rem;color:var(--text2);display:flex;align-items:flex-start;gap:8px}
+.plano-features li::before{content:'✓';color:var(--blue-brand);font-weight:700;flex-shrink:0}
+
+/* ─── SLIDE 8: CTA ─── */
+#s8{text-align:center}
+.cta-title{font-size:clamp(2.5rem,6vw,5rem);font-weight:800;margin-bottom:24px;line-height:1.1}
+.cta-sub{font-size:1rem;color:var(--text2);max-width:500px;margin:0 auto 48px;line-height:1.8}
+.cta-wpp{
+  display:inline-flex;align-items:center;gap:12px;
+  background:#2e6aff;color:#fff;
+  padding:18px 36px;border-radius:14px;font-size:1rem;font-weight:700;
+  text-decoration:none;transition:all 0.25s;font-family:'Plus Jakarta Sans',sans-serif;
+  box-shadow:0 8px 32px rgba(37,211,102,0.35);
+}
+.cta-wpp:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(37,211,102,0.5)}
+.cta-footer{margin-top:48px;font-size:0.78rem;color:var(--text3)}
+
+/* REVEAL ANIMATION */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.6s ease, transform 0.6s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal:nth-child(2){transition-delay:0.1s}
+.reveal:nth-child(3){transition-delay:0.2s}
+.reveal:nth-child(4){transition-delay:0.3s}
+.reveal:nth-child(5){transition-delay:0.4s}
+.reveal:nth-child(6){transition-delay:0.5s}
+
+/* LOGO */
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.4rem;color:var(--white)}
+.logo span{color:var(--blue-brand)}
+
+/* COUNTER ANIMATION */
+.counter{display:inline-block}
+
+/* SCROLL HINT */
+.scroll-hint{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  color:var(--text3);font-size:0.72rem;animation:fadeUp 1s 1s ease both;
+}
+.scroll-arrow{width:20px;height:32px;border:2px solid var(--text3);border-radius:10px;display:flex;align-items:flex-start;justify-content:center;padding-top:4px}
+.scroll-arrow::after{content:'';width:4px;height:8px;background:var(--blue-brand);border-radius:2px;animation:scroll-bounce 1.5s infinite}
+@keyframes scroll-bounce{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(10px);opacity:0.3}}
+
+/* MOBILE */
+@media(max-width:768px){
+  .problem-cards,.nichos-grid,.planos-grid,.impact-grid{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:32px}
+  .steps::before{display:none}
+  .solution-wrap{grid-template-columns:1fr}
+  .solution-right{display:none}
+}
+@media(max-width:480px){
+  .problem-cards,.nichos-grid,.planos-grid,.impact-grid,.steps{grid-template-columns:1fr}
+}
+
+/* FIXED LOGO TOP */
+.top-bar{position:fixed;top:0;left:0;right:0;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;z-index:99;background:linear-gradient(to bottom,var(--black),transparent)}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="logo">Retorna<span>x</span></div>
+  <div style="font-size:0.75rem;color:var(--text3)">Use a roda do mouse para navegar</div>
+</div>
+
+<nav class="nav-dots" id="nav-dots">
+  <div class="dot active" onclick="goTo(0)" title="Início"></div>
+  <div class="dot" onclick="goTo(1)" title="O Problema"></div>
+  <div class="dot" onclick="goTo(2)" title="A Solução"></div>
+  <div class="dot" onclick="goTo(3)" title="Como Funciona"></div>
+  <div class="dot" onclick="goTo(4)" title="Impacto"></div>
+  <div class="dot" onclick="goTo(5)" title="Nichos"></div>
+  <div class="dot" onclick="goTo(6)" title="Planos"></div>
+  <div class="dot" onclick="goTo(7)" title="Começar"></div>
+</nav>
+
+<!-- ── SLIDE 1: HERO ── -->
+<section class="slide" id="s1">
+  <div class="noise"></div>
+  <div class="grid-lines"></div>
+  <div style="position:relative;z-index:1;text-align:center;max-width:760px">
+    <div class="hero-badge"><span class="pulse"></span> Plataforma de recorrência via WhatsApp</div>
+    <h1 class="hero-title display">Seus clientes <span class="green">voltam.</span><br>No piloto automático.</h1>
+    <p class="hero-sub">A Retornax identifica oportunidades de retorno e executa campanhas estratégicas para trazer clientes de volta no momento certo — sem você precisar lembrar de ninguém.</p>
+    <div class="hero-cta">
+      <a href="#s2" class="btn-hero btn-primary-hero">Ver como funciona</a>
+      <a href="https://wa.me/5551984026354" class="btn-hero btn-ghost-hero">Falar com a equipe</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ── SLIDE 2: PROBLEMA ── -->
+<section class="slide" id="s2">
+  <div class="noise"></div>
+  <div style="max-width:860px;width:100%;position:relative;z-index:1">
+    <div class="eyebrow reveal">O problema real</div>
+    <h2 class="display reveal" style="font-size:clamp(2rem,5vw,4rem);font-weight:800;margin-bottom:16px">Você paga pra conquistar.<br><span style="color:var(--text2);font-weight:400">E perde na frequência.</span></h2>
+    <p class="reveal" style="color:var(--text2);font-size:0.95rem;max-width:560px;line-height:1.8;margin-bottom:48px">A maioria dos negócios locais investe em captar clientes novos. Mas os clientes que já compraram — e poderiam voltar amanhã — ficam esquecidos.</p>
+    <div class="problem-cards">
+      <div class="problem-card reveal">
+        <div class="icon">📉</div>
+        <h3>Clientes somem</h3>
+        <p>Um cliente que não volta em 30 dias tem <span class="red">70% de chance</span> de nunca mais voltar — sem nenhum lembrete.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="icon">💸</div>
+        <h3>CAC alto demais</h3>
+        <p>Captar um cliente novo custa <span class="red">5x mais</span> do que fazer um cliente atual comprar de novo.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="icon">⏳</div>
+        <h3>Sem tempo pra lembrar</h3>
+        <p>Donos de negócio tocam tudo. Lembrar de ligar para cada cliente que sumiu <span class="red">nunca acontece.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SLIDE 3: SOLUÇÃO ── -->
+<section class="slide" id="s3">
+  <div class="noise"></div>
+  <div class="solution-wrap" style="position:relative;z-index:1">
+    <div class="solution-left">
+      <div class="eyebrow reveal">A solução</div>
+      <h2 class="display reveal">Recorrência no<br><span style="color:var(--blue-brand)">automático.</span></h2>
+      <p class="reveal" style="color:var(--text2);line-height:1.9;font-size:0.92rem;margin-top:16px">A Retornax conecta no seu WhatsApp, monitora quem sumiu da sua base e dispara mensagens no momento certo — como se você mesmo tivesse enviado, mas sem precisar fazer nada.</p>
+      <div class="reveal" style="margin-top:32px;padding:20px;background:var(--blue-dim);border:1px solid rgba(46,106,255,0.2);border-radius:12px">
+        <div style="font-size:0.78rem;color:var(--blue-brand);font-weight:600;margin-bottom:4px">RESULTADO ESPERADO</div>
+        <div style="font-size:1.5rem;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif">+20% de frequência<br><span style="color:var(--text2);font-size:0.9rem;font-weight:400">nos primeiros 60 dias</span></div>
+      </div>
+    </div>
+    <div class="solution-right">
+      <div class="feature-item reveal">
+        <div class="feature-icon">📱</div>
+        <div><div class="feature-title">WhatsApp conectado</div><div class="feature-desc">Funciona direto no seu número. Sem aplicativo novo, sem app extra.</div></div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon">🤖</div>
+        <div><div class="feature-title">Disparo automático</div><div class="feature-desc">Define o intervalo de dias e a Retornax manda na hora certa.</div></div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon">🎯</div>
+        <div><div class="feature-title">Segmentado por negócio</div><div class="feature-desc">Barbearia, pet shop, mecânica — cada segmento tem sua régua.</div></div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon">📊</div>
+        <div><div class="feature-title">Painel completo</div><div class="feature-desc">Veja quem voltou, quem está em risco e quanto já foi recuperado.</div></div>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon">⭐</div>
+        <div><div class="feature-title">Fidelizados</div><div class="feature-desc">Marque seus melhores clientes e envie campanhas exclusivas para eles.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SLIDE 4: COMO FUNCIONA ── -->
+<section class="slide" id="s4">
+  <div class="noise"></div>
+  <div class="how-wrap" style="position:relative;z-index:1">
+    <div class="eyebrow reveal" style="justify-content:center">Passo a passo</div>
+    <h2 class="display how-title reveal">4 passos. Resultado<br><span style="color:var(--blue-brand)">nos primeiros dias.</span></h2>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-emoji">📋</div>
+        <h3>Cadastra os clientes</h3>
+        <p>Importa sua lista ou adiciona um a um. Nome, WhatsApp e última visita.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-emoji">📱</div>
+        <h3>Conecta o WhatsApp</h3>
+        <p>Escaneie o QR Code. Pronto — seu número está ativo na plataforma.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-emoji">⚡</div>
+        <h3>Ativa as automações</h3>
+        <p>Escolha os dias de inatividade para cada segmento e a mensagem.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <div class="step-emoji">🔥</div>
+        <h3>Clientes voltam</h3>
+        <p>A Retornax dispara e você recebe as respostas direto no WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SLIDE 5: IMPACTO ── -->
+<section class="slide" id="s5">
+  <div class="noise"></div>
+  <div class="impact-wrap" style="position:relative;z-index:1">
+    <div class="eyebrow reveal" style="justify-content:center">Por que faz sentido</div>
+    <h2 class="display impact-title reveal">Os números falam<br><span style="color:var(--blue-brand)">por si.</span></h2>
+    <div class="impact-grid">
+      <div class="impact-card reveal">
+        <div class="impact-val"><span class="counter" data-target="5">0</span>x</div>
+        <div class="impact-label">mais barato reconquistar um cliente antigo do que captar um novo</div>
+      </div>
+      <div class="impact-card accent reveal">
+        <div class="impact-val"><span class="counter" data-target="70">0</span>%</div>
+        <div class="impact-label">dos clientes que somem voltam quando recebem uma mensagem no momento certo</div>
+      </div>
+      <div class="impact-card white reveal">
+        <div class="impact-val">R$<span class="counter" data-target="147">0</span></div>
+        <div class="impact-label">é o plano de entrada — e 2 clientes reativados já pagam o mês inteiro</div>
+      </div>
+    </div>
+    <div class="impact-quote reveal">
+      <p>"Conquistar novos clientes é importante.<br><strong>Mas fazer os clientes voltarem é o que gera crescimento previsível.</strong>"</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SLIDE 6: NICHOS ── -->
+<section class="slide" id="s6">
+  <div class="noise"></div>
+  <div class="nichos-wrap" style="position:relative;z-index:1">
+    <div class="eyebrow reveal">Feito para quem não tem tempo</div>
+    <h2 class="display nichos-title reveal">Para negócios locais<br><span style="color:var(--blue-brand)">que vivem de recorrência.</span></h2>
+    <p class="nichos-sub reveal">Se seu cliente precisa voltar com frequência, a Retornax já sabe a régua ideal para cada um.</p>
+    <div class="nichos-grid">
+      <div class="nicho-card reveal">
+        <div class="nicho-emoji">✂️</div>
+        <div class="nicho-name">Barbearia</div>
+        <div class="nicho-dias">Disparo após 10 dias</div>
+        <div class="nicho-msg">"Oi {nome}! Já faz 10 dias que você não passa por aqui. Quer marcar um horário essa semana?"</div>
+      </div>
+      <div class="nicho-card reveal">
+        <div class="nicho-emoji">🐾</div>
+        <div class="nicho-name">Pet shop</div>
+        <div class="nicho-dias">Disparo após 20 dias</div>
+        <div class="nicho-msg">"Oi! O bichinho de {nome} já tá precisando de um banho, faz 20 dias. Quer agendar?"</div>
+      </div>
+      <div class="nicho-card reveal">
+        <div class="nicho-emoji">🔧</div>
+        <div class="nicho-name">Mecânica</div>
+        <div class="nicho-dias">Disparo após 90 dias</div>
+        <div class="nicho-msg">"Oi {nome}! Que tal uma revisão? Freios, óleo, filtros — seu carro merece."</div>
+      </div>
+      <div class="nicho-card reveal">
+        <div class="nicho-emoji">🚗</div>
+        <div class="nicho-name">Estética auto</div>
+        <div class="nicho-dias">Disparo após 15 dias</div>
+        <div class="nicho-msg">"Oi {nome}! Faz 15 dias que seu carro não vem lavar. Quer agendar essa semana?"</div>
+      </div>
+      <div class="nicho-card reveal">
+        <div class="nicho-emoji">💅</div>
+        <div class="nicho-name">Salão de beleza</div>
+        <div class="nicho-dias">Disparo após 21 dias</div>
+        <div class="nicho-msg">"Oi {nome}! Já faz 21 dias desde sua última visita. Quer agendar?"</div>
+      </div>
+      <div class="nicho-card reveal">
+        <div class="nicho-emoji">🏋️</div>
+        <div class="nicho-name">Academia</div>
+        <div class="nicho-dias">Disparo após 7 dias</div>
+        <div class="nicho-msg">"Oi {nome}! Notei que você não treina há 7 dias. Que tal retomar amanhã?"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SLIDE 7: PLANOS ── -->
+<section class="slide" id="s7">
+  <div class="noise"></div>
+  <div class="planos-wrap" style="position:relative;z-index:1">
+    <div class="eyebrow reveal" style="justify-content:center">Investimento</div>
+    <h2 class="display planos-title reveal">Planos que se pagam<br><span style="color:var(--blue-brand)">com 2 clientes de volta.</span></h2>
+    <div class="planos-grid">
+      <div class="plano reveal">
+        <div class="plano-nome">Starter</div>
+        <div class="plano-preco"><sup>R$</sup>147<sub>/mês</sub></div>
+        <div class="plano-roi">Se 2 clientes voltarem, já se paga.</div>
+        <ul class="plano-features">
+          <li>Até 100 clientes</li>
+          <li>200 mensagens/mês</li>
+          <li>WhatsApp conectado</li>
+          <li>Suporte WhatsApp</li>
+        </ul>
+      </div>
+      <div class="plano destaque reveal">
+        <div class="plano-badge">Mais popular</div>
+        <div class="plano-nome">Profissional</div>
+        <div class="plano-preco"><sup>R$</sup>247<sub>/mês</sub></div>
+        <div class="plano-roi">5 clientes reativados já pagam 3x o plano.</div>
+        <ul class="plano-features">
+          <li>Até 300 clientes</li>
+          <li>600 mensagens/mês</li>
+          <li>Campanhas em massa</li>
+          <li>Dashboard completo</li>
+          <li>Suporte prioritário</li>
+        </ul>
+      </div>
+      <div class="plano reveal">
+        <div class="plano-nome">Crescimento</div>
+        <div class="plano-preco"><sup>R$</sup>447<sub>/mês</sub></div>
+        <div class="plano-roi">Ideal para redes e franquias.</div>
+        <ul class="plano-features">
+          <li>Até 800 clientes</li>
+          <li>1.600 mensagens/mês</li>
+          <li>Múltiplas unidades</li>
+          <li>API e integrações</li>
+        </ul>
+      </div>
+    </div>
+    <p class="reveal" style="text-align:center;color:var(--text3);font-size:0.78rem;margin-top:28px">Cancele quando quiser · Sem taxa de setup · Cobrança via Stripe</p>
+  </div>
+</section>
+
+<!-- ── SLIDE 8: CTA ── -->
+<section class="slide" id="s8">
+  <div class="noise"></div>
+  <div style="position:relative;z-index:1;text-align:center;max-width:680px">
+    <div class="eyebrow reveal" style="justify-content:center">Comece hoje</div>
+    <h2 class="display cta-title reveal">Seus clientes estão<br>esperando um motivo<br><span style="color:var(--blue-brand)">pra voltar.</span></h2>
+    <p class="cta-sub reveal">7 dias grátis para testar. Sem cartão de crédito. Configure em menos de 10 minutos.</p>
+    <div class="reveal">
+      <a href="https://wa.me/5551984026354?text=Oi!+Quero+testar+a+Retornax" target="_blank" class="cta-wpp">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Quero testar grátis por 7 dias
+      </a>
+    </div>
+    <div class="cta-footer reveal">retornax.com.br</div>
+  </div>
+</section>
+
+<script>
+// ── NAV DOTS ──
+const slides = document.querySelectorAll('.slide');
+const dots   = document.querySelectorAll('.dot');
+
+function goTo(i){ slides[i].scrollIntoView({behavior:'smooth'}); }
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      const i = [...slides].indexOf(e.target);
+      dots.forEach(d => d.classList.remove('active'));
+      if(dots[i]) dots[i].classList.add('active');
+    }
+  });
+}, {threshold:0.5});
+
+slides.forEach(s => obs.observe(s));
+
+// ── REVEAL ON SCROLL ──
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+}, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ── COUNTER ANIMATION ──
+function animateCounter(el, target, duration=1200){
+  const start = performance.now();
+  const step = t => {
+    const p = Math.min((t - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(ease * target);
+    if(p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      const counters = e.target.querySelectorAll('.counter');
+      counters.forEach(c => {
+        const target = parseInt(c.dataset.target);
+        animateCounter(c, target);
+      });
+      counterObs.unobserve(e.target);
+    }
+  });
+}, {threshold:0.4});
+
+document.querySelectorAll('.impact-grid').forEach(el => counterObs.observe(el));
+
+// ── KEYBOARD NAVIGATION ──
+document.addEventListener('keydown', e => {
+  const active = [...slides].findIndex(s => {
+    const r = s.getBoundingClientRect();
+    return r.top >= -10 && r.top <= 10;
+  });
+  if(e.key === 'ArrowDown' && active < slides.length - 1) goTo(active + 1);
+  if(e.key === 'ArrowUp'   && active > 0)                 goTo(active - 1);
+});
+</script>
+</body>
+</html>
