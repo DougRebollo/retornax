@@ -165,6 +165,21 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .btn-add-kanban:hover{background:rgba(0,214,143,0.2)}
 .btn-add-all{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,214,143,0.25);padding:8px 18px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.15s}
 .btn-add-all:hover{background:rgba(0,214,143,0.2)}
+
+/* SELECAO MULTIPLA */
+.sel-toolbar{display:none;position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:12px 20px;display:none;align-items:center;gap:12px;z-index:150;box-shadow:0 8px 32px rgba(0,0,0,0.5);animation:modalIn 0.2s ease}
+.sel-toolbar.visible{display:flex}
+.sel-count{font-size:0.85rem;font-weight:600;color:var(--white)}
+.sel-count span{color:var(--blue-lite)}
+.prospect-card.selected{border-color:var(--blue);background:rgba(46,106,255,0.08)}
+.card-checkbox{position:absolute;top:10px;left:10px;width:16px;height:16px;border-radius:4px;border:2px solid var(--border2);background:var(--bg3);cursor:pointer;display:none;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0;z-index:2}
+.card-checkbox.visible{display:flex}
+.card-checkbox.checked{background:var(--blue);border-color:var(--blue)}
+.card-checkbox.checked::after{content:'✓';color:white;font-size:0.65rem;font-weight:700}
+.modo-sel .prospect-card{padding-left:34px}
+.modo-sel .card-checkbox{display:flex}
+.col-sel-all{background:none;border:none;color:var(--text3);cursor:pointer;padding:4px;border-radius:4px;font-size:0.72rem;transition:color 0.15s}
+.col-sel-all:hover{color:var(--text)}
 </style>
 </head>
 <body>
@@ -210,6 +225,10 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
       <button class="btn btn-primary" onclick="abrirModal()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Novo prospecto
+      </button>
+      <button class="btn btn-ghost btn-sm" id="btn-sel-modo" onclick="toggleModoSelecao()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Selecionar
       </button>
       <button class="btn-fren" onclick="abrirFren()">
         🔥 Prospecção Frenética
@@ -387,6 +406,16 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
   </div>
 </div>
 
+
+<!-- TOOLBAR SELECAO MULTIPLA -->
+<div class="sel-toolbar" id="sel-toolbar">
+  <div class="sel-count"><span id="sel-count-num">0</span> selecionados</div>
+  <button class="btn btn-ghost btn-sm" onclick="selecionarTodos()">Todos</button>
+  <button class="btn btn-ghost btn-sm" onclick="moverSelecionados()">↕️ Mover etapa</button>
+  <button class="btn btn-danger btn-sm" onclick="excluirSelecionados()">🗑️ Excluir</button>
+  <button class="btn btn-ghost btn-sm" onclick="cancelarSelecao()">✕ Cancelar</button>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"><span>✓</span><span id="toast-msg">Feito!</span></div>
 
@@ -486,7 +515,8 @@ function renderCard(p){
   const seg = p.segmento ? `<span class="card-tag" style="background:rgba(0,229,255,0.1);color:var(--accent)">${p.segmento}</span>` : '';
   return `
     <div class="prospect-card" id="card-${p.id}" draggable="true"
-      ondragstart="dragStart(event,'${p.id}')" ondragend="dragEnd(event)">
+      ondragstart="if(modoSelecao){event.preventDefault();return;}dragStart(event,'${p.id}')" ondragend="dragEnd(event)" onclick="if(modoSelecao)toggleCard('${p.id}',event)">
+      <div class="card-checkbox" id="chk-${p.id}" onclick="toggleCard('${p.id}',event)"></div>
       <div class="card-top">
         <div>
           <div class="card-nome">${p.nome}</div>
@@ -697,17 +727,25 @@ function renderFrenResultados(){
   const rows = frenResultados.map((r, i) => `<tr>
     <td class="name">${r.nome}</td>
     <td>${r.telefone}</td>
-    <td style="font-size:0.75rem;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.endereco}</td>
+    <td style="font-size:0.82rem;max-width:260px;word-break:break-word;white-space:normal;line-height:1.4">${r.endereco}</td>
     <td>${r.stars > 0 ? '<span class="star">★</span> ' + r.stars.toFixed(1) + ' <span style="color:var(--text3)">(' + r.reviews + ')</span>' : '—'}</td>
     <td>${r.site ? '<a href="' + r.site + '" target="_blank" style="color:var(--blue-lite);font-size:0.75rem">🔗 site</a>' : '—'}</td>
     <td>${r.maps ? '<a href="' + r.maps + '" target="_blank" style="color:var(--accent);font-size:0.75rem">📍 Maps</a>' : '—'}</td>
-    <td><button class="btn-add-kanban" onclick="adicionarUmKanban(' + i + ')">+ Kanban</button></td>
+    <td><button class="btn-add-kanban" data-idx="${i}">+ Kanban</button></td>
   </tr>`).join('');
+
+  // Event delegation para os botões + Kanban
+  wrap.querySelectorAll('.btn-add-kanban').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const idx = parseInt(this.dataset.idx);
+      adicionarUmKanban(idx, this);
+    });
+  });
 
   wrap.innerHTML = '<table><thead><tr><th>Nome</th><th>Telefone</th><th>Endereço</th><th>Avaliação</th><th>Site</th><th>Maps</th><th>Ação</th></tr></thead><tbody>' + rows + '</tbody></table>';
 }
 
-function adicionarUmKanban(idx){
+function adicionarUmKanban(idx, btnEl){
   const r = frenResultados[idx];
   if(!r) return;
   const p = {
@@ -719,9 +757,7 @@ function adicionarUmKanban(idx){
   prospectos.push(p);
   salvar(); render();
   showToast(r.nome + ' adicionado ao Kanban!');
-  // Trocar botão por check
-  const btn = document.querySelector('#fren-results tbody tr:nth-child(' + (idx+1) + ') .btn-add-kanban');
-  if(btn){ btn.textContent = '✓ Adicionado'; btn.disabled = true; btn.style.opacity = '0.5'; }
+  if(btnEl){ btnEl.textContent = '✓ Adicionado'; btnEl.disabled = true; btnEl.style.opacity = '0.5'; btnEl.style.color = 'var(--green)'; }
 }
 
 function adicionarTodosKanban(){
@@ -741,6 +777,95 @@ function adicionarTodosKanban(){
   });
   salvar(); render(); fecharFren();
   showToast(count + ' empresas adicionadas ao Kanban! 🔥');
+}
+
+
+// ── SELECAO MULTIPLA ──
+let modoSelecao = false;
+let selecionados = new Set();
+
+function toggleModoSelecao() {
+  modoSelecao = !modoSelecao;
+  selecionados.clear();
+  const btn = document.getElementById('btn-sel-modo');
+  const wrap = document.getElementById('kanban-wrap');
+  if (modoSelecao) {
+    wrap.classList.add('modo-sel');
+    btn.style.background = 'var(--blue-dim)';
+    btn.style.color = 'var(--blue-lite)';
+    btn.style.borderColor = 'var(--blue)';
+  } else {
+    cancelarSelecao();
+  }
+}
+
+function cancelarSelecao() {
+  modoSelecao = false;
+  selecionados.clear();
+  document.getElementById('kanban-wrap').classList.remove('modo-sel');
+  document.querySelectorAll('.prospect-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.card-checkbox').forEach(c => c.classList.remove('checked'));
+  document.getElementById('sel-toolbar').classList.remove('visible');
+  const btn = document.getElementById('btn-sel-modo');
+  if (btn) { btn.style.background = ''; btn.style.color = ''; btn.style.borderColor = ''; }
+}
+
+function toggleCard(id, e) {
+  if (!modoSelecao) return;
+  e.stopPropagation();
+  const card = document.getElementById('card-' + id);
+  const chk = document.getElementById('chk-' + id);
+  if (selecionados.has(id)) {
+    selecionados.delete(id);
+    card?.classList.remove('selected');
+    chk?.classList.remove('checked');
+  } else {
+    selecionados.add(id);
+    card?.classList.add('selected');
+    chk?.classList.add('checked');
+  }
+  atualizarToolbarSel();
+}
+
+function atualizarToolbarSel() {
+  const toolbar = document.getElementById('sel-toolbar');
+  document.getElementById('sel-count-num').textContent = selecionados.size;
+  if (selecionados.size > 0) toolbar.classList.add('visible');
+  else toolbar.classList.remove('visible');
+}
+
+function selecionarTodos() {
+  prospectos.forEach(p => {
+    selecionados.add(p.id);
+    document.getElementById('card-' + p.id)?.classList.add('selected');
+    document.getElementById('chk-' + p.id)?.classList.add('checked');
+  });
+  atualizarToolbarSel();
+}
+
+function excluirSelecionados() {
+  if (!selecionados.size) return;
+  if (!confirm(`Excluir ${selecionados.size} prospecto(s)?`)) return;
+  prospectos = prospectos.filter(p => !selecionados.has(p.id));
+  salvar(); cancelarSelecao(); render();
+  showToast(`${selecionados.size} prospectos excluídos.`);
+}
+
+function moverSelecionados() {
+  if (!selecionados.size) return;
+  const nomes = colunas.map(c => c.nome);
+  const escolha = prompt('Mover para qual etapa?
+
+' + nomes.map((n,i) => `${i+1}. ${n}`).join('
+') + '
+
+Digite o número:');
+  const idx = parseInt(escolha) - 1;
+  if (idx >= 0 && idx < colunas.length) {
+    prospectos.forEach(p => { if (selecionados.has(p.id)) p.colunaId = colunas[idx].id; });
+    salvar(); cancelarSelecao(); render();
+    showToast(`${selecionados.size} prospectos movidos para "${colunas[idx].nome}"!`);
+  }
 }
 
 // ── INIT ──
