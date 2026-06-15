@@ -683,21 +683,18 @@ tbody td.name{color:var(--text);font-weight:500}
         <div class="table-wrap" id="op-tabela-wpp"><div class="empty-state"><div class="empty-icon">&#x1F4F1;</div><p>Carregando...</p></div></div>
       </div>
     </div>
-  </div>
-</div>
-</div>
 
     <!-- FIDELIZADOS -->
     <div class="page" id="page-fidelizados">
       <div class="fid-tabs">
-        <button class="fid-tab active" onclick="fidShowTab('mais-visitas',this)">⭐ Mais visitas</button>
+        <button class="fid-tab active" onclick="fidShowTab('premium',this)">⭐ Fidelizados</button>
+        <button class="fid-tab" onclick="fidShowTab('mais-visitas',this)">🏆 Mais fiéis</button>
         <button class="fid-tab" onclick="fidShowTab('mais-recentes',this)">🕐 Mais recentes</button>
         <button class="fid-tab" onclick="fidShowTab('em-risco',this)">⚠️ Em risco</button>
       </div>
       <div id="fid-content"></div>
     </div>
-
-<!-- PERFIL -->
+    <!-- PERFIL -->
     <div class="page" id="page-perfil">
       <div id="perfil-aviso-wrap"></div>
       <div class="perfil-grid">
@@ -789,7 +786,6 @@ tbody td.name{color:var(--text);font-weight:500}
         </button>
       </div>
     </div>
-
     <!-- ASSINATURA -->
     <div class="page" id="page-assinatura">
       <div id="ass-content">
@@ -804,18 +800,9 @@ tbody td.name{color:var(--text);font-weight:500}
           </div>
         </div>
         <div class="ass-grid">
-          <div class="ass-card">
-            <div class="ass-card-label">Status</div>
-            <div class="ass-card-val green" id="ass-status">—</div>
-          </div>
-          <div class="ass-card">
-            <div class="ass-card-label">E-mail cadastrado</div>
-            <div class="ass-card-val" id="ass-email">—</div>
-          </div>
-          <div class="ass-card">
-            <div class="ass-card-label">Próxima cobrança</div>
-            <div class="ass-card-val" id="ass-vencimento">—</div>
-          </div>
+          <div class="ass-card"><div class="ass-card-label">Status</div><div class="ass-card-val green" id="ass-status">—</div></div>
+          <div class="ass-card"><div class="ass-card-label">E-mail cadastrado</div><div class="ass-card-val" id="ass-email">—</div></div>
+          <div class="ass-card"><div class="ass-card-label">Próxima cobrança</div><div class="ass-card-val" id="ass-vencimento">—</div></div>
         </div>
         <div class="ass-features" id="ass-features-wrap"></div>
         <div class="ass-actions">
@@ -830,6 +817,10 @@ tbody td.name{color:var(--text);font-weight:500}
         </div>
       </div>
     </div>
+  </div>
+</div>
+</div>
+
 
 
 <!-- ONBOARDING -->
@@ -861,6 +852,12 @@ tbody td.name{color:var(--text);font-weight:500}
     <div id="tab-manual">
       <div class="form-row"><div class="form-group"><label>Nome completo</label><input type="text" id="f-nome" placeholder="Joao Silva"></div><div class="form-group"><label>WhatsApp</label><input type="tel" id="f-wpp" placeholder="(51) 99999-9999"></div></div>
       <div class="form-row"><div class="form-group"><label>Segmento</label><select id="f-seg"><option value="Barbearia">Barbearia</option><option value="Estetica auto">Estetica auto</option><option value="Mecanica">Mecanica</option><option value="Beleza">Beleza</option><option value="Pet shop">Pet shop</option><option value="Academia">Academia</option><option value="Outros">Outros</option></select></div><div class="form-group"><label>Ultima visita</label><input type="date" id="f-data"></div></div>
+      <div class="form-group" style="margin-bottom:12px">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+          <input type="checkbox" id="f-fidelizado" style="width:16px;height:16px;cursor:pointer">
+          <span>⭐ Cliente fidelizado / premium</span>
+        </label>
+      </div>
       <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="addCliente()" style="padding:10px 24px;font-size:0.92rem">+ Adicionar cliente</button></div>
     </div>
     <div id="tab-import" style="display:none">
@@ -879,6 +876,12 @@ tbody td.name{color:var(--text);font-weight:500}
     <input type="hidden" id="edit-cli-id">
     <div class="form-row"><div class="form-group"><label>Nome completo</label><input type="text" id="edit-cli-nome"></div><div class="form-group"><label>WhatsApp</label><input type="tel" id="edit-cli-wpp"></div></div>
     <div class="form-row"><div class="form-group"><label>Segmento</label><select id="edit-cli-seg"><option value="Barbearia">Barbearia</option><option value="Estetica auto">Estetica auto</option><option value="Mecanica">Mecanica</option><option value="Beleza">Beleza</option><option value="Pet shop">Pet shop</option><option value="Academia">Academia</option><option value="Outros">Outros</option></select></div><div class="form-group"><label>Ultima visita</label><input type="date" id="edit-cli-data"></div></div>
+    <div class="form-group" style="margin-bottom:12px">
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+        <input type="checkbox" id="edit-cli-fidelizado" style="width:16px;height:16px;cursor:pointer">
+        <span>⭐ Cliente fidelizado / premium</span>
+      </label>
+    </div>
     <div class="modal-footer"><button class="btn btn-ghost" onclick="fecharEditarCliente()">Cancelar</button><button class="btn btn-primary" onclick="salvarEdicaoCliente()">Salvar alteracoes</button></div>
   </div>
 </div>
@@ -924,11 +927,11 @@ function renderClientes(list){
   if(!list.length){ tb.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text3)">Nenhum cliente encontrado.</td></tr>`; return; }
   tb.innerHTML=list.map(c=>{
     const days=calcDays(c.ultima);
-    return `<tr><td class="name">${c.nome}</td><td>${c.wpp}</td><td>${getSegBadge(c.seg)}</td><td>${new Date(c.ultima+'T12:00').toLocaleDateString('pt-BR')}</td><td>${getDaysChip(days,c.seg)}</td><td>${getStatusBadge(c.status)}</td>
+    return `<tr><td class="name">${c.fidelizado?'<span title="Fidelizado" style="color:var(--amber)">⭐</span> ':''}<span style="${c.fidelizado?'font-weight:700;color:var(--white)':''}">${c.nome}</span></td><td>${c.wpp}</td><td>${getSegBadge(c.seg)}</td><td>${new Date(c.ultima+'T12:00').toLocaleDateString('pt-BR')}</td><td>${getDaysChip(days,c.seg)}</td><td>${getStatusBadge(c.status)}</td>
     <td><div class="action-btns">
       <button class="icon-btn send" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" onclick="sendMsgCliente(this)" title="Enviar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
       <button class="icon-btn checkin" data-id="${c.id}" data-nome="${c.nome.split(' ')[0]}" onclick="marcarVisita(this)" title="Marcar visita"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></button>
-      <button class="icon-btn edit" data-id="${c.id}" data-nome="${c.nome}" data-wpp="${c.wpp}" data-seg="${c.seg}" data-ultima="${c.ultima}" onclick="abrirEditarCliente(this)" title="Editar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+      <button class="icon-btn edit" data-id="${c.id}" data-nome="${c.nome}" data-wpp="${c.wpp}" data-seg="${c.seg}" data-ultima="${c.ultima}" data-fidelizado="${c.fidelizado||false}" onclick="abrirEditarCliente(this)" title="Editar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
       <button class="icon-btn" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" data-ultima="${c.ultima}" onclick="abrirEditarMsg(this)" title="Editar mensagem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
       <button class="icon-btn del" onclick="removeCliente('${c.id}')" title="Remover"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg></button>
     </div></td></tr>`;
@@ -1044,9 +1047,10 @@ function switchTab(tab,btn){ document.querySelectorAll('.modal-tab').forEach(t=>
 async function addCliente(){
   const nome=document.getElementById('f-nome').value.trim(),wpp=document.getElementById('f-wpp').value.trim(),seg=document.getElementById('f-seg').value,data=document.getElementById('f-data').value;
   if(!nome||!wpp||!data){ showToast('Preencha todos os campos.','err'); return; }
-  const novo={id:Date.now(),nome,wpp,seg,ultima:data,status:'ok'};
+  const fidelizado=document.getElementById('f-fidelizado')?.checked||false;
+  const novo={id:Date.now(),nome,wpp,seg,ultima:data,status:'ok',fidelizado};
   clientes.unshift(novo); filterClientes(); updateCount(); closeModal(); showToast(`${nome} adicionado!`);
-  document.getElementById('f-nome').value=''; document.getElementById('f-wpp').value='';
+  document.getElementById('f-nome').value=''; document.getElementById('f-wpp').value=''; const fidEl=document.getElementById('f-fidelizado'); if(fidEl) fidEl.checked=false;
   const saved=await salvarClienteBanco(novo); if(saved) novo.id=saved.id;
 }
 let importData=[];
@@ -1071,7 +1075,7 @@ function handleFile(e){
         if(dr instanceof Date){ ultima=dr.toISOString().split('T')[0]; }
         else{ const ds=String(dr||'').trim(); if(/^\d{2}\/\d{2}\/\d{4}$/.test(ds)){ const[d,m,a]=ds.split('/'); ultima=`${a}-${m}-${d}`; } else if(/^\d{4}-\d{2}-\d{2}$/.test(ds)){ ultima=ds; } else{ ultima=new Date().toISOString().split('T')[0]; } }
         const dias=Math.floor((new Date()-new Date(ultima+'T12:00'))/864e5); const ld=SEGMENTOS[sf]?.dias||10; const status=dias<ld?'ok':dias<ld*1.5?'alerta':'critico';
-        importData.push({id:Date.now()+i,nome,wpp:wppR||wppN,seg:sf,ultima,status});
+        importData.push({id:Date.now()+i,nome,wpp:wppR||wppN,seg:sf,ultima,status,fidelizado:false});
       });
       if(!importData.length){ document.getElementById('import-preview').style.display=''; document.getElementById('import-msg').textContent='Nenhum cliente valido encontrado.'; document.getElementById('import-msg').style.color='var(--red)'; document.getElementById('btn-importar').style.display='none'; return; }
       document.getElementById('import-preview').style.display=''; document.getElementById('import-msg').style.color='var(--green)';
@@ -1199,10 +1203,10 @@ async function checkAuth(){
 async function carregarClientes(){
   if(!ACCOUNT.empresaId) return;
   const{data}=await supabase.from('clientes').select('*').eq('empresa_id',ACCOUNT.empresaId).order('created_at',{ascending:false});
-  if(data&&data.length){ clientes=data.map(c=>({id:c.id,nome:c.nome,wpp:c.whatsapp,seg:c.segmento,ultima:c.ultima_visita,status:c.status})); filterClientes(); updateCount(); }
+  if(data&&data.length){ clientes=data.map(c=>({id:c.id,nome:c.nome,wpp:c.whatsapp,seg:c.segmento,ultima:c.ultima_visita,status:c.status,fidelizado:c.fidelizado||false})); filterClientes(); updateCount(); }
   checkOnboarding();
 }
-async function salvarClienteBanco(c){ if(!ACCOUNT.empresaId) return; const{data}=await supabase.from('clientes').insert({empresa_id:ACCOUNT.empresaId,nome:c.nome,whatsapp:c.wpp,segmento:c.seg,ultima_visita:c.ultima,status:c.status}).select().single(); return data; }
+async function salvarClienteBanco(c){ if(!ACCOUNT.empresaId) return; const{data}=await supabase.from('clientes').insert({empresa_id:ACCOUNT.empresaId,nome:c.nome,whatsapp:c.wpp,segmento:c.seg,ultima_visita:c.ultima,status:c.status,fidelizado:c.fidelizado||false}).select().single(); return data; }
 async function marcarVisita(btn){
   const id=btn.dataset.id,nome=btn.dataset.nome,hoje=new Date().toISOString().split('T')[0],orig=btn.innerHTML; btn.innerHTML='...'; btn.disabled=true;
   const i=clientes.findIndex(c=>String(c.id)===String(id)); if(i===-1){ btn.innerHTML=orig; btn.disabled=false; return; }
@@ -1211,15 +1215,15 @@ async function marcarVisita(btn){
   else{ showToast('Erro ao registrar visita.','err'); btn.innerHTML=orig; }
   btn.disabled=false; setTimeout(()=>{ btn.innerHTML=orig; btn.style.color=''; },2500);
 }
-function abrirEditarCliente(btn){ document.getElementById('edit-cli-id').value=btn.dataset.id; document.getElementById('edit-cli-nome').value=btn.dataset.nome; document.getElementById('edit-cli-wpp').value=btn.dataset.wpp; document.getElementById('edit-cli-seg').value=btn.dataset.seg; document.getElementById('edit-cli-data').value=btn.dataset.ultima; document.getElementById('modal-editar-cliente').classList.add('open'); }
+function abrirEditarCliente(btn){ document.getElementById('edit-cli-id').value=btn.dataset.id; document.getElementById('edit-cli-nome').value=btn.dataset.nome; document.getElementById('edit-cli-wpp').value=btn.dataset.wpp; document.getElementById('edit-cli-seg').value=btn.dataset.seg; document.getElementById('edit-cli-data').value=btn.dataset.ultima; const fid=document.getElementById('edit-cli-fidelizado'); if(fid) fid.checked=btn.dataset.fidelizado==='true'; document.getElementById('modal-editar-cliente').classList.add('open'); }
 function fecharEditarCliente(){ document.getElementById('modal-editar-cliente').classList.remove('open'); }
 async function salvarEdicaoCliente(){
   const id=document.getElementById('edit-cli-id').value,nome=document.getElementById('edit-cli-nome').value.trim(),wpp=document.getElementById('edit-cli-wpp').value.trim(),seg=document.getElementById('edit-cli-seg').value,ultima=document.getElementById('edit-cli-data').value;
   if(!nome||!wpp||!ultima){ showToast('Preencha todos os campos.','err'); return; }
   const btn=document.querySelector('#modal-editar-cliente .btn-primary'); btn.textContent='Salvando...'; btn.disabled=true;
   const dias=Math.floor((new Date()-new Date(ultima+'T12:00'))/864e5); const ld=SEGMENTOS[seg]?.dias||10; const status=dias<ld?'ok':dias<ld*1.5?'alerta':'critico';
-  const{error}=await supabase.from('clientes').update({nome,whatsapp:wpp,segmento:seg,ultima_visita:ultima,status}).eq('id',id);
-  if(!error){ const i=clientes.findIndex(c=>String(c.id)===String(id)); if(i>-1) clientes[i]={...clientes[i],nome,wpp,seg,ultima,status}; filterClientes(); updateCount(); fecharEditarCliente(); showToast(`${nome} atualizado!`); }
+  const fidelizado=document.getElementById('edit-cli-fidelizado')?.checked||false; const{error}=await supabase.from('clientes').update({nome,whatsapp:wpp,segmento:seg,ultima_visita:ultima,status,fidelizado}).eq('id',id);
+  if(!error){ const i=clientes.findIndex(c=>String(c.id)===String(id)); if(i>-1) clientes[i]={...clientes[i],nome,wpp,seg,ultima,status,fidelizado}; filterClientes(); updateCount(); fecharEditarCliente(); showToast(`${nome} atualizado!`); }
   else showToast('Erro ao salvar.','err');
   btn.textContent='Salvar alteracoes'; btn.disabled=false;
 }
@@ -1452,7 +1456,7 @@ function opRenderWhatsapp() {
 
 
 // ── FIDELIZADOS ──
-let fidTabAtual = 'mais-visitas';
+let fidTabAtual = 'premium';
 
 function fidShowTab(tab, btn) {
   fidTabAtual = tab;
@@ -1471,8 +1475,11 @@ function renderFidelizados() {
 
   let lista = [...clientes];
 
-  if (fidTabAtual === 'mais-visitas') {
-    // Ordena por menor número de dias (visitou mais recentemente = mais fiel)
+  if (fidTabAtual === 'premium') {
+    // Clientes marcados como ⭐ fidelizados
+    lista = lista.filter(c => c.fidelizado);
+    lista.sort((a, b) => calcDays(a.ultima) - calcDays(b.ultima));
+  } else if (fidTabAtual === 'mais-visitas') {
     lista = lista.filter(c => calcDays(c.ultima) < (SEGMENTOS[c.seg]?.dias || 10) * 2);
     lista.sort((a, b) => calcDays(a.ultima) - calcDays(b.ultima));
     lista = lista.slice(0, 20);
@@ -1486,7 +1493,10 @@ function renderFidelizados() {
   }
 
   if (!lista.length) {
-    wrap.innerHTML = '<div class="fid-empty"><div class="empty-icon">🔍</div><p>Nenhum cliente nesta categoria.</p></div>';
+    const msg = fidTabAtual === 'premium'
+      ? '<div class="fid-empty"><div class="empty-icon">⭐</div><strong style="color:var(--text)">Nenhum fidelizado ainda</strong><p>Marque clientes como ⭐ no cadastro ou na lista para vê-los aqui.</p></div>'
+      : '<div class="fid-empty"><div class="empty-icon">🔍</div><p>Nenhum cliente nesta categoria.</p></div>';
+    wrap.innerHTML = msg;
     return;
   }
 
@@ -1495,7 +1505,7 @@ function renderFidelizados() {
   wrap.innerHTML = '<div class="fid-grid">' + lista.map((c, i) => {
     const dias = calcDays(c.ultima);
     const seg = SEGMENTOS[c.seg] || { emoji: '📌' };
-    const star = fidTabAtual === 'mais-visitas' && i < 3 ? stars[i] : (fidTabAtual === 'em-risco' ? '⚠️' : '⭐');
+    const star = fidTabAtual === 'premium' ? '⭐' : (fidTabAtual === 'mais-visitas' && i < 3 ? stars[i] : (fidTabAtual === 'em-risco' ? '⚠️' : '⭐'));
     const isTop = fidTabAtual === 'mais-visitas' && i === 0;
     const diasLabel = fidTabAtual === 'em-risco' ? 'dias sem visita' : 'dias desde visita';
 
