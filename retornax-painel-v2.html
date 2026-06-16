@@ -337,6 +337,62 @@ tbody td.name{color:var(--text);font-weight:500}
 .fid-tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--bg3);border-radius:10px;padding:4px}
 .fid-tab{flex:1;padding:8px;border-radius:7px;border:none;background:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:500;color:var(--text2);cursor:pointer;transition:all 0.15s;text-align:center}
 .fid-tab.active{background:var(--bg2);color:var(--white);box-shadow:0 1px 4px rgba(0,0,0,0.3)}
+
+/* ── CRM ── */
+.crm-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.crm-kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:border-color 0.2s,transform 0.2s}
+.crm-kpi:hover{border-color:var(--border2);transform:translateY(-2px)}
+.crm-kpi-label{font-size:0.75rem;color:var(--text2);font-weight:500;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}
+.crm-kpi-val{font-size:2rem;font-weight:800;color:var(--white);line-height:1;letter-spacing:-0.5px}
+.crm-kpi-sub{font-size:0.72rem;color:var(--text3);margin-top:4px}
+.crm-kpi-val.green{color:var(--green)}.crm-kpi-val.blue{color:var(--blue-lite)}.crm-kpi-val.amber{color:var(--amber)}.crm-kpi-val.red{color:var(--red)}
+.crm-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.crm-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+.crm-funil{display:flex;flex-direction:column;gap:8px}
+.crm-funil-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;background:var(--bg3)}
+.crm-funil-icon{font-size:1.3rem;width:32px;text-align:center;flex-shrink:0}
+.crm-funil-info{flex:1}
+.crm-funil-label{font-size:0.82rem;color:var(--text2);font-weight:500}
+.crm-funil-bar-wrap{height:6px;background:var(--bg);border-radius:4px;margin-top:5px;overflow:hidden}
+.crm-funil-bar{height:100%;border-radius:4px;transition:width 0.8s ease}
+.crm-funil-val{font-size:0.88rem;font-weight:700;color:var(--white);flex-shrink:0}
+.crm-ranking{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto}
+.crm-rank-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;background:var(--bg3);transition:background 0.15s}
+.crm-rank-item:hover{background:var(--border)}
+.crm-rank-pos{width:24px;height:24px;border-radius:50%;background:var(--blue-dim);color:var(--blue-lite);font-size:0.7rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.crm-rank-pos.gold{background:rgba(255,176,32,0.2);color:var(--amber)}
+.crm-rank-pos.silver{background:rgba(180,180,180,0.15);color:#ccc}
+.crm-rank-pos.bronze{background:rgba(205,127,50,0.15);color:#cd7f32}
+.crm-rank-nome{flex:1;font-size:0.85rem;color:var(--text);font-weight:500}
+.crm-rank-seg{font-size:0.72rem;color:var(--text3)}
+.crm-rank-stat{font-size:0.82rem;font-weight:700;color:var(--green);flex-shrink:0}
+.crm-seg-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.crm-seg-emoji{font-size:1.1rem;width:28px;text-align:center;flex-shrink:0}
+.crm-seg-info{flex:1}
+.crm-seg-name{font-size:0.82rem;color:var(--text);font-weight:500;margin-bottom:3px}
+.crm-seg-bar-wrap{height:5px;background:var(--bg3);border-radius:4px;overflow:hidden}
+.crm-seg-bar{height:100%;border-radius:4px;background:var(--blue);transition:width 0.6s ease}
+.crm-seg-pct{font-size:0.75rem;color:var(--text3);flex-shrink:0;width:36px;text-align:right}
+.crm-mes-grid{display:flex;align-items:flex-end;gap:6px;height:120px;padding:0 4px}
+.crm-mes-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.crm-mes-bar-wrap{flex:1;display:flex;align-items:flex-end;width:100%}
+.crm-mes-bar{width:100%;border-radius:4px 4px 0 0;background:var(--blue);min-height:4px;transition:height 0.6s ease}
+.crm-mes-label{font-size:0.62rem;color:var(--text3);white-space:nowrap}
+.crm-mes-val{font-size:0.68rem;color:var(--text2);font-weight:600}
+.crm-tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--bg3);border-radius:10px;padding:4px}
+.crm-tab{flex:1;padding:8px;border-radius:7px;border:none;background:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:500;color:var(--text2);cursor:pointer;transition:all 0.15s;text-align:center}
+.crm-tab.active{background:var(--bg2);color:var(--white);box-shadow:0 1px 4px rgba(0,0,0,0.3)}
+.crm-cliente-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);transition:background 0.1s}
+.crm-cliente-row:last-child{border-bottom:none}
+.crm-cliente-row:hover{background:rgba(255,255,255,0.02)}
+.crm-cli-nome{flex:1;font-size:0.85rem;color:var(--text);font-weight:500}
+.crm-cli-seg{font-size:0.72rem;color:var(--text3)}
+.crm-cli-msgs{font-size:0.82rem;font-weight:700;color:var(--blue-lite);width:60px;text-align:center}
+.crm-cli-retorno{font-size:0.82rem;font-weight:700;width:60px;text-align:center}
+.crm-cli-ultimo{font-size:0.75rem;color:var(--text3);width:90px;text-align:right}
+/* ANIVERSÁRIO */
+.aniv-hoje{animation:aniv-pulse 2s infinite}
+@keyframes aniv-pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,176,32,0.4)}50%{box-shadow:0 0 0 6px rgba(255,176,32,0)}}
 </style>
 </head><body>
 <div class="app">
@@ -383,6 +439,14 @@ tbody td.name{color:var(--text);font-weight:500}
   <button class="nav-item" onclick="showPage('novidades',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
     Novidades <span style="margin-left:auto;background:rgba(0,214,143,0.15);color:var(--green);font-size:0.6rem;padding:1px 6px;border-radius:4px;font-weight:700">NOVO</span>
+  </button>
+  <button class="nav-item" onclick="showPage('crm',this)">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M17.5 14v7M14 17.5h7"/></svg>
+    CRM
+  </button>
+  <button class="nav-item" onclick="showPage('aniversarios',this)">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 2v2"/></svg>
+    Aniversários
   </button>
   <button class="nav-item" onclick="showPage('fidelizados',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -823,6 +887,76 @@ tbody td.name{color:var(--text);font-weight:500}
 
 
 
+    <!-- CRM -->
+    <div class="page" id="page-crm">
+      <div class="crm-kpi-grid">
+        <div class="crm-kpi"><div class="crm-kpi-label">Total enviados</div><div class="crm-kpi-val blue" id="crm-total-env">0</div><div class="crm-kpi-sub">todas as mensagens</div></div>
+        <div class="crm-kpi"><div class="crm-kpi-label">Clientes alcançados</div><div class="crm-kpi-val green" id="crm-alcancados">0</div><div class="crm-kpi-sub">receberam pelo menos 1 msg</div></div>
+        <div class="crm-kpi"><div class="crm-kpi-label">Taxa de retorno</div><div class="crm-kpi-val amber" id="crm-taxa-retorno">0%</div><div class="crm-kpi-sub">visitaram após mensagem</div></div>
+        <div class="crm-kpi"><div class="crm-kpi-label">Média por cliente</div><div class="crm-kpi-val" id="crm-media">0</div><div class="crm-kpi-sub">mensagens recebidas</div></div>
+      </div>
+      <div class="crm-tabs">
+        <button class="crm-tab active" onclick="crmShowTab('visao',this)">📊 Visão Geral</button>
+        <button class="crm-tab" onclick="crmShowTab('ranking',this)">🏆 Ranking</button>
+        <button class="crm-tab" onclick="crmShowTab('segmentos',this)">📂 Por Segmento</button>
+        <button class="crm-tab" onclick="crmShowTab('clientes',this)">👥 Por Cliente</button>
+      </div>
+      <div id="crm-tab-visao">
+        <div class="crm-grid-2">
+          <div class="card"><div class="card-header"><div class="card-title">📬 Funil de engajamento</div></div><div class="crm-funil" id="crm-funil"></div></div>
+          <div class="card"><div class="card-header"><div class="card-title">📅 Envios por mês</div></div><div class="crm-mes-grid" id="crm-mes-chart"></div></div>
+        </div>
+        <div class="crm-grid-2">
+          <div class="card"><div class="card-header"><div class="card-title">📂 Retorno por segmento</div></div><div id="crm-seg-retorno"></div></div>
+          <div class="card"><div class="card-header"><div class="card-title">⚡ Insights</div></div><div id="crm-insights" style="display:flex;flex-direction:column;gap:10px"></div></div>
+        </div>
+      </div>
+      <div id="crm-tab-ranking" style="display:none">
+        <div class="crm-grid-2">
+          <div class="card"><div class="card-header"><div class="card-title">🏆 Mais mensagens recebidas</div></div><div class="crm-ranking" id="crm-rank-msgs"></div></div>
+          <div class="card"><div class="card-header"><div class="card-title">🔁 Mais fidelizados</div></div><div class="crm-ranking" id="crm-rank-fid"></div></div>
+        </div>
+      </div>
+      <div id="crm-tab-segmentos" style="display:none"><div class="crm-grid-3" id="crm-seg-cards"></div></div>
+      <div id="crm-tab-clientes" style="display:none">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">👥 Histórico por cliente</div>
+            <input type="text" id="crm-search" placeholder="Buscar cliente..." oninput="renderCrmClientes()" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;outline:none;width:200px">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 80px 80px 100px;padding:8px 14px;border-bottom:1px solid var(--border)">
+            <div style="font-size:0.7rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px">Cliente</div>
+            <div style="font-size:0.7rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;text-align:center">Enviados</div>
+            <div style="font-size:0.7rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;text-align:center">Retorno</div>
+            <div style="font-size:0.7rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;text-align:right">Último envio</div>
+          </div>
+          <div id="crm-cli-list"></div>
+        </div>
+      </div>
+    </div>
+    <!-- ANIVERSÁRIOS -->
+    <div class="page" id="page-aniversarios">
+      <div style="margin-bottom:24px"><div style="font-size:1.1rem;font-weight:700;color:var(--white)">🎂 Aniversários</div><div style="font-size:0.82rem;color:var(--text2);margin-top:4px">Clientes que fazem aniversário hoje e nos próximos dias.</div></div>
+      <div class="crm-kpi-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="crm-kpi"><div class="crm-kpi-label">Aniversariantes hoje</div><div class="crm-kpi-val amber" id="aniv-hoje-count">0</div><div class="crm-kpi-sub">🎉 parabéns!</div></div>
+        <div class="crm-kpi"><div class="crm-kpi-label">Próximos 7 dias</div><div class="crm-kpi-val blue" id="aniv-7d-count">0</div><div class="crm-kpi-sub">próximas celebrações</div></div>
+        <div class="crm-kpi"><div class="crm-kpi-label">Com data cadastrada</div><div class="crm-kpi-val green" id="aniv-total-count">0</div><div class="crm-kpi-sub">de <span id="aniv-total-cli">0</span> clientes</div></div>
+      </div>
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header"><div class="card-title">🎁 Mensagem de aniversário</div><button class="btn btn-ghost btn-sm" onclick="salvarTemplateAniv()">Salvar template</button></div>
+        <textarea id="tmpl-aniversario" class="msg-edit" style="min-height:70px">Parabéns, {nome}! 🎂🎉 Que seu dia seja incrível! Temos um presente especial esperando por você. Venha nos visitar!</textarea>
+        <div class="msg-vars" style="margin-top:6px"><button class="var-chip" onclick="insertVar('tmpl-aniversario','{nome}')">{nome}</button></div>
+        <div style="font-size:0.78rem;color:var(--text3);margin-top:8px">💡 Esta mensagem é enviada automaticamente no dia do aniversário do cliente.</div>
+      </div>
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header"><div class="card-title">🎉 Aniversariantes de hoje</div><button class="btn btn-green btn-sm" onclick="dispararAniversariantesHoje()" id="btn-disparar-aniv">Enviar para todos hoje</button></div>
+        <div id="aniv-hoje-list"><div class="empty-state" style="padding:24px"><div class="empty-icon">🎂</div><p>Nenhum aniversariante hoje.</p></div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">📅 Próximos 30 dias</div></div>
+        <div id="aniv-proximos-list"><div class="empty-state" style="padding:24px"><div class="empty-icon">📅</div><p>Carregando...</p></div></div>
+      </div>
+    </div>
 <!-- ONBOARDING -->
 <div class="onboarding-overlay" id="onboarding-overlay">
   <div class="onboarding-modal">
@@ -858,6 +992,10 @@ tbody td.name{color:var(--text);font-weight:500}
           <span>⭐ Cliente fidelizado / premium</span>
         </label>
       </div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label>Data de nascimento (opcional)</label>
+        <input type="date" id="f-nascimento">
+      </div>
       <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="addCliente()" style="padding:10px 24px;font-size:0.92rem">+ Adicionar cliente</button></div>
     </div>
     <div id="tab-import" style="display:none">
@@ -881,6 +1019,10 @@ tbody td.name{color:var(--text);font-weight:500}
         <input type="checkbox" id="edit-cli-fidelizado" style="width:16px;height:16px;cursor:pointer">
         <span>⭐ Cliente fidelizado / premium</span>
       </label>
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label>Data de nascimento (opcional)</label>
+      <input type="date" id="edit-cli-nascimento">
     </div>
     <div class="modal-footer"><button class="btn btn-ghost" onclick="fecharEditarCliente()">Cancelar</button><button class="btn btn-primary" onclick="salvarEdicaoCliente()">Salvar alteracoes</button></div>
   </div>
@@ -932,7 +1074,7 @@ function renderClientes(list){
       <button class="icon-btn" data-id="${c.id}" data-fid="${c.fidelizado||false}" onclick="toggleFidelizado(this)" title="${c.fidelizado?'Remover fidelizado':'Marcar como fidelizado'}" style="color:${c.fidelizado?'var(--amber)':'var(--text3)'}">★</button>
       <button class="icon-btn send" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" onclick="sendMsgCliente(this)" title="Enviar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
       <button class="icon-btn checkin" data-id="${c.id}" data-nome="${c.nome.split(' ')[0]}" onclick="marcarVisita(this)" title="Marcar visita"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></button>
-      <button class="icon-btn edit" data-id="${c.id}" data-nome="${c.nome}" data-wpp="${c.wpp}" data-seg="${c.seg}" data-ultima="${c.ultima}" data-fidelizado="${c.fidelizado||false}" onclick="abrirEditarCliente(this)" title="Editar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+      <button class="icon-btn edit" data-id="${c.id}" data-nome="${c.nome}" data-wpp="${c.wpp}" data-seg="${c.seg}" data-ultima="${c.ultima}" data-fidelizado="${c.fidelizado||false}" data-nascimento="${c.data_nascimento||''}" onclick="abrirEditarCliente(this)" title="Editar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
       <button class="icon-btn" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" data-ultima="${c.ultima}" onclick="abrirEditarMsg(this)" title="Editar mensagem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
       <button class="icon-btn del" onclick="removeCliente('${c.id}')" title="Remover"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg></button>
     </div></td></tr>`;
@@ -1049,7 +1191,8 @@ async function addCliente(){
   const nome=document.getElementById('f-nome').value.trim(),wpp=document.getElementById('f-wpp').value.trim(),seg=document.getElementById('f-seg').value,data=document.getElementById('f-data').value;
   if(!nome||!wpp||!data){ showToast('Preencha todos os campos.','err'); return; }
   const fidelizado=document.getElementById('f-fidelizado')?.checked||false;
-  const novo={id:Date.now(),nome,wpp,seg,ultima:data,status:'ok',fidelizado};
+  const nascimento=document.getElementById('f-nascimento')?.value||null;
+  const novo={id:Date.now(),nome,wpp,seg,ultima:data,status:'ok',fidelizado,data_nascimento:nascimento};
   clientes.unshift(novo); filterClientes(); updateCount(); closeModal(); showToast(`${nome} adicionado!`);
   document.getElementById('f-nome').value=''; document.getElementById('f-wpp').value=''; const fidEl=document.getElementById('f-fidelizado'); if(fidEl) fidEl.checked=false;
   const saved=await salvarClienteBanco(novo); if(saved) novo.id=saved.id;
@@ -1113,6 +1256,8 @@ function showPage(id,btn){
   else if(id==='perfil'||id==='assinatura'||id==='tutoriais'||id==='novidades'||id==='config'||id==='whatsapp'||id==='fidelizados'){ ab.style.display='none'; }
   else{ ab.style.display='none'; }
   if(id==='historico') carregarHistorico();
+  if(id==='crm') carregarCRM();
+  if(id==='aniversarios') renderAniversarios();
   if(id==='perfil') carregarPerfil();
   if(id==='assinatura') carregarAssinatura();
   if(id==='fidelizados') renderFidelizados();
@@ -1204,10 +1349,10 @@ async function checkAuth(){
 async function carregarClientes(){
   if(!ACCOUNT.empresaId) return;
   const{data}=await supabase.from('clientes').select('*').eq('empresa_id',ACCOUNT.empresaId).order('created_at',{ascending:false});
-  if(data&&data.length){ clientes=data.map(c=>({id:c.id,nome:c.nome,wpp:c.whatsapp,seg:c.segmento,ultima:c.ultima_visita,status:c.status,fidelizado:c.fidelizado||false})); filterClientes(); updateCount(); }
+  if(data&&data.length){ clientes=data.map(c=>({id:c.id,nome:c.nome,wpp:c.whatsapp,seg:c.segmento,ultima:c.ultima_visita,status:c.status,fidelizado:c.fidelizado||false,data_nascimento:c.data_nascimento||null})); filterClientes(); updateCount(); }
   checkOnboarding();
 }
-async function salvarClienteBanco(c){ if(!ACCOUNT.empresaId) return; const{data}=await supabase.from('clientes').insert({empresa_id:ACCOUNT.empresaId,nome:c.nome,whatsapp:c.wpp,segmento:c.seg,ultima_visita:c.ultima,status:c.status,fidelizado:c.fidelizado||false}).select().single(); return data; }
+async function salvarClienteBanco(c){ if(!ACCOUNT.empresaId) return; const{data}=await supabase.from('clientes').insert({empresa_id:ACCOUNT.empresaId,nome:c.nome,whatsapp:c.wpp,segmento:c.seg,ultima_visita:c.ultima,status:c.status,fidelizado:c.fidelizado||false,data_nascimento:c.data_nascimento||null}).select().single(); return data; }
 async function toggleFidelizado(btn) {
   const id = btn.dataset.id;
   const atual = btn.dataset.fid === 'true';
@@ -1232,14 +1377,14 @@ async function marcarVisita(btn){
   else{ showToast('Erro ao registrar visita.','err'); btn.innerHTML=orig; }
   btn.disabled=false; setTimeout(()=>{ btn.innerHTML=orig; btn.style.color=''; },2500);
 }
-function abrirEditarCliente(btn){ document.getElementById('edit-cli-id').value=btn.dataset.id; document.getElementById('edit-cli-nome').value=btn.dataset.nome; document.getElementById('edit-cli-wpp').value=btn.dataset.wpp; document.getElementById('edit-cli-seg').value=btn.dataset.seg; document.getElementById('edit-cli-data').value=btn.dataset.ultima; const fid=document.getElementById('edit-cli-fidelizado'); if(fid) fid.checked=btn.dataset.fidelizado==='true'; document.getElementById('modal-editar-cliente').classList.add('open'); }
+function abrirEditarCliente(btn){ document.getElementById('edit-cli-id').value=btn.dataset.id; document.getElementById('edit-cli-nome').value=btn.dataset.nome; document.getElementById('edit-cli-wpp').value=btn.dataset.wpp; document.getElementById('edit-cli-seg').value=btn.dataset.seg; document.getElementById('edit-cli-data').value=btn.dataset.ultima; const fid=document.getElementById('edit-cli-fidelizado'); if(fid) fid.checked=btn.dataset.fidelizado==='true'; const nascEl=document.getElementById('edit-cli-nascimento'); if(nascEl) nascEl.value=btn.dataset.nascimento||''; document.getElementById('modal-editar-cliente').classList.add('open'); }
 function fecharEditarCliente(){ document.getElementById('modal-editar-cliente').classList.remove('open'); }
 async function salvarEdicaoCliente(){
   const id=document.getElementById('edit-cli-id').value,nome=document.getElementById('edit-cli-nome').value.trim(),wpp=document.getElementById('edit-cli-wpp').value.trim(),seg=document.getElementById('edit-cli-seg').value,ultima=document.getElementById('edit-cli-data').value;
   if(!nome||!wpp||!ultima){ showToast('Preencha todos os campos.','err'); return; }
   const btn=document.querySelector('#modal-editar-cliente .btn-primary'); btn.textContent='Salvando...'; btn.disabled=true;
   const dias=Math.floor((new Date()-new Date(ultima+'T12:00'))/864e5); const ld=SEGMENTOS[seg]?.dias||10; const status=dias<ld?'ok':dias<ld*1.5?'alerta':'critico';
-  const fidelizado=document.getElementById('edit-cli-fidelizado')?.checked||false; const{error}=await supabase.from('clientes').update({nome,whatsapp:wpp,segmento:seg,ultima_visita:ultima,status,fidelizado}).eq('id',id);
+  const fidelizado=document.getElementById('edit-cli-fidelizado')?.checked||false; const nascimento=document.getElementById('edit-cli-nascimento')?.value||null; const{error}=await supabase.from('clientes').update({nome,whatsapp:wpp,segmento:seg,ultima_visita:ultima,status,fidelizado,data_nascimento:nascimento}).eq('id',id);
   if(!error){ const i=clientes.findIndex(c=>String(c.id)===String(id)); if(i>-1) clientes[i]={...clientes[i],nome,wpp,seg,ultima,status,fidelizado}; filterClientes(); updateCount(); fecharEditarCliente(); showToast(`${nome} atualizado!`); }
   else showToast('Erro ao salvar.','err');
   btn.textContent='Salvar alteracoes'; btn.disabled=false;
@@ -1724,6 +1869,281 @@ async function verificarPerfil() {
     }
   }
 }
+
+// ══════════════════════════════════════════════════════
+// CRM
+// ══════════════════════════════════════════════════════
+let crmDados = { enviosPorCliente: {}, totalEnvios: 0, envios: [] };
+let crmTabAtual = 'visao';
+
+function crmShowTab(tab, btn) {
+  crmTabAtual = tab;
+  document.querySelectorAll('.crm-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  ['visao','ranking','segmentos','clientes'].forEach(t => {
+    const el = document.getElementById('crm-tab-' + t);
+    if (el) el.style.display = t === tab ? '' : 'none';
+  });
+  if (tab === 'clientes') renderCrmClientes();
+  if (tab === 'ranking') renderCrmRanking();
+  if (tab === 'segmentos') renderCrmSegmentos();
+}
+
+async function carregarCRM() {
+  if (!ACCOUNT.empresaId) return;
+  try {
+    const { data: envios } = await supabase
+      .from('envios').select('cliente_id, enviado_at, mensagem')
+      .eq('empresa_id', ACCOUNT.empresaId).order('enviado_at', { ascending: false });
+    if (!envios) return;
+    const porCliente = {};
+    envios.forEach(e => {
+      if (!e.cliente_id) return;
+      if (!porCliente[e.cliente_id]) porCliente[e.cliente_id] = { count: 0, ultimo: null };
+      porCliente[e.cliente_id].count++;
+      if (!porCliente[e.cliente_id].ultimo) porCliente[e.cliente_id].ultimo = e.enviado_at;
+    });
+    crmDados.enviosPorCliente = porCliente;
+    crmDados.totalEnvios = envios.length;
+    crmDados.envios = envios;
+    renderCrmKPIs();
+    renderCrmFunil();
+    renderCrmMesChart(envios);
+    renderCrmSegRetorno();
+    renderCrmInsights();
+  } catch(e) { console.error('CRM error', e); }
+}
+
+function renderCrmKPIs() {
+  const pC = crmDados.enviosPorCliente;
+  const alcancados = Object.keys(pC).length;
+  const total = crmDados.totalEnvios;
+  const media = alcancados > 0 ? (total / alcancados).toFixed(1) : 0;
+  let retornaram = 0;
+  clientes.forEach(c => { if (pC[c.id] && calcDays(c.ultima) < (SEGMENTOS[c.seg]?.dias || 10)) retornaram++; });
+  const taxa = alcancados > 0 ? Math.round((retornaram / alcancados) * 100) : 0;
+  document.getElementById('crm-total-env').textContent = total.toLocaleString('pt-BR');
+  document.getElementById('crm-alcancados').textContent = alcancados;
+  document.getElementById('crm-taxa-retorno').textContent = taxa + '%';
+  document.getElementById('crm-media').textContent = media;
+  const taxaEl = document.getElementById('crm-taxa-retorno');
+  taxaEl.className = 'crm-kpi-val ' + (taxa >= 50 ? 'green' : taxa >= 25 ? 'amber' : 'red');
+}
+
+function renderCrmFunil() {
+  const pC = crmDados.enviosPorCliente;
+  const total = clientes.length;
+  const alcancados = Object.keys(pC).length;
+  let retornaram = 0;
+  clientes.forEach(c => { if (pC[c.id] && calcDays(c.ultima) < (SEGMENTOS[c.seg]?.dias || 10)) retornaram++; });
+  const fidelizados = clientes.filter(c => c.fidelizado).length;
+  const items = [
+    { icon: '👥', label: 'Total de clientes', val: total, cor: 'var(--blue)', pct: 100 },
+    { icon: '📬', label: 'Receberam mensagem', val: alcancados, cor: 'var(--accent)', pct: total > 0 ? Math.round(alcancados/total*100) : 0 },
+    { icon: '🔁', label: 'Retornaram após mensagem', val: retornaram, cor: 'var(--green)', pct: alcancados > 0 ? Math.round(retornaram/alcancados*100) : 0 },
+    { icon: '⭐', label: 'Fidelizados', val: fidelizados, cor: 'var(--amber)', pct: retornaram > 0 ? Math.round(fidelizados/retornaram*100) : 0 },
+  ];
+  document.getElementById('crm-funil').innerHTML = items.map(i => `
+    <div class="crm-funil-item">
+      <div class="crm-funil-icon">${i.icon}</div>
+      <div class="crm-funil-info">
+        <div class="crm-funil-label">${i.label}</div>
+        <div class="crm-funil-bar-wrap"><div class="crm-funil-bar" style="width:${i.pct}%;background:${i.cor}"></div></div>
+      </div>
+      <div class="crm-funil-val">${i.val} <span style="font-size:0.7rem;color:var(--text3)">(${i.pct}%)</span></div>
+    </div>`).join('');
+}
+
+function renderCrmMesChart(envios) {
+  const meses = {};
+  const hoje = new Date();
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(hoje.getFullYear(), hoje.getMonth() - i, 1);
+    const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+    meses[key] = { label: d.toLocaleDateString('pt-BR', { month: 'short' }), count: 0 };
+  }
+  envios.forEach(e => { const key = e.enviado_at.slice(0, 7); if (meses[key]) meses[key].count++; });
+  const vals = Object.values(meses);
+  const max = Math.max(...vals.map(v => v.count), 1);
+  document.getElementById('crm-mes-chart').innerHTML = vals.map(m => `
+    <div class="crm-mes-col">
+      <div class="crm-mes-val">${m.count || ''}</div>
+      <div class="crm-mes-bar-wrap"><div class="crm-mes-bar" style="height:${Math.round((m.count/max)*100)}%"></div></div>
+      <div class="crm-mes-label">${m.label}</div>
+    </div>`).join('');
+}
+
+function renderCrmSegRetorno() {
+  const pC = crmDados.enviosPorCliente;
+  const porSeg = {}, totalSeg = {};
+  clientes.forEach(c => {
+    if (!totalSeg[c.seg]) totalSeg[c.seg] = 0;
+    totalSeg[c.seg]++;
+    if (pC[c.id] && calcDays(c.ultima) < (SEGMENTOS[c.seg]?.dias || 10)) {
+      if (!porSeg[c.seg]) porSeg[c.seg] = 0;
+      porSeg[c.seg]++;
+    }
+  });
+  const cols = ['var(--blue)','var(--accent)','var(--green)','var(--amber)','#a78bfa','#f472b6','var(--red)'];
+  const segs = Object.keys(SEGMENTOS).filter(s => totalSeg[s] > 0);
+  const max = Math.max(...segs.map(s => totalSeg[s]), 1);
+  document.getElementById('crm-seg-retorno').innerHTML = segs.length === 0
+    ? '<div class="empty-state" style="padding:16px"><p>Nenhum dado ainda.</p></div>'
+    : segs.map((seg, i) => {
+        const tot = totalSeg[seg] || 0, ret = porSeg[seg] || 0;
+        const pct = tot > 0 ? Math.round(ret/tot*100) : 0;
+        return `<div class="crm-seg-row">
+          <div class="crm-seg-emoji">${SEGMENTOS[seg]?.emoji || ''}</div>
+          <div class="crm-seg-info">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+              <div class="crm-seg-name">${seg}</div>
+              <div style="font-size:0.72rem;color:var(--text3)">${ret}/${tot} retornaram</div>
+            </div>
+            <div class="crm-seg-bar-wrap"><div class="crm-seg-bar" style="width:${Math.round(tot/max*100)}%;background:${cols[i%cols.length]}"></div></div>
+          </div>
+          <div class="crm-seg-pct" style="color:${pct>=50?'var(--green)':pct>=25?'var(--amber)':'var(--red)'}">${pct}%</div>
+        </div>`;
+      }).join('');
+}
+
+function renderCrmInsights() {
+  const pC = crmDados.enviosPorCliente;
+  const alcancados = Object.keys(pC).length;
+  const semMensagem = clientes.filter(c => !pC[c.id]);
+  let melhorSeg = null, melhorPct = 0;
+  Object.keys(SEGMENTOS).forEach(seg => {
+    const segCli = clientes.filter(c => c.seg === seg);
+    const segRet = segCli.filter(c => pC[c.id] && calcDays(c.ultima) < (SEGMENTOS[seg]?.dias || 10));
+    const pct = segCli.length > 0 ? segRet.length / segCli.length : 0;
+    if (pct > melhorPct && segCli.length > 0) { melhorPct = pct; melhorSeg = seg; }
+  });
+  const insights = [];
+  if (semMensagem.length > 0) insights.push({ icon: '⚠️', cor: 'var(--amber)', txt: `<strong>${semMensagem.length} cliente${semMensagem.length>1?'s':''}</strong> nunca receberam mensagem` });
+  if (melhorSeg) insights.push({ icon: '🏆', cor: 'var(--green)', txt: `Segmento <strong>${melhorSeg}</strong> tem o melhor retorno (${Math.round(melhorPct*100)}%)` });
+  const fidelizados = clientes.filter(c => c.fidelizado).length;
+  if (fidelizados > 0) insights.push({ icon: '⭐', cor: 'var(--amber)', txt: `<strong>${fidelizados}</strong> clientes fidelizados — cuide bem deles!` });
+  const maisEngajado = clientes.reduce((best, c) => (pC[c.id]?.count||0) > (pC[best?.id]?.count||0) ? c : best, null);
+  if (maisEngajado && pC[maisEngajado.id]) insights.push({ icon: '💬', cor: 'var(--blue-lite)', txt: `<strong>${maisEngajado.nome.split(' ')[0]}</strong> recebeu mais mensagens (${pC[maisEngajado.id].count}x)` });
+  document.getElementById('crm-insights').innerHTML = insights.length === 0
+    ? '<div style="color:var(--text3);font-size:0.85rem;padding:16px 0">Envie mensagens para ver insights aqui!</div>'
+    : insights.map(i => `<div style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:var(--bg3);border-radius:10px;border-left:3px solid ${i.cor}"><span style="font-size:1.1rem;flex-shrink:0">${i.icon}</span><span style="font-size:0.83rem;color:var(--text2);line-height:1.5">${i.txt}</span></div>`).join('');
+}
+
+function renderCrmRanking() {
+  const pC = crmDados.enviosPorCliente;
+  const ranked = [...clientes].filter(c => pC[c.id]).sort((a,b) => (pC[b.id]?.count||0)-(pC[a.id]?.count||0)).slice(0,15);
+  const medals = ['🥇','🥈','🥉'];
+  const posCls = i => i===0?'gold':i===1?'silver':i===2?'bronze':'';
+  document.getElementById('crm-rank-msgs').innerHTML = ranked.length === 0
+    ? '<div class="empty-state" style="padding:24px"><p>Nenhum envio ainda.</p></div>'
+    : ranked.map((c,i) => `<div class="crm-rank-item"><div class="crm-rank-pos ${posCls(i)}">${i<3?medals[i]:i+1}</div><div style="flex:1"><div class="crm-rank-nome">${c.nome}</div><div class="crm-rank-seg">${SEGMENTOS[c.seg]?.emoji||''} ${c.seg}</div></div><div class="crm-rank-stat">${pC[c.id]?.count||0}x</div></div>`).join('');
+  const fids = [...clientes].filter(c=>c.fidelizado).sort((a,b)=>calcDays(a.ultima)-calcDays(b.ultima)).slice(0,15);
+  document.getElementById('crm-rank-fid').innerHTML = fids.length === 0
+    ? '<div class="empty-state" style="padding:24px"><p>Nenhum fidelizado ainda.</p></div>'
+    : fids.map((c,i) => `<div class="crm-rank-item"><div class="crm-rank-pos ${posCls(i)}">${i<3?medals[i]:i+1}</div><div style="flex:1"><div class="crm-rank-nome">${c.nome}</div><div class="crm-rank-seg">${SEGMENTOS[c.seg]?.emoji||''} ${c.seg} · ${calcDays(c.ultima)}d atrás</div></div><div style="font-size:0.82rem;font-weight:700;color:var(--amber)">⭐</div></div>`).join('');
+}
+
+function renderCrmSegmentos() {
+  const pC = crmDados.enviosPorCliente;
+  const segData = Object.entries(SEGMENTOS).map(([seg,s]) => {
+    const segCli = clientes.filter(c=>c.seg===seg);
+    const alcancados = segCli.filter(c=>pC[c.id]).length;
+    const retornaram = segCli.filter(c=>pC[c.id]&&calcDays(c.ultima)<s.dias).length;
+    const totalMsg = segCli.reduce((sum,c)=>sum+(pC[c.id]?.count||0),0);
+    const taxa = alcancados>0?Math.round(retornaram/alcancados*100):0;
+    return { seg, s, total: segCli.length, alcancados, retornaram, totalMsg, taxa };
+  }).filter(d=>d.total>0);
+  document.getElementById('crm-seg-cards').innerHTML = segData.map(d => `
+    <div class="card" style="padding:20px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span style="font-size:1.6rem">${d.s.emoji}</span><div><div style="font-size:0.95rem;font-weight:700;color:var(--white)">${d.seg}</div><div style="font-size:0.75rem;color:var(--text3)">Dispara após ${d.s.dias} dias</div></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+        <div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center"><div style="font-size:1.4rem;font-weight:800;color:var(--white)">${d.total}</div><div style="font-size:0.68rem;color:var(--text3)">clientes</div></div>
+        <div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center"><div style="font-size:1.4rem;font-weight:800;color:var(--blue-lite)">${d.totalMsg}</div><div style="font-size:0.68rem;color:var(--text3)">msgs enviadas</div></div>
+        <div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center"><div style="font-size:1.4rem;font-weight:800;color:var(--accent)">${d.alcancados}</div><div style="font-size:0.68rem;color:var(--text3)">alcançados</div></div>
+        <div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center"><div style="font-size:1.4rem;font-weight:800;color:${d.taxa>=50?'var(--green)':d.taxa>=25?'var(--amber)':'var(--red)'}">${d.taxa}%</div><div style="font-size:0.68rem;color:var(--text3)">retorno</div></div>
+      </div>
+      <div style="height:4px;background:var(--bg3);border-radius:4px;overflow:hidden"><div style="height:100%;width:${d.taxa}%;background:${d.taxa>=50?'var(--green)':d.taxa>=25?'var(--amber)':'var(--red)'};border-radius:4px;transition:width 0.6s ease"></div></div>
+    </div>`).join('');
+}
+
+function renderCrmClientes() {
+  const pC = crmDados.enviosPorCliente;
+  const q = (document.getElementById('crm-search')?.value || '').toLowerCase();
+  const lista = [...clientes].filter(c => !q || c.nome.toLowerCase().includes(q)).sort((a,b) => (pC[b.id]?.count||0)-(pC[a.id]?.count||0));
+  const wrap = document.getElementById('crm-cli-list');
+  if (!lista.length) { wrap.innerHTML = '<div class="empty-state" style="padding:24px"><p>Nenhum cliente.</p></div>'; return; }
+  wrap.innerHTML = lista.map(c => {
+    const msgs = pC[c.id]?.count||0;
+    const ultimo = pC[c.id]?.ultimo ? new Date(pC[c.id].ultimo).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}) : '-';
+    const retornou = pC[c.id] && calcDays(c.ultima) < (SEGMENTOS[c.seg]?.dias||10);
+    return `<div class="crm-cliente-row"><div><div class="crm-cli-nome">${c.fidelizado?'⭐ ':''}${c.nome}</div><div class="crm-cli-seg">${SEGMENTOS[c.seg]?.emoji||''} ${c.seg}</div></div><div class="crm-cli-msgs">${msgs>0?msgs+'x':'<span style="color:var(--text3)">-</span>'}</div><div class="crm-cli-retorno" style="color:${retornou?'var(--green)':msgs>0?'var(--red)':'var(--text3)'}">${msgs>0?(retornou?'✓':'✗'):'-'}</div><div class="crm-cli-ultimo">${ultimo}</div></div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════
+// ANIVERSÁRIOS
+// ══════════════════════════════════════════════════════
+let templateAniversario = 'Parabéns, {nome}! 🎂🎉 Que seu dia seja incrível! Temos um presente especial esperando por você. Venha nos visitar!';
+
+function salvarTemplateAniv() { templateAniversario = document.getElementById('tmpl-aniversario').value; showToast('Template de aniversário salvo!'); }
+
+function getAniversariantes() {
+  const hoje = new Date();
+  const hojeM = hoje.getMonth()+1, hojeD = hoje.getDate();
+  return clientes.filter(c => c.data_nascimento).map(c => {
+    const [ano,mes,dia] = c.data_nascimento.split('-').map(Number);
+    const anivEsteAno = new Date(hoje.getFullYear(), mes-1, dia);
+    if (anivEsteAno < hoje && !(mes===hojeM&&dia===hojeD)) anivEsteAno.setFullYear(hoje.getFullYear()+1);
+    const diffDias = Math.ceil((anivEsteAno - hoje) / 864e5);
+    return { ...c, aniv_mes: mes, aniv_dia: dia, diffDias, ehHoje: mes===hojeM&&dia===hojeD };
+  });
+}
+
+function renderAniversarios() {
+  const aniv = getAniversariantes();
+  const hoje = aniv.filter(c=>c.ehHoje);
+  const prox30 = aniv.filter(c=>!c.ehHoje&&c.diffDias<=30).sort((a,b)=>a.diffDias-b.diffDias);
+  document.getElementById('aniv-hoje-count').textContent = hoje.length;
+  document.getElementById('aniv-7d-count').textContent = aniv.filter(c=>c.diffDias<=7&&!c.ehHoje).length;
+  document.getElementById('aniv-total-count').textContent = aniv.length;
+  document.getElementById('aniv-total-cli').textContent = clientes.length;
+  document.getElementById('aniv-hoje-list').innerHTML = hoje.length===0
+    ? '<div class="empty-state" style="padding:24px"><div class="empty-icon">🎂</div><p>Nenhum aniversariante hoje.</p></div>'
+    : '<div style="display:flex;flex-direction:column;gap:8px;padding:4px 0">' + hoje.map(c => `<div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,176,32,0.08);border:1px solid rgba(255,176,32,0.25);border-radius:10px" class="aniv-hoje"><span style="font-size:1.5rem">🎂</span><div style="flex:1"><div style="font-size:0.9rem;font-weight:700;color:var(--white)">${c.nome}</div><div style="font-size:0.75rem;color:var(--text3)">${SEGMENTOS[c.seg]?.emoji||''} ${c.seg} · ${c.wpp}</div></div><button class="btn btn-sm" style="background:rgba(255,176,32,0.2);border:1px solid rgba(255,176,32,0.4);color:var(--amber)" data-wpp="${c.wpp}" data-nome="${c.nome.split(' ')[0]}" onclick="enviarMsgAniversario(this)">🎉 Enviar parabéns</button></div>`).join('') + '</div>';
+  document.getElementById('aniv-proximos-list').innerHTML = prox30.length===0
+    ? '<div class="empty-state" style="padding:24px"><div class="empty-icon">📅</div><p>Nenhum aniversariante nos próximos 30 dias.</p></div>'
+    : '<div style="display:flex;flex-direction:column;gap:0">' + prox30.map(c => {
+        const data = String(c.aniv_dia).padStart(2,'0')+'/'+String(c.aniv_mes).padStart(2,'0');
+        const urgente = c.diffDias<=3;
+        return `<div style="display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--border)"><span style="font-size:1.1rem">${urgente?'🔔':'📅'}</span><div style="flex:1"><div style="font-size:0.85rem;font-weight:500;color:var(--text)">${c.nome}</div><div style="font-size:0.73rem;color:var(--text3)">${SEGMENTOS[c.seg]?.emoji||''} ${c.seg}</div></div><div style="text-align:right"><div style="font-size:0.82rem;font-weight:700;color:${urgente?'var(--amber)':'var(--text2)'}">${data}</div><div style="font-size:0.7rem;color:var(--text3)">em ${c.diffDias} dia${c.diffDias>1?'s':''}</div></div></div>`;
+      }).join('') + '</div>';
+}
+
+async function enviarMsgAniversario(btn) {
+  const nome=btn.dataset.nome, wpp=btn.dataset.wpp;
+  const msg=templateAniversario.replace('{nome}',nome);
+  const orig=btn.innerHTML; btn.innerHTML='⏳'; btn.disabled=true;
+  try {
+    const r=await fetch(BACKEND+'/api/enviar-mensagem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:wpp,mensagem:msg,empresaId:ACCOUNT.empresaId})});
+    const d=await r.json();
+    if(d.success){showToast('🎂 Parabéns enviado para '+nome+'!'); btn.innerHTML='✓ Enviado'; btn.style.color='var(--green)';}
+    else{showToast('Erro ao enviar.','err'); btn.innerHTML=orig; btn.disabled=false;}
+  }catch(e){showToast('Erro.','err'); btn.innerHTML=orig; btn.disabled=false;}
+}
+
+async function dispararAniversariantesHoje() {
+  const hoje=getAniversariantes().filter(c=>c.ehHoje);
+  if(!hoje.length){showToast('Nenhum aniversariante hoje.','err'); return;}
+  const btn=document.getElementById('btn-disparar-aniv'); btn.textContent='Enviando...'; btn.disabled=true;
+  let ok=0;
+  for(const c of hoje){
+    const msg=templateAniversario.replace('{nome}',c.nome.split(' ')[0]);
+    try{const r=await fetch(BACKEND+'/api/enviar-mensagem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:c.wpp,mensagem:msg,empresaId:ACCOUNT.empresaId})});const d=await r.json();if(d.success)ok++;}catch(e){}
+    await new Promise(r=>setTimeout(r,2000));
+  }
+  showToast('🎂 '+ok+' parabéns enviados!'); btn.textContent='Enviar para todos hoje'; btn.disabled=false;
+}
+
 renderTemplates(); document.getElementById('f-data').valueAsDate=new Date(); checkAuth();
 </script>
 <a href="https://wa.me/5551984026354?text=Oi!+Preciso+de+ajuda+com+o+Retornax" target="_blank" class="suporte-btn">
