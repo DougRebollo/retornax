@@ -1476,6 +1476,7 @@ async function addCliente(){
   clientes.unshift(novoCliente);
   filterClientes(); updateCount(); closeModal();
   showToast(`${nome} adicionado!`);
+  if(novoCliente.data_nascimento) renderAniversarios();
   document.getElementById('f-nome').value='';
   document.getElementById('f-wpp').value='';
   const saved=await salvarClienteBanco(novoCliente);
@@ -2019,7 +2020,7 @@ async function carregarClientes(){
 
 async function salvarClienteBanco(cliente){
   if(!ACCOUNT.empresaId) return;
-  const{data}=await supabase.from('clientes').insert({empresa_id:ACCOUNT.empresaId,nome:cliente.nome,whatsapp:cliente.wpp,segmento:cliente.seg,ultima_visita:cliente.ultima,status:cliente.status,fidelizado:cliente.fidelizado||false,data_nascimento:cliente.aniversario||null}).select().single();
+  const{data}=await supabase.from('clientes').insert({empresa_id:ACCOUNT.empresaId,nome:cliente.nome,whatsapp:cliente.wpp,segmento:cliente.seg,ultima_visita:cliente.ultima,status:cliente.status,fidelizado:cliente.fidelizado||false,data_nascimento:cliente.data_nascimento||null}).select().single();
   return data;
 }
 
