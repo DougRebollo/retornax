@@ -1669,7 +1669,7 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
-  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',config:'Configurações',novidades:'Novidades',tutoriais:'Tutoriais'};
+  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',config:'Conectar WhatsApp',novidades:'Novidades',tutoriais:'Tutoriais'};
   const saudacaoEl = document.getElementById('saudacao-texto');
   const tituloEl = document.getElementById('page-title');
   if(id === 'dashboard'){
@@ -1791,26 +1791,29 @@ async function buscarQRCode(tentativa = 1) {
 }
 
 async function verificarConexao() {
-  const btn = document.querySelector('#qrcode-wrap .btn-ghost')
+  const btn = document.querySelector('#qrcode-wrap .btn-verificar') || document.querySelector('#qrcode-wrap .btn-ghost')
   if (btn) { btn.textContent = '⏳ Verificando...'; btn.disabled = true }
 
-  try {
-    const res = await fetch(`${BACKEND}/api/instancia/status/${ACCOUNT.empresaId}`)
-    const data = await res.json()
-    const state = data.result?.instance?.state || data.result?.state
+  let conectado = false
+  for (let tentativa = 1; tentativa <= 5; tentativa++) {
+    try {
+      const res = await fetch(`${BACKEND}/api/instancia/status/${ACCOUNT.empresaId}`)
+      const data = await res.json()
+      const state = data.result?.instance?.state || data.result?.state
+      if (state === 'open') { conectado = true; break }
+    } catch(e) {}
+    if (tentativa < 5) await new Promise(r => setTimeout(r, 2000))
+  }
 
-    if (state === 'open') {
-      document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>'
-      document.getElementById('wpp-numero').textContent = 'WhatsApp conectado'
-      document.getElementById('qrcode-wrap').style.display = 'none'
-      document.getElementById('btn-conectar-wpp').style.display = 'none'
-      document.getElementById('btn-desconectar-wpp').style.display = ''
-      showToast('WhatsApp conectado com sucesso! 🎉')
-    } else {
-      showToast('Ainda não conectado. Escaneie o QR Code.', 'err')
-    }
-  } catch (err) {
-    showToast('Erro ao verificar conexão.', 'err')
+  if (conectado) {
+    document.getElementById('wpp-status-badge').innerHTML = '<span class="badge badge-green">● Conectado</span>'
+    document.getElementById('wpp-numero').textContent = 'WhatsApp conectado'
+    document.getElementById('qrcode-wrap').style.display = 'none'
+    document.getElementById('btn-conectar-wpp').style.display = 'none'
+    document.getElementById('btn-desconectar-wpp').style.display = ''
+    showToast('WhatsApp conectado com sucesso! 🎉')
+  } else {
+    showToast('Ainda não conectado. Tente escanear novamente.', 'err')
   }
 
   if (btn) { btn.textContent = 'Já escaniei — verificar conexão'; btn.disabled = false }
