@@ -74,7 +74,8 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .search-wrap input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px 9px 36px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;transition:border-color 0.15s}
 .search-wrap input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(46,106,255,0.12)}
 .search-wrap input::placeholder{color:var(--text3)}
-.search-wrap input:not(:placeholder-shown){border-color:var(--blue-lite);background:rgba(46,106,255,0.07)}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);opacity:0.4;pointer-events:none}
+
 .search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;font-size:1rem;line-height:1;padding:2px;border-radius:4px;display:none}
 .search-wrap input:not(:placeholder-shown) ~ .search-clear{display:block}
 .filter-select{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.85rem;outline:none;cursor:pointer}
@@ -1153,14 +1154,14 @@ tbody td.name{color:var(--text);font-weight:500}
 <div class="onboarding-overlay" id="onboarding-overlay">
   <div class="onboarding-modal">
     <div id="ob-step-1">
-      <div class="onboarding-steps"><div class="onboarding-step-dot active"></div><div class="onboarding-step-dot"></div><div class="onboarding-step-dot"></div><div class="onboarding-step-dot"></div></div>
+      <div class="onboarding-steps"><div class="onboarding-step-dot active"></div><div class="onboarding-step-dot"></div><div class="onboarding-step-dot"></div></div>
       <div class="onboarding-icon">🎉</div>
       <div class="onboarding-title">Bem-vindo ao Retornax!</div>
       <div class="onboarding-sub">Você está a 3 passos de ter seu faturamento recorrente no piloto automático.</div>
       <div class="onboarding-actions"><button class="btn btn-primary" onclick="obNext(2)">Começar configuração →</button></div>
     </div>
     <div id="ob-step-2" style="display:none">
-      <div class="onboarding-steps"><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot active"></div><div class="onboarding-step-dot"></div><div class="onboarding-step-dot"></div></div>
+      <div class="onboarding-steps"><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot active"></div><div class="onboarding-step-dot"></div></div>
       <div class="onboarding-icon">👥</div>
       <div class="onboarding-title">Cadastre seus primeiros clientes</div>
       <div class="onboarding-sub">Adicione os clientes que você quer reativar.</div>
@@ -1171,24 +1172,12 @@ tbody td.name{color:var(--text);font-weight:500}
       <div class="onboarding-actions"><button class="btn btn-ghost" onclick="obNext(3)">Fazer isso depois</button><button class="btn btn-primary" onclick="obNext(3)">Próximo →</button></div>
     </div>
     <div id="ob-step-3" style="display:none">
-      <div class="onboarding-steps"><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot active"></div><div class="onboarding-step-dot"></div></div>
+      <div class="onboarding-steps"><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot active"></div></div>
       <div class="onboarding-icon">⚡</div>
       <div class="onboarding-title">Ative suas automações</div>
       <div class="onboarding-sub">Configure os templates de mensagem para cada segmento.</div>
       <div class="onboarding-checklist">
         <div class="onboarding-check-item" onclick="obAbrirAutomacoes()"><div class="check-icon">📝</div><div class="check-text"><strong>Personalizar mensagens</strong>Edite os templates com o tom da sua marca</div></div>
-      </div>
-      <div class="onboarding-actions"><button class="btn btn-primary" onclick="obNext(4)">Próximo →</button></div>
-    </div>
-    <div id="ob-step-4" style="display:none">
-      <div class="onboarding-steps"><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot done"></div><div class="onboarding-step-dot active"></div></div>
-      <div class="onboarding-icon">🛡️</div>
-      <div class="onboarding-title">Proteja seu WhatsApp</div>
-      <div class="onboarding-sub">Para evitar bloqueios, siga estas boas práticas:</div>
-      <div class="onboarding-checklist" style="cursor:default">
-        <div class="onboarding-check-item" style="cursor:default"><div class="check-icon">📱</div><div class="check-text"><strong>Use um número dedicado ao negócio</strong>Não use seu WhatsApp pessoal principal</div></div>
-        <div class="onboarding-check-item" style="cursor:default"><div class="check-icon">📣</div><div class="check-text"><strong>Campanhas: máximo 25 por dia</strong>O sistema já controla isso automaticamente</div></div>
-        <div class="onboarding-check-item" style="cursor:default"><div class="check-icon">⏱️</div><div class="check-text"><strong>Intervalo automático entre mensagens</strong>O Retornax já adiciona pausa entre os envios</div></div>
       </div>
       <div class="onboarding-actions"><button class="btn btn-primary" onclick="obFinalizar()">Ir para o painel 🚀</button></div>
     </div>
@@ -1395,7 +1384,7 @@ function filterClientes(){
   const q=document.getElementById('search-input').value.toLowerCase().trim();
   const seg=document.getElementById('filter-seg').value;
   const status=document.getElementById('filter-status').value;
-  const filtered=clientes.filter(c=>(!q||c.nome.toLowerCase().includes(q)||c.wpp.replace(/\D/g,'').includes(q.replace(/\D/g,''))||c.wpp.toLowerCase().includes(q)||(c.seg||'').toLowerCase().includes(q))&&(!seg||c.seg===seg)&&(!status||c.status===status));
+  const filtered=clientes.filter(c=>(!q||c.nome.toLowerCase().includes(q)||c.wpp.replace(/\D/g,'').includes(q.replace(/\D/g,''))||c.wpp.toLowerCase().includes(q))&&(!seg||c.seg===seg)&&(!status||c.status===status));
   renderClientes(filtered);
   const countEl = document.getElementById('search-results-count');
   if(q || seg || status){
@@ -2303,18 +2292,13 @@ async function dispararCampanha(){
     if(data.success){
       campanhasHistorico.unshift({
         nome, publico, enviados: data.enviados, total: data.total,
-        pendentes: data.pendentes || 0,
         data: new Date().toLocaleDateString('pt-BR'),
         hora: new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}),
-        destinatarios: data.destinatarios || lista.slice(0, data.enviados).map(c => c.nome)
+        destinatarios: lista.map(c => c.nome)
       });
       renderCampanhasHistorico();
       fecharFormCampanha();
-      if(data.pendentes > 0){
-        showToast(`✅ ${data.enviados} enviados. ⚠️ ${data.pendentes} pendentes para amanhã.`);
-      } else {
-        showToast(`Campanha "${nome}" enviada para ${data.enviados} clientes!`);
-      }
+      showToast(`Campanha "${nome}" enviada para ${data.enviados} clientes!`);
     } else {
       showToast(data.error || 'Erro ao disparar campanha.', 'err');
     }
@@ -2339,7 +2323,6 @@ function renderCampanhasHistorico(){
         <div style="font-size:0.82rem;color:var(--text2)">${c.enviados} / ${c.total} enviados</div>
         <div style="font-size:0.78rem;color:var(--text3)">${c.data} ${c.hora}</div>
         <span class="badge badge-green">✓ Concluída</span>
-        ${c.pendentes > 0 ? `<span class="badge badge-amber">⏳ ${c.pendentes} pendentes</span>` : ''}
         ${c.destinatarios && c.destinatarios.length ? `<button class="btn-ver-dest" onclick="toggleDestinatarios(${idx})">Ver quem recebeu ▾</button>` : ''}
       </div>
       ${c.destinatarios && c.destinatarios.length ? `
@@ -2362,7 +2345,7 @@ function checkOnboarding(){
   const visto=localStorage.getItem('retornax_onboarding_'+(ACCOUNT.empresaId||'x'));
   if(!visto&&clientes.length===0) document.getElementById('onboarding-overlay').classList.add('open');
 }
-function obNext(step){ for(let i=1;i<=3;i++){ const el=document.getElementById('ob-step-'+i); if(el) el.style.display=i===step?'':'none'; } }
+function obNext(step){ for(let i=1;i<=4;i++){ const el=document.getElementById('ob-step-'+i); if(el) el.style.display=i===step?'':'none'; } }
 function obAbrirClientes(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('clientes',document.querySelectorAll('.nav-item')[1]); setTimeout(()=>openModal(),300); }
 function obImportarPlanilha(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('clientes',document.querySelectorAll('.nav-item')[1]); setTimeout(()=>openImportModal(),300); }
 function obAbrirAutomacoes(){ document.getElementById('onboarding-overlay').classList.remove('open'); showPage('automacoes',document.querySelectorAll('.nav-item')[2]); }
