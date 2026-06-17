@@ -796,10 +796,10 @@ tbody td.name{color:var(--text);font-weight:500}
             </button>
             <button class="btn btn-danger btn-sm" id="btn-desconectar-wpp" onclick="desconectarWhatsapp()" style="display:none">Desconectar</button>
           </div>
-          <div id="qrcode-wrap" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px;text-align:center">
+          <div id="qrcode-wrap-cfg" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px;text-align:center">
             <div style="font-size:0.82rem;color:var(--text2);margin-bottom:12px">Escaneie o QR Code com seu WhatsApp</div>
             <div style="background:white;border-radius:12px;padding:12px;display:inline-block;margin-bottom:12px">
-              <img id="qrcode-img" src="" alt="QR Code" style="width:200px;height:200px;display:block">
+              <img id="qrcode-img-cfg" src="" alt="QR Code" style="width:200px;height:200px;display:block">
             </div>
             <div style="font-size:0.75rem;color:var(--text3)">WhatsApp → Aparelhos conectados → Conectar aparelho</div>
             <button class="btn btn-sm" style="margin-top:12px;background:rgba(0,214,143,0.15);color:#00ff9d;border:1.5px solid #00d68f;font-weight:700;box-shadow:0 0 12px rgba(0,214,143,0.35);letter-spacing:0.3px" onclick="verificarConexao()">
@@ -1794,6 +1794,9 @@ async function buscarQRCode(tentativa = 1) {
       const src = base64.startsWith('data:') ? base64 : `data:image/png;base64,${base64}`
       document.getElementById('qrcode-img').src = src
       document.getElementById('qrcode-wrap').style.display = 'block'
+      // Sincronizar com page-config
+      const imgCfg = document.getElementById('qrcode-img-cfg'); if(imgCfg) imgCfg.src = src;
+      const wrapCfg = document.getElementById('qrcode-wrap-cfg'); if(wrapCfg) wrapCfg.style.display = 'block';
       showToast('QR Code gerado! Escaneie com seu WhatsApp.')
       return
     }
