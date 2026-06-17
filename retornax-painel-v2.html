@@ -627,6 +627,7 @@ tbody td.name{color:var(--text);font-weight:500}
                 <option value="Pet shop">🐾 Pet shop</option>
                 <option value="Academia">🏋 Academia</option>
                 <option value="Outros">📌 Outros</option>
+                <option value="fidelizados">⭐ Fidelizados</option>
               </select>
             </div>
             <div class="form-group">
@@ -1345,7 +1346,7 @@ function renderClientes(list){
   tbody.innerHTML=list.map(c=>{
     const days=calcDays(c.ultima);
     return `<tr>
-      <td class="name">${c.nome}</td>
+      <td class="name">${c.fidelizado ? '⭐ ' : ''}${c.nome}</td>
       <td>${c.wpp}</td>
       <td>${getSegBadge(c.seg)}</td>
       <td>${new Date(c.ultima+'T12:00').toLocaleDateString('pt-BR')}</td>
@@ -2256,7 +2257,7 @@ function fecharFormCampanha(){
 
 function atualizarContadorCampanha(){
   const publico = document.getElementById('camp-publico')?.value || 'todos';
-  const count = publico === 'todos' ? clientes.length : clientes.filter(c => c.seg === publico).length;
+  const count = publico === 'todos' ? clientes.length : publico === 'fidelizados' ? clientes.filter(c => c.fidelizado).length : clientes.filter(c => c.seg === publico).length;
   const el = document.getElementById('camp-preview-count');
   if(el) el.textContent = count;
 }
@@ -2275,7 +2276,7 @@ async function dispararCampanha(){
   const publico = document.getElementById('camp-publico').value;
   const mensagemTemplate = document.getElementById('camp-mensagem').value.trim();
   if(!nome || !mensagemTemplate){ showToast('Preencha o nome e a mensagem.', 'err'); return; }
-  const lista = publico === 'todos' ? clientes : clientes.filter(c => c.seg === publico);
+  const lista = publico === 'todos' ? clientes : publico === 'fidelizados' ? clientes.filter(c => c.fidelizado) : clientes.filter(c => c.seg === publico);
   if(!lista.length){ showToast('Nenhum cliente neste segmento.', 'err'); return; }
   if(!confirm(`Confirma o disparo para ${lista.length} cliente${lista.length > 1 ? 's' : ''}? As mensagens serão enviadas com intervalo para evitar bloqueio.`)) return;
   const btn = document.querySelector('#form-campanha .btn-green');
