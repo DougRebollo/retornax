@@ -6,6 +6,7 @@
 <title>Retornax — Prospecção</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -26,7 +27,11 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .nav-logo{font-weight:800;font-size:1.2rem;color:var(--white)}
 .nav-logo span{color:var(--accent)}
 .nav-badge{background:var(--blue-dim);color:var(--blue-lite);padding:3px 10px;border-radius:100px;font-size:0.72rem;font-weight:700;margin-left:8px}
-.nav-actions{display:flex;gap:10px;align-items:center}
+.sync-status{font-size:0.75rem;color:var(--text3);display:flex;align-items:center;gap:6px}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.sync-dot.saving{background:var(--amber);animation:pulse-dot 0.8s infinite}
+.sync-dot.error{background:var(--red)}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.3}}
 .toolbar{padding:16px 28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
 .toolbar-title{font-size:1rem;font-weight:700;color:var(--white);margin-right:8px}
 .btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.84rem;font-weight:500;cursor:pointer;border:none;transition:all 0.15s}
@@ -128,6 +133,9 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .origem-instagram{background:rgba(244,114,182,0.12);color:var(--pink)}
 .origem-outros{background:rgba(255,255,255,0.07);color:var(--text2)}
 .prio-alta{background:var(--red)}.prio-media{background:var(--amber)}.prio-baixa{background:var(--green)}
+.mrr-banner{background:linear-gradient(90deg,rgba(0,214,143,0.12),rgba(0,229,255,0.06));border:1px solid rgba(0,214,143,0.2);border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.mrr-banner-label{font-size:0.72rem;color:var(--text2);font-weight:500}
+.mrr-banner-val{font-size:1.1rem;font-weight:800;color:var(--green);letter-spacing:-0.5px}
 .fren-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:400;backdrop-filter:blur(6px);align-items:center;justify-content:center}
 .fren-overlay.open{display:flex}
 .fren-modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;width:900px;max-width:95vw;max-height:90vh;display:flex;flex-direction:column;animation:modalIn 0.25s ease;overflow:hidden}
@@ -144,7 +152,6 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .btn-fren:disabled{opacity:0.6;cursor:not-allowed;transform:none}
 .fren-status{padding:10px 28px;font-size:0.78rem;color:var(--text2);flex-shrink:0;min-height:36px;display:flex;align-items:center;gap:8px}
 .fren-status .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse-dot 1s infinite}
-@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.3}}
 .fren-results{flex:1;overflow-y:auto;padding:0}
 .fren-results table{width:100%;border-collapse:collapse}
 .fren-results thead th{padding:10px 16px;text-align:left;font-size:0.68rem;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--text3);background:var(--bg3);border-bottom:1px solid var(--border);position:sticky;top:0}
@@ -162,10 +169,6 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .btn-add-kanban:hover{background:rgba(0,214,143,0.2)}
 .btn-add-all{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,214,143,0.25);padding:8px 18px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.15s}
 .btn-add-all:hover{background:rgba(0,214,143,0.2)}
-/* MRR banner no col fechado */
-.mrr-banner{background:linear-gradient(90deg,rgba(0,214,143,0.12),rgba(0,229,255,0.06));border:1px solid rgba(0,214,143,0.2);border-radius:8px;padding:10px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
-.mrr-banner-label{font-size:0.72rem;color:var(--text2);font-weight:500}
-.mrr-banner-val{font-size:1.1rem;font-weight:800;color:var(--green);letter-spacing:-0.5px}
 </style>
 </head>
 <body>
@@ -175,7 +178,8 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
       <div class="nav-logo">Retorna<span>x</span></div>
       <span class="nav-badge">PROSPECÇÃO</span>
     </div>
-    <div class="nav-actions">
+    <div style="display:flex;align-items:center;gap:16px">
+      <div class="sync-status"><div class="sync-dot" id="sync-dot"></div><span id="sync-label">Carregando...</span></div>
       <span style="font-size:0.8rem;color:var(--text2)" id="nav-data"></span>
     </div>
   </nav>
@@ -245,7 +249,6 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
       <div class="form-group"><label>Cidade</label><input type="text" id="f-cidade" placeholder="Porto Alegre, RS"></div>
       <div class="form-group"><label>Instagram</label><input type="text" id="f-insta" placeholder="@empresa"></div>
     </div>
-    <!-- NOVO: Plano ofertado -->
     <div class="form-row">
       <div class="form-group">
         <label>Plano ofertado</label>
@@ -360,36 +363,77 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 <div class="toast" id="toast"><span>✓</span><span id="toast-msg">Feito!</span></div>
 
 <script>
+// ── SUPABASE ──
+const SUPABASE_URL = 'https://gfxbspigzmeajhxzsshv.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_haLhJCkos-6Acdd04kJTQQ_pBxAMdno';
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const REGISTRO_ID = 'pipeline-retornax-v1'; // chave fixa para todos
+
+const PLANOS = {
+  starter:      { label:'Starter',      valor:147, cls:'plano-starter' },
+  profissional: { label:'Profissional',  valor:247, cls:'plano-profissional' },
+  crescimento:  { label:'Crescimento',   valor:447, cls:'plano-crescimento' },
+};
+const ORIGENS = { amigos:{label:'👥 Amizade',cls:'origem-amigos'}, local:{label:'🏪 Local',cls:'origem-local'}, google:{label:'🔍 Google',cls:'origem-google'}, instagram:{label:'📸 Instagram',cls:'origem-instagram'}, outros:{label:'📌 Outros',cls:'origem-outros'} };
+const PRIO_COR = { alta:'prio-alta', media:'prio-media', baixa:'prio-baixa' };
+
 let colunas=[], prospectos=[], corSelecionada='#2e6aff', editandoId=null, ctxProspectoId=null, importData=[], dragId=null;
 let modoSelecao=false, selecionados=new Set();
+let saveTimeout=null;
 
-const PLANOS={
-  starter:      {label:'Starter',valor:147,cls:'plano-starter'},
-  profissional: {label:'Profissional',valor:247,cls:'plano-profissional'},
-  crescimento:  {label:'Crescimento',valor:447,cls:'plano-crescimento'},
-};
-
-const ORIGENS={amigos:{label:'👥 Amizade',cls:'origem-amigos'},local:{label:'🏪 Local',cls:'origem-local'},google:{label:'🔍 Google',cls:'origem-google'},instagram:{label:'📸 Instagram',cls:'origem-instagram'},outros:{label:'📌 Outros',cls:'origem-outros'}};
-const PRIO_COR={alta:'prio-alta',media:'prio-media',baixa:'prio-baixa'};
-
-function salvar(){localStorage.setItem('rtx_prosp_cols',JSON.stringify(colunas));localStorage.setItem('rtx_prosp_cards',JSON.stringify(prospectos));}
-function carregar(){
-  const c=localStorage.getItem('rtx_prosp_cols'),p=localStorage.getItem('rtx_prosp_cards');
-  if(c) colunas=JSON.parse(c); else colunas=defaultColunas();
-  if(p) prospectos=JSON.parse(p); else prospectos=[];
+// ── SYNC STATUS ──
+function setSyncStatus(status, msg) {
+  const dot = document.getElementById('sync-dot');
+  const label = document.getElementById('sync-label');
+  dot.className = 'sync-dot' + (status === 'saving' ? ' saving' : status === 'error' ? ' error' : '');
+  label.textContent = msg;
 }
+
+// ── SUPABASE: CARREGAR ──
+async function carregar() {
+  setSyncStatus('saving', 'Carregando...');
+  try {
+    const { data, error } = await sb.from('prospectos').select('data').eq('id', REGISTRO_ID).single();
+    if (error && error.code !== 'PGRST116') throw error;
+    if (data && data.data) {
+      colunas = data.data.colunas || defaultColunas();
+      prospectos = data.data.prospectos || [];
+    } else {
+      colunas = defaultColunas();
+      prospectos = [];
+    }
+    setSyncStatus('ok', 'Sincronizado');
+  } catch(e) {
+    console.error(e);
+    colunas = defaultColunas();
+    prospectos = [];
+    setSyncStatus('error', 'Erro ao carregar');
+  }
+  render();
+}
+
+// ── SUPABASE: SALVAR (debounce 800ms) ──
+function salvar() {
+  setSyncStatus('saving', 'Salvando...');
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(async () => {
+    try {
+      const payload = { id: REGISTRO_ID, data: { colunas, prospectos } };
+      const { error } = await sb.from('prospectos').upsert(payload, { onConflict: 'id' });
+      if (error) throw error;
+      setSyncStatus('ok', 'Sincronizado');
+    } catch(e) {
+      console.error(e);
+      setSyncStatus('error', 'Erro ao salvar');
+      showToast('Erro ao salvar. Verifique a conexão.', 'err');
+    }
+  }, 800);
+}
+
 function defaultColunas(){return[{id:uid(),nome:'Identificado',cor:'#7a8ab0'},{id:uid(),nome:'Primeiro contato',cor:'#2e6aff'},{id:uid(),nome:'Apresentação',cor:'#00e5ff'},{id:uid(),nome:'Proposta',cor:'#ffb020'},{id:uid(),nome:'Fechado',cor:'#00d68f'},{id:uid(),nome:'Perdido',cor:'#ff4d4d'}];}
 function uid(){return Math.random().toString(36).slice(2)+Date.now().toString(36);}
-
-// Verifica se coluna é "Fechado"
 function isFechado(col){return col.nome.toLowerCase().includes('fechado');}
-
-// Calcula MRR da coluna fechado
-function calcMRRFechado(colId){
-  return prospectos
-    .filter(p=>p.colunaId===colId&&p.valor>0)
-    .reduce((s,p)=>s+Number(p.valor),0);
-}
+function calcMRRFechado(colId){ return prospectos.filter(p=>p.colunaId===colId&&p.valor>0).reduce((s,p)=>s+Number(p.valor),0); }
 
 function render(){
   const q=document.getElementById('search-input').value.toLowerCase();
@@ -402,26 +446,14 @@ function render(){
     if(q) cards=cards.filter(p=>p.nome.toLowerCase().includes(q)||(p.empresa||'').toLowerCase().includes(q)||(p.cidade||'').toLowerCase().includes(q));
     if(origem) cards=cards.filter(p=>p.origem===origem);
     if(prio) cards=cards.filter(p=>p.prio===prio);
-
     const mrr=calcMRRFechado(col.id);
     const isFech=isFechado(col);
-
+    const mrrBadge=isFech&&mrr>0?`<span class="col-mrr">R$ ${mrr.toLocaleString('pt-BR')}/mês</span>`:'';
     const colEl=document.createElement('div');
     colEl.className='kanban-col';
-
-    // Badge MRR no header se for coluna fechado e tiver valor
-    const mrrBadge=isFech&&mrr>0
-      ?`<span class="col-mrr">R$ ${mrr.toLocaleString('pt-BR')}/mês</span>`
-      :'';
-
     colEl.innerHTML=`
       <div class="col-header" style="background:${col.cor}18;border:1px solid ${col.cor}33;border-bottom:none">
-        <div class="col-title">
-          <div class="col-dot" style="background:${col.cor}"></div>
-          ${col.nome}
-          <span class="col-count">${cards.length}</span>
-          ${mrrBadge}
-        </div>
+        <div class="col-title"><div class="col-dot" style="background:${col.cor}"></div>${col.nome}<span class="col-count">${cards.length}</span>${mrrBadge}</div>
         <div class="col-actions">
           <button class="col-btn" onclick="abrirModalNaColuna('${col.id}')">+</button>
           <button class="col-btn" onclick="editarColuna('${col.id}')">✏</button>
@@ -440,7 +472,7 @@ function render(){
   btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Nova etapa';
   btn.onclick=adicionarColuna;
   wrap.appendChild(btn);
-  if(modoSelecao) wrap.classList.add('modo-sel');
+  if(modoSelecao) document.getElementById('kanban-wrap').classList.add('modo-sel');
   renderStats();
   atualizarSelectColuna();
 }
@@ -449,9 +481,7 @@ function renderCard(p){
   const o=ORIGENS[p.origem]||ORIGENS.outros;
   const seg=p.segmento?`<span class="card-tag" style="background:rgba(0,229,255,0.1);color:var(--accent)">${p.segmento}</span>`:'';
   const planoInfo=p.plano&&PLANOS[p.plano]?PLANOS[p.plano]:null;
-  const planoTag=planoInfo
-    ?`<span class="card-plano-tag ${planoInfo.cls}">💼 ${planoInfo.label} · R$ ${planoInfo.valor}</span>`
-    :'';
+  const planoTag=planoInfo?`<span class="card-plano-tag ${planoInfo.cls}">💼 ${planoInfo.label} · R$ ${planoInfo.valor}</span>`:'';
   const isSelected=selecionados.has(p.id);
   return `<div class="prospect-card${isSelected?' selected':''}" id="card-${p.id}" draggable="true"
     ondragstart="if(modoSelecao){event.preventDefault();return;}dragStart(event,'${p.id}')" ondragend="dragEnd(event)"
@@ -494,13 +524,7 @@ function renderStats(){
 
 function formatData(ts){if(!ts) return '';return new Date(ts).toLocaleDateString('pt-BR');}
 function filtrar(){render();}
-
-// Preenche valor ao selecionar plano
-function atualizarValorPlano(){
-  const plano=document.getElementById('f-plano').value;
-  const valEl=document.getElementById('f-valor');
-  valEl.value=plano&&PLANOS[plano]?PLANOS[plano].valor:'';
-}
+function atualizarValorPlano(){const plano=document.getElementById('f-plano').value;document.getElementById('f-valor').value=plano&&PLANOS[plano]?PLANOS[plano].valor:'';}
 
 // COLUNAS
 function adicionarColuna(){corSelecionada='#2e6aff';document.getElementById('f-col-nome').value='';document.getElementById('f-col-id').value='';document.getElementById('modal-col-title').textContent='Nova etapa';document.querySelectorAll('.cor-opt').forEach(o=>o.style.border='3px solid transparent');document.querySelectorAll('.cor-opt')[0].style.border='3px solid white';document.getElementById('modal-coluna').classList.add('open');setTimeout(()=>document.getElementById('f-col-nome').focus(),100);}
@@ -521,22 +545,7 @@ function salvarProspecto(){
   const nome=document.getElementById('f-nome').value.trim();if(!nome){showToast('Informe o nome.','err');return;}
   const plano=document.getElementById('f-plano').value;
   const valor=plano&&PLANOS[plano]?PLANOS[plano].valor:Number(document.getElementById('f-valor').value)||0;
-  const p={
-    id:editandoId||uid(),
-    nome,
-    wpp:document.getElementById('f-wpp').value.trim(),
-    empresa:document.getElementById('f-empresa').value.trim(),
-    segmento:document.getElementById('f-segmento').value,
-    origem:document.getElementById('f-origem').value,
-    prio:document.getElementById('f-prio').value,
-    cidade:document.getElementById('f-cidade').value.trim(),
-    insta:document.getElementById('f-insta').value.trim(),
-    obs:document.getElementById('f-obs').value.trim(),
-    plano,
-    valor,
-    colunaId:document.getElementById('f-coluna').value,
-    criadoEm:editandoId?(prospectos.find(x=>x.id===editandoId)?.criadoEm||Date.now()):Date.now()
-  };
+  const p={id:editandoId||uid(),nome,wpp:document.getElementById('f-wpp').value.trim(),empresa:document.getElementById('f-empresa').value.trim(),segmento:document.getElementById('f-segmento').value,origem:document.getElementById('f-origem').value,prio:document.getElementById('f-prio').value,cidade:document.getElementById('f-cidade').value.trim(),insta:document.getElementById('f-insta').value.trim(),obs:document.getElementById('f-obs').value.trim(),plano,valor,colunaId:document.getElementById('f-coluna').value,criadoEm:editandoId?(prospectos.find(x=>x.id===editandoId)?.criadoEm||Date.now()):Date.now()};
   if(editandoId){const i=prospectos.findIndex(x=>x.id===editandoId);if(i>-1) prospectos[i]=p;}else prospectos.push(p);
   salvar();fecharModal();render();showToast(editandoId?'Prospecto atualizado!':'Prospecto adicionado!');
 }
@@ -554,20 +563,7 @@ document.addEventListener('click',()=>document.getElementById('ctx-menu').classL
 function ctxEditar(){
   const p=prospectos.find(x=>x.id===ctxProspectoId);if(!p) return;
   editandoId=p.id;atualizarSelectColuna();
-  document.getElementById('f-nome').value=p.nome;
-  document.getElementById('f-wpp').value=p.wpp||'';
-  document.getElementById('f-empresa').value=p.empresa||'';
-  document.getElementById('f-segmento').value=p.segmento||'';
-  document.getElementById('f-origem').value=p.origem||'outros';
-  document.getElementById('f-prio').value=p.prio||'media';
-  document.getElementById('f-cidade').value=p.cidade||'';
-  document.getElementById('f-insta').value=p.insta||'';
-  document.getElementById('f-obs').value=p.obs||'';
-  document.getElementById('f-plano').value=p.plano||'';
-  document.getElementById('f-valor').value=p.valor||'';
-  document.getElementById('f-coluna').value=p.colunaId;
-  document.getElementById('modal-title-text').textContent='Editar prospecto';
-  document.getElementById('modal-prospect').classList.add('open');
+  document.getElementById('f-nome').value=p.nome;document.getElementById('f-wpp').value=p.wpp||'';document.getElementById('f-empresa').value=p.empresa||'';document.getElementById('f-segmento').value=p.segmento||'';document.getElementById('f-origem').value=p.origem||'outros';document.getElementById('f-prio').value=p.prio||'media';document.getElementById('f-cidade').value=p.cidade||'';document.getElementById('f-insta').value=p.insta||'';document.getElementById('f-obs').value=p.obs||'';document.getElementById('f-plano').value=p.plano||'';document.getElementById('f-valor').value=p.valor||'';document.getElementById('f-coluna').value=p.colunaId;document.getElementById('modal-title-text').textContent='Editar prospecto';document.getElementById('modal-prospect').classList.add('open');
 }
 function ctxMover(){const p=prospectos.find(x=>x.id===ctxProspectoId);if(!p) return;const nomes=colunas.map(c=>c.nome);const escolha=prompt('Mover para qual etapa?\n\n'+nomes.map((n,i)=>`${i+1}. ${n}`).join('\n')+'\n\nDigite o número:');const idx=parseInt(escolha)-1;if(idx>=0&&idx<colunas.length){p.colunaId=colunas[idx].id;salvar();render();showToast('Movido para: '+colunas[idx].nome);}}
 function ctxWhatsapp(){const p=prospectos.find(x=>x.id===ctxProspectoId);if(!p||!p.wpp) return showToast('WhatsApp não cadastrado.','err');window.open(`https://wa.me/55${p.wpp.replace(/\D/g,'')}`, '_blank');}
@@ -600,7 +596,7 @@ function showToast(msg,type='ok'){
   t.style.borderColor=type==='err'?'var(--red)':'var(--green)';t.style.color=type==='err'?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-// SELECAO MULTIPLA
+// SELECAO
 function toggleModoSelecao(){modoSelecao=!modoSelecao;selecionados.clear();const btn=document.getElementById('btn-sel-modo');if(modoSelecao){btn.style.background='var(--blue-dim)';btn.style.color='var(--blue-lite)';btn.style.borderColor='var(--blue)';}else{cancelarSelecao();}render();}
 function cancelarSelecao(){modoSelecao=false;selecionados.clear();document.getElementById('sel-toolbar').classList.remove('visible');const btn=document.getElementById('btn-sel-modo');if(btn){btn.style.background='';btn.style.color='';btn.style.borderColor='';}render();}
 function toggleCard(id,e){if(!modoSelecao) return;e.stopPropagation();if(selecionados.has(id)) selecionados.delete(id); else selecionados.add(id);const card=document.getElementById('card-'+id);const chk=document.getElementById('chk-'+id);if(selecionados.has(id)){card?.classList.add('selected');chk?.classList.add('checked');}else{card?.classList.remove('selected');chk?.classList.remove('checked');}atualizarToolbarSel();}
@@ -612,85 +608,49 @@ function moverSelecionados(){if(!selecionados.size) return;const nomes=colunas.m
 // FRENETICA
 const BACKEND='https://spirited-youthfulness-production-e76c.up.railway.app';
 let frenResultados=[];
-
 function abrirFren(){document.getElementById('fren-overlay').classList.add('open');setTimeout(()=>document.getElementById('fren-cidade').focus(),100);}
 function fecharFren(){document.getElementById('fren-overlay').classList.remove('open');}
-
 async function buscarFren(){
-  const cidade=document.getElementById('fren-cidade').value.trim();
-  const segmento=document.getElementById('fren-segmento').value.trim();
-  const qtd=Math.min(parseInt(document.getElementById('fren-qtd').value)||50,100);
+  const cidade=document.getElementById('fren-cidade').value.trim();const segmento=document.getElementById('fren-segmento').value.trim();const qtd=Math.min(parseInt(document.getElementById('fren-qtd').value)||50,100);
   if(!cidade||!segmento){showToast('Preencha cidade e segmento.','err');return;}
-  const btn=document.getElementById('btn-buscar-fren');
-  btn.disabled=true;btn.innerHTML='⏳ Buscando...';
-  const statusEl=document.getElementById('fren-status');
-  statusEl.innerHTML='<span class="dot"></span> Buscando no Google Maps...';
+  const btn=document.getElementById('btn-buscar-fren');btn.disabled=true;btn.innerHTML='⏳ Buscando...';
+  const statusEl=document.getElementById('fren-status');statusEl.innerHTML='<span class="dot"></span> Buscando no Google Maps...';
   document.getElementById('fren-results').innerHTML='<div class="fren-empty"><div class="icon">⏳</div><p>Aguarde...</p></div>';
-  document.getElementById('btn-add-all').style.display='none';
-  document.getElementById('fren-counter').textContent='';
-  frenResultados=[];
+  document.getElementById('btn-add-all').style.display='none';document.getElementById('fren-counter').textContent='';frenResultados=[];
   try{
     const res=await fetch(BACKEND+'/api/apify-search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({cidade,segmento,quantidade:qtd})});
     const data=await res.json();
     if(!data.success) throw new Error(data.error||'Erro ao buscar dados');
     frenResultados=data.resultados.map(r=>({...r,cidade}));
     renderFrenResultados();
-    statusEl.innerHTML='✅ '+frenResultados.length+' empresas encontradas para "'+segmento+' '+cidade+'"';
-    document.getElementById('fren-counter').innerHTML='<strong>'+frenResultados.length+'</strong> resultados encontrados';
+    statusEl.innerHTML='✅ '+frenResultados.length+' empresas encontradas';
+    document.getElementById('fren-counter').innerHTML='<strong>'+frenResultados.length+'</strong> resultados';
     if(frenResultados.length>0) document.getElementById('btn-add-all').style.display='';
-  }catch(err){
-    statusEl.innerHTML='❌ '+err.message;
-    document.getElementById('fren-results').innerHTML='<div class="fren-empty"><div class="icon">❌</div><p>'+err.message+'</p></div>';
-    showToast(err.message,'err');
-  }
-  btn.disabled=false;
-  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Buscar agora';
+  }catch(err){statusEl.innerHTML='❌ '+err.message;document.getElementById('fren-results').innerHTML='<div class="fren-empty"><div class="icon">❌</div><p>'+err.message+'</p></div>';showToast(err.message,'err');}
+  btn.disabled=false;btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Buscar agora';
 }
-
 function renderFrenResultados(){
   const wrap=document.getElementById('fren-results');
-  if(!frenResultados.length){wrap.innerHTML='<div class="fren-empty"><div class="icon">🔍</div><p>Nenhum resultado encontrado.</p></div>';return;}
+  if(!frenResultados.length){wrap.innerHTML='<div class="fren-empty"><div class="icon">🔍</div><p>Nenhum resultado.</p></div>';return;}
   wrap.innerHTML='<table><thead><tr><th>Nome</th><th>Telefone</th><th>Endereço</th><th>Avaliação</th><th>Site</th><th>Maps</th><th>Ação</th></tr></thead><tbody>'+
-    frenResultados.map((r,i)=>`<tr>
-      <td class="name">${r.nome}</td>
-      <td>${r.telefone}</td>
-      <td style="font-size:0.82rem;max-width:260px;word-break:break-word;white-space:normal;line-height:1.4">${r.endereco}</td>
-      <td>${r.stars>0?'<span class="star">★</span> '+r.stars.toFixed(1)+' <span style="color:var(--text3)">('+r.reviews+')</span>':'—'}</td>
-      <td>${r.site?'<a href="'+r.site+'" target="_blank" style="color:var(--blue-lite);font-size:0.75rem">🔗 site</a>':'—'}</td>
-      <td>${r.maps?'<a href="'+r.maps+'" target="_blank" style="color:var(--accent);font-size:0.75rem">📍 Maps</a>':'—'}</td>
-      <td><button class="btn-add-kanban" data-idx="${i}">+ Kanban</button></td>
-    </tr>`).join('')+
-  '</tbody></table>';
-  wrap.querySelectorAll('.btn-add-kanban').forEach(btn=>{
-    btn.addEventListener('click',function(){adicionarUmKanban(parseInt(this.dataset.idx),this);});
-  });
+    frenResultados.map((r,i)=>`<tr><td class="name">${r.nome}</td><td>${r.telefone}</td><td style="font-size:0.82rem;max-width:260px;word-break:break-word;white-space:normal;line-height:1.4">${r.endereco}</td><td>${r.stars>0?'<span class="star">★</span> '+r.stars.toFixed(1)+' <span style="color:var(--text3)">('+r.reviews+')</span>':'—'}</td><td>${r.site?'<a href="'+r.site+'" target="_blank" style="color:var(--blue-lite);font-size:0.75rem">🔗 site</a>':'—'}</td><td>${r.maps?'<a href="'+r.maps+'" target="_blank" style="color:var(--accent);font-size:0.75rem">📍 Maps</a>':'—'}</td><td><button class="btn-add-kanban" data-idx="${i}">+ Kanban</button></td></tr>`).join('')+'</tbody></table>';
+  wrap.querySelectorAll('.btn-add-kanban').forEach(btn=>{btn.addEventListener('click',function(){adicionarUmKanban(parseInt(this.dataset.idx),this);});});
 }
-
 function adicionarUmKanban(idx,btnEl){
   const r=frenResultados[idx];if(!r) return;
   prospectos.push({id:uid(),nome:r.nome,wpp:r.telefone!=='—'?r.telefone:'',empresa:r.nome,segmento:r.categoria,origem:'google',prio:'media',plano:'',valor:0,cidade:r.cidade,insta:'',obs:r.site?'Site: '+r.site:'',colunaId:colunas[0]?.id||'',criadoEm:Date.now()});
-  salvar();render();
-  showToast(r.nome+' adicionado ao Kanban!');
+  salvar();render();showToast(r.nome+' adicionado!');
   if(btnEl){btnEl.textContent='✓ Adicionado';btnEl.disabled=true;btnEl.style.opacity='0.5';btnEl.style.color='var(--green)';}
 }
-
 function adicionarTodosKanban(){
-  if(!frenResultados.length) return;
-  let count=0;
-  frenResultados.forEach(r=>{
-    if(!prospectos.find(p=>p.nome===r.nome&&p.cidade===r.cidade)){
-      prospectos.push({id:uid(),nome:r.nome,wpp:r.telefone!=='—'?r.telefone:'',empresa:r.nome,segmento:r.categoria,origem:'google',prio:'media',plano:'',valor:0,cidade:r.cidade,insta:'',obs:r.site?'Site: '+r.site:'',colunaId:colunas[0]?.id||'',criadoEm:Date.now()+count});
-      count++;
-    }
-  });
-  salvar();render();fecharFren();
-  showToast(count+' empresas adicionadas ao Kanban! 🔥');
+  if(!frenResultados.length) return;let count=0;
+  frenResultados.forEach(r=>{if(!prospectos.find(p=>p.nome===r.nome&&p.cidade===r.cidade)){prospectos.push({id:uid(),nome:r.nome,wpp:r.telefone!=='—'?r.telefone:'',empresa:r.nome,segmento:r.categoria,origem:'google',prio:'media',plano:'',valor:0,cidade:r.cidade,insta:'',obs:r.site?'Site: '+r.site:'',colunaId:colunas[0]?.id||'',criadoEm:Date.now()+count});count++;}});
+  salvar();render();fecharFren();showToast(count+' empresas adicionadas! 🔥');
 }
 
 // INIT
 document.getElementById('nav-data').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'});
 carregar();
-render();
 </script>
 </body>
 </html>
