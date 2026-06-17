@@ -1038,12 +1038,110 @@ tbody td.name{color:var(--text);font-weight:500}
     </div>
     <!-- CRM -->
     <div class="page" id="page-crm">
-      <div style="text-align:center;padding:80px 20px;max-width:480px;margin:0 auto">
-        <div style="font-size:3rem;margin-bottom:16px">🔧</div>
-        <div style="font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:10px">CRM em desenvolvimento</div>
-        <div style="font-size:0.9rem;color:var(--text2);line-height:1.7">Estamos construindo um CRM completo com análise de engajamento, funil de reativação e ranking de clientes.<br><br>Em breve disponível!</div>
+      <!-- KPIs -->
+      <div class="crm-kpi-grid">
+        <div class="crm-kpi">
+          <div class="crm-kpi-label">Total enviados</div>
+          <div class="crm-kpi-val blue" id="crm-total-env">—</div>
+          <div class="crm-kpi-sub">todas as mensagens</div>
+        </div>
+        <div class="crm-kpi">
+          <div class="crm-kpi-label">Clientes alcançados</div>
+          <div class="crm-kpi-val green" id="crm-alcancados">—</div>
+          <div class="crm-kpi-sub">receberam pelo menos 1 msg</div>
+        </div>
+        <div class="crm-kpi">
+          <div class="crm-kpi-label">Taxa de retorno</div>
+          <div class="crm-kpi-val amber" id="crm-taxa-retorno">—</div>
+          <div class="crm-kpi-sub">voltaram após mensagem</div>
+        </div>
+        <div class="crm-kpi">
+          <div class="crm-kpi-label">Média por cliente</div>
+          <div class="crm-kpi-val" id="crm-media">—</div>
+          <div class="crm-kpi-sub">mensagens recebidas</div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="crm-tabs">
+        <button class="crm-tab active" onclick="crmShowTab('visao',this)">📊 Visão Geral</button>
+        <button class="crm-tab" onclick="crmShowTab('ranking',this)">🏆 Ranking</button>
+        <button class="crm-tab" onclick="crmShowTab('segmentos',this)">📂 Por Segmento</button>
+        <button class="crm-tab" onclick="crmShowTab('clientes',this)">👥 Por Cliente</button>
+      </div>
+
+      <!-- TAB VISÃO GERAL -->
+      <div id="crm-tab-visao">
+        <div class="crm-grid-2">
+          <div class="card">
+            <div class="card-header"><div class="card-title">📬 Funil de engajamento</div></div>
+            <div class="crm-funil" id="crm-funil">
+              <div class="empty-state" style="padding:24px"><p>Carregando...</p></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">📅 Envios por mês</div></div>
+            <div class="crm-mes-grid" id="crm-mes-chart"></div>
+          </div>
+        </div>
+        <div class="crm-grid-2">
+          <div class="card">
+            <div class="card-header"><div class="card-title">📂 Retorno por segmento</div></div>
+            <div id="crm-seg-retorno"><div class="empty-state" style="padding:16px"><p>Carregando...</p></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">⚡ Insights</div></div>
+            <div id="crm-insights" style="display:flex;flex-direction:column;gap:10px">
+              <div class="empty-state" style="padding:16px"><p>Carregando...</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB RANKING -->
+      <div id="crm-tab-ranking" style="display:none">
+        <div class="crm-grid-2">
+          <div class="card">
+            <div class="card-header"><div class="card-title">🏆 Mais mensagens recebidas</div></div>
+            <div class="crm-ranking" id="crm-rank-msgs">
+              <div class="empty-state" style="padding:24px"><p>Carregando...</p></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">🔁 Mais fidelizados</div></div>
+            <div class="crm-ranking" id="crm-rank-fid">
+              <div class="empty-state" style="padding:24px"><p>Carregando...</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB SEGMENTOS -->
+      <div id="crm-tab-segmentos" style="display:none">
+        <div class="crm-grid-3" id="crm-seg-cards">
+          <div class="empty-state" style="padding:24px"><p>Carregando...</p></div>
+        </div>
+      </div>
+
+      <!-- TAB POR CLIENTE -->
+      <div id="crm-tab-clientes" style="display:none">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">👥 Histórico por cliente</div>
+            <input type="text" id="crm-search" placeholder="Buscar cliente..." oninput="renderCrmClientes()"
+              style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;outline:none;width:200px">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 80px 80px 100px;padding:8px 14px;border-bottom:1px solid var(--border)">
+            <div style="font-size:0.7rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px">Cliente</div>
+            <div style="font-size:0.7rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;text-align:center">Enviados</div>
+            <div style="font-size:0.7rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;text-align:center">Retorno</div>
+            <div style="font-size:0.7rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;text-align:right">Último envio</div>
+          </div>
+          <div id="crm-cli-list"></div>
+        </div>
       </div>
     </div>
+
     <!-- ANIVERSÁRIOS -->
     <div class="page" id="page-aniversarios">
       <div style="margin-bottom:24px"><div style="font-size:1.1rem;font-weight:700;color:var(--white)">🎂 Aniversários</div><div style="font-size:0.82rem;color:var(--text2);margin-top:4px">Clientes que fazem aniversário hoje e nos próximos dias.</div></div>
@@ -2681,6 +2779,315 @@ async function dispararAniversariantesHoje() {
     await new Promise(r=>setTimeout(r,2000));
   }
   showToast('🎂 '+ok+' parabéns enviados!'); btn.textContent='Enviar para todos hoje'; btn.disabled=false;
+}
+
+// ══════════════════════════════════════════════════════
+// CRM
+// ══════════════════════════════════════════════════════
+let crmDados = { enviosPorCliente: {}, totalEnvios: 0, envios: [] };
+let crmTabAtual = 'visao';
+
+function crmShowTab(tab, btn) {
+  crmTabAtual = tab;
+  document.querySelectorAll('.crm-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  ['visao','ranking','segmentos','clientes'].forEach(t => {
+    const el = document.getElementById('crm-tab-' + t);
+    if (el) el.style.display = t === tab ? '' : 'none';
+  });
+  if (tab === 'clientes') renderCrmClientes();
+  if (tab === 'ranking') renderCrmRanking();
+  if (tab === 'segmentos') renderCrmSegmentos();
+}
+
+async function carregarCRM() {
+  if (!ACCOUNT.empresaId) return;
+  try {
+    const { data: envios } = await supabase
+      .from('envios')
+      .select('cliente_id, enviado_at, mensagem')
+      .eq('empresa_id', ACCOUNT.empresaId)
+      .order('enviado_at', { ascending: false });
+
+    if (!envios) return;
+
+    const porCliente = {};
+    envios.forEach(e => {
+      if (!e.cliente_id) return;
+      if (!porCliente[e.cliente_id]) porCliente[e.cliente_id] = { count: 0, ultimo: null };
+      porCliente[e.cliente_id].count++;
+      if (!porCliente[e.cliente_id].ultimo) porCliente[e.cliente_id].ultimo = e.enviado_at;
+    });
+
+    crmDados.enviosPorCliente = porCliente;
+    crmDados.totalEnvios = envios.length;
+    crmDados.envios = envios;
+
+    renderCrmKPIs();
+    renderCrmFunil();
+    renderCrmMesChart(envios);
+    renderCrmSegRetorno();
+    renderCrmInsights();
+  } catch(e) { console.error('CRM error', e); }
+}
+
+function renderCrmKPIs() {
+  const pC = crmDados.enviosPorCliente;
+  const alcancados = Object.keys(pC).length;
+  const total = crmDados.totalEnvios;
+  const media = alcancados > 0 ? (total / alcancados).toFixed(1) : 0;
+
+  let retornaram = 0;
+  clientes.forEach(c => {
+    if (pC[c.id] && calcDays(c.ultima) < (SEGMENTOS[c.seg]?.dias || 10)) retornaram++;
+  });
+  const taxa = alcancados > 0 ? Math.round((retornaram / alcancados) * 100) : 0;
+
+  document.getElementById('crm-total-env').textContent = total.toLocaleString('pt-BR');
+  document.getElementById('crm-alcancados').textContent = alcancados;
+  document.getElementById('crm-media').textContent = media;
+
+  const taxaEl = document.getElementById('crm-taxa-retorno');
+  taxaEl.textContent = taxa + '%';
+  taxaEl.className = 'crm-kpi-val ' + (taxa >= 50 ? 'green' : taxa >= 25 ? 'amber' : 'red');
+}
+
+function renderCrmFunil() {
+  const pC = crmDados.enviosPorCliente;
+  const total = clientes.length;
+  const alcancados = Object.keys(pC).length;
+  let retornaram = 0;
+  clientes.forEach(c => {
+    if (pC[c.id] && calcDays(c.ultima) < (SEGMENTOS[c.seg]?.dias || 10)) retornaram++;
+  });
+  const fidelizados = clientes.filter(c => c.fidelizado).length;
+
+  const items = [
+    { icon: '👥', label: 'Total de clientes',        val: total,      cor: 'var(--blue)',  pct: 100 },
+    { icon: '📬', label: 'Receberam mensagem',        val: alcancados, cor: 'var(--accent)', pct: total > 0 ? Math.round(alcancados/total*100) : 0 },
+    { icon: '🔁', label: 'Retornaram após mensagem',  val: retornaram, cor: 'var(--green)', pct: alcancados > 0 ? Math.round(retornaram/alcancados*100) : 0 },
+    { icon: '⭐', label: 'Fidelizados',               val: fidelizados,cor: 'var(--amber)', pct: retornaram > 0 ? Math.round(fidelizados/retornaram*100) : 0 },
+  ];
+
+  document.getElementById('crm-funil').innerHTML = items.map(i => `
+    <div class="crm-funil-item">
+      <div class="crm-funil-icon">${i.icon}</div>
+      <div class="crm-funil-info">
+        <div class="crm-funil-label">${i.label}</div>
+        <div class="crm-funil-bar-wrap">
+          <div class="crm-funil-bar" style="width:${i.pct}%;background:${i.cor}"></div>
+        </div>
+      </div>
+      <div class="crm-funil-val">${i.val} <span style="font-size:0.7rem;color:var(--text3)">(${i.pct}%)</span></div>
+    </div>`).join('');
+}
+
+function renderCrmMesChart(envios) {
+  const meses = {};
+  const hoje = new Date();
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(hoje.getFullYear(), hoje.getMonth() - i, 1);
+    const key = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0');
+    meses[key] = { label: d.toLocaleDateString('pt-BR', { month: 'short' }), count: 0 };
+  }
+  envios.forEach(e => {
+    const key = e.enviado_at.slice(0,7);
+    if (meses[key]) meses[key].count++;
+  });
+  const vals = Object.values(meses);
+  const max = Math.max(...vals.map(v => v.count), 1);
+  document.getElementById('crm-mes-chart').innerHTML = vals.map(m => `
+    <div class="crm-mes-col">
+      <div class="crm-mes-val">${m.count || ''}</div>
+      <div class="crm-mes-bar-wrap">
+        <div class="crm-mes-bar" style="height:${Math.round((m.count/max)*100)}%"></div>
+      </div>
+      <div class="crm-mes-label">${m.label}</div>
+    </div>`).join('');
+}
+
+function renderCrmSegRetorno() {
+  const pC = crmDados.enviosPorCliente;
+  const porSeg = {}, totalSeg = {};
+  clientes.forEach(c => {
+    if (!totalSeg[c.seg]) totalSeg[c.seg] = 0;
+    totalSeg[c.seg]++;
+    if (pC[c.id] && calcDays(c.ultima) < (SEGMENTOS[c.seg]?.dias || 10)) {
+      if (!porSeg[c.seg]) porSeg[c.seg] = 0;
+      porSeg[c.seg]++;
+    }
+  });
+  const cols = ['var(--blue)','var(--accent)','var(--green)','var(--amber)','#a78bfa','#f472b6','var(--red)'];
+  const segs = Object.keys(SEGMENTOS).filter(s => totalSeg[s] > 0);
+  const max = Math.max(...segs.map(s => totalSeg[s]), 1);
+
+  document.getElementById('crm-seg-retorno').innerHTML = segs.length === 0
+    ? '<div class="empty-state" style="padding:16px"><p>Nenhum dado ainda.</p></div>'
+    : segs.map((seg, i) => {
+        const tot = totalSeg[seg] || 0, ret = porSeg[seg] || 0;
+        const pct = tot > 0 ? Math.round(ret/tot*100) : 0;
+        return `<div class="crm-seg-row">
+          <div class="crm-seg-emoji">${SEGMENTOS[seg]?.emoji || ''}</div>
+          <div class="crm-seg-info">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+              <div class="crm-seg-name">${seg}</div>
+              <div style="font-size:0.72rem;color:var(--text3)">${ret}/${tot} retornaram</div>
+            </div>
+            <div class="crm-seg-bar-wrap">
+              <div class="crm-seg-bar" style="width:${Math.round(tot/max*100)}%;background:${cols[i%cols.length]}"></div>
+            </div>
+          </div>
+          <div class="crm-seg-pct" style="color:${pct>=50?'var(--green)':pct>=25?'var(--amber)':'var(--red)'}">${pct}%</div>
+        </div>`;
+      }).join('');
+}
+
+function renderCrmInsights() {
+  const pC = crmDados.enviosPorCliente;
+  const semMensagem = clientes.filter(c => !pC[c.id]);
+  let melhorSeg = null, melhorPct = 0;
+  Object.keys(SEGMENTOS).forEach(seg => {
+    const segCli = clientes.filter(c => c.seg === seg);
+    const segRet = segCli.filter(c => pC[c.id] && calcDays(c.ultima) < (SEGMENTOS[seg]?.dias || 10));
+    const pct = segCli.length > 0 ? segRet.length / segCli.length : 0;
+    if (pct > melhorPct && segCli.length > 0) { melhorPct = pct; melhorSeg = seg; }
+  });
+
+  const insights = [];
+  if (semMensagem.length > 0)
+    insights.push({ icon: '⚠️', cor: 'var(--amber)', txt: `<strong>${semMensagem.length} cliente${semMensagem.length>1?'s':''}</strong> nunca receberam mensagem` });
+  if (melhorSeg)
+    insights.push({ icon: '🏆', cor: 'var(--green)', txt: `Segmento <strong>${melhorSeg}</strong> tem o melhor retorno (${Math.round(melhorPct*100)}%)` });
+  const fidelizados = clientes.filter(c => c.fidelizado).length;
+  if (fidelizados > 0)
+    insights.push({ icon: '⭐', cor: 'var(--amber)', txt: `<strong>${fidelizados}</strong> clientes fidelizados — cuide bem deles!` });
+  const maisEngajado = clientes.reduce((best, c) => (pC[c.id]?.count||0) > (pC[best?.id]?.count||0) ? c : best, null);
+  if (maisEngajado && pC[maisEngajado.id])
+    insights.push({ icon: '💬', cor: 'var(--blue-lite)', txt: `<strong>${maisEngajado.nome.split(' ')[0]}</strong> recebeu mais mensagens (${pC[maisEngajado.id].count}x)` });
+
+  document.getElementById('crm-insights').innerHTML = insights.length === 0
+    ? '<div style="color:var(--text3);font-size:0.85rem;padding:16px 0">Envie mensagens para ver insights aqui!</div>'
+    : insights.map(i => `
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:var(--bg3);border-radius:10px;border-left:3px solid ${i.cor}">
+          <span style="font-size:1.1rem;flex-shrink:0">${i.icon}</span>
+          <span style="font-size:0.83rem;color:var(--text2);line-height:1.5">${i.txt}</span>
+        </div>`).join('');
+}
+
+function renderCrmRanking() {
+  const pC = crmDados.enviosPorCliente;
+  const medals = ['🥇','🥈','🥉'];
+  const posCls = i => i===0?'gold':i===1?'silver':i===2?'bronze':'';
+
+  const ranked = [...clientes]
+    .filter(c => pC[c.id])
+    .sort((a,b) => (pC[b.id]?.count||0) - (pC[a.id]?.count||0))
+    .slice(0,15);
+
+  document.getElementById('crm-rank-msgs').innerHTML = ranked.length === 0
+    ? '<div class="empty-state" style="padding:24px"><p>Nenhum envio com cliente vinculado ainda.</p></div>'
+    : ranked.map((c,i) => `
+        <div class="crm-rank-item">
+          <div class="crm-rank-pos ${posCls(i)}">${i<3?medals[i]:i+1}</div>
+          <div style="flex:1">
+            <div class="crm-rank-nome">${c.nome}</div>
+            <div class="crm-rank-seg">${SEGMENTOS[c.seg]?.emoji||''} ${c.seg}</div>
+          </div>
+          <div class="crm-rank-stat">${pC[c.id]?.count||0}x</div>
+        </div>`).join('');
+
+  const fids = [...clientes]
+    .filter(c => c.fidelizado)
+    .sort((a,b) => calcDays(a.ultima) - calcDays(b.ultima))
+    .slice(0,15);
+
+  document.getElementById('crm-rank-fid').innerHTML = fids.length === 0
+    ? '<div class="empty-state" style="padding:24px"><p>Nenhum fidelizado ainda.</p></div>'
+    : fids.map((c,i) => `
+        <div class="crm-rank-item">
+          <div class="crm-rank-pos ${posCls(i)}">${i<3?medals[i]:i+1}</div>
+          <div style="flex:1">
+            <div class="crm-rank-nome">${c.nome}</div>
+            <div class="crm-rank-seg">${SEGMENTOS[c.seg]?.emoji||''} ${c.seg} · ${calcDays(c.ultima)}d atrás</div>
+          </div>
+          <div style="font-size:0.82rem;font-weight:700;color:var(--amber)">⭐</div>
+        </div>`).join('');
+}
+
+function renderCrmSegmentos() {
+  const pC = crmDados.enviosPorCliente;
+  const segData = Object.entries(SEGMENTOS).map(([seg,s]) => {
+    const segCli = clientes.filter(c => c.seg === seg);
+    const alcancados = segCli.filter(c => pC[c.id]).length;
+    const retornaram = segCli.filter(c => pC[c.id] && calcDays(c.ultima) < s.dias).length;
+    const totalMsg = segCli.reduce((sum,c) => sum + (pC[c.id]?.count||0), 0);
+    const taxa = alcancados > 0 ? Math.round(retornaram/alcancados*100) : 0;
+    return { seg, s, total: segCli.length, alcancados, retornaram, totalMsg, taxa };
+  }).filter(d => d.total > 0);
+
+  document.getElementById('crm-seg-cards').innerHTML = segData.length === 0
+    ? '<div class="empty-state" style="padding:24px"><p>Nenhum cliente cadastrado ainda.</p></div>'
+    : segData.map(d => `
+      <div class="card" style="padding:20px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <span style="font-size:1.6rem">${d.s.emoji}</span>
+          <div>
+            <div style="font-size:0.95rem;font-weight:700;color:var(--white)">${d.seg}</div>
+            <div style="font-size:0.75rem;color:var(--text3)">Dispara após ${d.s.dias} dias</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+          <div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:1.4rem;font-weight:800;color:var(--white)">${d.total}</div>
+            <div style="font-size:0.68rem;color:var(--text3)">clientes</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:1.4rem;font-weight:800;color:var(--blue-lite)">${d.totalMsg}</div>
+            <div style="font-size:0.68rem;color:var(--text3)">msgs enviadas</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:1.4rem;font-weight:800;color:var(--accent)">${d.alcancados}</div>
+            <div style="font-size:0.68rem;color:var(--text3)">alcançados</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:1.4rem;font-weight:800;color:${d.taxa>=50?'var(--green)':d.taxa>=25?'var(--amber)':'var(--red)'}">${d.taxa}%</div>
+            <div style="font-size:0.68rem;color:var(--text3)">retorno</div>
+          </div>
+        </div>
+        <div style="height:4px;background:var(--bg3);border-radius:4px;overflow:hidden">
+          <div style="height:100%;width:${d.taxa}%;background:${d.taxa>=50?'var(--green)':d.taxa>=25?'var(--amber)':'var(--red)'};border-radius:4px;transition:width 0.6s ease"></div>
+        </div>
+      </div>`).join('');
+}
+
+function renderCrmClientes() {
+  const pC = crmDados.enviosPorCliente;
+  const q = (document.getElementById('crm-search')?.value || '').toLowerCase();
+  const lista = [...clientes]
+    .filter(c => !q || c.nome.toLowerCase().includes(q))
+    .sort((a,b) => (pC[b.id]?.count||0) - (pC[a.id]?.count||0));
+
+  const wrap = document.getElementById('crm-cli-list');
+  if (!lista.length) { wrap.innerHTML = '<div class="empty-state" style="padding:24px"><p>Nenhum cliente.</p></div>'; return; }
+
+  wrap.innerHTML = lista.map(c => {
+    const msgs = pC[c.id]?.count || 0;
+    const ultimo = pC[c.id]?.ultimo
+      ? new Date(pC[c.id].ultimo).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})
+      : '-';
+    const retornou = pC[c.id] && calcDays(c.ultima) < (SEGMENTOS[c.seg]?.dias||10);
+    return `<div class="crm-cliente-row">
+      <div>
+        <div class="crm-cli-nome">${c.fidelizado?'⭐ ':''}${c.nome}</div>
+        <div class="crm-cli-seg">${SEGMENTOS[c.seg]?.emoji||''} ${c.seg}</div>
+      </div>
+      <div class="crm-cli-msgs">${msgs>0?msgs+'x':'<span style="color:var(--text3)">-</span>'}</div>
+      <div class="crm-cli-retorno" style="color:${retornou?'var(--green)':msgs>0?'var(--red)':'var(--text3)'}">
+        ${msgs>0?(retornou?'✓':'✗'):'-'}
+      </div>
+      <div class="crm-cli-ultimo">${ultimo}</div>
+    </div>`;
+  }).join('');
 }
 
 renderTemplates();
