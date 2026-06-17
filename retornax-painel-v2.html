@@ -412,6 +412,11 @@ tbody td.name{color:var(--text);font-weight:500}
   .btn-verificar { display:inline-flex; align-items:center; gap:8px; background:var(--green); color:#fff; border:none; border-radius:8px; padding:10px 20px; font-size:0.85rem; font-weight:600; font-family:'Plus Jakarta Sans',sans-serif; cursor:pointer; transition:all 0.2s; }
   .btn-verificar:hover { opacity:0.85; }
   .btn-verificar:disabled { opacity:0.5; cursor:default; }
+.camp-destinatarios{display:none;padding:12px 16px;background:var(--bg3);border-top:1px solid var(--border)}
+.camp-destinatarios.open{display:block}
+.camp-dest-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.camp-dest-pill{background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:3px 10px;font-size:0.72rem;color:var(--text2)}
+.btn-ver-dest{background:none;border:none;color:var(--blue-lite);font-size:0.75rem;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;padding:0;text-decoration:underline}
 </style>
 </head>
 <body>
@@ -2286,7 +2291,8 @@ async function dispararCampanha(){
       campanhasHistorico.unshift({
         nome, publico, enviados: data.enviados, total: data.total,
         data: new Date().toLocaleDateString('pt-BR'),
-        hora: new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})
+        hora: new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}),
+        destinatarios: lista.map(c => c.nome)
       });
       renderCampanhasHistorico();
       fecharFormCampanha();
@@ -2307,15 +2313,30 @@ function renderCampanhasHistorico(){
     el.innerHTML = `<div class="empty-state"><div class="empty-icon">📣</div><strong style="color:var(--text)">Nenhuma campanha ainda</strong><p>Crie sua primeira campanha e dispare para toda sua base!</p></div>`;
     return;
   }
-  el.innerHTML = `<table><thead><tr><th>Campanha</th><th>Público</th><th>Enviados</th><th>Data</th><th>Status</th></tr></thead><tbody>
-    ${campanhasHistorico.map(c=>`<tr>
-      <td class="name">${c.nome}</td>
-      <td>${c.publico === 'todos' ? 'Todos os clientes' : c.publico}</td>
-      <td>${c.enviados} / ${c.total}</td>
-      <td>${c.data} ${c.hora}</td>
-      <td><span class="badge badge-green">✓ Concluída</span></td>
-    </tr>`).join('')}
-  </tbody></table>`;
+  el.innerHTML = campanhasHistorico.map((c,idx) => `
+    <div style="border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:16px;padding:13px 16px;flex-wrap:wrap">
+        <div style="flex:1;min-width:120px;font-size:0.84rem;font-weight:500;color:var(--text)">${c.nome}</div>
+        <div style="font-size:0.82rem;color:var(--text2)">${c.publico === 'todos' ? 'Todos os clientes' : c.publico}</div>
+        <div style="font-size:0.82rem;color:var(--text2)">${c.enviados} / ${c.total} enviados</div>
+        <div style="font-size:0.78rem;color:var(--text3)">${c.data} ${c.hora}</div>
+        <span class="badge badge-green">✓ Concluída</span>
+        ${c.destinatarios && c.destinatarios.length ? `<button class="btn-ver-dest" onclick="toggleDestinatarios(${idx})">Ver quem recebeu ▾</button>` : ''}
+      </div>
+      ${c.destinatarios && c.destinatarios.length ? `
+        <div class="camp-destinatarios" id="camp-dest-${idx}">
+          <div style="font-size:0.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">${c.destinatarios.length} destinatário${c.destinatarios.length>1?'s':''}</div>
+          <div class="camp-dest-grid">${c.destinatarios.map(n=>`<span class="camp-dest-pill">${n}</span>`).join('')}</div>
+        </div>` : ''}
+    </div>`).join('');
+}
+
+function toggleDestinatarios(idx){
+  const el = document.getElementById('camp-dest-'+idx);
+  if(!el) return;
+  el.classList.toggle('open');
+  const btn = el.previousElementSibling && el.previousElementSibling.querySelector('.btn-ver-dest');
+  if(btn) btn.textContent = el.classList.contains('open') ? 'Ocultar ▴' : 'Ver quem recebeu ▾';
 }
 
 function checkOnboarding(){
