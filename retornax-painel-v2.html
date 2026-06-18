@@ -853,6 +853,45 @@ tbody td.name{color:var(--text);font-weight:500}
         </div>
         <div class="config-section"><h3>Horário de envio</h3><div class="config-row"><span class="config-key">Janela de envio</span><span class="config-val">09:00 — 19:00</span></div><div class="config-row"><span class="config-key">Dias da semana</span><span class="config-val">Seg a Sáb</span></div></div>
         <div class="config-section"><h3>Notificações</h3><div class="config-row"><span class="config-key">Quando cliente responde</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div><div class="config-row"><span class="config-key">Resumo diário por e-mail</span><label class="toggle" style="margin-left:auto"><input type="checkbox" checked><span class="toggle-slider"></span></label></div></div>
+
+        <!-- SAÚDE DO NÚMERO -->
+        <div class="config-section" id="saude-section" style="grid-column:1/-1">
+          <h3 style="display:flex;align-items:center;gap:8px">
+            Saúde do número
+            <span id="saude-badge" style="font-size:0.72rem;padding:2px 10px;border-radius:20px;font-weight:600"></span>
+          </h3>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px" id="saude-kpis">
+            <div style="background:var(--bg2);border-radius:10px;padding:12px">
+              <div style="font-size:0.72rem;color:var(--text3);margin-bottom:4px">Score hoje</div>
+              <div style="font-size:1.5rem;font-weight:700" id="saude-score">—</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:10px;padding:12px">
+              <div style="font-size:0.72rem;color:var(--text3);margin-bottom:4px">Enviadas hoje</div>
+              <div style="font-size:1.5rem;font-weight:700" id="saude-enviadas">—</div>
+              <div style="font-size:0.7rem;color:var(--text3)">limite 25/dia</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:10px;padding:12px">
+              <div style="font-size:0.72rem;color:var(--text3);margin-bottom:4px">Entregues</div>
+              <div style="font-size:1.5rem;font-weight:700" id="saude-entregues">—</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:10px;padding:12px">
+              <div style="font-size:0.72rem;color:var(--text3);margin-bottom:4px">Taxa de resposta</div>
+              <div style="font-size:1.5rem;font-weight:700" id="saude-taxa">—</div>
+            </div>
+          </div>
+
+          <!-- Fatores -->
+          <div style="font-size:0.78rem;font-weight:600;color:var(--text2);margin-bottom:8px">Fatores de risco</div>
+          <div id="saude-fatores" style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px"></div>
+
+          <!-- Alerta -->
+          <div id="saude-alerta" style="display:none;border-radius:10px;padding:10px 14px;font-size:0.78rem;line-height:1.6;margin-bottom:14px"></div>
+
+          <!-- Histórico mini -->
+          <div style="font-size:0.78rem;font-weight:600;color:var(--text2);margin-bottom:8px">Histórico 7 dias</div>
+          <div id="saude-historico" style="display:flex;align-items:flex-end;gap:6px;height:48px"></div>
+          <div style="font-size:0.68rem;color:var(--text3);margin-top:4px">Score diário — verde ≥70, amarelo ≥40, vermelho &lt;40</div>
+        </div>
       </div>
     </div>
     <!-- OPERACIONAL (ADMIN) -->
@@ -1736,6 +1775,7 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
+  if(id==='config') carregarSaude();
   const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',agenda:'Agenda',config:'Conectar WhatsApp',novidades:'Novidades',tutoriais:'Tutoriais'};
   const saudacaoEl = document.getElementById('saudacao-texto');
   const tituloEl = document.getElementById('page-title');
@@ -3276,6 +3316,89 @@ function renderAgenda(){
 renderTemplates();
 document.getElementById('f-data').valueAsDate=new Date();
 checkAuth();
+
+// ── SAÚDE DO NÚMERO ──────────────────────────────────────────────────────────
+async function carregarSaude(){
+  if(!ACCOUNT.empresaId) return;
+  try{
+    const res = await fetch(`${BACKEND}/api/saude/${ACCOUNT.empresaId}`);
+    const d   = await res.json();
+
+    // Score principal
+    const score = d.score ?? 100;
+    const scoreEl = document.getElementById('saude-score');
+    if(scoreEl){
+      scoreEl.textContent = score;
+      scoreEl.style.color = score>=70?'var(--green)':score>=40?'var(--amber)':'var(--red)';
+    }
+
+    // Badge
+    const badge = document.getElementById('saude-badge');
+    if(badge){
+      if(score>=70){ badge.textContent='Saudável'; badge.style.cssText='background:rgba(0,214,143,0.15);color:var(--green);font-size:0.72rem;padding:2px 10px;border-radius:20px;font-weight:600'; }
+      else if(score>=40){ badge.textContent='Atenção'; badge.style.cssText='background:rgba(255,176,32,0.15);color:var(--amber);font-size:0.72rem;padding:2px 10px;border-radius:20px;font-weight:600'; }
+      else{ badge.textContent='Risco'; badge.style.cssText='background:rgba(255,77,77,0.15);color:var(--red);font-size:0.72rem;padding:2px 10px;border-radius:20px;font-weight:600'; }
+    }
+
+    // KPIs
+    const set = (id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=v; };
+    set('saude-enviadas', d.msgs_enviadas ?? 0);
+    set('saude-entregues', d.msgs_entregues ?? 0);
+    set('saude-taxa', (d.taxa_resposta ?? 100)+'%');
+
+    // Fatores
+    const fatores=[
+      {n:'Volume diário', ok:(d.msgs_enviadas??0)<=25, detalhe:(d.msgs_enviadas??0)+'/25 msgs hoje'},
+      {n:'Taxa de resposta', ok:(d.taxa_resposta??100)>=60, detalhe:(d.taxa_resposta??100)+'% (ideal ≥60%)'},
+    ];
+    const fatEl = document.getElementById('saude-fatores');
+    if(fatEl){
+      fatEl.innerHTML = fatores.map(f=>`
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:0.78rem">
+          <span style="color:${f.ok?'var(--green)':'var(--red)'}">${f.ok?'✓':'✕'}</span>
+          <span style="font-weight:600;color:var(--text)">${f.n}</span>
+          <span style="color:var(--text3);margin-left:auto">${f.detalhe}</span>
+        </div>`).join('');
+    }
+
+    // Alerta
+    const alertaEl = document.getElementById('saude-alerta');
+    if(alertaEl){
+      if(d.alerta==='critico'){
+        alertaEl.style.display='block';
+        alertaEl.style.cssText='display:block;background:rgba(255,77,77,0.1);border:1px solid rgba(255,77,77,0.3);border-radius:10px;padding:10px 14px;font-size:0.78rem;line-height:1.6;color:var(--red)';
+        alertaEl.textContent='🚨 Risco crítico de ban. Pare os disparos e verifique os fatores acima antes de continuar.';
+      } else if(d.alerta==='atencao'){
+        alertaEl.style.display='block';
+        alertaEl.style.cssText='display:block;background:rgba(255,176,32,0.1);border:1px solid rgba(255,176,32,0.3);border-radius:10px;padding:10px 14px;font-size:0.78rem;line-height:1.6;color:var(--amber)';
+        alertaEl.textContent='⚠️ Atenção: alguns fatores estão elevando o risco. Revise os itens marcados em vermelho.';
+      } else {
+        alertaEl.style.display='none';
+      }
+    }
+
+    // Histórico mini-gráfico
+    const histEl = document.getElementById('saude-historico');
+    if(histEl && d.historico?.length){
+      histEl.innerHTML = d.historico.map(h=>{
+        const s=h.score??100;
+        const cor=s>=70?'var(--green)':s>=40?'var(--amber)':'var(--red)';
+        const h_pct=Math.round(s/100*48);
+        const dia=h.data?.slice(5); // MM-DD
+        return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1">
+          <div style="font-size:9px;color:var(--text3)">${s}</div>
+          <div style="width:100%;background:${cor};border-radius:3px 3px 0 0;height:${h_pct}px"></div>
+          <div style="font-size:9px;color:var(--text3)">${dia}</div>
+        </div>`;
+      }).join('');
+    } else if(histEl){
+      histEl.innerHTML='<div style="font-size:0.75rem;color:var(--text3)">Sem histórico ainda — os dados aparecem após os primeiros envios.</div>';
+    }
+
+  } catch(e){
+    console.warn('Saúde não disponível:', e.message);
+  }
+}
 </script>
 
 <a href="https://wa.me/5551984026354?text=Oi!+Preciso+de+ajuda+com+o+Retornax+%F0%9F%9A%80" target="_blank" class="suporte-btn">
