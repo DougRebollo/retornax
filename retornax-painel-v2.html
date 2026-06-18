@@ -557,15 +557,42 @@ tbody td.name{color:var(--text);font-weight:500}
         <div class="stat-card"><div class="stat-top"><div class="stat-label">Precisam de contato</div><div class="stat-icon red">&#x26A0;&#xFE0F;</div></div><div class="stat-val" id="dash-fila">0</div><div class="stat-sub">aguardando envio</div></div>
       </div>
       <div class="grid-2">
-        <div class="card">
-          <div class="card-header"><div class="card-title">Atividade recente</div><button class="btn btn-ghost btn-sm" onclick="showPage('historico',document.querySelectorAll('.nav-item')[3])">Ver histórico</button></div>
-          <div class="activity-list" id="activity-list"><div class="empty-state" style="padding:24px"><div class="empty-icon">&#x1F4ED;</div><strong style="color:var(--text)">Nenhuma atividade ainda</strong><p>As mensagens enviadas aparecerão aqui.</p></div></div>
+        <div class="card" id="dash-saude-card">
+          <div class="card-header">
+            <div class="card-title">Saúde do número</div>
+            <span id="dash-saude-badge" style="font-size:0.72rem;padding:2px 10px;border-radius:20px;font-weight:600"></span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
+            <div style="background:var(--bg2);border-radius:8px;padding:10px">
+              <div style="font-size:0.72rem;color:var(--text3);margin-bottom:3px">Score hoje</div>
+              <div style="font-size:1.4rem;font-weight:700" id="dash-saude-score">—</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:8px;padding:10px">
+              <div style="font-size:0.72rem;color:var(--text3);margin-bottom:3px">Enviadas hoje</div>
+              <div style="font-size:1.4rem;font-weight:700" id="dash-saude-enviadas">—</div>
+              <div style="font-size:0.68rem;color:var(--text3)">limite 25/dia</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:8px;padding:10px">
+              <div style="font-size:0.72rem;color:var(--text3);margin-bottom:3px">Entregues</div>
+              <div style="font-size:1.4rem;font-weight:700" id="dash-saude-entregues">—</div>
+            </div>
+            <div style="background:var(--bg2);border-radius:8px;padding:10px">
+              <div style="font-size:0.72rem;color:var(--text3);margin-bottom:3px">Taxa resposta</div>
+              <div style="font-size:1.4rem;font-weight:700" id="dash-saude-taxa">—</div>
+            </div>
+          </div>
+          <div id="dash-saude-fatores" style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px"></div>
+          <div id="dash-saude-alerta" style="display:none;border-radius:8px;padding:9px 12px;font-size:0.78rem;line-height:1.5"></div>
         </div>
         <div class="card">
           <div class="card-header"><div class="card-title">Por segmento</div></div>
           <div class="seg-list" id="dash-segs"></div>
-          <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
-            <div class="card-title" style="margin-bottom:12px">Plano atual</div>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
+            <div class="card-title" style="margin-bottom:10px">🎂 Aniversariantes hoje</div>
+            <div id="dash-aniv-hoje" style="display:flex;flex-direction:column;gap:6px;font-size:0.82rem"></div>
+          </div>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
+            <div class="card-title" style="margin-bottom:8px">Plano atual</div>
             <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:8px"><span style="color:var(--text2)">Clientes cadastrados</span><span style="color:var(--text)" id="plano-cli">0 / —</span></div>
             <div style="height:6px;background:var(--bg3);border-radius:4px;overflow:hidden"><div style="height:100%;width:0%;background:var(--blue);border-radius:4px;transition:width 0.5s" id="bar-cli"></div></div>
             <div style="display:flex;justify-content:space-between;font-size:0.82rem;margin-top:10px"><span style="color:var(--text2)">Mensagens este mês</span><span style="color:var(--text)" id="plano-msg">0 / —</span></div>
@@ -1776,6 +1803,7 @@ function showPage(id,btn){
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
   if(id==='config') carregarSaude();
+  if(id==='dashboard'){ carregarSaude(); renderAnivDashboard(); }
   const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',agenda:'Agenda',config:'Conectar WhatsApp',novidades:'Novidades',tutoriais:'Tutoriais'};
   const saudacaoEl = document.getElementById('saudacao-texto');
   const tituloEl = document.getElementById('page-title');
@@ -2192,6 +2220,8 @@ async function checkAuth(){
   }
   initAccountStatus();
   await carregarClientes();
+  carregarSaude();
+  renderAnivDashboard();
 }
 
 async function carregarClientes(){
@@ -3327,6 +3357,7 @@ async function registrarEnvioSaude({ intervalo=30, identica=false, frio=false }=
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ intervalo, identica, frio })
     });
+    carregarSaude(); // atualiza o card automaticamente
   } catch(e) { /* silencioso — não bloqueia o envio */ }
 }
 
@@ -3336,70 +3367,64 @@ async function carregarSaude(){
     const res = await fetch(`${BACKEND}/api/saude/${ACCOUNT.empresaId}`);
     const d   = await res.json();
 
-    // Score principal
     const score = d.score ?? 100;
-    const scoreEl = document.getElementById('saude-score');
-    if(scoreEl){
-      scoreEl.textContent = score;
-      scoreEl.style.color = score>=70?'var(--green)':score>=40?'var(--amber)':'var(--red)';
-    }
+    const cor   = score>=70?'var(--green)':score>=40?'var(--amber)':'var(--red)';
+    const badgeBg = score>=70?'rgba(0,214,143,0.15)':score>=40?'rgba(255,176,32,0.15)':'rgba(255,77,77,0.15)';
+    const badgeTxt = score>=70?'Saudável':score>=40?'Atenção':'Risco';
 
-    // Badge
-    const badge = document.getElementById('saude-badge');
-    if(badge){
-      if(score>=70){ badge.textContent='Saudável'; badge.style.cssText='background:rgba(0,214,143,0.15);color:var(--green);font-size:0.72rem;padding:2px 10px;border-radius:20px;font-weight:600'; }
-      else if(score>=40){ badge.textContent='Atenção'; badge.style.cssText='background:rgba(255,176,32,0.15);color:var(--amber);font-size:0.72rem;padding:2px 10px;border-radius:20px;font-weight:600'; }
-      else{ badge.textContent='Risco'; badge.style.cssText='background:rgba(255,77,77,0.15);color:var(--red);font-size:0.72rem;padding:2px 10px;border-radius:20px;font-weight:600'; }
-    }
+    // Atualiza ambos os locais (config e dashboard)
+    const ids = [
+      ['saude-score','dash-saude-score'],
+      ['saude-enviadas','dash-saude-enviadas'],
+      ['saude-entregues','dash-saude-entregues'],
+      ['saude-taxa','dash-saude-taxa'],
+    ];
+    const vals = [score, d.msgs_enviadas??0, d.msgs_entregues??0, (d.taxa_resposta??100)+'%'];
+    ids.forEach(([a,b],i)=>{
+      [a,b].forEach(id=>{ const el=document.getElementById(id); if(el){ el.textContent=vals[i]; if(i===0) el.style.color=cor; }});
+    });
 
-    // KPIs
-    const set = (id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=v; };
-    set('saude-enviadas', d.msgs_enviadas ?? 0);
-    set('saude-entregues', d.msgs_entregues ?? 0);
-    set('saude-taxa', (d.taxa_resposta ?? 100)+'%');
+    // Badges
+    ['saude-badge','dash-saude-badge'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el){ el.textContent=badgeTxt; el.style.cssText=`background:${badgeBg};color:${cor};font-size:0.72rem;padding:2px 10px;border-radius:20px;font-weight:600`; }
+    });
 
     // Fatores
     const fatores=[
       {n:'Volume diário', ok:(d.msgs_enviadas??0)<=25, detalhe:(d.msgs_enviadas??0)+'/25 msgs hoje'},
       {n:'Taxa de resposta', ok:(d.taxa_resposta??100)>=60, detalhe:(d.taxa_resposta??100)+'% (ideal ≥60%)'},
     ];
-    const fatEl = document.getElementById('saude-fatores');
-    if(fatEl){
-      fatEl.innerHTML = fatores.map(f=>`
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:0.78rem">
-          <span style="color:${f.ok?'var(--green)':'var(--red)'}">${f.ok?'✓':'✕'}</span>
-          <span style="font-weight:600;color:var(--text)">${f.n}</span>
-          <span style="color:var(--text3);margin-left:auto">${f.detalhe}</span>
-        </div>`).join('');
-    }
+    const fatorHTML = fatores.map(f=>`
+      <div style="display:flex;align-items:center;gap:10px;padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-size:0.78rem">
+        <span style="color:${f.ok?'var(--green)':'var(--red)'}">${f.ok?'✓':'✕'}</span>
+        <span style="font-weight:600;color:var(--text)">${f.n}</span>
+        <span style="color:var(--text3);margin-left:auto">${f.detalhe}</span>
+      </div>`).join('');
+    ['saude-fatores','dash-saude-fatores'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=fatorHTML; });
 
-    // Alerta
-    const alertaEl = document.getElementById('saude-alerta');
-    if(alertaEl){
-      if(d.alerta==='critico'){
-        alertaEl.style.display='block';
-        alertaEl.style.cssText='display:block;background:rgba(255,77,77,0.1);border:1px solid rgba(255,77,77,0.3);border-radius:10px;padding:10px 14px;font-size:0.78rem;line-height:1.6;color:var(--red)';
-        alertaEl.textContent='🚨 Risco crítico de ban. Pare os disparos e verifique os fatores acima antes de continuar.';
-      } else if(d.alerta==='atencao'){
-        alertaEl.style.display='block';
-        alertaEl.style.cssText='display:block;background:rgba(255,176,32,0.1);border:1px solid rgba(255,176,32,0.3);border-radius:10px;padding:10px 14px;font-size:0.78rem;line-height:1.6;color:var(--amber)';
-        alertaEl.textContent='⚠️ Atenção: alguns fatores estão elevando o risco. Revise os itens marcados em vermelho.';
-      } else {
-        alertaEl.style.display='none';
-      }
+    // Alertas
+    let alertaHTML='', alertaStyle='display:none';
+    if(d.alerta==='critico'){
+      alertaStyle='display:block;background:rgba(255,77,77,0.1);border:1px solid rgba(255,77,77,0.3);border-radius:8px;padding:9px 12px;font-size:0.78rem;line-height:1.5;color:var(--red)';
+      alertaHTML='🚨 Risco crítico de ban. Pare os disparos e verifique os fatores acima.';
+    } else if(d.alerta==='atencao'){
+      alertaStyle='display:block;background:rgba(255,176,32,0.1);border:1px solid rgba(255,176,32,0.3);border-radius:8px;padding:9px 12px;font-size:0.78rem;line-height:1.5;color:var(--amber)';
+      alertaHTML='⚠️ Atenção: alguns fatores estão elevando o risco. Revise os itens em vermelho.';
     }
+    ['saude-alerta','dash-saude-alerta'].forEach(id=>{ const el=document.getElementById(id); if(el){ el.style.cssText=alertaStyle; el.textContent=alertaHTML; }});
 
-    // Histórico mini-gráfico
+    // Histórico (só na aba config)
     const histEl = document.getElementById('saude-historico');
     if(histEl && d.historico?.length){
       histEl.innerHTML = d.historico.map(h=>{
         const s=h.score??100;
-        const cor=s>=70?'var(--green)':s>=40?'var(--amber)':'var(--red)';
-        const h_pct=Math.round(s/100*48);
-        const dia=h.data?.slice(5); // MM-DD
+        const hc=s>=70?'var(--green)':s>=40?'var(--amber)':'var(--red)';
+        const hp=Math.round(s/100*48);
+        const dia=h.data?.slice(5);
         return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1">
           <div style="font-size:9px;color:var(--text3)">${s}</div>
-          <div style="width:100%;background:${cor};border-radius:3px 3px 0 0;height:${h_pct}px"></div>
+          <div style="width:100%;background:${hc};border-radius:3px 3px 0 0;height:${hp}px"></div>
           <div style="font-size:9px;color:var(--text3)">${dia}</div>
         </div>`;
       }).join('');
@@ -3407,10 +3432,25 @@ async function carregarSaude(){
       histEl.innerHTML='<div style="font-size:0.75rem;color:var(--text3)">Sem histórico ainda — os dados aparecem após os primeiros envios.</div>';
     }
 
-  } catch(e){
-    console.warn('Saúde não disponível:', e.message);
-  }
+  } catch(e){ console.warn('Saúde não disponível:', e.message); }
 }
+
+function renderAnivDashboard(){
+  const el = document.getElementById('dash-aniv-hoje');
+  if(!el) return;
+  if(typeof getAniversariantes !== 'function'){ el.innerHTML='<span style="color:var(--text3)">—</span>'; return; }
+  const hoje = getAniversariantes().filter(c=>c.ehHoje);
+  if(!hoje.length){
+    el.innerHTML='<span style="color:var(--text3);font-size:0.8rem">Nenhum aniversariante hoje 🎉</span>';
+    return;
+  }
+  el.innerHTML = hoje.map(c=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)">
+      <span style="color:var(--text);font-weight:500">${c.nome.split(' ')[0]}</span>
+      <button class="btn btn-sm btn-green" onclick="enviarMsgAniversario(this)" data-nome="${c.nome}" data-wpp="${c.wpp}" style="font-size:0.75rem;padding:3px 10px">🎂 Enviar</button>
+    </div>`).join('');
+}
+
 </script>
 
 <a href="https://wa.me/5551984026354?text=Oi!+Preciso+de+ajuda+com+o+Retornax+%F0%9F%9A%80" target="_blank" class="suporte-btn">
