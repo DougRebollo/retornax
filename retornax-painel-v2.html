@@ -1563,7 +1563,7 @@ async function dispararTodos(){
     try{
       const res=await fetch(`${BACKEND}/api/enviar-mensagem`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:c.wpp,mensagem,empresaId:ACCOUNT.empresaId})});
       const data=await res.json();
-      if(data.success) enviados++;
+      if(data.success){ enviados++; registrarEnvioSaude(); }
     }catch(e){}
   }
   showToast(`${enviados} mensagens enviadas!`);
@@ -1584,7 +1584,7 @@ async function sendMsgCliente(btn){
   try{
     const res=await fetch(`${BACKEND}/api/enviar-mensagem`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:wpp,mensagem,empresaId:ACCOUNT.empresaId})});
     const data=await res.json();
-    if(data.success){ btn.innerHTML='✓'; btn.style.color='var(--green)'; showToast(`Mensagem enviada para ${nome}!`); }
+    if(data.success){ btn.innerHTML='✓'; btn.style.color='var(--green)'; showToast(`Mensagem enviada para ${nome}!`); registrarEnvioSaude(); }
     else{ btn.innerHTML='✕'; btn.style.color='var(--red)'; showToast('Erro ao enviar mensagem.','err'); }
   }catch(err){ btn.innerHTML='✕'; btn.style.color='var(--red)'; showToast('Erro ao conectar com o servidor.','err'); }
   setTimeout(()=>{ btn.innerHTML=orig; btn.disabled=false; btn.style.color=''; },3000);
@@ -2492,6 +2492,7 @@ async function enviarMsgEditada() {
     const data = await res.json();
     if (data.success) {
       showToast(`Mensagem enviada para ${nome}! ✓`);
+      registrarEnvioSaude();
       document.getElementById('modal-editar-msg').classList.remove('open');
     } else {
       showToast('Erro ao enviar mensagem.', 'err');
@@ -2867,7 +2868,7 @@ async function enviarMsgAniversario(btn) {
   try {
     const r=await fetch(BACKEND+'/api/enviar-mensagem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:wpp,mensagem:msg,empresaId:ACCOUNT.empresaId})});
     const d=await r.json();
-    if(d.success){showToast('🎂 Parabéns enviado para '+nome+'!'); btn.innerHTML='✓ Enviado'; btn.style.color='var(--green)';}
+    if(d.success){showToast('🎂 Parabéns enviado para '+nome+'!'); btn.innerHTML='✓ Enviado'; btn.style.color='var(--green)'; registrarEnvioSaude();}
     else{showToast('Erro ao enviar.','err'); btn.innerHTML=orig; btn.disabled=false;}
   }catch(e){showToast('Erro.','err'); btn.innerHTML=orig; btn.disabled=false;}
 }
@@ -2879,7 +2880,7 @@ async function dispararAniversariantesHoje() {
   let ok=0;
   for(const c of hoje){
     const msg=templateAniversario.replace('{nome}',c.nome.split(' ')[0]);
-    try{const r=await fetch(BACKEND+'/api/enviar-mensagem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:c.wpp,mensagem:msg,empresaId:ACCOUNT.empresaId})});const d=await r.json();if(d.success)ok++;}catch(e){}
+    try{const r=await fetch(BACKEND+'/api/enviar-mensagem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:c.wpp,mensagem:msg,empresaId:ACCOUNT.empresaId})});const d=await r.json();if(d.success){ok++;registrarEnvioSaude();}}catch(e){}
     await new Promise(r=>setTimeout(r,2000));
   }
   showToast('🎂 '+ok+' parabéns enviados!'); btn.textContent='Enviar para todos hoje'; btn.disabled=false;
@@ -3318,6 +3319,17 @@ document.getElementById('f-data').valueAsDate=new Date();
 checkAuth();
 
 // ── SAÚDE DO NÚMERO ──────────────────────────────────────────────────────────
+async function registrarEnvioSaude({ intervalo=30, identica=false, frio=false }={}) {
+  if (!ACCOUNT.empresaId) return;
+  try {
+    await fetch(`${BACKEND}/api/saude/${ACCOUNT.empresaId}/envio`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ intervalo, identica, frio })
+    });
+  } catch(e) { /* silencioso — não bloqueia o envio */ }
+}
+
 async function carregarSaude(){
   if(!ACCOUNT.empresaId) return;
   try{
