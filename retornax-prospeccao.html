@@ -398,6 +398,8 @@ async function carregar() {
     if (data && data.data) {
       colunas = data.data.colunas || defaultColunas();
       prospectos = data.data.prospectos || [];
+      // Garantir que todas as colunas padrão existem (sem perder dados)
+      colunas = garantirColunasPadrao(colunas);
     } else {
       colunas = defaultColunas();
       prospectos = [];
@@ -430,7 +432,34 @@ function salvar() {
   }, 800);
 }
 
-function defaultColunas(){return[{id:uid(),nome:'Identificado',cor:'#7a8ab0'},{id:uid(),nome:'Primeiro contato',cor:'#2e6aff'},{id:uid(),nome:'Apresentação',cor:'#00e5ff'},{id:uid(),nome:'Proposta',cor:'#ffb020'},{id:uid(),nome:'Fechado',cor:'#00d68f'},{id:uid(),nome:'Perdido',cor:'#ff4d4d'}];}
+function defaultColunas(){return[{id:'col-identificado',nome:'Identificado',cor:'#7a8ab0'},{id:'col-primeiro-contato',nome:'Primeiro contato',cor:'#2e6aff'},{id:'col-apresentacao',nome:'Apresentação',cor:'#00e5ff'},{id:'col-proposta',nome:'Proposta',cor:'#ffb020'},{id:'col-fechado',nome:'Fechado',cor:'#00d68f'},{id:'col-perdido',nome:'Perdido',cor:'#ff4d4d'}];}
+
+function garantirColunasPadrao(cols) {
+  const padrao = [
+    {id:'col-identificado',   nome:'Identificado',     cor:'#7a8ab0'},
+    {id:'col-primeiro-contato',nome:'Primeiro contato', cor:'#2e6aff'},
+    {id:'col-apresentacao',   nome:'Apresentação',     cor:'#00e5ff'},
+    {id:'col-proposta',       nome:'Proposta',         cor:'#ffb020'},
+    {id:'col-fechado',        nome:'Fechado',          cor:'#00d68f'},
+    {id:'col-perdido',        nome:'Perdido',          cor:'#ff4d4d'},
+  ];
+  // Verificar por nome quais estão faltando
+  const nomesExistentes = cols.map(c => c.nome.toLowerCase());
+  padrao.forEach(p => {
+    if (!nomesExistentes.includes(p.nome.toLowerCase())) {
+      // Inserir na posição correta (antes de Fechado/Perdido)
+      const idxFechado = cols.findIndex(c => c.nome.toLowerCase().includes('fechado'));
+      const idxApresentacao = padrao.findIndex(x => x.id === p.id);
+      const insertBefore = cols.findIndex(c => {
+        const idxC = padrao.findIndex(x => x.nome.toLowerCase() === c.nome.toLowerCase());
+        return idxC > idxApresentacao;
+      });
+      if (insertBefore > -1) cols.splice(insertBefore, 0, p);
+      else cols.push(p);
+    }
+  });
+  return cols;
+}
 function uid(){return Math.random().toString(36).slice(2)+Date.now().toString(36);}
 function isFechado(col){return col.nome.toLowerCase().includes('fechado');}
 function calcMRRFechado(colId){ return prospectos.filter(p=>p.colunaId===colId&&p.valor>0).reduce((s,p)=>s+Number(p.valor),0); }
@@ -535,7 +564,7 @@ function removerColuna(id){const cards=prospectos.filter(p=>p.colunaId===id);if(
 function selecionarCor(el){corSelecionada=el.dataset.cor;document.querySelectorAll('.cor-opt').forEach(o=>o.style.border='3px solid transparent');el.style.border='3px solid white';}
 
 // PROSPECTOS
-function abrirModal(){editandoId=null;limparForm();document.getElementById('modal-title-text').textContent='Novo prospecto';atualizarSelectColuna();if(colunas.length) document.getElementById('f-coluna').value=colunas[0].id;document.getElementById('modal-prospect').classList.add('open');setTimeout(()=>document.getElementById('f-nome').focus(),100);}
+function abrirModal(){editandoId=null;limparForm();document.getElementById('modal-title-text').textContent='Novo prospecto';atualizarSelectColuna();const primeiraColuna=colunas[0];if(primeiraColuna){const sel=document.getElementById('f-coluna');sel.value=primeiraColuna.id;if(!sel.value&&sel.options.length) sel.selectedIndex=0;}document.getElementById('modal-prospect').classList.add('open');setTimeout(()=>document.getElementById('f-nome').focus(),100);}
 function abrirModalNaColuna(colId){abrirModal();document.getElementById('f-coluna').value=colId;}
 function fecharModal(){document.getElementById('modal-prospect').classList.remove('open');editandoId=null;}
 function limparForm(){['f-nome','f-wpp','f-empresa','f-cidade','f-insta','f-obs','f-valor'].forEach(id=>{const el=document.getElementById(id);if(el) el.value='';});document.getElementById('f-segmento').value='';document.getElementById('f-origem').value='amigos';document.getElementById('f-prio').value='media';document.getElementById('f-plano').value='';}
