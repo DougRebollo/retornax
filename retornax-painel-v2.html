@@ -413,6 +413,37 @@ tbody td.name{color:var(--text);font-weight:500}
   .btn-verificar { display:inline-flex; align-items:center; gap:8px; background:var(--green); color:#fff; border:none; border-radius:8px; padding:10px 20px; font-size:0.85rem; font-weight:600; font-family:'Plus Jakarta Sans',sans-serif; cursor:pointer; transition:all 0.2s; }
   .btn-verificar:hover { opacity:0.85; }
   .btn-verificar:disabled { opacity:0.5; cursor:default; }
+/* AGENDA */
+.agenda-cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.agenda-cal-title{font-size:1.05rem;font-weight:700;color:var(--white)}
+.agenda-nav{display:flex;align-items:center;gap:8px}
+.agenda-nav button{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--text2);font-size:0.85rem;transition:all 0.15s}
+.agenda-nav button:hover{border-color:var(--border2);color:var(--text)}
+.agenda-nav span{font-size:0.88rem;font-weight:600;color:var(--text);min-width:140px;text-align:center}
+.agenda-legend{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.agenda-leg{display:flex;align-items:center;gap:6px;font-size:0.75rem;color:var(--text2)}
+.agenda-leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.agenda-grid-head{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px}
+.agenda-grid-head div{text-align:center;font-size:0.7rem;font-weight:600;letter-spacing:0.5px;color:var(--text3);padding:4px 0;text-transform:uppercase}
+.agenda-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.agenda-day{min-height:80px;border-radius:8px;border:1px solid var(--border);padding:6px;background:var(--surface);transition:border-color 0.15s}
+.agenda-day:hover{border-color:var(--border2)}
+.agenda-day.other-month{opacity:0.35;background:var(--bg3)}
+.agenda-day.today{border-color:var(--blue)!important;background:var(--blue-dim)}
+.agenda-day-num{font-size:0.72rem;color:var(--text3);margin-bottom:4px;font-weight:500}
+.agenda-day.today .agenda-day-num{color:var(--blue-lite);font-weight:700}
+.agenda-pill{font-size:0.65rem;padding:2px 6px;border-radius:100px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;cursor:pointer}
+.pill-green{background:var(--green-dim);color:var(--green)}
+.pill-amber{background:var(--amber-dim);color:var(--amber)}
+.pill-red{background:var(--red-dim);color:var(--red)}
+.pill-blue{background:var(--blue-dim);color:var(--blue-lite)}
+.agenda-more{font-size:0.62rem;color:var(--text3);margin-top:1px}
+.agenda-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.agenda-stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;transition:border-color 0.2s}
+.agenda-stat:hover{border-color:var(--border2)}
+.agenda-stat-val{font-size:1.8rem;font-weight:800;line-height:1;margin-bottom:4px}
+.agenda-stat-lbl{font-size:0.72rem;color:var(--text2)}
+
 .camp-destinatarios{display:none;padding:12px 16px;background:var(--bg3);border-top:1px solid var(--border)}
 .camp-destinatarios.open{display:block}
 .camp-dest-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
@@ -446,6 +477,10 @@ tbody td.name{color:var(--text);font-weight:500}
   <button class="nav-item" onclick="showPage('historico',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
     Histórico
+  </button>
+  <button class="nav-item" onclick="showPage('agenda',this)">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Agenda
   </button>
   <div class="sidebar-section">Conta</div>
   
@@ -1150,6 +1185,30 @@ tbody td.name{color:var(--text);font-weight:500}
       </div>
     </div>
   </div>
+    <!-- AGENDA -->
+    <div class="page" id="page-agenda">
+      <div class="agenda-stats" id="agenda-stats"></div>
+      <div class="card">
+        <div class="agenda-cal-header">
+          <div class="agenda-cal-title">📅 Agenda de retornos</div>
+          <div class="agenda-nav">
+            <button onclick="agendaMudarMes(-1)">&#8249;</button>
+            <span id="agenda-mes-label"></span>
+            <button onclick="agendaMudarMes(1)">&#8250;</button>
+          </div>
+        </div>
+        <div class="agenda-legend">
+          <div class="agenda-leg"><div class="agenda-leg-dot" style="background:var(--green)"></div>Retorno previsto</div>
+          <div class="agenda-leg"><div class="agenda-leg-dot" style="background:var(--amber)"></div>Encerrando (≤3 dias)</div>
+          <div class="agenda-leg"><div class="agenda-leg-dot" style="background:var(--red)"></div>Atrasado</div>
+          <div class="agenda-leg"><div class="agenda-leg-dot" style="background:var(--blue-lite)"></div>Visitou</div>
+        </div>
+        <div class="agenda-grid-head">
+          <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+        </div>
+        <div class="agenda-grid" id="agenda-grid"></div>
+      </div>
+    </div>
 <!-- ONBOARDING -->
 <div class="onboarding-overlay" id="onboarding-overlay">
   <div class="onboarding-modal">
@@ -1380,11 +1439,12 @@ function limparBusca(){
   document.getElementById('search-input').focus();
 }
 
+function norm(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
 function filterClientes(){
-  const q=document.getElementById('search-input').value.toLowerCase().trim();
+  const q=norm(document.getElementById('search-input').value.trim());
   const seg=document.getElementById('filter-seg').value;
   const status=document.getElementById('filter-status').value;
-  const filtered=clientes.filter(c=>(!q||c.nome.toLowerCase().includes(q)||c.wpp.replace(/\D/g,'').includes(q.replace(/\D/g,''))||c.wpp.toLowerCase().includes(q))&&(!seg||c.seg===seg)&&(!status||c.status===status));
+  const filtered=clientes.filter(c=>(!q||norm(c.nome).includes(q)||c.wpp.replace(/\D/g,'').includes(q.replace(/\D/g,'')))&&(!seg||c.seg===seg)&&(!status||c.status===status));
   renderClientes(filtered);
   const countEl = document.getElementById('search-results-count');
   if(q || seg || status){
@@ -1676,7 +1736,7 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
-  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',config:'Conectar WhatsApp',novidades:'Novidades',tutoriais:'Tutoriais'};
+  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',agenda:'Agenda',config:'Conectar WhatsApp',novidades:'Novidades',tutoriais:'Tutoriais'};
   const saudacaoEl = document.getElementById('saudacao-texto');
   const tituloEl = document.getElementById('page-title');
   if(id === 'dashboard'){
@@ -1700,6 +1760,7 @@ function showPage(id,btn){
   if(id==='fidelizados') renderFidelizados();
   if(id==='operacional') opCarregarDados();
   if(id==='historico') carregarHistorico();
+  if(id==='agenda') renderAgenda();
 }
 function topbarAction(){ const active=document.querySelector('.page.active').id; if(active==='page-clientes'||active==='page-dashboard') openModal(); }
 
@@ -3091,6 +3152,125 @@ function renderCrmClientes() {
       <div class="crm-cli-ultimo">${ultimo}</div>
     </div>`;
   }).join('');
+}
+
+
+// ── AGENDA ──
+let agendaMes = new Date().getMonth();
+let agendaAno = new Date().getFullYear();
+
+function agendaMudarMes(delta){
+  agendaMes += delta;
+  if(agendaMes > 11){ agendaMes = 0; agendaAno++; }
+  if(agendaMes < 0){ agendaMes = 11; agendaAno--; }
+  renderAgenda();
+}
+
+function agendaPrevisao(c){
+  const dias = SEGMENTOS[c.seg]?.dias || 30;
+  const ret = new Date(c.ultima + 'T12:00');
+  ret.setDate(ret.getDate() + dias);
+  return ret;
+}
+
+function agendaStatus(c){
+  const hoje = new Date(); hoje.setHours(0,0,0,0);
+  const ret = agendaPrevisao(c); ret.setHours(0,0,0,0);
+  const diff = Math.floor((ret - hoje) / (1000*60*60*24));
+  if(diff < 0) return 'red';
+  if(diff <= 3) return 'amber';
+  return 'green';
+}
+
+function renderAgendaStats(){
+  const hoje = new Date(); hoje.setHours(0,0,0,0);
+  const hojeStr = hoje.toDateString();
+  let previstos=0, encerrando=0, atrasados=0, visitaram=0;
+  clientes.forEach(c => {
+    const st = agendaStatus(c);
+    if(st==='green') previstos++;
+    else if(st==='amber') encerrando++;
+    else if(st==='red') atrasados++;
+    const ultDate = new Date(c.ultima+'T12:00'); ultDate.setHours(0,0,0,0);
+    if(ultDate.toDateString()===hojeStr) visitaram++;
+  });
+  const itens = [
+    {val:previstos, lbl:'Retorno previsto', cor:'var(--green)'},
+    {val:encerrando, lbl:'Encerrando', cor:'var(--amber)'},
+    {val:atrasados, lbl:'Atrasados', cor:'var(--red)'},
+    {val:visitaram, lbl:'Visitaram hoje', cor:'var(--blue-lite)'},
+  ];
+  document.getElementById('agenda-stats').innerHTML = itens.map(i =>
+    `<div class="agenda-stat">
+      <div class="agenda-stat-val" style="color:${i.cor}">${i.val}</div>
+      <div class="agenda-stat-lbl">${i.lbl}</div>
+    </div>`
+  ).join('');
+}
+
+function renderAgenda(){
+  const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  document.getElementById('agenda-mes-label').textContent = meses[agendaMes] + ' ' + agendaAno;
+  renderAgendaStats();
+
+  const hoje = new Date(); hoje.setHours(0,0,0,0);
+  const primeiroDia = new Date(agendaAno, agendaMes, 1);
+  const ultimoDia = new Date(agendaAno, agendaMes + 1, 0);
+  const startOffset = primeiroDia.getDay();
+
+  // Mapear clientes por dia de retorno previsto e por dia de visita
+  const porDiaRet = {}, porDiaVis = {};
+  clientes.forEach(c => {
+    const ret = agendaPrevisao(c);
+    if(ret.getMonth()===agendaMes && ret.getFullYear()===agendaAno){
+      const k = ret.getDate();
+      if(!porDiaRet[k]) porDiaRet[k] = [];
+      porDiaRet[k].push(c);
+    }
+    const ult = new Date(c.ultima+'T12:00');
+    if(ult.getMonth()===agendaMes && ult.getFullYear()===agendaAno){
+      const k = ult.getDate();
+      if(!porDiaVis[k]) porDiaVis[k] = [];
+      porDiaVis[k].push(c);
+    }
+  });
+
+  let html = '';
+  // dias mês anterior
+  for(let i=0; i<startOffset; i++){
+    const d = new Date(agendaAno, agendaMes, -startOffset+i+1);
+    html += `<div class="agenda-day other-month"><div class="agenda-day-num">${d.getDate()}</div></div>`;
+  }
+  // dias do mês
+  for(let d=1; d<=ultimoDia.getDate(); d++){
+    const isToday = new Date(agendaAno, agendaMes, d).toDateString() === hoje.toDateString();
+    const retornos = porDiaRet[d] || [];
+    const visitas = porDiaVis[d] || [];
+    let pills = '';
+    let count = 0;
+    // visitas primeiro (azul)
+    visitas.slice(0,1).forEach(c => {
+      pills += `<span class="agenda-pill pill-blue">${c.nome.split(' ')[0]}</span>`;
+      count++;
+    });
+    // retornos previstos
+    retornos.slice(0, 2-count).forEach(c => {
+      const st = agendaStatus(c);
+      const cls = st==='red'?'pill-red':st==='amber'?'pill-amber':'pill-green';
+      pills += `<span class="agenda-pill ${cls}">${c.nome.split(' ')[0]}</span>`;
+      count++;
+    });
+    const extra = (retornos.length + visitas.length) - count;
+    if(extra > 0) pills += `<div class="agenda-more">+${extra} mais</div>`;
+    html += `<div class="agenda-day${isToday?' today':''}"><div class="agenda-day-num">${d}</div>${pills}</div>`;
+  }
+  // completar semana
+  const total = startOffset + ultimoDia.getDate();
+  const rem = total % 7 === 0 ? 0 : 7 - (total % 7);
+  for(let i=1; i<=rem; i++){
+    html += `<div class="agenda-day other-month"><div class="agenda-day-num">${i}</div></div>`;
+  }
+  document.getElementById('agenda-grid').innerHTML = html;
 }
 
 renderTemplates();
