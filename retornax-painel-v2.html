@@ -447,10 +447,11 @@ tbody td.name{color:var(--text);font-weight:500}
 .pill-red{background:var(--red-dim);color:var(--red)}
 .pill-blue{background:var(--blue-dim);color:var(--blue-lite)}
 .agenda-more{font-size:0.6rem;color:var(--text3);margin-top:1px}
-.agenda-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
-.agenda-stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 20px;display:flex;align-items:center;gap:14px;transition:border-color 0.2s}
+.agenda-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.agenda-stat{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;gap:6px;transition:border-color 0.2s;min-height:108px;justify-content:center}
 .agenda-stat:hover{border-color:var(--border2)}
-.agenda-stat-val{font-size:2.4rem;font-weight:800;line-height:1;flex-shrink:0}
+.agenda-stat-val{font-size:3rem;font-weight:800;line-height:1}
+.agenda-stat-lbl{font-size:0.88rem;color:var(--text2);font-weight:500}
 .kgrid-ins{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
 .kpi-ins{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px}
 .kpi-ins-label{font-size:0.78rem;color:var(--text2);margin-bottom:6px}
@@ -528,6 +529,10 @@ tbody td.name{color:var(--text);font-weight:500}
   <button class="nav-item" onclick="showPage('crm',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="23" y1="11" x2="17" y2="11"/><line x1="20" y1="8" x2="20" y2="14"/></svg>
     CRM
+  </button>
+  <button class="nav-item" onclick="showPage('produtos',this)">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    Produtos
   </button>
   <button class="nav-item" onclick="showPage('aniversarios',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 2v2"/></svg>
@@ -758,6 +763,27 @@ tbody td.name{color:var(--text);font-weight:500}
       <div class="card">
         <div class="card-title">Insights automáticos</div>
         <div id="ins-list"></div>
+      </div>
+    </div>
+    <!-- PRODUTOS -->
+    <div class="page" id="page-produtos">
+      <div class="toolbar">
+        <div style="font-size:1.1rem;font-weight:700;color:var(--text)">📦 Catálogo de produtos / serviços</div>
+        <button class="btn btn-primary" onclick="abrirNovoProduto()">+ Novo produto</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <table style="width:100%">
+          <thead>
+            <tr style="background:var(--bg3)">
+              <th style="text-align:left;padding:12px 16px;font-size:0.78rem;color:var(--text2);font-weight:600">Nome</th>
+              <th style="text-align:left;padding:12px 16px;font-size:0.78rem;color:var(--text2);font-weight:600">Preço padrão</th>
+              <th style="text-align:left;padding:12px 16px;font-size:0.78rem;color:var(--text2);font-weight:600">Vendas registradas</th>
+              <th style="text-align:right;padding:12px 16px;font-size:0.78rem;color:var(--text2);font-weight:600">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="produtos-tbody"></tbody>
+        </table>
+        <div id="produtos-empty" style="display:none;padding:40px;text-align:center;color:var(--text3);font-size:0.85rem">Nenhum produto cadastrado ainda. Cadastre manualmente ou registre uma venda — o produto entra na lista automaticamente.</div>
       </div>
     </div>
     <!-- CLIENTES -->
@@ -1549,7 +1575,9 @@ tbody td.name{color:var(--text);font-weight:500}
     <div style="font-size:0.85rem;color:var(--text2);margin-bottom:16px">Cliente: <strong style="color:var(--text)" id="venda-cliente-nome">—</strong></div>
     <div class="form-group" style="margin-bottom:14px">
       <label>O que foi vendido</label>
-      <input type="text" id="venda-desc" placeholder="Ex: Banho e tosa, Calça jeans...">
+      <input type="text" id="venda-desc" list="produtos-sugestoes" placeholder="Ex: Banho e tosa, Calça jeans..." oninput="preencherPrecoSugerido()">
+      <datalist id="produtos-sugestoes"></datalist>
+      <div style="font-size:0.7rem;color:var(--text3);margin-top:4px">Escolha um já cadastrado ou digite um novo — ele entra no catálogo automaticamente.</div>
     </div>
     <div class="form-group" style="margin-bottom:14px">
       <label>Valor (R$)</label>
@@ -1562,6 +1590,29 @@ tbody td.name{color:var(--text);font-weight:500}
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="fecharNovaVenda()">Cancelar</button>
       <button class="btn btn-primary" onclick="confirmarNovaVenda()" style="padding:10px 24px;font-size:0.92rem">+ Registrar venda</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NOVO/EDITAR PRODUTO -->
+<div class="modal-overlay" id="modal-produto" onclick="if(event.target===this)fecharProduto()">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <div class="modal-title" id="produto-modal-title">📦 Novo produto</div>
+      <button class="modal-close" onclick="fecharProduto()">✕</button>
+    </div>
+    <input type="hidden" id="produto-id">
+    <div class="form-group" style="margin-bottom:14px">
+      <label>Nome do produto/serviço</label>
+      <input type="text" id="produto-nome" placeholder="Ex: Banho e tosa">
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label>Preço padrão (R$)</label>
+      <input type="number" id="produto-preco" placeholder="0,00" min="0" step="0.01">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="fecharProduto()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmarProduto()" style="padding:10px 24px;font-size:0.92rem">Salvar produto</button>
     </div>
   </div>
 </div>
@@ -1936,6 +1987,42 @@ async function addCliente(){
 // ── REGISTRAR VENDA (botão na tabela de clientes) ───────────────────────────
 let vendaClienteAtual = null;
 let vendasRegistradas = [];
+let produtosCadastrados = [];
+
+async function carregarProdutos(){
+  if(!ACCOUNT.empresaId) return;
+  const { data, error } = await supabase.from('produtos').select('*').eq('empresa_id', ACCOUNT.empresaId).order('nome');
+  if(error){ console.warn('Erro ao carregar produtos:', error.message); return; }
+  produtosCadastrados = data || [];
+  atualizarSugestoesProdutos();
+}
+
+function atualizarSugestoesProdutos(){
+  const dl = document.getElementById('produtos-sugestoes');
+  if(dl) dl.innerHTML = produtosCadastrados.map(p => `<option value="${p.nome}">`).join('');
+}
+
+function preencherPrecoSugerido(){
+  const nome = document.getElementById('venda-desc').value.trim();
+  const produto = produtosCadastrados.find(p => p.nome.toLowerCase() === nome.toLowerCase());
+  if(produto){
+    document.getElementById('venda-valor').value = produto.preco_padrao;
+  }
+}
+
+async function garantirProdutoCadastrado(nome, valor){
+  const existe = produtosCadastrados.find(p => p.nome.toLowerCase() === nome.toLowerCase());
+  if(existe) return;
+  const { data, error } = await supabase.from('produtos').insert({
+    empresa_id: ACCOUNT.empresaId,
+    nome: nome,
+    preco_padrao: valor
+  }).select().single();
+  if(!error && data){
+    produtosCadastrados.push(data);
+    atualizarSugestoesProdutos();
+  }
+}
 
 function abrirNovaVenda(btn){
   vendaClienteAtual = { id: btn.dataset.id, nome: btn.dataset.nome };
@@ -1962,6 +2049,9 @@ async function confirmarNovaVenda(){
   vendasRegistradas.push(venda);
 
   const saved = await salvarVendaBanco({ clienteId: vendaClienteAtual.id, descricao: desc, valor, data });
+
+  // Produto novo? Cadastra automaticamente no catálogo
+  await garantirProdutoCadastrado(desc, valor);
 
   // Venda = contato com o cliente, então também conta como visita
   const idxCliente = clientes.findIndex(c => String(c.id) === String(vendaClienteAtual.id));
@@ -1997,6 +2087,92 @@ async function salvarVendaBanco(venda){
     return null;
   }
   return data;
+}
+
+// ── PÁGINA DE PRODUTOS / CATÁLOGO ───────────────────────────────────────────
+async function renderProdutos(){
+  await carregarProdutos();
+  const tbody = document.getElementById('produtos-tbody');
+  const empty = document.getElementById('produtos-empty');
+  if(!tbody) return;
+
+  if(!produtosCadastrados.length){
+    tbody.innerHTML = '';
+    if(empty) empty.style.display = 'block';
+    return;
+  }
+  if(empty) empty.style.display = 'none';
+
+  // Conta vendas registradas por produto (a partir do que já temos em memória/banco)
+  let vendasPorProduto = {};
+  try{
+    const { data: vendas } = await supabase.from('vendas').select('descricao').eq('empresa_id', ACCOUNT.empresaId);
+    (vendas||[]).forEach(v => { vendasPorProduto[v.descricao] = (vendasPorProduto[v.descricao]||0) + 1; });
+  }catch(e){ /* segue sem contagem se falhar */ }
+
+  tbody.innerHTML = produtosCadastrados.map(p => `
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:12px 16px;font-size:0.85rem;color:var(--text)">${p.nome}</td>
+      <td style="padding:12px 16px;font-size:0.85rem;color:var(--text)">R$ ${Number(p.preco_padrao).toLocaleString('pt-BR')}</td>
+      <td style="padding:12px 16px;font-size:0.85rem;color:var(--text2)">${vendasPorProduto[p.nome] || 0}</td>
+      <td style="padding:12px 16px;text-align:right">
+        <button class="icon-btn edit" title="Editar" onclick="abrirEditarProduto(${p.id})" style="margin-right:4px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
+        <button class="icon-btn del" title="Remover" onclick="excluirProduto(${p.id})">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        </button>
+      </td>
+    </tr>`).join('');
+}
+
+function abrirNovoProduto(){
+  document.getElementById('produto-modal-title').textContent = '📦 Novo produto';
+  document.getElementById('produto-id').value = '';
+  document.getElementById('produto-nome').value = '';
+  document.getElementById('produto-preco').value = '';
+  document.getElementById('modal-produto').classList.add('open');
+}
+
+function abrirEditarProduto(id){
+  const p = produtosCadastrados.find(x => x.id === id);
+  if(!p) return;
+  document.getElementById('produto-modal-title').textContent = '✏️ Editar produto';
+  document.getElementById('produto-id').value = p.id;
+  document.getElementById('produto-nome').value = p.nome;
+  document.getElementById('produto-preco').value = p.preco_padrao;
+  document.getElementById('modal-produto').classList.add('open');
+}
+
+function fecharProduto(){
+  document.getElementById('modal-produto').classList.remove('open');
+}
+
+async function confirmarProduto(){
+  const id = document.getElementById('produto-id').value;
+  const nome = document.getElementById('produto-nome').value.trim();
+  const preco = parseFloat(document.getElementById('produto-preco').value);
+  if(!nome || isNaN(preco) || preco<0){ showToast('Preencha nome e preço válidos.','err'); return; }
+
+  if(id){
+    const { error } = await supabase.from('produtos').update({ nome, preco_padrao: preco }).eq('id', id);
+    if(error){ showToast('Erro ao atualizar produto.','err'); console.error(error); return; }
+    showToast('Produto atualizado!');
+  } else {
+    const { error } = await supabase.from('produtos').insert({ empresa_id: ACCOUNT.empresaId, nome, preco_padrao: preco });
+    if(error){ showToast('Erro ao cadastrar produto. Talvez já exista um com esse nome.','err'); console.error(error); return; }
+    showToast('Produto cadastrado!');
+  }
+  fecharProduto();
+  renderProdutos();
+}
+
+async function excluirProduto(id){
+  if(!confirm('Remover este produto do catálogo? Vendas já registradas não serão afetadas.')) return;
+  const { error } = await supabase.from('produtos').delete().eq('id', id);
+  if(error){ showToast('Erro ao remover produto.','err'); console.error(error); return; }
+  showToast('Produto removido.');
+  renderProdutos();
 }
 
 let importData=[];
@@ -2113,7 +2289,7 @@ function showPage(id,btn){
   if(id==='config'){ carregarSaude(); renderThemePicker(); }
   if(id==='dashboard') renderVendasDashboard();
   if(id==='dashboard'){ carregarSaude(); renderAnivDashboard(); }
-  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',agenda:'Agenda',config:'Conectar WhatsApp',novidades:'Novidades',tutoriais:'Tutoriais'};
+  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',agenda:'Agenda',config:'Conectar WhatsApp',novidades:'Novidades',tutoriais:'Tutoriais',produtos:'Produtos'};
   const saudacaoEl = document.getElementById('saudacao-texto');
   const tituloEl = document.getElementById('page-title');
   if(id === 'dashboard'){
@@ -2140,6 +2316,7 @@ function showPage(id,btn){
   if(id==='agenda'){ document.body.classList.add('page-agenda'); renderAgenda(); }
   else{ document.body.classList.remove('page-agenda'); }
   if(id==='insights') renderInsights();
+  if(id==='produtos') renderProdutos();
 }
 function topbarAction(){ const active=document.querySelector('.page.active').id; if(active==='page-clientes'||active==='page-dashboard') openModal(); }
 
@@ -2519,6 +2696,7 @@ async function checkAuth(){
     ACCOUNT.plano=empresa.plano;
     ACCOUNT.empresaId=empresa.id;
     ACCOUNT.email=empresa.email;
+    carregarProdutos();
     document.querySelector('.user-name').textContent=empresa.nome;
     document.querySelector('.user-plan').textContent=empresa.plano==='trial'?'Período gratuito':`Plano ${empresa.plano}`;
     const primeiroNome = (empresa.nome || '').split(' ')[0];
