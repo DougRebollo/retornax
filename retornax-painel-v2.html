@@ -557,7 +557,10 @@ tbody td.name{color:var(--text);font-weight:500}
   <div class="topbar">
     <div id="topbar-saudacao" class="saudacao-wrap">
       <div class="saudacao-texto" id="saudacao-texto">Bom dia,</div>
-      <div class="saudacao-nome" id="page-title">Dashboard</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="saudacao-nome" id="page-title">Dashboard</div>
+        <span id="saudacao-empresa" style="display:none;font-size:0.7rem;font-weight:600;color:var(--text2);background:var(--bg3);padding:2px 9px;border-radius:20px;border:1px solid var(--border)"></span>
+      </div>
     </div>
     <div class="topbar-actions">
       <button class="btn btn-ghost btn-sm" id="topbar-secondary" style="display:none"></button>
@@ -720,6 +723,11 @@ tbody td.name{color:var(--text);font-weight:500}
           <div class="card-title">👋 Compraram só uma vez</div>
           <div id="ins-compra-unica" style="display:flex;flex-direction:column;gap:0"></div>
         </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📦 Produtos / serviços mais vendidos</div>
+        <div id="ins-ranking-produtos" style="display:flex;flex-direction:column;gap:0"></div>
       </div>
 
       <div class="card">
@@ -2449,7 +2457,15 @@ async function salvarPerfil() {
   const btn = document.querySelector('#page-perfil .btn-primary'); btn.textContent = '⏳ Salvando...'; btn.disabled = true;
   const updates = {nome:document.getElementById('perf-nome')?.value.trim(),whatsapp:document.getElementById('perf-tel')?.value.trim(),nome_empresa:document.getElementById('perf-empresa')?.value.trim(),segmento_empresa:document.getElementById('perf-segmento')?.value,cidade:document.getElementById('perf-cidade')?.value.trim(),qtd_funcionarios:document.getElementById('perf-funcionarios')?.value,faturamento:document.getElementById('perf-faturamento')?.value,tempo_mercado:document.getElementById('perf-tempo')?.value,instagram:document.getElementById('perf-insta')?.value.trim(),google_negocio:document.getElementById('perf-google')?.value,origem:document.getElementById('perf-origem')?.value};
   const { error } = await supabase.from('empresas').update(updates).eq('id', ACCOUNT.empresaId);
-  if (!error) { showToast('Perfil salvo com sucesso! ✓'); carregarPerfil(); }
+  if (!error) {
+    showToast('Perfil salvo com sucesso! ✓');
+    carregarPerfil();
+    const empresaEl = document.getElementById('saudacao-empresa');
+    if(empresaEl){
+      if(updates.nome_empresa){ empresaEl.textContent = updates.nome_empresa; empresaEl.style.display = ''; }
+      else { empresaEl.style.display = 'none'; }
+    }
+  }
   else showToast('Erro ao salvar. Tente novamente.', 'err');
   btn.textContent = 'Salvar perfil'; btn.disabled = false;
 }
@@ -2507,7 +2523,7 @@ async function checkAuth(){
     document.querySelector('.user-plan').textContent=empresa.plano==='trial'?'Período gratuito':`Plano ${empresa.plano}`;
     const primeiroNome = (empresa.nome || '').split(' ')[0];
     document.getElementById('page-title').textContent = primeiroNome || 'Dashboard';
-    atualizarSaudacao(primeiroNome);
+    atualizarSaudacao(primeiroNome, empresa.nome_empresa);
     if(document.getElementById('config-nome')) document.getElementById('config-nome').textContent = empresa.nome || '—';
     if(document.getElementById('config-email')) document.getElementById('config-email').textContent = empresa.email || '—';
     if(document.getElementById('config-plano')){
@@ -2837,13 +2853,23 @@ async function enviarMsgEditada() {
   btn.disabled = false;
 }
 
-function atualizarSaudacao(nome) {
+function atualizarSaudacao(nome, nomeEmpresa) {
   const hora = new Date().getHours();
   let saudacao = 'Boa noite,';
   if (hora >= 5 && hora < 12) saudacao = 'Bom dia,';
   else if (hora >= 12 && hora < 18) saudacao = 'Boa tarde,';
   const el = document.getElementById('saudacao-texto');
   if (el) el.textContent = saudacao;
+
+  const empresaEl = document.getElementById('saudacao-empresa');
+  if (empresaEl) {
+    if (nomeEmpresa && nomeEmpresa.trim()) {
+      empresaEl.textContent = nomeEmpresa.trim();
+      empresaEl.style.display = '';
+    } else {
+      empresaEl.style.display = 'none';
+    }
+  }
 }
 
 function animarNumero(el, target, duracao = 800) {
@@ -3825,6 +3851,7 @@ async function carregarFaturamentoReal(){
       renderChartFaturamento([0,0,0,0,0,0]);
       document.getElementById('ins-top-clientes').innerHTML = '<div style="font-size:0.8rem;color:var(--text3);padding:8px 0">Nenhuma venda registrada ainda.</div>';
       document.getElementById('ins-compra-unica').innerHTML = '<div style="font-size:0.8rem;color:var(--text3);padding:8px 0">Nenhuma venda registrada ainda.</div>';
+      document.getElementById('ins-ranking-produtos').innerHTML = '<div style="font-size:0.8rem;color:var(--text3);padding:8px 0">Nenhuma venda registrada ainda.</div>';
       return;
     }
 
@@ -3845,13 +3872,27 @@ async function carregarFaturamentoReal(){
     setText('ins-ticket', 'R$ ' + ticket);
     setText('ins-atend', vendasMes.length);
 
-    // Serviço/produto mais vendido (geral, todas as vendas)
+    // Serviço/produto mais vendido (geral, todas as vendas) + ranking completo
     const porDesc = {};
-    vendas.forEach(v => { porDesc[v.descricao] = (porDesc[v.descricao]||0) + 1; });
-    const topServ = Object.entries(porDesc).sort((a,b)=>b[1]-a[1])[0];
-    if(topServ){
-      setText('ins-top-serv', topServ[0]);
-      setText('ins-top-serv-sub', topServ[1] + ' venda' + (topServ[1]>1?'s':''));
+    vendas.forEach(v => {
+      if(!porDesc[v.descricao]) porDesc[v.descricao] = { qtd: 0, total: 0 };
+      porDesc[v.descricao].qtd += 1;
+      porDesc[v.descricao].total += Number(v.valor);
+    });
+    const rankingProdutos = Object.entries(porDesc).sort((a,b)=>b[1].qtd-a[1].qtd);
+    if(rankingProdutos.length){
+      setText('ins-top-serv', rankingProdutos[0][0]);
+      setText('ins-top-serv-sub', rankingProdutos[0][1].qtd + ' venda' + (rankingProdutos[0][1].qtd>1?'s':''));
+    }
+    const rankEl = document.getElementById('ins-ranking-produtos');
+    if(rankEl){
+      rankEl.innerHTML = rankingProdutos.length
+        ? rankingProdutos.map(([nome,d],i) => `
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:0.85rem">
+            <div style="display:flex;align-items:center;gap:10px"><span style="color:var(--text3);font-weight:600;width:18px">${i+1}º</span><span>${nome}</span></div>
+            <div style="text-align:right"><div style="color:var(--text)">${d.qtd} venda${d.qtd>1?'s':''}</div><div style="font-size:0.72rem;color:var(--text3)">R$ ${d.total.toLocaleString('pt-BR')}</div></div>
+          </div>`).join('')
+        : '<div style="font-size:0.8rem;color:var(--text3);padding:8px 0">Nenhuma venda registrada ainda.</div>';
     }
 
     // Gráfico — últimos 6 meses
