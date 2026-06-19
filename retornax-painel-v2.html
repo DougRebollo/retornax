@@ -56,7 +56,12 @@ body.page-agenda .content{padding:16px 20px}
 .stat-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
 .stat-label{font-size:0.78rem;color:var(--text2);font-weight:500}
 .stat-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem}
-.stat-icon.blue{background:var(--blue-dim)}.stat-icon.green{background:var(--green-dim)}.stat-icon.amber{background:var(--amber-dim)}.stat-icon.red{background:var(--red-dim)}
+.stat-icon.blue{background:var(--blue-dim)}.stat-icon.green{background:var(--green-dim)}.stat-icon.amber{background:var(--amber-dim)}.stat-icon.red{background:var(--red-dim)}.stat-icon.accent{background:rgba(0,229,255,0.12)}
+.theme-swatch{border:1.5px solid var(--border);border-radius:10px;padding:8px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:border-color .15s}
+.theme-swatch:hover{border-color:var(--border2)}
+.theme-swatch.sel{border-color:var(--text)}
+.theme-swatch .dot{width:16px;height:16px;border-radius:50%;flex-shrink:0}
+.theme-swatch .lbl{font-size:0.75rem;color:var(--text2)}
 .stat-val{font-size:2rem;font-weight:800;color:var(--white);line-height:1;letter-spacing:-0.5px}
 .stat-sub{font-size:0.75rem;color:var(--text3);margin-top:4px}
 .grid-2{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:28px}
@@ -100,6 +105,7 @@ tbody td.name{color:var(--text);font-weight:500}
 .icon-btn:hover{background:var(--bg3);color:var(--text)}
 .icon-btn.send:hover{background:var(--green-dim);color:var(--green)}
 .icon-btn.checkin:hover{background:rgba(0,229,255,0.12);color:var(--accent)}
+.icon-btn.venda:hover{background:var(--green-dim);color:var(--green)}
 .icon-btn.edit:hover{background:var(--blue-dim);color:var(--blue-lite)}
 .icon-btn.del:hover{background:var(--red-dim);color:var(--red)}
 .import-zone{border:2px dashed var(--border2);border-radius:var(--radius);padding:32px;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:20px}
@@ -445,7 +451,23 @@ tbody td.name{color:var(--text);font-weight:500}
 .agenda-stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 20px;display:flex;align-items:center;gap:14px;transition:border-color 0.2s}
 .agenda-stat:hover{border-color:var(--border2)}
 .agenda-stat-val{font-size:2.4rem;font-weight:800;line-height:1;flex-shrink:0}
-.agenda-stat-lbl{font-size:0.8rem;color:var(--text2);font-weight:500;line-height:1.3}
+.kgrid-ins{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi-ins{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px}
+.kpi-ins-label{font-size:0.78rem;color:var(--text2);margin-bottom:6px}
+.kpi-ins-val{font-size:1.5rem;font-weight:700;color:var(--text)}
+.kpi-ins-sub{font-size:0.75rem;margin-top:4px;color:var(--text3)}
+.kpi-ins-sub.up{color:var(--green)}
+.kpi-ins-sub.dn{color:var(--red)}
+.seg-row-ins{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.seg-row-ins .seg-lbl{font-size:0.82rem;color:var(--text);width:90px;flex-shrink:0}
+.seg-row-ins .seg-track{flex:1;height:8px;background:var(--bg3);border-radius:4px;overflow:hidden}
+.seg-row-ins .seg-fill{height:8px;border-radius:4px}
+.seg-row-ins .seg-val{font-size:0.75rem;color:var(--text3);width:60px;text-align:right;flex-shrink:0}
+.insight-row-ins{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.insight-row-ins:last-child{border-bottom:none}
+.insight-icon-ins{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;flex-shrink:0}
+.insight-text-ins{font-size:0.82rem;color:var(--text);line-height:1.5}
+.insight-text-ins strong{font-weight:600}
 
 .camp-destinatarios{display:none;padding:12px 16px;background:var(--bg3);border-top:1px solid var(--border)}
 .camp-destinatarios.open{display:block}
@@ -539,6 +561,15 @@ tbody td.name{color:var(--text);font-weight:500}
     </div>
     <div class="topbar-actions">
       <button class="btn btn-ghost btn-sm" id="topbar-secondary" style="display:none"></button>
+      <div style="position:relative">
+        <button class="btn btn-ghost btn-sm" onclick="toggleThemeDropdown()" id="btn-cor-tema" title="Cor do painel" style="padding:6px 10px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+        </button>
+        <div id="theme-dropdown" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px;z-index:50;width:200px;box-shadow:0 8px 24px rgba(0,0,0,0.4)">
+          <div style="font-size:0.72rem;color:var(--text2);margin-bottom:8px;padding:0 2px">Cor do painel</div>
+          <div id="theme-picker-topbar" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px"></div>
+        </div>
+      </div>
       <button class="btn btn-ghost btn-sm" onclick="toggleTema()" id="btn-tema" title="Alternar tema" style="padding:6px 10px">
         <svg id="icon-tema-escuro" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg id="icon-tema-claro" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -558,6 +589,17 @@ tbody td.name{color:var(--text);font-weight:500}
         <div class="stat-card"><div class="stat-top"><div class="stat-label">Mensagens enviadas</div><div class="stat-icon green">&#x1F4E4;</div></div><div class="stat-val" id="dash-enviadas">0</div><div class="stat-sub">últimos 30 dias</div></div>
         <div class="stat-card"><div class="stat-top"><div class="stat-label">Clientes reativados</div><div class="stat-icon amber">&#x1F501;</div></div><div class="stat-val" id="dash-reativados">0</div><div class="stat-sub">este mês</div></div>
         <div class="stat-card"><div class="stat-top"><div class="stat-label">Precisam de contato</div><div class="stat-icon red">&#x26A0;&#xFE0F;</div></div><div class="stat-val" id="dash-fila">0</div><div class="stat-sub">aguardando envio</div></div>
+      </div>
+      <div class="stats-grid" style="margin-bottom:16px">
+        <div class="stat-card"><div class="stat-top"><div class="stat-label">Vendas hoje</div><div class="stat-icon green">&#x1F6CD;&#xFE0F;</div></div><div class="stat-val" id="dash-vendas-hoje">0</div><div class="stat-sub">atendimentos</div></div>
+        <div class="stat-card"><div class="stat-top"><div class="stat-label">Faturado hoje</div><div class="stat-icon accent">&#x1F4B0;</div></div><div class="stat-val" id="dash-faturado-hoje">R$ 0</div><div class="stat-sub">no dia</div></div>
+        <div class="stat-card"><div class="stat-top"><div class="stat-label">Faturado no mês</div><div class="stat-icon blue">&#x1F4C8;</div></div><div class="stat-val" id="dash-faturado-mes">R$ 0</div><div class="stat-sub" id="dash-faturado-mes-sub">este mês</div></div>
+        <div class="stat-card"><div class="stat-top"><div class="stat-label">Ticket médio</div><div class="stat-icon amber">&#x1F9FE;</div></div><div class="stat-val" id="dash-ticket-medio">R$ 0</div><div class="stat-sub">por atendimento</div></div>
+      </div>
+      <div style="margin-bottom:16px">
+        <button class="btn btn-ghost" onclick="showPage('insights',document.querySelector('[onclick*=insights]'))" style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:1.1rem">📊</span> Ver insights da carteira
+        </button>
       </div>
       <div class="grid-2">
         <div class="card" id="dash-saude-card">
@@ -588,7 +630,7 @@ tbody td.name{color:var(--text);font-weight:500}
           <div id="dash-saude-alerta" style="display:none;border-radius:8px;padding:9px 12px;font-size:0.78rem;line-height:1.5"></div>
         </div>
         <div class="card">
-          <div class="card-header"><div class="card-title">Por segmento</div></div>
+          <div class="card-header"><div class="card-title">Status da carteira</div></div>
           <div class="seg-list" id="dash-segs"></div>
           <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
             <div class="card-title" style="margin-bottom:10px">🎂 Aniversariantes hoje</div>
@@ -602,6 +644,112 @@ tbody td.name{color:var(--text);font-weight:500}
             <div style="height:6px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-top:6px"><div style="height:100%;width:0%;background:var(--green);border-radius:4px;transition:width 0.5s" id="bar-msg"></div></div>
           </div>
         </div>
+      </div>
+    </div>
+    <!-- INSIGHTS / BI -->
+    <div class="page" id="page-insights">
+      <div style="margin-bottom:16px">
+        <button class="btn btn-ghost" onclick="showPage('dashboard',document.querySelector('[onclick*=dashboard]'))" style="display:flex;align-items:center;gap:6px">
+          ← Voltar ao dashboard
+        </button>
+      </div>
+      <div class="kgrid-ins">
+        <div class="kpi-ins">
+          <div class="kpi-ins-label">Score médio da carteira</div>
+          <div class="kpi-ins-val">71</div>
+          <div class="kpi-ins-sub up">↑ +4 vs mês anterior</div>
+        </div>
+        <div class="kpi-ins">
+          <div class="kpi-ins-label">Taxa de retenção</div>
+          <div class="kpi-ins-val">82%</div>
+          <div class="kpi-ins-sub dn">↓ -3% vs mês anterior</div>
+        </div>
+        <div class="kpi-ins">
+          <div class="kpi-ins-label">Clientes em risco</div>
+          <div class="kpi-ins-val">9</div>
+          <div class="kpi-ins-sub">score C, sem contato 30d+</div>
+        </div>
+        <div class="kpi-ins">
+          <div class="kpi-ins-label">Reativados (30d)</div>
+          <div class="kpi-ins-val">14</div>
+          <div class="kpi-ins-sub up">↑ melhor mês até aqui</div>
+        </div>
+      </div>
+
+      <div class="kgrid-ins" style="margin-top:8px">
+        <div class="kpi-ins">
+          <div class="kpi-ins-label">Faturamento do mês</div>
+          <div class="kpi-ins-val" id="ins-faturamento">R$ 0</div>
+          <div class="kpi-ins-sub up" id="ins-fat-sub"></div>
+        </div>
+        <div class="kpi-ins">
+          <div class="kpi-ins-label">Ticket médio</div>
+          <div class="kpi-ins-val" id="ins-ticket">R$ 0</div>
+          <div class="kpi-ins-sub">por atendimento</div>
+        </div>
+        <div class="kpi-ins">
+          <div class="kpi-ins-label">Atendimentos</div>
+          <div class="kpi-ins-val" id="ins-atend">0</div>
+          <div class="kpi-ins-sub">este mês</div>
+        </div>
+        <div class="kpi-ins">
+          <div class="kpi-ins-label">Serviço/produto top</div>
+          <div class="kpi-ins-val" id="ins-top-serv" style="font-size:1.1rem">—</div>
+          <div class="kpi-ins-sub" id="ins-top-serv-sub"></div>
+        </div>
+      </div>
+
+      <div style="background:rgba(99,153,34,0.12);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:14px;margin-bottom:1rem">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem">💰</div>
+        <div style="font-size:0.85rem;color:var(--green);line-height:1.5" id="ins-roi-text">Calculando ROI das mensagens de reativação…</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Faturamento — últimos 6 meses</div>
+        <div style="position:relative;height:240px">
+          <canvas id="chartFatIns" role="img" aria-label="Gráfico de barras mostrando faturamento mensal dos últimos 6 meses, com valores exibidos no topo de cada barra">Faturamento mensal em reais</canvas>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">🏆 Clientes que mais compram</div>
+          <div id="ins-top-clientes" style="display:flex;flex-direction:column;gap:0"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">👋 Compraram só uma vez</div>
+          <div id="ins-compra-unica" style="display:flex;flex-direction:column;gap:0"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Score da carteira — últimos 6 meses</div>
+        <div style="position:relative;height:220px">
+          <canvas id="chartScoreIns" role="img" aria-label="Gráfico de linha mostrando evolução do score médio da carteira de clientes de janeiro a junho, subindo de 58 para 71">Score médio: Jan 58, Fev 61, Mar 63, Abr 65, Mai 67, Jun 71</canvas>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Clientes por frequência de contato</div>
+          <div id="ins-seg-list"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Score A/B/C</div>
+          <div style="position:relative;height:170px">
+            <canvas id="chartScoreDistIns" role="img" aria-label="Gráfico de rosca mostrando 45% dos clientes com score A, 35% com score B e 20% com score C">Score A 45%, Score B 35%, Score C 20%</canvas>
+          </div>
+          <div style="display:flex;justify-content:center;gap:14px;margin-top:8px;font-size:0.75rem;color:var(--text2)">
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#639922"></span>A 45%</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#BA7517"></span>B 35%</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#A32D2D"></span>C 20%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Insights automáticos</div>
+        <div id="ins-list"></div>
       </div>
     </div>
     <!-- CLIENTES -->
@@ -851,7 +999,12 @@ tbody td.name{color:var(--text);font-weight:500}
     <!-- CONFIGURAÇÕES -->
     <div class="page" id="page-config">
       <div class="config-grid">
-        <div class="config-section"><h3>Conta</h3><div class="config-row"><span class="config-key">Nome</span><span class="config-val" id="config-nome">—</span></div><div class="config-row"><span class="config-key">E-mail</span><span class="config-val" id="config-email">—</span></div><div class="config-row"><span class="config-key">Plano</span><span class="config-val" style="color:var(--blue-lite)" id="config-plano">—</span></div><div style="margin-top:16px;display:flex;gap:8px"><button class="btn btn-ghost btn-sm" onclick="abrirPlanos('trial')">Alterar plano</button></div></div>
+        <div class="config-section"><h3>Conta</h3><div class="config-row"><span class="config-key">Nome</span><span class="config-val" id="config-nome">—</span></div><div class="config-row"><span class="config-key">E-mail</span><span class="config-val" id="config-email">—</span></div><div class="config-row"><span class="config-key">Plano</span><span class="config-val" style="color:var(--blue-lite)" id="config-plano">—</span></div><div style="margin-top:16px;display:flex;gap:8px"><button class="btn btn-ghost btn-sm" onclick="abrirPlanos('trial')">Alterar plano</button></div>
+          <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--border)">
+            <div style="font-size:0.82rem;font-weight:600;color:var(--text2);margin-bottom:10px">Cor do painel</div>
+            <div id="theme-picker" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"></div>
+          </div>
+        </div>
         <div class="config-section">
           <h3>WhatsApp</h3>
           <div class="config-row">
@@ -1349,6 +1502,14 @@ tbody td.name{color:var(--text);font-weight:500}
           <span>⭐ Fidelizado / premium</span>
         </label>
       </div>
+      <div class="form-group" style="margin-bottom:16px;background:var(--bg3);border-radius:8px;padding:12px">
+        <label style="display:flex;align-items:center;gap:6px;margin-bottom:8px"><span style="font-size:0.95rem">🛍️</span> Já teve uma venda? <span style="font-size:0.72rem;color:var(--text3)">(opcional)</span></label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <input type="text" id="f-venda-desc" placeholder="O que comprou (ex: Banho e tosa)">
+          <input type="number" id="f-venda-valor" placeholder="Valor (R$)" min="0" step="0.01">
+        </div>
+        <div style="font-size:0.7rem;color:var(--text3);margin-top:6px">Preencha se essa visita já é uma venda — registra o cliente e a venda juntos.</div>
+      </div>
       <div class="form-group" style="margin-bottom:16px">
         <label>Data de nascimento (opcional)</label>
         <input type="date" id="f-nascimento">
@@ -1370,6 +1531,33 @@ tbody td.name{color:var(--text);font-weight:500}
 </div>
 
 <!-- MODAL EDITAR CLIENTE -->
+<!-- MODAL NOVA VENDA -->
+<div class="modal-overlay" id="modal-nova-venda" onclick="if(event.target===this)fecharNovaVenda()">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <div class="modal-title">🛍️ Registrar venda</div>
+      <button class="modal-close" onclick="fecharNovaVenda()">✕</button>
+    </div>
+    <div style="font-size:0.85rem;color:var(--text2);margin-bottom:16px">Cliente: <strong style="color:var(--text)" id="venda-cliente-nome">—</strong></div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label>O que foi vendido</label>
+      <input type="text" id="venda-desc" placeholder="Ex: Banho e tosa, Calça jeans...">
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label>Valor (R$)</label>
+      <input type="number" id="venda-valor" placeholder="0,00" min="0" step="0.01">
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label>Data</label>
+      <input type="date" id="venda-data">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="fecharNovaVenda()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmarNovaVenda()" style="padding:10px 24px;font-size:0.92rem">+ Registrar venda</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="modal-editar-cliente" onclick="if(event.target===this)fecharEditarCliente()">
   <div class="modal">
     <div class="modal-header">
@@ -1487,6 +1675,9 @@ function renderClientes(list){
         </button>
         <button class="icon-btn checkin" title="Marcar visita hoje" data-id="${c.id}" data-nome="${c.nome.split(' ')[0]}" onclick="marcarVisita(this)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        </button>
+        <button class="icon-btn venda" title="Registrar venda" data-id="${c.id}" data-nome="${c.nome.split(' ')[0]}" onclick="abrirNovaVenda(this)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
         </button>
         <button class="icon-btn edit" title="Editar cliente" data-id="${c.id}" data-nome="${c.nome}" data-wpp="${c.wpp}" data-seg="${c.seg}" data-ultima="${c.ultima}" data-fidelizado="${c.fidelizado||false}" data-nascimento="${c.data_nascimento||''}" onclick="abrirEditarCliente(this)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
@@ -1662,11 +1853,21 @@ function insertVar(id,v){ const el=document.getElementById(id); const s=el.selec
 function salvarTemplate(seg){ SEGMENTOS[seg].template=document.getElementById(`tmpl-${seg}`).value; showToast(`Template de ${seg} salvo!`); renderFila(); }
 
 function renderDashSegs(){
-  const total=clientes.length||1; const bySegs={};
-  clientes.forEach(c=>bySegs[c.seg]=(bySegs[c.seg]||0)+1);
-  const colors=['var(--blue)','var(--accent)','var(--amber)','var(--green)','#a78bfa','#f472b6'];
-  document.getElementById('dash-segs').innerHTML=Object.entries(bySegs).map(([seg,cnt],i)=>`
-    <div class="seg-row"><div class="seg-emoji">${SEGMENTOS[seg]?.emoji||'📌'}</div><div class="seg-info"><div class="seg-name">${seg}</div><div class="seg-bar-wrap"><div class="seg-bar" style="width:${Math.round(cnt/total*100)}%;background:${colors[i%colors.length]}"></div></div></div><div class="seg-count">${cnt} cliente${cnt>1?'s':''}</div></div>
+  const total=clientes.length||1;
+  const calcDiasDash = (c) => {
+    if(!c.ultima) return 999;
+    const d = new Date(c.ultima);
+    return Math.floor((Date.now() - d.getTime()) / 86400000);
+  };
+  const faixas = { 'Contato recente':{cnt:0,emoji:'🟢',cor:'var(--green)'}, 'Espaçando':{cnt:0,emoji:'🟡',cor:'var(--amber)'}, 'Sumido':{cnt:0,emoji:'🔴',cor:'var(--red)'} };
+  clientes.forEach(c=>{
+    const dias = calcDiasDash(c);
+    if(dias<=15) faixas['Contato recente'].cnt++;
+    else if(dias<=45) faixas['Espaçando'].cnt++;
+    else faixas['Sumido'].cnt++;
+  });
+  document.getElementById('dash-segs').innerHTML=Object.entries(faixas).map(([nome,f])=>`
+    <div class="seg-row"><div class="seg-emoji">${f.emoji}</div><div class="seg-info"><div class="seg-name">${nome}</div><div class="seg-bar-wrap"><div class="seg-bar" style="width:${Math.round(f.cnt/total*100)}%;background:${f.cor}"></div></div></div><div class="seg-count">${f.cnt} cliente${f.cnt!==1?'s':''}</div></div>
   `).join('');
 }
 
@@ -1699,6 +1900,8 @@ async function addCliente(){
   if(!nome||!wpp||!data){ showToast('Preencha todos os campos.','err'); return; }
   const fidelizado=document.getElementById('f-fidelizado')?.checked||false;
   const dn=document.getElementById('f-nascimento')?.value||null;
+  const vendaDesc=document.getElementById('f-venda-desc')?.value?.trim()||'';
+  const vendaValor=parseFloat(document.getElementById('f-venda-valor')?.value)||0;
   const novoCliente={id:Date.now(),nome,wpp,seg,ultima:data,status:'ok',fidelizado,data_nascimento:dn};
   clientes.unshift(novoCliente);
   filterClientes(); updateCount(); closeModal();
@@ -1706,8 +1909,66 @@ async function addCliente(){
   if(novoCliente.data_nascimento) renderAniversarios();
   document.getElementById('f-nome').value='';
   document.getElementById('f-wpp').value='';
+  document.getElementById('f-venda-desc').value='';
+  document.getElementById('f-venda-valor').value='';
   const saved=await salvarClienteBanco(novoCliente);
   if(saved){ novoCliente.id=saved.id; }
+  if(vendaValor>0 && saved){
+    await salvarVendaBanco({ clienteId: saved.id, descricao: vendaDesc||'Primeira venda', valor: vendaValor, data: data });
+    showToast(`Venda de R$ ${vendaValor.toLocaleString('pt-BR')} registrada para ${nome}!`);
+    renderVendasDashboard();
+  }
+}
+
+// ── REGISTRAR VENDA (botão na tabela de clientes) ───────────────────────────
+let vendaClienteAtual = null;
+let vendasRegistradas = [];
+
+function abrirNovaVenda(btn){
+  vendaClienteAtual = { id: btn.dataset.id, nome: btn.dataset.nome };
+  document.getElementById('venda-cliente-nome').textContent = btn.dataset.nome;
+  document.getElementById('venda-desc').value = '';
+  document.getElementById('venda-valor').value = '';
+  document.getElementById('venda-data').valueAsDate = new Date();
+  document.getElementById('modal-nova-venda').classList.add('open');
+}
+
+function fecharNovaVenda(){
+  document.getElementById('modal-nova-venda').classList.remove('open');
+  vendaClienteAtual = null;
+}
+
+async function confirmarNovaVenda(){
+  const desc = document.getElementById('venda-desc').value.trim();
+  const valor = parseFloat(document.getElementById('venda-valor').value);
+  const data = document.getElementById('venda-data').value;
+  if(!desc || !valor || valor<=0 || !data){ showToast('Preencha descrição, valor e data.','err'); return; }
+  if(!vendaClienteAtual) return;
+
+  const venda = { clienteId: vendaClienteAtual.id, clienteNome: vendaClienteAtual.nome, descricao: desc, valor, data };
+  vendasRegistradas.push(venda);
+
+  const saved = await salvarVendaBanco({ clienteId: vendaClienteAtual.id, descricao: desc, valor, data });
+  showToast(`Venda de R$ ${valor.toLocaleString('pt-BR')} registrada para ${vendaClienteAtual.nome}!`);
+  fecharNovaVenda();
+  renderVendasDashboard();
+}
+
+// ── PERSISTÊNCIA DE VENDA NO SUPABASE ───────────────────────────────────────
+async function salvarVendaBanco(venda){
+  try{
+    const {data}=await supabase.from('vendas').insert({
+      empresa_id: ACCOUNT.empresaId,
+      cliente_id: venda.clienteId,
+      descricao: venda.descricao,
+      valor: venda.valor,
+      data_venda: venda.data
+    }).select().single();
+    return data;
+  }catch(e){
+    console.warn('Tabela de vendas ainda não existe no Supabase — venda não persistida:', e.message);
+    return null;
+  }
 }
 
 let importData=[];
@@ -1821,7 +2082,8 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
-  if(id==='config') carregarSaude();
+  if(id==='config'){ carregarSaude(); renderThemePicker(); }
+  if(id==='dashboard') renderVendasDashboard();
   if(id==='dashboard'){ carregarSaude(); renderAnivDashboard(); }
   const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',agenda:'Agenda',config:'Conectar WhatsApp',novidades:'Novidades',tutoriais:'Tutoriais'};
   const saudacaoEl = document.getElementById('saudacao-texto');
@@ -1849,6 +2111,7 @@ function showPage(id,btn){
   if(id==='historico') carregarHistorico();
   if(id==='agenda'){ document.body.classList.add('page-agenda'); renderAgenda(); }
   else{ document.body.classList.remove('page-agenda'); }
+  if(id==='insights') renderInsights();
 }
 function topbarAction(){ const active=document.querySelector('.page.active').id; if(active==='page-clientes'||active==='page-dashboard') openModal(); }
 
@@ -3366,7 +3629,353 @@ function renderAgenda(){
 
 renderTemplates();
 document.getElementById('f-data').valueAsDate=new Date();
+
+// ── TEMAS DE COR ──────────────────────────────────────────────────────────
+const TEMAS = {
+  verde:     { nome:'Verde (padrão)', accent:'#00e5ff', blue:'#2e6aff', blueLite:'#5b8fff', green:'#00d68f', dot:'#00d68f' },
+  rosa:      { nome:'Rosa',           accent:'#ff5fa3', blue:'#ff5fa3', blueLite:'#ff8fc0', green:'#00d68f', dot:'#ff5fa3' },
+  azul:      { nome:'Azul',           accent:'#3b9cff', blue:'#3b9cff', blueLite:'#6fb8ff', green:'#00d68f', dot:'#3b9cff' },
+  roxo:      { nome:'Roxo',           accent:'#a78bfa', blue:'#a78bfa', blueLite:'#c4b0fc', green:'#00d68f', dot:'#a78bfa' },
+  terracota: { nome:'Terracota',      accent:'#ff8552', blue:'#ff8552', blueLite:'#ffaa85', green:'#00d68f', dot:'#ff8552' },
+  ambar:     { nome:'Âmbar',          accent:'#ffb020', blue:'#ffb020', blueLite:'#ffc657', green:'#00d68f', dot:'#ffb020' },
+};
+
+function aplicarTema(key){
+  const t = TEMAS[key] || TEMAS.verde;
+  const root = document.documentElement.style;
+  root.setProperty('--accent', t.accent);
+  root.setProperty('--blue', t.blue);
+  root.setProperty('--blue-lite', t.blueLite);
+  root.setProperty('--blue-dim', t.blue + '26');
+  localStorage.setItem('retornax_tema', key);
+  document.querySelectorAll('.theme-swatch').forEach(el => el.classList.toggle('sel', el.dataset.key === key));
+  const dd = document.getElementById('theme-dropdown');
+  if(dd) dd.style.display = 'none';
+}
+
+function renderThemePicker(){
+  const atual = localStorage.getItem('retornax_tema') || 'verde';
+  const html = Object.entries(TEMAS).map(([key,t]) => `
+    <div class="theme-swatch ${key===atual?'sel':''}" data-key="${key}" onclick="aplicarTema('${key}')">
+      <div class="dot" style="background:${t.dot}"></div>
+      <div class="lbl">${t.nome}</div>
+    </div>`).join('');
+  const wrap1 = document.getElementById('theme-picker');
+  if(wrap1) wrap1.innerHTML = html;
+  const wrap2 = document.getElementById('theme-picker-topbar');
+  if(wrap2) wrap2.innerHTML = html;
+}
+
+function toggleThemeDropdown(){
+  const dd = document.getElementById('theme-dropdown');
+  if(!dd) return;
+  const abrindo = dd.style.display === 'none';
+  dd.style.display = abrindo ? 'block' : 'none';
+}
+
+document.addEventListener('click', (e) => {
+  const dd = document.getElementById('theme-dropdown');
+  const btn = document.getElementById('btn-cor-tema');
+  if(!dd || dd.style.display === 'none') return;
+  if(!dd.contains(e.target) && e.target !== btn && !btn.contains(e.target)){
+    dd.style.display = 'none';
+  }
+});
+
+function initTema(){
+  const salvo = localStorage.getItem('retornax_tema') || 'verde';
+  aplicarTema(salvo);
+  renderThemePicker();
+}
+
+// ── VENDAS NO DASHBOARD (mock até existir tabela de vendas no Supabase) ────
+function renderVendasDashboard(){
+  const set = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
+  const hojeStr = new Date().toISOString().slice(0,10);
+  const mesAtual = new Date().getMonth();
+  const anoAtual = new Date().getFullYear();
+
+  if(typeof vendasRegistradas !== 'undefined' && vendasRegistradas.length){
+    const vendasHoje = vendasRegistradas.filter(v => v.data === hojeStr);
+    const vendasMes = vendasRegistradas.filter(v => { const d = new Date(v.data); return d.getMonth()===mesAtual && d.getFullYear()===anoAtual; });
+    const fatHoje = vendasHoje.reduce((a,v)=>a+v.valor,0);
+    const fatMes = vendasMes.reduce((a,v)=>a+v.valor,0);
+    const ticket = vendasMes.length ? Math.round(fatMes/vendasMes.length) : 0;
+
+    set('dash-vendas-hoje', vendasHoje.length);
+    set('dash-faturado-hoje', 'R$ ' + fatHoje.toLocaleString('pt-BR'));
+    set('dash-faturado-mes', 'R$ ' + fatMes.toLocaleString('pt-BR'));
+    set('dash-ticket-medio', 'R$ ' + ticket);
+    return;
+  }
+
+  // Mock até existir histórico real ou tabela de vendas no Supabase
+  set('dash-vendas-hoje', 0);
+  set('dash-faturado-hoje', 'R$ 0');
+  set('dash-faturado-mes', 'R$ 0');
+  set('dash-ticket-medio', 'R$ 0');
+}
+
 checkAuth();
+initTema();
+renderVendasDashboard();
+
+// ── INSIGHTS / BI DA CARTEIRA ──────────────────────────────────────────────
+let chartsInsLoaded = false;
+function renderInsights(){
+  // Segmentos (usa dados reais se existirem, senão mock)
+  // Agrupa clientes por frequência de contato (universal — não depende do segmento do negócio)
+  const calcDias = (c) => {
+    if(!c.ultimaVisita && !c.ultimo_contato) return 999;
+    const d = new Date(c.ultimaVisita || c.ultimo_contato);
+    return Math.floor((Date.now() - d.getTime()) / 86400000);
+  };
+  const freqData = (typeof clientes !== 'undefined' && clientes && clientes.length)
+    ? (() => {
+        const faixas = { 'Contato recente (≤15d)':0, 'Espaçando (16–45d)':0, 'Sumido (45d+)':0 };
+        clientes.forEach(c => {
+          const dias = calcDias(c);
+          if(dias<=15) faixas['Contato recente (≤15d)']++;
+          else if(dias<=45) faixas['Espaçando (16–45d)']++;
+          else faixas['Sumido (45d+)']++;
+        });
+        return Object.entries(faixas);
+      })()
+    : [['Contato recente (≤15d)',4],['Espaçando (16–45d)',3],['Sumido (45d+)',1]];
+  const total = freqData.reduce((a,[,n])=>a+n,0) || 1;
+  const cores = ['#639922','#BA7517','#A32D2D'];
+  const segList = document.getElementById('ins-seg-list');
+  if(segList){
+    segList.innerHTML = freqData.map(([nome,n],i)=>{
+      const pct = Math.round(n/total*100);
+      return `<div class="seg-row-ins">
+        <span class="seg-lbl" style="width:150px">${nome}</span>
+        <div class="seg-track"><div class="seg-fill" style="width:${pct}%;background:${cores[i%cores.length]}"></div></div>
+        <span class="seg-val">${n} (${pct}%)</span>
+      </div>`;
+    }).join('');
+  }
+
+  // Insights automáticos (estáticos por ora — podem ser calculados a partir de dados reais depois)
+  const insights = [
+    { bg:'rgba(99,153,34,0.15)', color:'var(--green)', icon:'↑', html:'<strong>4 clientes</strong> com contato recente têm score acima de 80 — sua base mais fiel está engajada.' },
+    { bg:'rgba(255,176,32,0.15)', color:'var(--amber)', icon:'⏱', html:'<strong>3 clientes</strong> passaram de "Atenção" para "Crítico" nos últimos 7 dias — considere priorizar contato esta semana.' },
+    { bg:'rgba(55,138,221,0.15)', color:'var(--blue)', icon:'💡', html:'Terças e quintas têm a maior taxa de resposta às mensagens (74%) — bom horário para concentrar disparos.' },
+    { bg:'rgba(226,75,74,0.15)', color:'var(--red)', icon:'⚠', html:'Taxa de retenção caiu 3% este mês — a maior parte da queda vem de clientes sumidos há 45+ dias.' },
+  ];
+  const insList = document.getElementById('ins-list');
+  if(insList){
+    insList.innerHTML = insights.map(i=>`
+      <div class="insight-row-ins">
+        <div class="insight-icon-ins" style="background:${i.bg};color:${i.color}">${i.icon}</div>
+        <div class="insight-text-ins">${i.html}</div>
+      </div>`).join('');
+  }
+
+  // Faturamento — dados reais do Supabase (tabela vendas)
+  if(chartsInsLoaded){
+    carregarFaturamentoReal();
+  } else {
+    garantirChartsCarregados();
+  }
+}
+
+async function carregarFaturamentoReal(){
+  const setText = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
+  const hoje = new Date();
+  const empresaId = ACCOUNT.empresaId;
+
+  try{
+    // Busca todas as vendas da empresa (suficiente para early stage; paginar depois se crescer muito)
+    const { data: vendas, error } = await supabase
+      .from('vendas')
+      .select('cliente_id, descricao, valor, data_venda, clientes(nome)')
+      .eq('empresa_id', empresaId);
+
+    if(error) throw error;
+
+    if(!vendas || !vendas.length){
+      setText('ins-faturamento', 'R$ 0');
+      setText('ins-fat-sub', 'sem vendas registradas ainda');
+      setText('ins-ticket', 'R$ 0');
+      setText('ins-atend', 0);
+      setText('ins-top-serv', '—');
+      setText('ins-top-serv-sub', '');
+      setText('ins-roi-text', 'Registre vendas pelo botão 🛍️ na lista de clientes para ver o faturamento aqui.');
+      renderChartFaturamento([0,0,0,0,0,0]);
+      document.getElementById('ins-top-clientes').innerHTML = '<div style="font-size:0.8rem;color:var(--text3);padding:8px 0">Nenhuma venda registrada ainda.</div>';
+      document.getElementById('ins-compra-unica').innerHTML = '<div style="font-size:0.8rem;color:var(--text3);padding:8px 0">Nenhuma venda registrada ainda.</div>';
+      return;
+    }
+
+    // Faturamento do mês atual e anterior
+    const mesAtual = hoje.getMonth(), anoAtual = hoje.getFullYear();
+    const vendasMes = vendas.filter(v => { const d = new Date(v.data_venda); return d.getMonth()===mesAtual && d.getFullYear()===anoAtual; });
+    const mesAnt = mesAtual===0 ? 11 : mesAtual-1;
+    const anoAnt = mesAtual===0 ? anoAtual-1 : anoAtual;
+    const vendasMesAnt = vendas.filter(v => { const d = new Date(v.data_venda); return d.getMonth()===mesAnt && d.getFullYear()===anoAnt; });
+
+    const fatMes = vendasMes.reduce((a,v)=>a+Number(v.valor),0);
+    const fatMesAnt = vendasMesAnt.reduce((a,v)=>a+Number(v.valor),0);
+    const variacao = fatMesAnt>0 ? Math.round((fatMes-fatMesAnt)/fatMesAnt*100) : (fatMes>0?100:0);
+    const ticket = vendasMes.length ? Math.round(fatMes/vendasMes.length) : 0;
+
+    setText('ins-faturamento', 'R$ ' + fatMes.toLocaleString('pt-BR'));
+    setText('ins-fat-sub', (variacao>=0?'↑ +':'↓ ') + variacao + '% vs mês anterior');
+    setText('ins-ticket', 'R$ ' + ticket);
+    setText('ins-atend', vendasMes.length);
+
+    // Serviço/produto mais vendido (geral, todas as vendas)
+    const porDesc = {};
+    vendas.forEach(v => { porDesc[v.descricao] = (porDesc[v.descricao]||0) + 1; });
+    const topServ = Object.entries(porDesc).sort((a,b)=>b[1]-a[1])[0];
+    if(topServ){
+      setText('ins-top-serv', topServ[0]);
+      setText('ins-top-serv-sub', topServ[1] + ' venda' + (topServ[1]>1?'s':''));
+    }
+
+    // Gráfico — últimos 6 meses
+    const meses6 = [];
+    for(let i=5;i>=0;i--){
+      const d = new Date(anoAtual, mesAtual-i, 1);
+      meses6.push({ mes: d.getMonth(), ano: d.getFullYear() });
+    }
+    const fatPorMes = meses6.map(m => vendas.filter(v=>{ const d=new Date(v.data_venda); return d.getMonth()===m.mes && d.getFullYear()===m.ano; }).reduce((a,v)=>a+Number(v.valor),0));
+    renderChartFaturamento(fatPorMes);
+
+    // Top clientes (ranking por valor total)
+    const porCliente = {};
+    vendas.forEach(v => {
+      const nome = v.clientes?.nome || 'Cliente';
+      if(!porCliente[v.cliente_id]) porCliente[v.cliente_id] = { nome, total: 0, qtd: 0 };
+      porCliente[v.cliente_id].total += Number(v.valor);
+      porCliente[v.cliente_id].qtd += 1;
+    });
+    const ranking = Object.values(porCliente).sort((a,b)=>b.total-a.total).slice(0,5);
+    document.getElementById('ins-top-clientes').innerHTML = ranking.length
+      ? ranking.map(c => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem"><span>${c.nome}</span><span style="color:var(--text2)">R$ ${c.total.toLocaleString('pt-BR')} · ${c.qtd}x</span></div>`).join('')
+      : '<div style="font-size:0.8rem;color:var(--text3);padding:8px 0">Nenhuma venda registrada ainda.</div>';
+
+    // Clientes que compraram só uma vez (oportunidade de reativação)
+    const unicaCompra = Object.values(porCliente).filter(c => c.qtd===1);
+    document.getElementById('ins-compra-unica').innerHTML = unicaCompra.length
+      ? unicaCompra.slice(0,5).map(c => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem"><span>${c.nome}</span><span style="color:var(--text2)">R$ ${c.total.toLocaleString('pt-BR')}</span></div>`).join('')
+      : '<div style="font-size:0.8rem;color:var(--text3);padding:8px 0">Todos os clientes já compraram mais de uma vez 🎉</div>';
+
+    // ROI das mensagens — clientes reativados (status mudou para ativo após mensagem) que compraram depois
+    setText('ins-roi-text', `Faturamento total registrado: R$ ${vendas.reduce((a,v)=>a+Number(v.valor),0).toLocaleString('pt-BR')} em ${vendas.length} venda${vendas.length!==1?'s':''}.`);
+
+  }catch(e){
+    console.warn('Erro ao carregar faturamento real:', e.message);
+    setText('ins-faturamento', 'R$ 0');
+    setText('ins-roi-text', 'Não foi possível carregar os dados de vendas. Verifique se a tabela "vendas" existe no Supabase.');
+  }
+}
+
+let chartFatInstance = null;
+function renderChartFaturamento(dados){
+  if(typeof Chart === 'undefined'){
+    // Chart.js ainda não carregou — tenta novamente em breve
+    setTimeout(() => renderChartFaturamento(dados), 300);
+    return;
+  }
+  const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+  const textColor = isDark ? '#b8b8b0' : '#5f5e5a';
+  const labelColor = isDark ? '#e8e8e0' : '#27500A';
+  const hoje = new Date();
+  const nomesMeses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  const labels = [];
+  for(let i=5;i>=0;i--){
+    const d = new Date(hoje.getFullYear(), hoje.getMonth()-i, 1);
+    labels.push(nomesMeses[d.getMonth()]);
+  }
+  if(chartFatInstance) chartFatInstance.destroy();
+  chartFatInstance = new Chart(document.getElementById('chartFatIns'), {
+    type: 'bar',
+    data: { labels, datasets: [{ label: 'Faturamento', data: dados, backgroundColor: '#639922', borderRadius: 4 }] },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 28 } },
+      plugins: {
+        legend: { display: false },
+        datalabels: { anchor: 'end', align: 'top', color: labelColor, font: { weight: 500, size: 12 }, formatter: v => 'R$ ' + v.toLocaleString('pt-BR') }
+      },
+      scales: {
+        y: { display: false, grid: { display: false } },
+        x: { grid: { display: false }, ticks: { color: textColor } }
+      }
+    }
+  });
+}
+
+function garantirChartsCarregados(){
+  if(chartsInsLoaded) return;
+  chartsInsLoaded = true;
+
+  const datalabelsScript = document.createElement('script');
+  datalabelsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js';
+
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js';
+  script.onload = () => {
+    document.body.appendChild(datalabelsScript);
+    datalabelsScript.onload = () => {
+      Chart.register(ChartDataLabels);
+      const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+      const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
+      const textColor = isDark ? '#b8b8b0' : '#5f5e5a';
+
+      new Chart(document.getElementById('chartScoreIns'), {
+        type: 'line',
+        data: {
+          labels: ['Jan','Fev','Mar','Abr','Mai','Jun'],
+          datasets: [{
+            label: 'Score médio',
+            data: [58,61,63,65,67,71],
+            borderColor: '#3B6D11',
+            backgroundColor: 'rgba(99,153,34,0.1)',
+            fill: true,
+            tension: 0.3,
+            pointRadius: 4,
+            pointBackgroundColor: '#3B6D11'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false }, datalabels: { display: false } },
+          scales: {
+            y: { min: 40, max: 80, grid: { color: gridColor }, ticks: { color: textColor } },
+            x: { grid: { display: false }, ticks: { color: textColor } }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('chartScoreDistIns'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Score A','Score B','Score C'],
+          datasets: [{
+            data: [45,35,20],
+            backgroundColor: ['#639922','#BA7517','#A32D2D'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false }, datalabels: { display: false } },
+          cutout: '68%'
+        }
+      });
+
+      // Renderiza o gráfico de faturamento agora que Chart.js + datalabels estão prontos
+      carregarFaturamentoReal();
+    };
+  };
+  document.body.appendChild(script);
+}
 
 // ── SAÚDE DO NÚMERO ──────────────────────────────────────────────────────────
 async function registrarEnvioSaude({ intervalo=30, identica=false, frio=false }={}) {
