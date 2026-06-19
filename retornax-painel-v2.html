@@ -1914,8 +1914,13 @@ async function addCliente(){
   const saved=await salvarClienteBanco(novoCliente);
   if(saved){ novoCliente.id=saved.id; }
   if(vendaValor>0 && saved){
-    await salvarVendaBanco({ clienteId: saved.id, descricao: vendaDesc||'Primeira venda', valor: vendaValor, data: data });
-    showToast(`Venda de R$ ${vendaValor.toLocaleString('pt-BR')} registrada para ${nome}!`);
+    const vendaSalva = await salvarVendaBanco({ clienteId: saved.id, descricao: vendaDesc||'Primeira venda', valor: vendaValor, data: data });
+    if(vendaSalva){
+      showToast(`Venda de R$ ${vendaValor.toLocaleString('pt-BR')} registrada para ${nome}!`);
+    } else {
+      showToast(`Cliente salvo, mas a venda não pôde ser gravada. Veja o console.`, 'err');
+    }
+    vendasRegistradas.push({ clienteId: saved.id, clienteNome: nome, descricao: vendaDesc||'Primeira venda', valor: vendaValor, data });
     renderVendasDashboard();
   }
 }
@@ -1949,26 +1954,41 @@ async function confirmarNovaVenda(){
   vendasRegistradas.push(venda);
 
   const saved = await salvarVendaBanco({ clienteId: vendaClienteAtual.id, descricao: desc, valor, data });
-  showToast(`Venda de R$ ${valor.toLocaleString('pt-BR')} registrada para ${vendaClienteAtual.nome}!`);
+
+  // Venda = contato com o cliente, então também conta como visita
+  const idxCliente = clientes.findIndex(c => String(c.id) === String(vendaClienteAtual.id));
+  if(idxCliente > -1){
+    clientes[idxCliente].ultima = data;
+    clientes[idxCliente].status = 'ok';
+    await supabase.from('clientes').update({ ultima_visita: data, status: 'ok' }).eq('id', vendaClienteAtual.id);
+    filterClientes();
+    updateCount();
+  }
+
+  if(saved){
+    showToast(`Venda de R$ ${valor.toLocaleString('pt-BR')} registrada para ${vendaClienteAtual.nome}!`);
+  } else {
+    showToast(`Venda salva localmente, mas não foi possível gravar no banco. Veja o console.`, 'err');
+  }
   fecharNovaVenda();
   renderVendasDashboard();
 }
 
 // ── PERSISTÊNCIA DE VENDA NO SUPABASE ───────────────────────────────────────
 async function salvarVendaBanco(venda){
-  try{
-    const {data}=await supabase.from('vendas').insert({
-      empresa_id: ACCOUNT.empresaId,
-      cliente_id: venda.clienteId,
-      descricao: venda.descricao,
-      valor: venda.valor,
-      data_venda: venda.data
-    }).select().single();
-    return data;
-  }catch(e){
-    console.warn('Tabela de vendas ainda não existe no Supabase — venda não persistida:', e.message);
+  const { data, error } = await supabase.from('vendas').insert({
+    empresa_id: ACCOUNT.empresaId,
+    cliente_id: venda.clienteId,
+    descricao: venda.descricao,
+    valor: venda.valor,
+    data_venda: venda.data
+  }).select().single();
+
+  if(error){
+    console.error('❌ Erro ao salvar venda no Supabase:', error.message, error.details || '', error.hint || '');
     return null;
   }
+  return data;
 }
 
 let importData=[];
