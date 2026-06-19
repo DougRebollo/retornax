@@ -34,9 +34,10 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .user-plan{font-size:0.7rem;color:var(--text3)}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:60px;flex-shrink:0;background:var(--bg2);border-bottom:1px solid var(--border)}
-body.page-agenda .topbar{display:none!important}
-body.page-agenda .trial-banner{display:none!important}
-body.page-agenda .content{padding:16px 20px}
+body.page-agenda .topbar{display:none!important;height:0!important;padding:0!important;margin:0!important;border:none!important}
+body.page-agenda .trial-banner{display:none!important;height:0!important;padding:0!important;margin:0!important;border:none!important}
+body.page-agenda .content{padding:16px 20px!important;margin:0!important}
+body.page-agenda #page-agenda{margin-top:0!important;padding-top:0!important}
 .topbar-title{font-weight:700;font-size:1rem;color:var(--white)}
 .topbar-actions{display:flex;align-items:center;gap:10px}
 .btn{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.84rem;font-weight:500;cursor:pointer;border:none;transition:all 0.15s}
@@ -604,6 +605,34 @@ tbody td.name{color:var(--text);font-weight:500}
         <div class="stat-card"><div class="stat-top"><div class="stat-label">Faturado no mês</div><div class="stat-icon blue">&#x1F4C8;</div></div><div class="stat-val" id="dash-faturado-mes">R$ 0</div><div class="stat-sub" id="dash-faturado-mes-sub">este mês</div></div>
         <div class="stat-card"><div class="stat-top"><div class="stat-label">Ticket médio</div><div class="stat-icon amber">&#x1F9FE;</div></div><div class="stat-val" id="dash-ticket-medio">R$ 0</div><div class="stat-sub">por atendimento</div></div>
       </div>
+
+      <div class="card" id="resumo-semanal-card" style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div style="font-size:0.95rem;font-weight:700;color:var(--text)">📅 Resumo da semana</div>
+          <div style="font-size:0.75rem;color:var(--text2)" id="resumo-semanal-periodo">—</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+          <div style="background:var(--bg3);border-radius:10px;padding:14px">
+            <div style="font-size:0.75rem;color:var(--text2);margin-bottom:6px">Faturado essa semana</div>
+            <div style="font-size:1.5rem;font-weight:700;color:var(--text)" id="resumo-fat-semana">R$ 0</div>
+            <div style="font-size:0.75rem;margin-top:4px" id="resumo-fat-var">—</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:10px;padding:14px">
+            <div style="font-size:0.75rem;color:var(--text2);margin-bottom:6px">Vendas na semana</div>
+            <div style="font-size:1.5rem;font-weight:700;color:var(--text)" id="resumo-vendas-semana">0</div>
+            <div style="font-size:0.75rem;color:var(--text2);margin-top:4px" id="resumo-vendas-anterior">—</div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="font-size:0.72rem;color:var(--text2);margin-bottom:8px">Faturamento por dia</div>
+          <div style="display:flex;align-items:flex-end;gap:6px;height:56px" id="resumo-grafico-dias"></div>
+        </div>
+        <div style="border-top:1px solid var(--border);padding-top:12px;display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text)">
+          <span style="font-size:0.95rem">🔔</span>
+          <span id="resumo-proximos-dias">Carregando agenda...</span>
+        </div>
+      </div>
+
       <div style="margin-bottom:16px">
         <button class="btn btn-ghost" onclick="showPage('insights',document.querySelector('[onclick*=insights]'))" style="display:flex;align-items:center;gap:8px">
           <span style="font-size:1.1rem">📊</span> Ver insights da carteira
@@ -2362,9 +2391,10 @@ function showToast(msg,type='ok'){
 }
 
 function showPage(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>{ p.classList.remove('active'); p.style.display='none'; });
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
+  const pageEl = document.getElementById('page-'+id);
+  if(pageEl){ pageEl.classList.add('active'); pageEl.style.display='block'; }
   if(btn) btn.classList.add('active');
   if(id==='config'){ carregarSaude(); renderThemePicker(); }
   if(id==='dashboard') renderVendasDashboard();
@@ -2393,8 +2423,18 @@ function showPage(id,btn){
   if(id==='fidelizados') renderFidelizados();
   if(id==='operacional') opCarregarDados();
   if(id==='historico') carregarHistorico();
-  if(id==='agenda'){ document.body.classList.add('page-agenda'); renderAgenda(); }
-  else{ document.body.classList.remove('page-agenda'); }
+  const topbarEl = document.querySelector('.topbar');
+  const trialEl = document.getElementById('trial-banner');
+  if(id==='agenda'){
+    document.body.classList.add('page-agenda');
+    if(topbarEl) topbarEl.style.display='none';
+    if(trialEl) trialEl.style.display='none';
+    renderAgenda();
+  } else {
+    document.body.classList.remove('page-agenda');
+    if(topbarEl) topbarEl.style.display='';
+    if(trialEl) trialEl.style.display='';
+  }
   if(id==='insights') renderInsights();
   if(id==='produtos') renderProdutos();
 }
@@ -3993,31 +4033,124 @@ function initTema(){
 }
 
 // ── VENDAS NO DASHBOARD (mock até existir tabela de vendas no Supabase) ────
-function renderVendasDashboard(){
+async function renderVendasDashboard(){
   const set = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
-  const hojeStr = new Date().toISOString().slice(0,10);
-  const mesAtual = new Date().getMonth();
-  const anoAtual = new Date().getFullYear();
+  if(!ACCOUNT.empresaId) return;
 
-  if(typeof vendasRegistradas !== 'undefined' && vendasRegistradas.length){
-    const vendasHoje = vendasRegistradas.filter(v => v.data === hojeStr);
-    const vendasMes = vendasRegistradas.filter(v => { const d = new Date(v.data); return d.getMonth()===mesAtual && d.getFullYear()===anoAtual; });
-    const fatHoje = vendasHoje.reduce((a,v)=>a+v.valor,0);
-    const fatMes = vendasMes.reduce((a,v)=>a+v.valor,0);
+  try{
+    const { data: vendas, error } = await supabase.from('vendas').select('valor, data_venda').eq('empresa_id', ACCOUNT.empresaId);
+    if(error) throw error;
+
+    const hojeStr = new Date().toISOString().slice(0,10);
+    const mesAtual = new Date().getMonth(), anoAtual = new Date().getFullYear();
+    const todas = vendas || [];
+
+    const vendasHoje = todas.filter(v => v.data_venda === hojeStr);
+    const vendasMes = todas.filter(v => { const d = new Date(v.data_venda); return d.getMonth()===mesAtual && d.getFullYear()===anoAtual; });
+    const fatHoje = vendasHoje.reduce((a,v)=>a+Number(v.valor),0);
+    const fatMes = vendasMes.reduce((a,v)=>a+Number(v.valor),0);
     const ticket = vendasMes.length ? Math.round(fatMes/vendasMes.length) : 0;
 
     set('dash-vendas-hoje', vendasHoje.length);
     set('dash-faturado-hoje', 'R$ ' + fatHoje.toLocaleString('pt-BR'));
     set('dash-faturado-mes', 'R$ ' + fatMes.toLocaleString('pt-BR'));
     set('dash-ticket-medio', 'R$ ' + ticket);
-    return;
+
+    renderResumoSemanal(todas);
+  }catch(e){
+    console.warn('Erro ao carregar vendas do dashboard:', e.message);
+    set('dash-vendas-hoje', 0);
+    set('dash-faturado-hoje', 'R$ 0');
+    set('dash-faturado-mes', 'R$ 0');
+    set('dash-ticket-medio', 'R$ 0');
+    renderResumoSemanal([]);
+  }
+}
+
+// ── RESUMO SEMANAL (segunda a domingo) ──────────────────────────────────────
+function inicioSemana(data){
+  const d = new Date(data);
+  const dia = d.getDay();
+  const diff = dia===0 ? -6 : 1-dia;
+  d.setDate(d.getDate()+diff);
+  d.setHours(0,0,0,0);
+  return d;
+}
+
+function renderResumoSemanal(vendas){
+  const hoje = new Date();
+  const inicioAtual = inicioSemana(hoje);
+  const fimAtual = new Date(inicioAtual); fimAtual.setDate(fimAtual.getDate()+6);
+  const inicioAnterior = new Date(inicioAtual); inicioAnterior.setDate(inicioAnterior.getDate()-7);
+  const fimAnterior = new Date(inicioAtual); fimAnterior.setDate(fimAnterior.getDate()-1);
+
+  const dentro = (dataStr, ini, fim) => { const d = new Date(dataStr+'T12:00'); return d>=ini && d<=fim; };
+
+  const vendasSemanaAtual = vendas.filter(v => dentro(v.data_venda, inicioAtual, fimAtual));
+  const vendasSemanaAnterior = vendas.filter(v => dentro(v.data_venda, inicioAnterior, fimAnterior));
+
+  const fatAtual = vendasSemanaAtual.reduce((a,v)=>a+Number(v.valor),0);
+  const fatAnterior = vendasSemanaAnterior.reduce((a,v)=>a+Number(v.valor),0);
+  const variacao = fatAnterior>0 ? Math.round((fatAtual-fatAnterior)/fatAnterior*100) : (fatAtual>0?100:0);
+
+  const fmtData = (d) => d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short' }).replace('.', '');
+  const periodoEl = document.getElementById('resumo-semanal-periodo');
+  if(periodoEl) periodoEl.textContent = `${fmtData(inicioAtual)} — ${fmtData(fimAtual)}`;
+
+  const set = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
+  set('resumo-fat-semana', 'R$ ' + fatAtual.toLocaleString('pt-BR'));
+  set('resumo-vendas-semana', vendasSemanaAtual.length);
+  set('resumo-vendas-anterior', 'semana passada: ' + vendasSemanaAnterior.length);
+
+  const varEl = document.getElementById('resumo-fat-var');
+  if(varEl){
+    if(fatAnterior===0 && fatAtual===0){
+      varEl.textContent = 'sem vendas ainda';
+      varEl.style.color = 'var(--text2)';
+    } else {
+      varEl.textContent = (variacao>=0?'↑ +':'↓ ') + Math.abs(variacao) + '% vs semana passada';
+      varEl.style.color = variacao>=0 ? 'var(--green)' : 'var(--red)';
+    }
   }
 
-  // Mock até existir histórico real ou tabela de vendas no Supabase
-  set('dash-vendas-hoje', 0);
-  set('dash-faturado-hoje', 'R$ 0');
-  set('dash-faturado-mes', 'R$ 0');
-  set('dash-ticket-medio', 'R$ 0');
+  // Mini-gráfico por dia (segunda a domingo)
+  const diasSemana = ['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
+  const valoresPorDia = diasSemana.map((_, i) => {
+    const dia = new Date(inicioAtual); dia.setDate(dia.getDate()+i);
+    const diaStr = dia.toISOString().slice(0,10);
+    return vendasSemanaAtual.filter(v => v.data_venda === diaStr).reduce((a,v)=>a+Number(v.valor),0);
+  });
+  const maxValor = Math.max(...valoresPorDia, 1);
+  const graficoEl = document.getElementById('resumo-grafico-dias');
+  if(graficoEl){
+    graficoEl.innerHTML = diasSemana.map((lbl,i) => {
+      const altura = Math.max(4, Math.round(valoresPorDia[i]/maxValor*52));
+      const ehHoje = i === (hoje.getDay()===0?6:hoje.getDay()-1);
+      const cor = valoresPorDia[i]>0 ? (ehHoje?'var(--accent)':'var(--green)') : 'var(--bg2)';
+      return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+        <div style="width:100%;background:${cor};border-radius:3px 3px 0 0;height:${altura}px"></div>
+        <span style="font-size:0.62rem;color:var(--text3)">${lbl}</span>
+      </div>`;
+    }).join('');
+  }
+
+  // Próximos dias — reaproveita classificação da Agenda
+  let previstos=0, atrasados=0;
+  if(typeof clientes !== 'undefined' && clientes){
+    clientes.forEach(c => {
+      const st = agendaStatus(c);
+      if(st==='green') previstos++;
+      else if(st==='red') atrasados++;
+    });
+  }
+  const proxEl = document.getElementById('resumo-proximos-dias');
+  if(proxEl){
+    if(previstos===0 && atrasados===0){
+      proxEl.textContent = 'Nenhum retorno previsto nos próximos dias.';
+    } else {
+      proxEl.textContent = `${previstos} cliente${previstos!==1?'s':''} com retorno previsto` + (atrasados>0 ? ` · ${atrasados} atrasado${atrasados!==1?'s':''}` : '');
+    }
+  }
 }
 
 checkAuth();
