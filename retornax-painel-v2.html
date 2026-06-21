@@ -25,7 +25,7 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .nav-item .icon{width:18px;height:18px;flex-shrink:0;opacity:0.7}
 .nav-item.active .icon{opacity:1}
 .nav-badge{margin-left:auto;background:var(--blue-dim);color:var(--blue-lite);font-size:0.7rem;padding:1px 7px;border-radius:100px}
-.sidebar-bottom{margin-top:auto;padding:16px;border-top:1px solid var(--border)}
+.sidebar-bottom{margin-top:auto;padding:16px;border-top:1px solid var(--border);margin-bottom:14px}
 .user-row{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;cursor:pointer;transition:background 0.15s}
 .user-row:hover{background:var(--surface)}
 .avatar{width:32px;height:32px;border-radius:50%;background:var(--blue-dim);border:1px solid var(--blue);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:var(--blue-lite);flex-shrink:0}
@@ -518,10 +518,6 @@ tbody td.name{color:var(--text);font-weight:500}
   <button class="nav-item" onclick="showPage('assinatura',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
     Minha assinatura
-  </button>
-  <button class="nav-item" onclick="showPage('tutoriais',this)">
-    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-    Tutoriais
   </button>
   <button class="nav-item" onclick="showPage('novidades',this)">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1816,9 +1812,10 @@ function filterClientes(){
   const seg=document.getElementById('filter-seg').value;
   const status=document.getElementById('filter-status').value;
   const filtered=clientes.filter(c=>{
-    const nomeOk=!q||norm(c.nome||'').includes(q);
-    const wppOk=!q||(c.wpp||'').replace(/\D/g,'').includes(q.replace(/\D/g,''));
-    return (nomeOk||wppOk)&&(!seg||c.seg===seg)&&(!status||c.status===status);
+    const qDigits = q.replace(/\D/g,'');
+    const nomeOk = !q || norm(c.nome||'').includes(q);
+    const wppOk = qDigits.length>0 && (c.wpp||'').replace(/\D/g,'').includes(qDigits);
+    return (!q || nomeOk || wppOk) && (!seg||c.seg===seg) && (!status||c.status===status);
   });
   renderClientes(filtered);
   const countEl = document.getElementById('search-results-count');
@@ -2399,7 +2396,7 @@ function showPage(id,btn){
   if(id==='config'){ carregarSaude(); renderThemePicker(); }
   if(id==='dashboard') renderVendasDashboard();
   if(id==='dashboard'){ carregarSaude(); renderAnivDashboard(); }
-  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',agenda:'Agenda',config:'Conectar WhatsApp',novidades:'Novidades',tutoriais:'Tutoriais',produtos:'Produtos'};
+  const titles={dashboard:'Dashboard',clientes:'Clientes',automacoes:'Automações',campanhas:'Campanhas',historico:'Histórico de envios',agenda:'Agenda',config:'Conectar WhatsApp',novidades:'Novidades',produtos:'Produtos'};
   const saudacaoEl = document.getElementById('saudacao-texto');
   const tituloEl = document.getElementById('page-title');
   if(id === 'dashboard'){
