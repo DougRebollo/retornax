@@ -689,23 +689,23 @@ tbody td.name{color:var(--text);font-weight:500}
       <div class="kgrid-ins">
         <div class="kpi-ins">
           <div class="kpi-ins-label">Score médio da carteira</div>
-          <div class="kpi-ins-val">71</div>
-          <div class="kpi-ins-sub up">↑ +4 vs mês anterior</div>
+          <div class="kpi-ins-val" id="ins-score-medio">—</div>
+          <div class="kpi-ins-sub" id="ins-score-sub">—</div>
         </div>
         <div class="kpi-ins">
           <div class="kpi-ins-label">Taxa de retenção</div>
-          <div class="kpi-ins-val">82%</div>
-          <div class="kpi-ins-sub dn">↓ -3% vs mês anterior</div>
+          <div class="kpi-ins-val" id="ins-retencao">—</div>
+          <div class="kpi-ins-sub" id="ins-retencao-sub">—</div>
         </div>
         <div class="kpi-ins">
           <div class="kpi-ins-label">Clientes em risco</div>
-          <div class="kpi-ins-val">9</div>
+          <div class="kpi-ins-val" id="ins-em-risco">—</div>
           <div class="kpi-ins-sub">score C, sem contato 30d+</div>
         </div>
         <div class="kpi-ins">
           <div class="kpi-ins-label">Reativados (30d)</div>
-          <div class="kpi-ins-val">14</div>
-          <div class="kpi-ins-sub up">↑ melhor mês até aqui</div>
+          <div class="kpi-ins-val" id="ins-reativados">—</div>
+          <div class="kpi-ins-sub" id="ins-reativados-sub">—</div>
         </div>
       </div>
 
@@ -761,9 +761,9 @@ tbody td.name{color:var(--text);font-weight:500}
       </div>
 
       <div class="card">
-        <div class="card-title">Score da carteira — últimos 6 meses</div>
+        <div class="card-title">Status da carteira</div>
         <div style="position:relative;height:220px">
-          <canvas id="chartScoreIns" role="img" aria-label="Gráfico de linha mostrando evolução do score médio da carteira de clientes de janeiro a junho, subindo de 58 para 71">Score médio: Jan 58, Fev 61, Mar 63, Abr 65, Mai 67, Jun 71</canvas>
+          <canvas id="chartScoreIns" role="img" aria-label="Gráfico mostrando a distribuição de clientes por status: em dia, atenção ou crítico">Distribuição de status da carteira</canvas>
         </div>
       </div>
 
@@ -773,14 +773,14 @@ tbody td.name{color:var(--text);font-weight:500}
           <div id="ins-seg-list"></div>
         </div>
         <div class="card">
-          <div class="card-title">Score A/B/C</div>
+          <div class="card-title">Status A/B/C</div>
           <div style="position:relative;height:170px">
-            <canvas id="chartScoreDistIns" role="img" aria-label="Gráfico de rosca mostrando 45% dos clientes com score A, 35% com score B e 20% com score C">Score A 45%, Score B 35%, Score C 20%</canvas>
+            <canvas id="chartScoreDistIns" role="img" aria-label="Gráfico de rosca mostrando a proporção de clientes em dia, em atenção e em estado crítico">Distribuição de status</canvas>
           </div>
-          <div style="display:flex;justify-content:center;gap:14px;margin-top:8px;font-size:0.75rem;color:var(--text2)">
-            <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#639922"></span>A 45%</span>
-            <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#BA7517"></span>B 35%</span>
-            <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#A32D2D"></span>C 20%</span>
+          <div style="display:flex;justify-content:center;gap:14px;margin-top:8px;font-size:0.75rem;color:var(--text2)" id="ins-status-legend">
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#639922"></span>Em dia</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#BA7517"></span>Atenção</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#A32D2D"></span>Crítico</span>
           </div>
         </div>
       </div>
@@ -4157,14 +4157,54 @@ renderVendasDashboard();
 // ── INSIGHTS / BI DA CARTEIRA ──────────────────────────────────────────────
 let chartsInsLoaded = false;
 function renderInsights(){
-  // Segmentos (usa dados reais se existirem, senão mock)
-  // Agrupa clientes por frequência de contato (universal — não depende do segmento do negócio)
+  const temClientes = typeof clientes !== 'undefined' && clientes && clientes.length > 0;
+
+  // ── KPIs do topo: status real da carteira (sem score, ainda não existe esse cálculo) ──
+  const setKpi = (id,v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
+
+  if(!temClientes){
+    setKpi('ins-score-medio', '—');
+    document.getElementById('ins-score-sub').textContent = 'cadastre clientes para ver';
+    setKpi('ins-retencao', '—');
+    document.getElementById('ins-retencao-sub').textContent = 'sem dados ainda';
+    setKpi('ins-em-risco', 0);
+    setKpi('ins-reativados', 0);
+    document.getElementById('ins-reativados-sub').textContent = 'sem dados ainda';
+  } else {
+    const totalCli = clientes.length;
+    const ok = clientes.filter(c => c.status === 'ok').length;
+    const critico = clientes.filter(c => c.status === 'critico').length;
+    const emRisco = clientes.filter(c => c.status === 'critico' && calcDays(c.ultima) > 30).length;
+    const retencaoPct = totalCli ? Math.round(ok/totalCli*100) : 0;
+
+    // Reativados: status ok com contato recente dentro do ciclo esperado do segmento
+    const hoje = new Date();
+    const reativados30d = clientes.filter(c => {
+      if(c.status !== 'ok' || !c.ultima) return false;
+      const dias = calcDays(c.ultima);
+      return dias >= 0 && dias <= 30;
+    }).length;
+
+    // Score médio: ainda não temos cálculo de score por cliente — não inventar número
+    setKpi('ins-score-medio', '—');
+    document.getElementById('ins-score-sub').textContent = 'em breve';
+
+    setKpi('ins-retencao', retencaoPct + '%');
+    document.getElementById('ins-retencao-sub').textContent = `${ok} de ${totalCli} clientes em dia`;
+    document.getElementById('ins-retencao-sub').className = 'kpi-ins-sub';
+
+    setKpi('ins-em-risco', emRisco);
+    setKpi('ins-reativados', reativados30d);
+    document.getElementById('ins-reativados-sub').textContent = reativados30d > 0 ? 'contato nos últimos 30 dias' : 'nenhum ainda';
+  }
+
+  // ── Frequência de contato (já usava dado real, só corrige o nome do campo) ──
   const calcDias = (c) => {
-    if(!c.ultimaVisita && !c.ultimo_contato) return 999;
-    const d = new Date(c.ultimaVisita || c.ultimo_contato);
+    if(!c.ultima) return 999;
+    const d = new Date(c.ultima);
     return Math.floor((Date.now() - d.getTime()) / 86400000);
   };
-  const freqData = (typeof clientes !== 'undefined' && clientes && clientes.length)
+  const freqData = temClientes
     ? (() => {
         const faixas = { 'Contato recente (≤15d)':0, 'Espaçando (16–45d)':0, 'Sumido (45d+)':0 };
         clientes.forEach(c => {
@@ -4175,42 +4215,93 @@ function renderInsights(){
         });
         return Object.entries(faixas);
       })()
-    : [['Contato recente (≤15d)',4],['Espaçando (16–45d)',3],['Sumido (45d+)',1]];
+    : [['Contato recente (≤15d)',0],['Espaçando (16–45d)',0],['Sumido (45d+)',0]];
   const total = freqData.reduce((a,[,n])=>a+n,0) || 1;
   const cores = ['#639922','#BA7517','#A32D2D'];
   const segList = document.getElementById('ins-seg-list');
   if(segList){
-    segList.innerHTML = freqData.map(([nome,n],i)=>{
-      const pct = Math.round(n/total*100);
-      return `<div class="seg-row-ins">
-        <span class="seg-lbl" style="width:150px">${nome}</span>
-        <div class="seg-track"><div class="seg-fill" style="width:${pct}%;background:${cores[i%cores.length]}"></div></div>
-        <span class="seg-val">${n} (${pct}%)</span>
-      </div>`;
-    }).join('');
+    if(!temClientes){
+      segList.innerHTML = '<div style="font-size:0.8rem;color:var(--text3);padding:8px 0">Cadastre clientes para ver essa distribuição.</div>';
+    } else {
+      segList.innerHTML = freqData.map(([nome,n],i)=>{
+        const pct = Math.round(n/total*100);
+        return `<div class="seg-row-ins">
+          <span class="seg-lbl" style="width:150px">${nome}</span>
+          <div class="seg-track"><div class="seg-fill" style="width:${pct}%;background:${cores[i%cores.length]}"></div></div>
+          <span class="seg-val">${n} (${pct}%)</span>
+        </div>`;
+      }).join('');
+    }
   }
 
-  // Insights automáticos (estáticos por ora — podem ser calculados a partir de dados reais depois)
-  const insights = [
-    { bg:'rgba(99,153,34,0.15)', color:'var(--green)', icon:'↑', html:'<strong>4 clientes</strong> com contato recente têm score acima de 80 — sua base mais fiel está engajada.' },
-    { bg:'rgba(255,176,32,0.15)', color:'var(--amber)', icon:'⏱', html:'<strong>3 clientes</strong> passaram de "Atenção" para "Crítico" nos últimos 7 dias — considere priorizar contato esta semana.' },
-    { bg:'rgba(55,138,221,0.15)', color:'var(--blue)', icon:'💡', html:'Terças e quintas têm a maior taxa de resposta às mensagens (74%) — bom horário para concentrar disparos.' },
-    { bg:'rgba(226,75,74,0.15)', color:'var(--red)', icon:'⚠', html:'Taxa de retenção caiu 3% este mês — a maior parte da queda vem de clientes sumidos há 45+ dias.' },
-  ];
+  // ── Insights automáticos: calculados a partir de dados reais, com fallback honesto ──
   const insList = document.getElementById('ins-list');
   if(insList){
-    insList.innerHTML = insights.map(i=>`
-      <div class="insight-row-ins">
-        <div class="insight-icon-ins" style="background:${i.bg};color:${i.color}">${i.icon}</div>
-        <div class="insight-text-ins">${i.html}</div>
-      </div>`).join('');
+    if(!temClientes){
+      insList.innerHTML = '<div style="font-size:0.8rem;color:var(--text3);padding:8px 0">Os insights aparecem aqui conforme você cadastra clientes e registra atividade.</div>';
+    } else {
+      const totalCli = clientes.length;
+      const okCount = clientes.filter(c => c.status === 'ok').length;
+      const criticoCount = clientes.filter(c => c.status === 'critico').length;
+      const alertaCount = clientes.filter(c => c.status === 'alerta').length;
+      const sumidos = clientes.filter(c => calcDias(c) > 45).length;
+
+      const insights = [];
+      if(okCount > 0){
+        insights.push({ bg:'rgba(99,153,34,0.15)', color:'var(--green)', icon:'↑', html:`<strong>${okCount} cliente${okCount!==1?'s':''}</strong> está${okCount!==1?'ão':''} com contato em dia — essa é sua base mais engajada.` });
+      }
+      if(criticoCount > 0){
+        insights.push({ bg:'rgba(226,75,74,0.15)', color:'var(--red)', icon:'⚠', html:`<strong>${criticoCount} cliente${criticoCount!==1?'s':''}</strong> em estado crítico — considere priorizar contato esta semana.` });
+      }
+      if(alertaCount > 0){
+        insights.push({ bg:'rgba(255,176,32,0.15)', color:'var(--amber)', icon:'⏱', html:`<strong>${alertaCount} cliente${alertaCount!==1?'s':''}</strong> em zona de atenção — ainda dá tempo de reativar antes de virar crítico.` });
+      }
+      if(sumidos > 0){
+        insights.push({ bg:'rgba(55,138,221,0.15)', color:'var(--blue)', icon:'💡', html:`<strong>${sumidos} cliente${sumidos!==1?'s':''}</strong> sem contato há 45+ dias — esses são os candidatos prioritários para reativação.` });
+      }
+      if(insights.length === 0){
+        insights.push({ bg:'rgba(99,153,34,0.15)', color:'var(--green)', icon:'✓', html:`Sua carteira de <strong>${totalCli} cliente${totalCli!==1?'s':''}</strong> está toda em dia. Continue assim!` });
+      }
+
+      insList.innerHTML = insights.map(i=>`
+        <div class="insight-row-ins">
+          <div class="insight-icon-ins" style="background:${i.bg};color:${i.color}">${i.icon}</div>
+          <div class="insight-text-ins">${i.html}</div>
+        </div>`).join('');
+    }
   }
 
   // Faturamento — dados reais do Supabase (tabela vendas)
   if(chartsInsLoaded){
     carregarFaturamentoReal();
+    atualizarGraficosStatus();
   } else {
     garantirChartsCarregados();
+  }
+}
+
+function atualizarGraficosStatus(){
+  const temCli = typeof clientes !== 'undefined' && clientes && clientes.length > 0;
+  const qtdOk = temCli ? clientes.filter(c=>c.status==='ok').length : 0;
+  const qtdAlerta = temCli ? clientes.filter(c=>c.status==='alerta').length : 0;
+  const qtdCritico = temCli ? clientes.filter(c=>c.status==='critico').length : 0;
+  const totalStatus = qtdOk+qtdAlerta+qtdCritico || 1;
+
+  if(window.chartScoreInsInstance){
+    window.chartScoreInsInstance.data.datasets[0].data = [qtdOk, qtdAlerta, qtdCritico];
+    window.chartScoreInsInstance.options.scales.y.suggestedMax = Math.max(qtdOk,qtdAlerta,qtdCritico,1)+1;
+    window.chartScoreInsInstance.update();
+  }
+  if(window.chartScoreDistInsInstance){
+    window.chartScoreDistInsInstance.data.datasets[0].data = temCli ? [qtdOk, qtdAlerta, qtdCritico] : [1,0,0];
+    window.chartScoreDistInsInstance.update();
+  }
+  const legendEl = document.getElementById('ins-status-legend');
+  if(legendEl){
+    legendEl.innerHTML = `
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#639922"></span>Em dia ${temCli?Math.round(qtdOk/totalStatus*100):0}%</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#BA7517"></span>Atenção ${temCli?Math.round(qtdAlerta/totalStatus*100):0}%</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#A32D2D"></span>Crítico ${temCli?Math.round(qtdCritico/totalStatus*100):0}%</span>`;
   }
 }
 
@@ -4375,38 +4466,43 @@ function garantirChartsCarregados(){
       const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
       const textColor = isDark ? '#b8b8b0' : '#5f5e5a';
 
-      new Chart(document.getElementById('chartScoreIns'), {
-        type: 'line',
+      const temCli = typeof clientes !== 'undefined' && clientes && clientes.length > 0;
+      const qtdOk = temCli ? clientes.filter(c=>c.status==='ok').length : 0;
+      const qtdAlerta = temCli ? clientes.filter(c=>c.status==='alerta').length : 0;
+      const qtdCritico = temCli ? clientes.filter(c=>c.status==='critico').length : 0;
+      const totalStatus = qtdOk+qtdAlerta+qtdCritico || 1;
+
+      window.chartScoreInsInstance = new Chart(document.getElementById('chartScoreIns'), {
+        type: 'bar',
         data: {
-          labels: ['Jan','Fev','Mar','Abr','Mai','Jun'],
+          labels: ['Em dia', 'Atenção', 'Crítico'],
           datasets: [{
-            label: 'Score médio',
-            data: [58,61,63,65,67,71],
-            borderColor: '#3B6D11',
-            backgroundColor: 'rgba(99,153,34,0.1)',
-            fill: true,
-            tension: 0.3,
-            pointRadius: 4,
-            pointBackgroundColor: '#3B6D11'
+            label: 'Clientes',
+            data: [qtdOk, qtdAlerta, qtdCritico],
+            backgroundColor: ['#639922','#BA7517','#A32D2D'],
+            borderRadius: 6
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { legend: { display: false }, datalabels: { display: false } },
+          plugins: {
+            legend: { display: false },
+            datalabels: { anchor:'end', align:'top', color: textColor, font:{ weight:600, size:13 }, formatter: v => v }
+          },
           scales: {
-            y: { min: 40, max: 80, grid: { color: gridColor }, ticks: { color: textColor } },
+            y: { display: false, grid: { display: false }, suggestedMax: Math.max(qtdOk,qtdAlerta,qtdCritico,1)+1 },
             x: { grid: { display: false }, ticks: { color: textColor } }
           }
         }
       });
 
-      new Chart(document.getElementById('chartScoreDistIns'), {
+      window.chartScoreDistInsInstance = new Chart(document.getElementById('chartScoreDistIns'), {
         type: 'doughnut',
         data: {
-          labels: ['Score A','Score B','Score C'],
+          labels: ['Em dia','Atenção','Crítico'],
           datasets: [{
-            data: [45,35,20],
+            data: temCli ? [qtdOk, qtdAlerta, qtdCritico] : [1,0,0],
             backgroundColor: ['#639922','#BA7517','#A32D2D'],
             borderWidth: 0
           }]
@@ -4418,6 +4514,13 @@ function garantirChartsCarregados(){
           cutout: '68%'
         }
       });
+      const legendEl = document.getElementById('ins-status-legend');
+      if(legendEl){
+        legendEl.innerHTML = `
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#639922"></span>Em dia ${temCli?Math.round(qtdOk/totalStatus*100):0}%</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#BA7517"></span>Atenção ${temCli?Math.round(qtdAlerta/totalStatus*100):0}%</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:#A32D2D"></span>Crítico ${temCli?Math.round(qtdCritico/totalStatus*100):0}%</span>`;
+      }
 
       // Renderiza o gráfico de faturamento agora que Chart.js + datalabels estão prontos
       carregarFaturamentoReal();
