@@ -579,6 +579,9 @@ tbody td.name{color:var(--text);font-weight:500}
         <svg id="icon-tema-escuro" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg id="icon-tema-claro" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       </button>
+      <button class="btn btn-ghost btn-sm" onclick="abrirNovaVendaGeral()" title="Registrar uma nova venda" style="padding:8px 14px;font-weight:600">
+        🛍️ Nova venda
+      </button>
       <button class="btn btn-primary" id="topbar-action" onclick="topbarAction()" style="padding:10px 20px;font-size:0.9rem;font-weight:700;box-shadow:0 4px 16px rgba(46,106,255,0.4);letter-spacing:0.2px">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         + Novo cliente
@@ -1600,7 +1603,14 @@ tbody td.name{color:var(--text);font-weight:500}
         <div class="modal-title">🛍️ Registrar venda</div>
         <button class="modal-close" onclick="fecharNovaVenda()">✕</button>
       </div>
-      <div style="font-size:0.85rem;color:var(--text2);margin-bottom:16px">Cliente: <strong style="color:var(--text)" id="venda-cliente-nome">—</strong></div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label>Cliente</label>
+        <input type="text" id="venda-cliente-busca" list="clientes-sugestoes" placeholder="Digite o nome do cliente..." oninput="buscarClienteVenda()" autocomplete="off">
+        <datalist id="clientes-sugestoes"></datalist>
+        <input type="hidden" id="venda-cliente-id">
+        <input type="hidden" id="venda-cliente-wpp">
+        <div style="font-size:0.7rem;color:var(--text3);margin-top:4px" id="venda-cliente-status"></div>
+      </div>
       <div class="form-group" style="margin-bottom:14px">
         <label>O que foi vendido</label>
         <input type="text" id="venda-desc" list="produtos-sugestoes" placeholder="Ex: Banho e tosa, Calça jeans..." oninput="preencherPrecoSugerido()">
@@ -2073,8 +2083,34 @@ async function garantirProdutoCadastrado(nome, valor){
 }
 
 function abrirNovaVenda(btn){
-  vendaClienteAtual = { id: btn.dataset.id, nome: btn.dataset.nome, wpp: btn.dataset.wpp };
-  document.getElementById('venda-cliente-nome').textContent = btn.dataset.nome;
+  const id = btn.dataset.id;
+  const uuidValido = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+  if(!uuidValido){
+    showToast('Esse cliente foi cadastrado há pouco. Atualize a página (F5) e tente de novo.', 'err');
+    return;
+  }
+  vendaClienteAtual = { id, nome: btn.dataset.nome, wpp: btn.dataset.wpp };
+  abrirModalVendaComum();
+  document.getElementById('venda-cliente-busca').value = btn.dataset.nome;
+  document.getElementById('venda-cliente-id').value = id;
+  document.getElementById('venda-cliente-wpp').value = btn.dataset.wpp || '';
+  document.getElementById('venda-cliente-busca').readOnly = true;
+  document.getElementById('venda-cliente-status').textContent = '';
+}
+
+function abrirNovaVendaGeral(){
+  vendaClienteAtual = null;
+  abrirModalVendaComum();
+  document.getElementById('venda-cliente-busca').value = '';
+  document.getElementById('venda-cliente-id').value = '';
+  document.getElementById('venda-cliente-wpp').value = '';
+  document.getElementById('venda-cliente-busca').readOnly = false;
+  document.getElementById('venda-cliente-status').textContent = 'Digite o nome para buscar entre seus clientes cadastrados.';
+  popularSugestoesClientesVenda();
+  setTimeout(() => document.getElementById('venda-cliente-busca').focus(), 50);
+}
+
+function abrirModalVendaComum(){
   document.getElementById('venda-desc').value = '';
   document.getElementById('venda-valor').value = '';
   document.getElementById('venda-data').valueAsDate = new Date();
@@ -2083,8 +2119,46 @@ function abrirNovaVenda(btn){
   document.getElementById('modal-nova-venda').classList.add('open');
 }
 
+function popularSugestoesClientesVenda(){
+  const dl = document.getElementById('clientes-sugestoes');
+  if(!dl || typeof clientes === 'undefined' || !clientes) return;
+  dl.innerHTML = clientes.map(c => `<option value="${c.nome}">`).join('');
+}
+
+function buscarClienteVenda(){
+  const nomeDigitado = document.getElementById('venda-cliente-busca').value.trim();
+  const statusEl = document.getElementById('venda-cliente-status');
+  if(!nomeDigitado){
+    document.getElementById('venda-cliente-id').value = '';
+    document.getElementById('venda-cliente-wpp').value = '';
+    statusEl.textContent = 'Digite o nome para buscar entre seus clientes cadastrados.';
+    statusEl.style.color = 'var(--text3)';
+    return;
+  }
+  const encontrado = (clientes||[]).find(c => c.nome.toLowerCase() === nomeDigitado.toLowerCase());
+  if(encontrado){
+    const uuidValido = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(encontrado.id);
+    if(!uuidValido){
+      statusEl.textContent = 'Esse cliente foi cadastrado há pouco. Atualize a página (F5) antes de vender pra ele.';
+      statusEl.style.color = 'var(--red)';
+      document.getElementById('venda-cliente-id').value = '';
+      return;
+    }
+    document.getElementById('venda-cliente-id').value = encontrado.id;
+    document.getElementById('venda-cliente-wpp').value = encontrado.wpp || '';
+    statusEl.textContent = '✓ Cliente encontrado';
+    statusEl.style.color = 'var(--green)';
+  } else {
+    document.getElementById('venda-cliente-id').value = '';
+    document.getElementById('venda-cliente-wpp').value = '';
+    statusEl.textContent = 'Nenhum cliente com esse nome exato. Verifique a grafia ou cadastre o cliente antes.';
+    statusEl.style.color = 'var(--amber)';
+  }
+}
+
 function fecharNovaVenda(){
   document.getElementById('modal-nova-venda').classList.remove('open');
+  document.getElementById('venda-cliente-busca').readOnly = false;
   vendaClienteAtual = null;
 }
 
@@ -2092,29 +2166,35 @@ async function confirmarNovaVenda(){
   const desc = document.getElementById('venda-desc').value.trim();
   const valor = parseFloat(document.getElementById('venda-valor').value);
   const data = document.getElementById('venda-data').value;
-  if(!desc || !valor || valor<=0 || !data){ showToast('Preencha descrição, valor e data.','err'); return; }
-  if(!vendaClienteAtual) return;
+  const clienteId = document.getElementById('venda-cliente-id').value;
+  const clienteNome = document.getElementById('venda-cliente-busca').value.trim();
+  const clienteWpp = document.getElementById('venda-cliente-wpp').value;
 
-  const venda = { clienteId: vendaClienteAtual.id, clienteNome: vendaClienteAtual.nome, descricao: desc, valor, data };
+  if(!clienteId){ showToast('Selecione um cliente cadastrado antes de continuar.','err'); return; }
+  if(!desc || !valor || valor<=0 || !data){ showToast('Preencha descrição, valor e data.','err'); return; }
+
+  vendaClienteAtual = { id: clienteId, nome: clienteNome, wpp: clienteWpp };
+
+  const venda = { clienteId, clienteNome, descricao: desc, valor, data };
   vendasRegistradas.push(venda);
 
-  const saved = await salvarVendaBanco({ clienteId: vendaClienteAtual.id, descricao: desc, valor, data });
+  const saved = await salvarVendaBanco({ clienteId, descricao: desc, valor, data });
 
   // Produto novo? Cadastra automaticamente no catálogo
   await garantirProdutoCadastrado(desc, valor);
 
   // Venda = contato com o cliente, então também conta como visita
-  const idxCliente = clientes.findIndex(c => String(c.id) === String(vendaClienteAtual.id));
+  const idxCliente = clientes.findIndex(c => String(c.id) === String(clienteId));
   if(idxCliente > -1){
     clientes[idxCliente].ultima = data;
     clientes[idxCliente].status = 'ok';
-    await supabase.from('clientes').update({ ultima_visita: data, status: 'ok' }).eq('id', vendaClienteAtual.id);
+    await supabase.from('clientes').update({ ultima_visita: data, status: 'ok' }).eq('id', clienteId);
     filterClientes();
     updateCount();
   }
 
   if(saved){
-    showToast(`Venda de R$ ${valor.toLocaleString('pt-BR')} registrada para ${vendaClienteAtual.nome}!`);
+    showToast(`Venda de R$ ${valor.toLocaleString('pt-BR')} registrada para ${clienteNome}!`);
   } else {
     showToast(`Venda salva localmente, mas não foi possível gravar no banco. Veja o console.`, 'err');
   }
@@ -2157,12 +2237,17 @@ async function enviarComprovanteWhats(){
   const original = btn.innerHTML;
   btn.innerHTML = 'Enviando...'; btn.disabled = true;
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s de limite
+
   try{
     const res = await fetch(`${BACKEND}/api/enviar-mensagem`, {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ telefone: vendaClienteAtual.wpp, mensagem, empresaId: ACCOUNT.empresaId })
+      body: JSON.stringify({ telefone: vendaClienteAtual.wpp, mensagem, empresaId: ACCOUNT.empresaId }),
+      signal: controller.signal
     });
+    clearTimeout(timeoutId);
     const data = await res.json();
     if(data.success){
       showToast('Comprovante enviado! ✓');
@@ -2173,7 +2258,12 @@ async function enviarComprovanteWhats(){
       btn.innerHTML = original; btn.disabled = false;
     }
   } catch(e){
-    showToast('Erro ao enviar comprovante.','err');
+    clearTimeout(timeoutId);
+    if(e.name === 'AbortError'){
+      showToast('O envio demorou demais. Verifique a conexão do WhatsApp e tente de novo.','err');
+    } else {
+      showToast('Erro ao enviar comprovante.','err');
+    }
     btn.innerHTML = original; btn.disabled = false;
   }
 }
@@ -4414,8 +4504,8 @@ async function carregarFaturamentoReal(){
 
 let chartFatInstance = null;
 function renderChartFaturamento(dados){
-  if(typeof Chart === 'undefined'){
-    // Chart.js ainda não carregou — tenta novamente em breve
+  if(typeof Chart === 'undefined' || !Chart.registry.plugins.get('datalabels')){
+    // Chart.js ou o plugin de datalabels ainda não carregaram — tenta novamente em breve
     setTimeout(() => renderChartFaturamento(dados), 300);
     return;
   }
@@ -4461,7 +4551,9 @@ function garantirChartsCarregados(){
   script.onload = () => {
     document.body.appendChild(datalabelsScript);
     datalabelsScript.onload = () => {
-      Chart.register(ChartDataLabels);
+      if(typeof ChartDataLabels !== 'undefined' && !Chart.registry.plugins.get('datalabels')){
+        Chart.register(ChartDataLabels);
+      }
       const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
       const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
       const textColor = isDark ? '#b8b8b0' : '#5f5e5a';
