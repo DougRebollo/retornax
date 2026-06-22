@@ -624,7 +624,7 @@ tbody td.name{color:var(--text);font-weight:500}
         </div>
         <div style="margin-bottom:14px">
           <div style="font-size:0.72rem;color:var(--text2);margin-bottom:8px">Faturamento por dia</div>
-          <div style="display:flex;align-items:flex-end;gap:6px;height:56px" id="resumo-grafico-dias"></div>
+          <div style="display:flex;align-items:flex-end;gap:6px;height:80px" id="resumo-grafico-dias"></div>
         </div>
         <div style="border-top:1px solid var(--border);padding-top:12px;display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--text)">
           <span style="font-size:0.95rem">🔔</span>
@@ -684,9 +684,12 @@ tbody td.name{color:var(--text);font-weight:500}
     </div>
     <!-- INSIGHTS / BI -->
     <div class="page" id="page-insights">
-      <div style="margin-bottom:16px">
+      <div style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
         <button class="btn btn-ghost" onclick="showPage('dashboard',document.querySelector('[onclick*=dashboard]'))" style="display:flex;align-items:center;gap:6px">
           ← Voltar ao dashboard
+        </button>
+        <button class="btn btn-primary" onclick="gerarRelatorioPDF()" id="btn-gerar-relatorio" style="display:flex;align-items:center;gap:6px">
+          📄 Gerar relatório do mês (PDF)
         </button>
       </div>
       <div class="kgrid-ins">
@@ -4214,8 +4217,12 @@ function renderResumoSemanal(vendas){
       const altura = Math.max(4, Math.round(valoresPorDia[i]/maxValor*52));
       const ehHoje = i === (hoje.getDay()===0?6:hoje.getDay()-1);
       const cor = valoresPorDia[i]>0 ? (ehHoje?'var(--accent)':'var(--green)') : 'var(--bg2)';
-      return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-        <div style="width:100%;background:${cor};border-radius:3px 3px 0 0;height:${altura}px"></div>
+      const valorLabel = valoresPorDia[i]>0
+        ? `<span style="font-size:0.6rem;color:var(--text2);font-weight:600;white-space:nowrap">R$ ${valoresPorDia[i].toLocaleString('pt-BR')}</span>`
+        : '';
+      return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0">
+        ${valorLabel}
+        <div style="width:22px;max-width:60%;background:${cor};border-radius:3px 3px 0 0;height:${altura}px"></div>
         <span style="font-size:0.62rem;color:var(--text3)">${lbl}</span>
       </div>`;
     }).join('');
@@ -4238,6 +4245,190 @@ function renderResumoSemanal(vendas){
       proxEl.textContent = `${previstos} cliente${previstos!==1?'s':''} com retorno previsto` + (atrasados>0 ? ` · ${atrasados} atrasado${atrasados!==1?'s':''}` : '');
     }
   }
+}
+
+// ── RELATÓRIO MENSAL EM PDF ─────────────────────────────────────────────────
+let jsPDFCarregado = false;
+function carregarJsPDF(callback){
+  if(jsPDFCarregado && window.jspdf){ callback(); return; }
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+  script.onload = () => { jsPDFCarregado = true; callback(); };
+  script.onerror = () => showToast('Não foi possível carregar o gerador de PDF. Verifique sua conexão.', 'err');
+  document.body.appendChild(script);
+}
+
+function gerarRelatorioPDF(){
+  const btn = document.getElementById('btn-gerar-relatorio');
+  const original = btn.innerHTML;
+  btn.innerHTML = 'Gerando...'; btn.disabled = true;
+
+  carregarJsPDF(() => {
+    try{
+      montarPDFRelatorio();
+    } catch(e){
+      console.error('Erro ao gerar PDF:', e);
+      showToast('Erro ao gerar o relatório. Veja o console.', 'err');
+    } finally {
+      btn.innerHTML = original; btn.disabled = false;
+    }
+  });
+}
+
+function getTexto(id){
+  const el = document.getElementById(id);
+  return el ? el.textContent.trim() : '—';
+}
+
+function montarPDFRelatorio(){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const margin = 48;
+  let y = 56;
+
+  const nomeEmpresa = (document.getElementById('saudacao-empresa')?.textContent || 'Sua empresa').trim();
+  const hoje = new Date();
+  const mesAno = hoje.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+
+  // Cabeçalho
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(20);
+  doc.setTextColor(20, 20, 20);
+  doc.text('Relatório Mensal', margin, y);
+  y += 22;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(11);
+  doc.setTextColor(100, 100, 100);
+  doc.text(`${nomeEmpresa} · ${mesAno.charAt(0).toUpperCase() + mesAno.slice(1)}`, margin, y);
+  y += 8;
+  doc.setDrawColor(220, 220, 220);
+  doc.line(margin, y + 10, pageWidth - margin, y + 10);
+  y += 32;
+
+  // Helper para título de seção
+  function secao(titulo){
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(20, 20, 20);
+    doc.text(titulo, margin, y);
+    y += 18;
+  }
+
+  // Helper para linha de dado (label + valor)
+  function linha(label, valor){
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10.5);
+    doc.setTextColor(90, 90, 90);
+    doc.text(label, margin, y);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(20, 20, 20);
+    doc.text(String(valor), pageWidth - margin, y, { align: 'right' });
+    y += 17;
+  }
+
+  // ── Financeiro ──
+  secao('Financeiro');
+  linha('Faturamento do mês', getTexto('ins-faturamento'));
+  linha('Ticket médio', getTexto('ins-ticket'));
+  linha('Atendimentos no mês', getTexto('ins-atend'));
+  linha('Serviço/produto mais vendido', getTexto('ins-top-serv'));
+  y += 14;
+
+  // ── Faturamento gerencial (últimos 6 meses) ──
+  if(y > 480){ doc.addPage(); y = 56; }
+  secao('Faturamento gerencial — últimos 6 meses');
+  const historico = window.faturamentoMensalCache || [];
+  if(historico.length){
+    const nomesMeses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+    const totalPeriodo = historico.reduce((a,h)=>a+h.valor,0);
+    const mediaPeriodo = totalPeriodo / historico.length;
+
+    // Cabeçalho da tabela
+    const colMes = margin;
+    const colValor = pageWidth - margin;
+    doc.setFillColor(245, 245, 245);
+    doc.rect(margin - 4, y - 12, pageWidth - margin*2 + 8, 18, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9.5);
+    doc.setTextColor(90, 90, 90);
+    doc.text('MÊS', colMes, y);
+    doc.text('FATURAMENTO', colValor, y, { align: 'right' });
+    y += 20;
+
+    historico.forEach(h => {
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10.5);
+      doc.setTextColor(60, 60, 60);
+      doc.text(`${nomesMeses[h.mes]} de ${h.ano}`, colMes, y);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(20, 20, 20);
+      doc.text('R$ ' + h.valor.toLocaleString('pt-BR'), colValor, y, { align: 'right' });
+      y += 17;
+    });
+
+    doc.setDrawColor(220, 220, 220);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 16;
+    linha('Total do período', 'R$ ' + totalPeriodo.toLocaleString('pt-BR'));
+    linha('Média mensal', 'R$ ' + Math.round(mediaPeriodo).toLocaleString('pt-BR'));
+  } else {
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(10);
+    doc.setTextColor(150, 150, 150);
+    doc.text('Sem histórico suficiente ainda.', margin, y);
+    y += 16;
+  }
+  y += 14;
+
+  // ── Carteira de clientes ──
+  secao('Carteira de clientes');
+  linha('Taxa de retenção', getTexto('ins-retencao'));
+  linha('Clientes em risco', getTexto('ins-em-risco'));
+  linha('Reativados (30 dias)', getTexto('ins-reativados'));
+  y += 14;
+
+  // ── Top clientes ──
+  function listaSecao(titulo, containerId, max=5){
+    secao(titulo);
+    const container = document.getElementById(containerId);
+    const linhas = container ? Array.from(container.children) : [];
+    if(!linhas.length){
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(10);
+      doc.setTextColor(150, 150, 150);
+      doc.text('Sem dados suficientes ainda.', margin, y);
+      y += 16;
+      return;
+    }
+    linhas.slice(0, max).forEach(linhaEl => {
+      const texto = linhaEl.textContent.replace(/\s+/g, ' ').trim();
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(60, 60, 60);
+      const partido = doc.splitTextToSize(texto, pageWidth - margin*2);
+      doc.text(partido, margin, y);
+      y += 14 * partido.length;
+    });
+    y += 10;
+  }
+
+  if(y > 650){ doc.addPage(); y = 56; }
+  listaSecao('Clientes que mais compram', 'ins-top-clientes');
+  if(y > 650){ doc.addPage(); y = 56; }
+  listaSecao('Compraram só uma vez', 'ins-compra-unica');
+  if(y > 650){ doc.addPage(); y = 56; }
+  listaSecao('Produtos / serviços mais vendidos', 'ins-ranking-produtos', 8);
+
+  // Rodapé
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8.5);
+  doc.setTextColor(170, 170, 170);
+  doc.text(`Gerado pelo Retornax em ${hoje.toLocaleDateString('pt-BR')} às ${hoje.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'})}`, margin, 800);
+
+  const nomeArquivo = `relatorio-${nomeEmpresa.toLowerCase().replace(/[^a-z0-9]+/g,'-')}-${hoje.toISOString().slice(0,7)}.pdf`;
+  doc.save(nomeArquivo);
+  showToast('Relatório gerado! ✓');
 }
 
 checkAuth();
@@ -4472,6 +4663,7 @@ async function carregarFaturamentoReal(){
     }
     const fatPorMes = meses6.map(m => vendas.filter(v=>{ const d=new Date(v.data_venda); return d.getMonth()===m.mes && d.getFullYear()===m.ano; }).reduce((a,v)=>a+Number(v.valor),0));
     renderChartFaturamento(fatPorMes);
+    window.faturamentoMensalCache = meses6.map((m,i) => ({ mes: m.mes, ano: m.ano, valor: fatPorMes[i] }));
 
     // Top clientes (ranking por valor total)
     const porCliente = {};
