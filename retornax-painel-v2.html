@@ -745,7 +745,7 @@ tbody td.name{color:var(--text);font-weight:500}
 
       <div class="card">
         <div class="card-title">Faturamento — últimos 6 meses</div>
-        <div style="position:relative;height:240px">
+        <div style="position:relative;height:190px">
           <canvas id="chartFatIns" role="img" aria-label="Gráfico de barras mostrando faturamento mensal dos últimos 6 meses, com valores exibidos no topo de cada barra">Faturamento mensal em reais</canvas>
         </div>
       </div>
@@ -4711,20 +4711,21 @@ function renderChartFaturamento(dados){
     const d = new Date(hoje.getFullYear(), hoje.getMonth()-i, 1);
     labels.push(nomesMeses[d.getMonth()]);
   }
+  const maiorValor = Math.max(...dados, 1);
   if(chartFatInstance) chartFatInstance.destroy();
   chartFatInstance = new Chart(document.getElementById('chartFatIns'), {
     type: 'bar',
-    data: { labels, datasets: [{ label: 'Faturamento', data: dados, backgroundColor: '#639922', borderRadius: 4 }] },
+    data: { labels, datasets: [{ label: 'Faturamento', data: dados, backgroundColor: '#639922', borderRadius: 4, maxBarThickness: 44 }] },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      layout: { padding: { top: 28 } },
+      layout: { padding: { top: 26 } },
       plugins: {
         legend: { display: false },
-        datalabels: { anchor: 'end', align: 'top', color: labelColor, font: { weight: 500, size: 12 }, formatter: v => 'R$ ' + v.toLocaleString('pt-BR') }
+        datalabels: { anchor: 'end', align: 'top', offset: 4, clamp: true, color: labelColor, font: { weight: 500, size: 11 }, formatter: v => 'R$ ' + v.toLocaleString('pt-BR') }
       },
       scales: {
-        y: { display: false, grid: { display: false } },
+        y: { display: false, grid: { display: false }, suggestedMax: maiorValor * 1.28 },
         x: { grid: { display: false }, ticks: { color: textColor } }
       }
     }
