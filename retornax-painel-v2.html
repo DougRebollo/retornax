@@ -888,7 +888,7 @@ tbody td.name{color:var(--text);font-weight:500}
         </button>
       </div>
       <div class="search-results-count" id="search-results-count"></div>
-      <div class="table-wrap"><table><thead><tr><th>Nome</th><th>WhatsApp</th><th>Segmento</th><th>Última visita</th><th>Dias sem visitar</th><th>Status</th><th>Ações</th></tr></thead><tbody id="clientes-tbody"></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>Nome</th><th>WhatsApp</th><th>Segmento</th><th>Última visita</th><th>Dias sem visitar</th><th>Status</th><th>Mensagem</th><th>Ações</th></tr></thead><tbody id="clientes-tbody"></tbody></table></div>
     </div>
     <!-- AUTOMAÇÕES -->
     <div class="page" id="page-automacoes">
@@ -900,7 +900,7 @@ tbody td.name{color:var(--text);font-weight:500}
             Disparar todos agora
           </button>
         </div>
-        <div class="table-wrap" style="border:none;border-radius:0"><table><thead><tr><th>Cliente</th><th>Segmento</th><th>Dias sem visitar</th><th>Mensagem prévia</th><th>Ação</th></tr></thead><tbody id="fila-tbody"></tbody></table></div>
+        <div class="table-wrap" style="border:none;border-radius:0"><table><thead><tr><th>Cliente</th><th>Segmento</th><th>Dias sem visitar</th><th>Última mensagem</th><th>Mensagem prévia</th><th>Ação</th></tr></thead><tbody id="fila-tbody"></tbody></table></div>
       </div>
       <div style="margin-bottom:16px"><div class="card-title">Templates de mensagem</div><p style="font-size:0.83rem;color:var(--text2);margin-top:4px">Edite o texto e clique em salvar. Use {nome} e {dias} para personalizar.</p></div>
       <div class="envios-grid" id="templates-grid"></div>
@@ -1812,6 +1812,31 @@ let clientes = [];
 const historico = [];
 
 function calcDays(dateStr){ return Math.floor((new Date() - new Date(dateStr+'T12:00'))/(1000*60*60*24)); }
+
+// Marca no banco e na memória que uma mensagem de reativação foi enviada a este cliente
+async function marcarMensagemEnviada(clienteId){
+  const agora = new Date().toISOString();
+  const idx = clientes.findIndex(c => String(c.id) === String(clienteId));
+  if(idx > -1) clientes[idx].ultimaMsg = agora;
+  try{ await supabase.from('clientes').update({ ultima_mensagem_enviada: agora }).eq('id', clienteId); }
+  catch(e){ console.warn('Não foi possível registrar a data da mensagem:', e.message); }
+}
+
+// Quantos dias desde a última mensagem enviada a este cliente (null = nunca recebeu)
+function diasDesdeMensagem(c){
+  if(!c.ultimaMsg) return null;
+  return Math.floor((Date.now() - new Date(c.ultimaMsg).getTime()) / 86400000);
+}
+
+function getMsgChip(c){
+  const dias = diasDesdeMensagem(c);
+  if(dias === null) return `<span class="days-chip" style="background:var(--surface);color:var(--text3)">Nunca</span>`;
+  if(dias === 0) return `<span class="days-chip days-ok">Hoje</span>`;
+  if(dias <= 7) return `<span class="days-chip days-ok">${dias}d</span>`;
+  return `<span class="days-chip" style="background:var(--bg3);color:var(--text2)">${dias}d</span>`;
+}
+
+const JANELA_MINIMA_REENVIO = 5; // dias — abaixo disso, avisa antes de mandar de novo
 function getDaysChip(days, seg){ const lim=SEGMENTOS[seg]?.dias||10; if(days<lim) return `<span class="days-chip days-ok">${days}d</span>`; if(days<lim*1.5) return `<span class="days-chip days-warn">${days}d</span>`; return `<span class="days-chip days-alert">${days}d</span>`; }
 function getStatusBadge(s){ if(s==='ok') return '<span class="badge badge-green">● Em dia</span>'; if(s==='alerta') return '<span class="badge badge-amber">● Atenção</span>'; return '<span class="badge badge-red">● Crítico</span>'; }
 function getSegBadge(seg){ const s=SEGMENTOS[seg]||{emoji:'',cor:'badge-gray'}; return `<span class="badge ${s.cor}">${s.emoji} ${seg}</span>`; }
@@ -1829,6 +1854,7 @@ function renderClientes(list){
       <td>${new Date(c.ultima+'T12:00').toLocaleDateString('pt-BR')}</td>
       <td>${getDaysChip(days,c.seg)}</td>
       <td>${getStatusBadge(c.status)}</td>
+      <td title="${diasDesdeMensagem(c)===null?'Nunca recebeu mensagem de reativação':'Última mensagem enviada há '+diasDesdeMensagem(c)+' dia(s)'}">${getMsgChip(c)}</td>
       <td><div class="action-btns">
         <button class="icon-btn send" title="Enviar mensagem" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" onclick="sendMsgCliente(this)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -1933,16 +1959,19 @@ function renderFila(){
   document.getElementById('fila-qtd').textContent=fila.length;
   document.getElementById('dash-fila').textContent=fila.length;
   const tbody=document.getElementById('fila-tbody');
-  if(!fila.length){ tbody.innerHTML=`<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">🎉</div><strong style="color:var(--text)">Fila vazia!</strong><p>Nenhum cliente precisa de contato agora.</p></div></td></tr>`; return; }
+  if(!fila.length){ tbody.innerHTML=`<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">🎉</div><strong style="color:var(--text)">Fila vazia!</strong><p>Nenhum cliente precisa de contato agora.</p></div></td></tr>`; return; }
   tbody.innerHTML=fila.map(c=>{
     const days=calcDays(c.ultima);
     const tmpl=SEGMENTOS[c.seg]?.template||'';
     const prev=tmpl.replace('{nome}',c.nome.split(' ')[0]).replace('{dias}',days);
-    return `<tr>
+    const diasMsg = diasDesdeMensagem(c);
+    const recente = diasMsg !== null && diasMsg < JANELA_MINIMA_REENVIO;
+    return `<tr ${recente?'style="background:rgba(255,176,32,0.05)"':''}>
       <td class="name">${c.nome}</td>
       <td>${getSegBadge(c.seg)}</td>
       <td>${getDaysChip(days,c.seg)}</td>
-      <td style="color:var(--text3);font-style:italic;font-size:0.78rem;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${prev}</td>
+      <td title="${diasMsg===null?'Nunca recebeu mensagem':'Mensagem enviada há '+diasMsg+' dia(s)'}">${getMsgChip(c)}${recente?' ⚠️':''}</td>
+      <td style="color:var(--text3);font-style:italic;font-size:0.78rem;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${prev}</td>
       <td><button class="btn btn-ghost btn-sm" data-wpp="${c.wpp}" data-seg="${c.seg}" data-nome="${c.nome.split(' ')[0]}" onclick="sendMsgCliente(this)">Enviar agora</button></td>
     </tr>`;
   }).join('');
@@ -1951,20 +1980,34 @@ function renderFila(){
 async function dispararTodos(){
   const fila=getFila();
   if(!fila.length){ showToast('Fila já está vazia!','err'); return; }
+
+  // Separa quem já recebeu mensagem recente — protege contra reenvio em excesso
+  const recentes = fila.filter(c => { const d = diasDesdeMensagem(c); return d !== null && d < JANELA_MINIMA_REENVIO; });
+  const paraEnviar = fila.filter(c => !recentes.includes(c));
+
+  if(recentes.length && !paraEnviar.length){
+    showToast(`Todos os ${recentes.length} clientes da fila já receberam mensagem nos últimos ${JANELA_MINIMA_REENVIO} dias.`, 'err');
+    return;
+  }
+  if(recentes.length){
+    if(!confirm(`${recentes.length} cliente(s) já receberam mensagem recente e serão pulados automaticamente. Disparar para os outros ${paraEnviar.length}?`)) return;
+  }
+
   const btn=document.querySelector('.btn-green');
   btn.textContent='⏳ Enviando...'; btn.disabled=true;
   let enviados=0;
-  for(const c of fila){
+  for(const c of paraEnviar){
     const days=calcDays(c.ultima);
     const tmpl=SEGMENTOS[c.seg]?.template||'Oi {nome}! Sentimos sua falta! 😊';
     const mensagem=tmpl.replace('{nome}',c.nome.split(' ')[0]).replace('{dias}',days);
     try{
       const res=await fetch(`${BACKEND}/api/enviar-mensagem`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:c.wpp,mensagem,empresaId:ACCOUNT.empresaId})});
       const data=await res.json();
-      if(data.success){ enviados++; registrarEnvioSaude(); }
+      if(data.success){ enviados++; registrarEnvioSaude(); await marcarMensagemEnviada(c.id); }
     }catch(e){}
   }
-  showToast(`${enviados} mensagens enviadas!`);
+  filterClientes();
+  showToast(`${enviados} mensagens enviadas!${recentes.length?` (${recentes.length} pulados — já contatados recentemente)`:''}`);
   btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Disparar todos agora';
   btn.disabled=false;
 }
@@ -1973,16 +2016,20 @@ async function sendMsgCliente(btn){
   const nome=btn.dataset.nome;
   const wpp=btn.dataset.wpp;
   const seg=btn.dataset.seg;
+  const cliente=clientes.find(c=>c.wpp===wpp);
+  const diasMsg = cliente ? diasDesdeMensagem(cliente) : null;
+  if(diasMsg !== null && diasMsg < JANELA_MINIMA_REENVIO){
+    if(!confirm(`${nome} já recebeu uma mensagem há ${diasMsg===0?'hoje':diasMsg+' dia(s)'}. Enviar de novo mesmo assim?`)) return;
+  }
   const orig=btn.innerHTML||btn.textContent;
   btn.innerHTML='⏳'; btn.disabled=true;
-  const cliente=clientes.find(c=>c.wpp===wpp);
   const days=cliente?calcDays(cliente.ultima):0;
   const tmpl=SEGMENTOS[seg]?.template||'Oi {nome}! Sentimos sua falta! 😊';
   const mensagem=tmpl.replace('{nome}',nome).replace('{dias}',days);
   try{
     const res=await fetch(`${BACKEND}/api/enviar-mensagem`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:wpp,mensagem,empresaId:ACCOUNT.empresaId})});
     const data=await res.json();
-    if(data.success){ btn.innerHTML='✓'; btn.style.color='var(--green)'; showToast(`Mensagem enviada para ${nome}!`); registrarEnvioSaude(); }
+    if(data.success){ btn.innerHTML='✓'; btn.style.color='var(--green)'; showToast(`Mensagem enviada para ${nome}!`); registrarEnvioSaude(); if(cliente) await marcarMensagemEnviada(cliente.id); filterClientes(); }
     else{ btn.innerHTML='✕'; btn.style.color='var(--red)'; showToast('Erro ao enviar mensagem.','err'); }
   }catch(err){ btn.innerHTML='✕'; btn.style.color='var(--red)'; showToast('Erro ao conectar com o servidor.','err'); }
   setTimeout(()=>{ btn.innerHTML=orig; btn.disabled=false; btn.style.color=''; },3000);
@@ -2977,7 +3024,7 @@ async function carregarClientes(){
   if(!ACCOUNT.empresaId) return;
   const{data}=await supabase.from('clientes').select('*').eq('empresa_id',ACCOUNT.empresaId).order('created_at',{ascending:false});
   if(data&&data.length>0){
-    clientes=data.map(c=>({id:c.id,nome:c.nome,wpp:c.whatsapp,seg:c.segmento,ultima:c.ultima_visita,status:c.status,fidelizado:c.fidelizado||false,data_nascimento:c.data_nascimento||null}));
+    clientes=data.map(c=>({id:c.id,nome:c.nome,wpp:c.whatsapp,seg:c.segmento,ultima:c.ultima_visita,status:c.status,fidelizado:c.fidelizado||false,data_nascimento:c.data_nascimento||null,ultimaMsg:c.ultima_mensagem_enviada||null}));
     filterClientes(); updateCount();
   }
   checkOnboarding();
@@ -3272,6 +3319,8 @@ async function enviarMsgEditada() {
     if (data.success) {
       showToast(`Mensagem enviada para ${nome}! ✓`);
       registrarEnvioSaude();
+      const cliente = clientes.find(c => c.wpp === wpp);
+      if(cliente) { await marcarMensagemEnviada(cliente.id); filterClientes(); }
       document.getElementById('modal-editar-msg').classList.remove('open');
     } else {
       showToast('Erro ao enviar mensagem.', 'err');
