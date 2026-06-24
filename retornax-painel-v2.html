@@ -1836,6 +1836,24 @@ function getMsgChip(c){
   return `<span class="days-chip" style="background:var(--bg3);color:var(--text2)">${dias}d</span>`;
 }
 
+const LIMITE_DIARIO_MENSAGENS = 25;
+
+// Consulta quantas mensagens já foram enviadas hoje (somando automações + campanhas + aniversários)
+// e quantas ainda cabem dentro do limite diário, para proteger a saúde do número.
+async function verificarLimiteDiario(){
+  if(!ACCOUNT.empresaId) return { enviadasHoje: 0, restantes: LIMITE_DIARIO_MENSAGENS };
+  try{
+    const res = await fetch(`${BACKEND}/api/saude/${ACCOUNT.empresaId}`);
+    const d = await res.json();
+    const enviadasHoje = d.msgs_enviadas ?? 0;
+    const restantes = Math.max(0, LIMITE_DIARIO_MENSAGENS - enviadasHoje);
+    return { enviadasHoje, restantes };
+  }catch(e){
+    console.warn('Não foi possível verificar o limite diário:', e.message);
+    return { enviadasHoje: 0, restantes: LIMITE_DIARIO_MENSAGENS }; // não bloqueia se a checagem falhar
+  }
+}
+
 const JANELA_MINIMA_REENVIO = 5; // dias — abaixo disso, avisa antes de mandar de novo
 function getDaysChip(days, seg){ const lim=SEGMENTOS[seg]?.dias||10; if(days<lim) return `<span class="days-chip days-ok">${days}d</span>`; if(days<lim*1.5) return `<span class="days-chip days-warn">${days}d</span>`; return `<span class="days-chip days-alert">${days}d</span>`; }
 function getStatusBadge(s){ if(s==='ok') return '<span class="badge badge-green">● Em dia</span>'; if(s==='alerta') return '<span class="badge badge-amber">● Atenção</span>'; return '<span class="badge badge-red">● Crítico</span>'; }
@@ -1983,14 +2001,30 @@ async function dispararTodos(){
 
   // Separa quem já recebeu mensagem recente — protege contra reenvio em excesso
   const recentes = fila.filter(c => { const d = diasDesdeMensagem(c); return d !== null && d < JANELA_MINIMA_REENVIO; });
-  const paraEnviar = fila.filter(c => !recentes.includes(c));
+  let paraEnviar = fila.filter(c => !recentes.includes(c));
 
   if(recentes.length && !paraEnviar.length){
     showToast(`Todos os ${recentes.length} clientes da fila já receberam mensagem nos últimos ${JANELA_MINIMA_REENVIO} dias.`, 'err');
     return;
   }
-  if(recentes.length){
-    if(!confirm(`${recentes.length} cliente(s) já receberam mensagem recente e serão pulados automaticamente. Disparar para os outros ${paraEnviar.length}?`)) return;
+
+  // Verifica o limite diário real (somando tudo que já foi enviado hoje, de qualquer fonte)
+  const { enviadasHoje, restantes } = await verificarLimiteDiario();
+  if(restantes === 0){
+    showToast(`Limite diário de ${LIMITE_DIARIO_MENSAGENS} mensagens já foi atingido hoje (${enviadasHoje} enviadas). Tente novamente amanhã.`, 'err');
+    return;
+  }
+  let cortados = 0;
+  if(paraEnviar.length > restantes){
+    cortados = paraEnviar.length - restantes;
+    paraEnviar = paraEnviar.slice(0, restantes);
+  }
+
+  let msgConfirm = '';
+  if(recentes.length) msgConfirm += `${recentes.length} cliente(s) já receberam mensagem recente e serão pulados. `;
+  if(cortados) msgConfirm += `Apenas ${restantes} cabem no limite diário (${enviadasHoje}/${LIMITE_DIARIO_MENSAGENS} já enviadas hoje) — ${cortados} ficarão para amanhã. `;
+  if(msgConfirm){
+    if(!confirm(`${msgConfirm}Disparar para ${paraEnviar.length} cliente(s) agora?`)) return;
   }
 
   const btn=document.querySelector('.btn-green');
@@ -2007,7 +2041,8 @@ async function dispararTodos(){
     }catch(e){}
   }
   filterClientes();
-  showToast(`${enviados} mensagens enviadas!${recentes.length?` (${recentes.length} pulados — já contatados recentemente)`:''}`);
+  renderFila();
+  showToast(`${enviados} mensagens enviadas!${recentes.length?` (${recentes.length} pulados — já contatados recentemente)`:''}${cortados?` (${cortados} ficaram para amanhã — limite diário)`:''}`);
   btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Disparar todos agora';
   btn.disabled=false;
 }
@@ -2029,7 +2064,7 @@ async function sendMsgCliente(btn){
   try{
     const res=await fetch(`${BACKEND}/api/enviar-mensagem`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:wpp,mensagem,empresaId:ACCOUNT.empresaId})});
     const data=await res.json();
-    if(data.success){ btn.innerHTML='✓'; btn.style.color='var(--green)'; showToast(`Mensagem enviada para ${nome}!`); registrarEnvioSaude(); if(cliente) await marcarMensagemEnviada(cliente.id); filterClientes(); }
+    if(data.success){ btn.innerHTML='✓'; btn.style.color='var(--green)'; showToast(`Mensagem enviada para ${nome}!`); registrarEnvioSaude(); if(cliente) await marcarMensagemEnviada(cliente.id); filterClientes(); renderFila(); }
     else{ btn.innerHTML='✕'; btn.style.color='var(--red)'; showToast('Erro ao enviar mensagem.','err'); }
   }catch(err){ btn.innerHTML='✕'; btn.style.color='var(--red)'; showToast('Erro ao conectar com o servidor.','err'); }
   setTimeout(()=>{ btn.innerHTML=orig; btn.disabled=false; btn.style.color=''; },3000);
@@ -3206,14 +3241,25 @@ async function dispararCampanha(){
   if(!nome || !mensagemTemplate){ showToast('Preencha o nome e a mensagem.', 'err'); return; }
   const lista = publico === 'todos' ? clientes : publico === 'fidelizados' ? clientes.filter(c => c.fidelizado) : clientes.filter(c => c.seg === publico);
   if(!lista.length){ showToast('Nenhum cliente neste segmento.', 'err'); return; }
-  if(!confirm(`Confirma o disparo para ${lista.length} cliente${lista.length > 1 ? 's' : ''}? As mensagens serão enviadas com intervalo para evitar bloqueio.`)) return;
+
+  const { enviadasHoje, restantes } = await verificarLimiteDiario();
+  if(restantes === 0){
+    showToast(`Limite diário de ${LIMITE_DIARIO_MENSAGENS} mensagens já foi atingido hoje (${enviadasHoje} enviadas). Tente novamente amanhã.`, 'err');
+    return;
+  }
+  if(lista.length > restantes){
+    if(!confirm(`Essa campanha enviaria ${lista.length} mensagens, mas só restam ${restantes} de ${LIMITE_DIARIO_MENSAGENS} hoje (${enviadasHoje} já enviadas por outras automações/aniversários). Apenas os primeiros ${restantes} clientes receberão a mensagem hoje. Continuar?`)) return;
+  } else {
+    if(!confirm(`Confirma o disparo para ${lista.length} cliente${lista.length > 1 ? 's' : ''}? As mensagens serão enviadas com intervalo para evitar bloqueio.`)) return;
+  }
+
   const btn = document.querySelector('#form-campanha .btn-green');
   btn.textContent = '⏳ Disparando...'; btn.disabled = true;
   try {
     const res = await fetch(`${BACKEND}/api/disparar-campanha`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ empresaId: ACCOUNT.empresaId, mensagemTemplate, publico })
+      body: JSON.stringify({ empresaId: ACCOUNT.empresaId, mensagemTemplate, publico, limiteMaximo: restantes })
     });
     const data = await res.json();
     if(data.success){
@@ -3714,14 +3760,28 @@ async function enviarMsgAniversario(btn) {
 async function dispararAniversariantesHoje() {
   const hoje=getAniversariantes().filter(c=>c.ehHoje);
   if(!hoje.length){showToast('Nenhum aniversariante hoje.','err'); return;}
+
+  const { enviadasHoje, restantes } = await verificarLimiteDiario();
+  if(restantes === 0){
+    showToast(`Limite diário de ${LIMITE_DIARIO_MENSAGENS} mensagens já foi atingido hoje (${enviadasHoje} enviadas). Tente novamente amanhã.`, 'err');
+    return;
+  }
+  let listaEnviar = hoje, cortados = 0;
+  if(hoje.length > restantes){
+    cortados = hoje.length - restantes;
+    listaEnviar = hoje.slice(0, restantes);
+    if(!confirm(`Só restam ${restantes} de ${LIMITE_DIARIO_MENSAGENS} mensagens hoje (${enviadasHoje} já enviadas por outras automações). ${cortados} aniversariante(s) ficarão sem parabéns hoje. Continuar com os outros ${restantes}?`)) return;
+  }
+
   const btn=document.getElementById('btn-disparar-aniv'); btn.textContent='Enviando...'; btn.disabled=true;
   let ok=0;
-  for(const c of hoje){
+  for(const c of listaEnviar){
     const msg=templateAniversario.replace('{nome}',c.nome.split(' ')[0]);
     try{const r=await fetch(BACKEND+'/api/enviar-mensagem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({telefone:c.wpp,mensagem:msg,empresaId:ACCOUNT.empresaId})});const d=await r.json();if(d.success){ok++;registrarEnvioSaude();}}catch(e){}
     await new Promise(r=>setTimeout(r,2000));
   }
-  showToast('🎂 '+ok+' parabéns enviados!'); btn.textContent='Enviar para todos hoje'; btn.disabled=false;
+  showToast('🎂 '+ok+' parabéns enviados!'+(cortados?` (${cortados} ficaram para amanhã — limite diário)`:''));
+  btn.textContent='Enviar para todos hoje'; btn.disabled=false;
 }
 
 // ══════════════════════════════════════════════════════
